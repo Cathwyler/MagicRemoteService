@@ -40,7 +40,7 @@ Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/Gui
 ### Step 4 : Others
 Setup your firewall to grant entering access TCP from your TV to your PC with the port you set earlier.</br>
 (Optionnal) Setup Wake-on-LAN on your motherboard's PC</br>
-(Optionnal) Setup auto window auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon</br>
+(Optionnal) Setup Windows auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon</br>
 (Optionnal) Setup a sheduled task at opening session tu run MagicRemoteService.exe on your PC. You can check maximal authorization to grant access for exemple to your task manager.</br>
 (Optionnal) Setup a sheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev</br>
 
