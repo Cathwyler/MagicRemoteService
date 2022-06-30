@@ -36,7 +36,7 @@ You can compile with /PC/MagicRemoteService/build.bat if your Visual Studio vers
 Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/Guide/testing-web-app-cli/#installing.</br>
 
 ### Step 4 : Others
-Configure your firewall to grant entering access TCP from your TV to your PC with the port you set earlier.</br>
+Configure your firewall to grant TCP entering access from your TV to your PC with the port you set earlier.</br>
 (Optionnal) Setup Wake-on-LAN on your motherboard's PC.</br>
 (Optionnal) Setup Windows auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon</br>
 (Optionnal) Setup a scheduled task at opening session tu run MagicRemoteService.exe on your PC. You can check maximal authorization to grant access to your task manager for example.</br>
