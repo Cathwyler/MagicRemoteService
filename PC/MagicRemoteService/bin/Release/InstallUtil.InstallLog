@@ -1,0 +1,74 @@
+﻿
+Exécution d'une installation traitée avec transaction.
+
+Début de la phase d'installation de l'installation.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+Une exception s'est produite lors de la phase d'installation.
+System.ComponentModel.Win32Exception: Le service spécifié existe déjà
+
+La phase de restauration de l'installation a commencé.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+La phase de restauration est terminée.
+
+L'installation traitée avec transaction est terminée.
+
+
+La désinstallation a commencé.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+La désinstallation est terminée.
+
+Exécution d'une installation traitée avec transaction.
+
+Début de la phase d'installation de l'installation.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+Une exception s'est produite lors de la phase d'installation.
+System.ComponentModel.Win32Exception: Le service spécifié a été marqué pour suppression
+
+La phase de restauration de l'installation a commencé.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+La phase de restauration est terminée.
+
+L'installation traitée avec transaction est terminée.
+
+
+La désinstallation a commencé.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+La désinstallation est terminée.
+
+Exécution d'une installation traitée avec transaction.
+
+Début de la phase d'installation de l'installation.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+La phase d'installation est terminée et la phase de validation a commencé.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+La phase de validation est terminée.
+
+L'installation traitée avec transaction est terminée.
+
+
+La désinstallation a commencé.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.
+
+La désinstallation est terminée.
+
+
+La désinstallation a commencé.
+Consultez le contenu du fichier journal pour l'avancement de l'assembly C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.exe.
+Le fichier se trouve à C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Release\MagicRemoteService.InstallLog.

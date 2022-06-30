@@ -1,0 +1,1 @@
+ares-package --no-minify MagicRemoteService Send

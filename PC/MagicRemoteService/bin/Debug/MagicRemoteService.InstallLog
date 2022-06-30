@@ -1,0 +1,35 @@
+﻿Installation de l'assembly 'C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe'.
+Les paramètres affectés sont :
+   logtoconsole = 
+   logfile = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.InstallLog
+   assemblypath = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe
+Installation du service MagicRemoteService en cours...
+Le service MagicRemoteService a été installé avec succès.
+Création d'une source EventLog MagicRemoteService dans le journal Application...
+Validation de l'assembly 'C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe'.
+Les paramètres affectés sont :
+   logtoconsole = 
+   logfile = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.InstallLog
+   assemblypath = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe
+Installation de l'assembly 'C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe'.
+Les paramètres affectés sont :
+   logtoconsole = 
+   logfile = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.InstallLog
+   assemblypath = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe
+Installation du service MagicRemoteService en cours...
+Création d'une source EventLog MagicRemoteService dans le journal Application...
+Restauration de l'assembly 'C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe'.
+Les paramètres affectés sont :
+   logtoconsole = 
+   logfile = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.InstallLog
+   assemblypath = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe
+Restauration de l'état précédent du journal des événements pour la source MagicRemoteService.
+Désinstallation de l'assembly 'C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe'.
+Les paramètres affectés sont :
+   logtoconsole = 
+   logfile = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.InstallLog
+   assemblypath = C:\Users\Cathwyler\Documents\Visual Studio 2019\Projects\MagicRemoteService\MagicRemoteService\MagicRemoteService\bin\Debug\MagicRemoteService.exe
+Suppression de la source EventLog MagicRemoteService.
+Avertissement : la source MagicRemoteService n'est pas inscrite sur l'ordinateur local.
+Le service MagicRemoteService est en cours de suppression du système...
+Le service MagicRemoteService a été retiré avec succès du système.
