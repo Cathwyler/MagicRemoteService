@@ -5,7 +5,7 @@ Tested with WebOS 6.0 and Windows 10.</br>
 ## Introduction
 
 ### About security</br>
-There no encription data betwen the TV and the PC. Don't use it if you are unsure of the security of your local network. I strongly recommend to not use it on the internet without a VPN connection. D'ont use it to enter password, bank card or any sensitive data. I clear myself of any responsibility if you got data hacked.
+There no encription data betwen the TV and the PC. Don't use it if you are unsure of the security of your local network. I strongly recommend to not use it on the internet without a VPN connection. Don't use it to enter password, bank card or any other sensitive information. I clear myself of any responsibility if you got data hacked.
 
 ### Before begin you need :</br>
 - VisualStudio or MSBuild. Please refere to https://visualstudio.microsoft.com/fr/</br>
@@ -45,10 +45,11 @@ Setup your firewall to grant entering access TCP from your TV to your PC with th
 (Optionnal) Setup a sheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev</br>
 
 ## Using MagicRemoteService
-The red buton used tu shutdown or stratup your PC.
+The red buton used tu shutdown or startup your PC.
 The green buton used to open Windows menu.
 The blue buton used to popup the LG WebOS keyboard.
+The return buton used to send escape key to the PC.
 
-To prevent screen saver on the tv the app switch automatically on the video input after 2 minutes of inactivity. If the cursor reapere the app is reswitch foreground. While the video input is foreground all magic remote input is not catch. You need to shake magic remote or use scroll before get input working if the app is in his inactivity phase.
+To prevent screen saver on the tv, the app switch automatically on the video input after 2 minutes of inactivity. If the cursor reapere the app is reswitch foreground. While the video input is foreground all magic remote input is not catch. You need to shake magic remote or use scroll before get input working if the app is in his inactivity phase.
 
 If your are stuck at startup beacause Wake-on-LAN didn't worked, you can do a long press on return buton to relaunch the app.
