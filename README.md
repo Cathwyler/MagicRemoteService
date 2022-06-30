@@ -1,5 +1,5 @@
 # MagicRemoteService</br>
-Service providing computer remote control using an LG WebOS smart TV.</br>
+Service providing computer remote control using an LG WebOS TV.</br>
 Tested with WebOS 6.0 and Windows 10.</br>
 
 ## Introduction
@@ -11,7 +11,7 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 There is no configuration file actually so you need to configure and compile it manually. Tools needed :</br>
 - Visual Studio or MSBuild. Please refer to https://visualstudio.microsoft.com/fr/</br>
 - WebOS Command line interface. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/installation/</br>
-- LG TV with developer mode activated. Please refer to https://webostv.developer.lge.com/develop/app-test/using-devmode-app/</br>
+- LG WebOS TV with developer mode activated. Please refer to https://webostv.developer.lge.com/develop/app-test/using-devmode-app/</br>
 
 ## Installation
 
