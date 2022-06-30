@@ -28,7 +28,7 @@ You can compile with /TV/MagicRemoteService/build.bat</br>
 
 ### Step 2 : Configure PC app /PC/MagicRemoteService/MagicRemoteService.cs line 106 and 229</br>
 private static readonly System.Net.IPEndPoint ipepIPEndPoint = new System.Net.IPEndPoint(System.Net.IPAddress.Any, XXXXX); //Set same as localStorage.sPort.</br>
-tInactivity.Interval = 7130000; //in ms, used if your TV is set to shut down after 2, 4 or 6 hours</br>
+tInactivity.Interval = 7130000; //in ms, used if your TV is set to shutdown after 2, 4 or 6 hours</br>
 
 You can compile with /PC/MagicRemoteService/build.bat if your Visual Studio version is compatible.</br>
 
