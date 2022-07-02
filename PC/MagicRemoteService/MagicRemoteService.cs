@@ -103,7 +103,7 @@ namespace MagicRemoteService {
 
 
 	public partial class MagicRemoteService : System.ServiceProcess.ServiceBase {
-		private static readonly System.Net.IPEndPoint ipepIPEndPoint = new System.Net.IPEndPoint(System.Net.IPAddress.Any, 41230);
+		private static readonly System.Net.IPEndPoint ipepIPEndPoint = new System.Net.IPEndPoint(System.Net.IPAddress.Any, XXXXX); //same as localStorage.sPort.
 
 		private System.Threading.Thread thrServeur;
 		private bool bActive;
@@ -226,7 +226,7 @@ namespace MagicRemoteService {
 				byte[] tabData = new System.Byte[4096];
 				bool bAlive = true;
 				System.Timers.Timer tInactivity = new System.Timers.Timer();
-				tInactivity.Interval = 7130000;
+				tInactivity.Interval = XXXXXXX; //ms, ex 7200000, if your TV is set to shutdown after 2, 4 or 6 hours
 				tInactivity.AutoReset = false;
 				tInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					System.Diagnostics.Process.Start("shutdown", "/s /t 0");
