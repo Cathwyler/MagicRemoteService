@@ -47,7 +47,9 @@ Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/Gui
 - (Optionnal) Setup Windows auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon.
 - (Optionnal) Setup a scheduled task at opening session tu run MagicRemoteService.exe on your PC. You can check maximal authorization to grant access to your task manager for example.
 - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev.
-- (Optionnal) Setup MagicRemoteService input with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L535-L552 You can delete MagicRemoteService input with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L522-L533
+- (Optionnal) Setup MagicRemoteService input :
+  - Install with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L535-L552
+  - Uninstall with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L522-L533
 
 ## Using MagicRemoteService
 MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in step 1 and 2.
