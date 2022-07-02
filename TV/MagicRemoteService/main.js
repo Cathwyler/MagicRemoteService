@@ -123,13 +123,13 @@ const tabInputSource = [{
 	sAppId: "com.webos.app.av2"
 }];
 
-localStorage.sRightClick = "1500";
-localStorage.sInactivity = "120000";
-localStorage.sInputSource = "0";
-localStorage.sIP = "192.168.1.12";
-localStorage.sMask = "255.255.255.0";
-localStorage.sMac = "AC:9E:17:EC:55:11";
-localStorage.sPort = "41230";
+localStorage.sRightClick = "1500"; //ms, used for timing right click.
+localStorage.sInactivity = "120000"; //ms, used to prevent screensaver and automatically switch on the video input.
+localStorage.sInputSource = "0"; //0 : HMDI1, 1 : HDMI2, 2 : HDMI3, 3 : HDMI4, 4 : COMP1, 5 : AV1, 6 : AV2.
+localStorage.sIP = "XXX.XXX.XXX.XXX"; //computer IP address, ex 192.168.1.12.
+localStorage.sMask = "255.255.255.0"; //local network mask, ex 255.255.255.0, for Wake-on-LAN.
+localStorage.sMac = "XX:XX:XX:XX:XX:XX"; //mac address, for Wake-on-LAN.
+localStorage.sPort = "XXXXX"; //ex 41230.
 
 const uiRightClick = parseInt(localStorage.sRightClick);
 const uiInactivity = parseInt(localStorage.sInactivity);
