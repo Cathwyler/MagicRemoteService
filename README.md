@@ -41,6 +41,8 @@ Configure your firewall to grant TCP entering access from your TV to your PC wit
 (Optionnal) Setup Windows auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon</br>
 (Optionnal) Setup a scheduled task at opening session tu run MagicRemoteService.exe on your PC. You can check maximal authorization to grant access to your task manager for example.</br>
 (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev</br>
+(Optionnal) Setup MagicRemoteService input with uncommenting these lines https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L535-L552
+you can delete it with uncommenting these lines https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L522-L533
 
 ## Using MagicRemoteService
 The red button shuts down or starts up your PC.</br>
