@@ -17,7 +17,7 @@ There is no configuration file actually so you need to configure and compile it 
 - LG WebOS TV with developer mode activated. Please refer to https://webostv.developer.lge.com/develop/app-test/using-devmode-app/</br>
 
 ### Possible Improvement
-I already tried Node.js net (TCP) for the main data exchange, but using service on TV had really poor performance compared to WebSockets.
+I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.
 I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard input.
 I already tried to use system and user service but due to Windows security the input could not be properly reproduced. A dedicated driver should fix it.
 Find a way to detect focus in TextBox control on Windows to automatically pop up the LG WebOS keyboard.
