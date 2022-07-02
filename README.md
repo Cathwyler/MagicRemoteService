@@ -19,7 +19,7 @@ There is no configuration file actually so you need to configure and compile it 
 
 https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L126-L132
 
-You can compile with [/TV/MagicRemoteService/build.bat](/TV/MagicRemoteService/build.bat).</br>
+You can compile with [/TV/build.bat](/TV/build.bat).</br>
 
 ### Step 2 : Configure PC app
 
@@ -28,7 +28,7 @@ https://github.com/Cathwyler/MagicRemoteService/blob/c084818723066ed1926a2081331
 https://github.com/Cathwyler/MagicRemoteService/blob/c084818723066ed1926a2081331bdef6307494f8/PC/MagicRemoteService/MagicRemoteService.cs#L229
 
 
-You can compile with [/PC/MagicRemoteService/build.bat](/PC/MagicRemoteService/build.bat) if your Visual Studio version is compatible.</br>
+You can compile with [/PC/build.bat](/PC/build.bat) if your Visual Studio version is compatible.</br>
 
 ### Step 3 : Install the app on your WebOS TV
 
