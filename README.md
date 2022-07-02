@@ -58,8 +58,8 @@ Magic remote input :
 - The blue key pops up the LG WebOS keyboard.
 - The return key sends an escape key to the PC.
 - The navigation keys sends arrows keys to the PC.
-- A short middle click buton sends a left click to the PC.
-- A long middle click buton sends a right click to the PC.
+- A short middle click sends a left click to the PC.
+- A long middle click sends a right click to the PC.
 
 To prevent screen saver on the TV, the app switches automatically on the video input after 2 minutes of inactivity. If the cursor reappears the app switches back foreground. While the video input is foreground all magic remote input is not caught. You need to shake the magic remote or use the scroll before getting input working if the app is in his inactivity phase.
 
