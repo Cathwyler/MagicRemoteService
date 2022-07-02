@@ -52,7 +52,7 @@ Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/Gui
 ## Using MagicRemoteService
 MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in step 1 and 2.
 
-Magic remote input :
+Magic remote inputs :
 - The red key shuts down or starts up your PC.
 - The yellow key is actually unused.
 - The green key opens Windows menu.
@@ -63,7 +63,7 @@ Magic remote input :
 - A long middle click sends a right click to the PC.
 - A wheel scroll is sent to the PC.
 
-To prevent screen saver on the TV, the app switches automatically on the video input after 2 minutes of inactivity. If the cursor reappears the app switches back foreground. While the video input is foreground all magic remote inputs is not caught. You need to shake the magic remote or use the scroll before getting input working if the app is in his inactivity phase.
+To prevent screen saver on the TV, the app switches automatically on the video input after 2 minutes of inactivity. If the cursor reappears the app switches back foreground. While the video input is foreground all magic remote inputs is not caught. You need to shake the magic remote or use the scroll before getting magic remote inputs working if the app is in his inactivity phase.
 
 If you are stuck at startup because Wake-on-LAN didn't work, you can do a long press on the return button to relaunch the app or starts up PC manually.
 
