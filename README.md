@@ -5,7 +5,7 @@ Tested with WebOS 6.0 (OLED65C1, OLED48C1) and Windows 10.
 ## Introduction
 
 ### How it works
-MagicRemoteService is composed of two apps, one for TV sending magic remote inputs and one other for PC reproducing mouse and keyboard inputs. The TV app uses LG WebOS API and DOM events to catch magic remote inputs, WebSockets (TCP) for main data and Node.js dgram (UDP) for Wake-on-LAN functionality. The PC app uses System.Net.Sockets to receive main data and SendInput Win32 API to reproduce mouse and keyboard inputs.
+MagicRemoteService is composed of two apps, one for TV sending magic remote inputs and one other for PC reproducing mouse and keyboard inputs. The TV app uses WebOS API and DOM events to catch magic remote inputs, WebSockets (TCP) for main data and Node.js dgram (UDP) for Wake-on-LAN functionality. The PC app uses System.Net.Sockets to receive main data and SendInput Win32 API to reproduce mouse and keyboard inputs.
 
 ### About security
 There is no encryption data between the TV and the PC. Don't use it if you are unsure of the security of your local network. I strongly recommend to not use it on the internet without a VPN connection. Don't use it to enter password, bank card or any other sensitive information. I clear myself of any responsibility if you got data hacked.
@@ -20,7 +20,7 @@ There is no configuration file actually so you need to configure and compile it 
 - I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.
 - I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard input.
 - I already tried to use system and user service but due to Windows security the input could not be properly reproduced. A dedicated driver should probably fix it.
-- Find a way to detect focus in TextBox control on Windows to automatically pop up the LG WebOS keyboard.
+- Find a way to detect focus in TextBox control on Windows to automatically pop up the WebOS keyboard.
 - Add HMI for configuring TV and PC app.
 - Add possibility to install or uninstall MagicRemoteService input and manage multiple remote video input.
 - Add possibility to choose a PC screen.
@@ -56,7 +56,7 @@ Magic remote input :
 - The red key shuts down or starts up your PC.
 - The yellow key is actually unused.
 - The green key opens Windows menu.
-- The blue key pops up the LG WebOS keyboard.
+- The blue key pops up the WebOS keyboard.
 - The return key sends an escape key to the PC.
 - The navigation keys sends arrows keys to the PC.
 - A short middle click sends a left click to the PC.
