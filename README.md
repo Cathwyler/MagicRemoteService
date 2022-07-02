@@ -4,6 +4,9 @@ Tested with WebOS 6.0 and Windows 10.</br>
 
 ## Introduction
 
+### How it works
+MagicRemoteService is composed of two app, one for TV to send magic remote input and one other for PC reproduce mouse and keyboard input. TV app uses LG WebOS API and DOM events to catch magic remote inputs, WebSockets (TCP) for main data and Node.js dgram (UDP) for Wake-on-LAN functionality. PC app uses System.Net.Sockets to receive main data and SendInput Win32 API reproduce inputs.
+
 ### About security
 There is no encryption data between the TV and the PC. Don't use it if you are unsure of the security of your local network. I strongly recommend to not use it on the internet without a VPN connection. Don't use it to enter password, bank card or any other sensitive information. I clear myself of any responsibility if you got data hacked.
 
@@ -13,26 +16,25 @@ There is no configuration file actually so you need to configure and compile it 
 - WebOS Command line interface. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/installation/</br>
 - LG WebOS TV with developer mode activated. Please refer to https://webostv.developer.lge.com/develop/app-test/using-devmode-app/</br>
 
+### Possible Improvement
+I already tried Node.js net (TCP) for main data exchange but using service on TV had really poor performance compared to WebSockets.
+I didn'y try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard input.
+I already tried to use system service but due to Windows security 
+Find a way to detect focus in TextBox control on Windows.
+
 ## Installation
 
 ### Step 1 : Configure TV app
-
 https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L126-L132
-
 You can compile with [/TV/build.bat](/TV/build.bat).</br>
 If the compile succeed the ouptut file should be /TV/com.cathwyler.magicremoteservice_0.0.1_all.ipk.</br>
 
 ### Step 2 : Configure PC app
-
 https://github.com/Cathwyler/MagicRemoteService/blob/c084818723066ed1926a2081331bdef6307494f8/PC/MagicRemoteService/MagicRemoteService.cs#L106
-
 https://github.com/Cathwyler/MagicRemoteService/blob/c084818723066ed1926a2081331bdef6307494f8/PC/MagicRemoteService/MagicRemoteService.cs#L229
-
-
 You can compile with [/PC/build.bat](/PC/build.bat) if your Visual Studio version is compatible.</br>
 
 ### Step 3 : Install the app on your WebOS TV
-
 Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/Guide/testing-web-app-cli/#installing.</br>
 
 ### Step 4 : Others
@@ -57,3 +59,5 @@ To prevent screen saver on the TV, the app switches automatically on the video i
 If you are stuck at startup because Wake-on-LAN didn't work, you can do a long press on the return button to relaunch the app or starts up PC manually.</br>
 
 Some debugs logs notifications can appear at the bottom of the screen. Short click on it to hide.</br>
+
+I strongly recommend adding a Windows automatic screen shutdown to prevent pixel remaining with OLED TV.</br>
