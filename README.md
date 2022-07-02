@@ -5,7 +5,7 @@ Tested with WebOS 6.0 and Windows 10.</br>
 ## Introduction
 
 ### How it works
-MagicRemoteService is composed of two app, one for TV to send magic remote input and one other for PC reproduce mouse and keyboard input. TV app uses LG WebOS API and DOM events to catch magic remote inputs, WebSockets (TCP) for main data and Node.js dgram (UDP) for Wake-on-LAN functionality. PC app uses System.Net.Sockets to receive main data and SendInput Win32 API reproduce inputs.
+MagicRemoteService is composed of two apps, one for TV to send magic remote input and one other for PC reproduce mouse and keyboard input. The TV app uses LG WebOS API and DOM events to catch magic remote inputs, WebSockets (TCP) for main data and Node.js dgram (UDP) for Wake-on-LAN functionality. the PC app uses System.Net.Sockets to receive main data and SendInput Win32 API reproduce inputs.
 
 ### About security
 There is no encryption data between the TV and the PC. Don't use it if you are unsure of the security of your local network. I strongly recommend to not use it on the internet without a VPN connection. Don't use it to enter password, bank card or any other sensitive information. I clear myself of any responsibility if you got data hacked.
@@ -17,10 +17,10 @@ There is no configuration file actually so you need to configure and compile it 
 - LG WebOS TV with developer mode activated. Please refer to https://webostv.developer.lge.com/develop/app-test/using-devmode-app/</br>
 
 ### Possible Improvement
-I already tried Node.js net (TCP) for main data exchange but using service on TV had really poor performance compared to WebSockets.
-I didn'y try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard input.
-I already tried to use system service but due to Windows security 
-Find a way to detect focus in TextBox control on Windows.
+I already tried Node.js net (TCP) for the main data exchange, but using service on TV had really poor performance compared to WebSockets.
+I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard input.
+I already tried to use system and user service but due to Windows security the input could not be properly reproduced. A dedicated driver should fix it.
+Find a way to detect focus in TextBox control on Windows to automatically pop up the LG WebOS keyboard.
 
 ## Installation
 
