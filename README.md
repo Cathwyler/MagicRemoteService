@@ -19,7 +19,7 @@ There is no configuration file actually so you need to configure and compile it 
 ### Possible Improvement
 - I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.
 - I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard input.
-- I already tried to use system and user service but due to Windows security the input could not be properly reproduced. A dedicated driver should probably fix it.
+- I already tried to use system and user service but due to Windows security the mouse and keyboard inputs could not be properly reproduced. A dedicated driver should probably fix it.
 - Find a way to detect focus in TextBox control on Windows to automatically pop up the WebOS keyboard.
 - Add HMI for configuring TV and PC app.
 - Add possibility to install or uninstall MagicRemoteService input and manage multiple remote video input.
@@ -63,7 +63,7 @@ Magic remote input :
 - A long middle click sends a right click to the PC.
 - A wheel scroll is sent to the PC.
 
-To prevent screen saver on the TV, the app switches automatically on the video input after 2 minutes of inactivity. If the cursor reappears the app switches back foreground. While the video input is foreground all magic remote input is not caught. You need to shake the magic remote or use the scroll before getting input working if the app is in his inactivity phase.
+To prevent screen saver on the TV, the app switches automatically on the video input after 2 minutes of inactivity. If the cursor reappears the app switches back foreground. While the video input is foreground all magic remote inputs is not caught. You need to shake the magic remote or use the scroll before getting input working if the app is in his inactivity phase.
 
 If you are stuck at startup because Wake-on-LAN didn't work, you can do a long press on the return button to relaunch the app or starts up PC manually.
 
