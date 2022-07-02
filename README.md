@@ -15,20 +15,32 @@ There is no configuration file actually so you need to configure and compile it 
 
 ## Installation
 
-### Step 1 : Configure TV app /TV/MagicRemoteService/main.js line 126 to 132</br>
-localStorage.sRightClick = "1500"; //in ms, used for timing right click.</br>
-localStorage.sInactivity = "120000"; //in ms, used to prevent screensaver and automatically switch on the video input.</br>
-localStorage.sInputSource = "0"; //0 : HMDI1, 1 : HDMI2, 2 : HDMI3, 3 : HDMI4, 4 : COMP1, 5 : AV1, 6 : AV2.</br>
-localStorage.sIP = "XXX.XXX.XXX.XXX"; //your computer IP address, ex 192.168.1.12.</br>
-localStorage.sMask = "255.255.255.0"; //your local network mask, ex 255.255.255.0, used for Wake-on-LAN.</br>
-localStorage.sMac = "XX:XX:XX:XX:XX:XX"; //your mac address, used for Wake-on-LAN.</br>
-localStorage.sPort = "XXXXX"; //ex 41230.</br>
+### Step 1 : Configure TV app /TV/MagicRemoteService/main.js</br>
+
+line 126 to 132</br>
+```js
+localStorage.sRightClick = "1500"; //ms, used for timing right click.
+localStorage.sInactivity = "120000"; //ms, used to prevent screensaver and automatically switch on the video input.
+localStorage.sInputSource = "0"; //0 : HMDI1, 1 : HDMI2, 2 : HDMI3, 3 : HDMI4, 4 : COMP1, 5 : AV1, 6 : AV2.
+localStorage.sIP = "XXX.XXX.XXX.XXX"; //computer IP address, ex 192.168.1.12.
+localStorage.sMask = "255.255.255.0"; //local network mask, ex 255.255.255.0, for Wake-on-LAN.
+localStorage.sMac = "XX:XX:XX:XX:XX:XX"; //mac address, for Wake-on-LAN.
+localStorage.sPort = "XXXXX"; //ex 41230.
+```
 
 You can compile with /TV/MagicRemoteService/build.bat</br>
 
-### Step 2 : Configure PC app /PC/MagicRemoteService/MagicRemoteService.cs line 106 and 229</br>
-private static readonly System.Net.IPEndPoint ipepIPEndPoint = new System.Net.IPEndPoint(System.Net.IPAddress.Any, XXXXX); //Set same as localStorage.sPort.</br>
-tInactivity.Interval = 7130000; //in ms, used if your TV is set to shutdown after 2, 4 or 6 hours</br>
+### Step 2 : Configure PC app /PC/MagicRemoteService/MagicRemoteService.cs</br>
+
+line 106</br>
+```c#
+private static readonly System.Net.IPEndPoint ipepIPEndPoint = new System.Net.IPEndPoint(System.Net.IPAddress.Any, XXXXX); //same as localStorage.sPort.
+```
+
+line 229</br>
+```c#
+tInactivity.Interval = 7130000; //ms, if your TV is set to shutdown after 2, 4 or 6 hours
+```
 
 You can compile with /PC/MagicRemoteService/build.bat if your Visual Studio version is compatible.</br>
 
