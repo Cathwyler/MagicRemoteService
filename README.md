@@ -22,7 +22,7 @@ There is no configuration file actually so you need to configure and compile it 
 - I already tried to use system and user service but due to Windows security the mouse and keyboard inputs could not be properly reproduced. A dedicated driver should probably fix it.
 - Find a way to detect focus in TextBox control on Windows to automatically pop up the WebOS keyboard.
 - Add HMI for configuring TV and PC app.
-- Add possibility to install or uninstall MagicRemoteService input and manage multiple remote video input.
+- Add possibility to install or uninstall MagicRemoteService input and manage multiple remote video inputs.
 - Add possibility to choose a PC screen.
 - Find a better wey to get ride of TV screen saver.
 
