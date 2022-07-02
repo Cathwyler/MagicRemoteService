@@ -20,6 +20,7 @@ There is no configuration file actually so you need to configure and compile it 
 https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L126-L132
 
 You can compile with [/TV/build.bat](/TV/build.bat).</br>
+If the compile succeed the ouptut file should be /TV/com.cathwyler.magicremoteservice_0.0.1_all.ipk.</br>
 
 ### Step 2 : Configure PC app
 
@@ -32,7 +33,6 @@ You can compile with [/PC/build.bat](/PC/build.bat) if your Visual Studio versio
 
 ### Step 3 : Install the app on your WebOS TV
 
-[/TV/com.cathwyler.magicremoteservice_0.0.1_all.ipk](/TV/com.cathwyler.magicremoteservice_0.0.1_all.ipk).</br>
 Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/Guide/testing-web-app-cli/#installing.</br>
 
 ### Step 4 : Others
