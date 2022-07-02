@@ -1,6 +1,6 @@
 # MagicRemoteService
 Service providing computer remote control using a LG WebOS TV.</br>
-Tested with WebOS 6.0 and Windows 10.</br>
+Tested with WebOS 6.0(OLED65C1, OLED48C1) and Windows 10.</br>
 
 ## Introduction
 
