@@ -41,8 +41,8 @@ Configure your firewall to grant TCP entering access from your TV to your PC wit
 (Optionnal) Setup Windows auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon</br>
 (Optionnal) Setup a scheduled task at opening session tu run MagicRemoteService.exe on your PC. You can check maximal authorization to grant access to your task manager for example.</br>
 (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev</br>
-(Optionnal) Setup MagicRemoteService input with uncommenting these lines https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L535-L552
-you can delete it with uncommenting these lines https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L522-L533
+(Optionnal) Setup MagicRemoteService input with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L535-L552</br>
+You can delete MagicRemoteService input with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L522-L533</br>
 
 ## Using MagicRemoteService
 The red button shuts down or starts up your PC.</br>
@@ -55,3 +55,5 @@ A long middle click buton sends a right click to the PC.</br>
 To prevent screen saver on the TV, the app switches automatically on the video input after 2 minutes of inactivity. If the cursor reappears the app switches back foreground. While the video input is foreground all magic remote input is not caught. You need to shake the magic remote or use the scroll before getting input working if the app is in his inactivity phase.</br>
 
 If you are stuck at startup because Wake-on-LAN didn't work, you can do a long press on the return button to relaunch the app or starts up PC manually.</br>
+
+Some debugs logs notifications can appear at the bottom of the screen. Short click on it to hide.</br>
