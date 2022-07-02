@@ -5,7 +5,7 @@ Tested with WebOS 6.0 and Windows 10.</br>
 ## Introduction
 
 ### How it works
-MagicRemoteService is composed of two apps, one for TV to send magic remote input and one other for PC reproduce mouse and keyboard input. The TV app uses LG WebOS API and DOM events to catch magic remote inputs, WebSockets (TCP) for main data and Node.js dgram (UDP) for Wake-on-LAN functionality. the PC app uses System.Net.Sockets to receive main data and SendInput Win32 API reproduce inputs.
+MagicRemoteService is composed of two apps, one for TV sending magic remote inputs and one other for PC reproducing mouse and keyboard inputs. The TV app uses LG WebOS API and DOM events to catch magic remote inputs, WebSockets (TCP) for main data and Node.js dgram (UDP) for Wake-on-LAN functionality. The PC app uses System.Net.Sockets to receive main data and SendInput Win32 API to reproduce mouse and keyboard inputs.
 
 ### About security
 There is no encryption data between the TV and the PC. Don't use it if you are unsure of the security of your local network. I strongly recommend to not use it on the internet without a VPN connection. Don't use it to enter password, bank card or any other sensitive information. I clear myself of any responsibility if you got data hacked.
@@ -19,7 +19,7 @@ There is no configuration file actually so you need to configure and compile it 
 ### Possible Improvement
 - I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.</br>
 - I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard input.</br>
-- I already tried to use system and user service but due to Windows security the input could not be properly reproduced. A dedicated driver should fix it.</br>
+- I already tried to use system and user service but due to Windows security the input could not be properly reproduced. A dedicated driver should probably fix it.</br>
 - Find a way to detect focus in TextBox control on Windows to automatically pop up the LG WebOS keyboard.</br>
 
 ## Installation
@@ -46,6 +46,8 @@ Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/Gui
 - (Optionnal) Setup MagicRemoteService input with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L535-L552 You can delete MagicRemoteService input with uncommenting these lines :https://github.com/Cathwyler/MagicRemoteService/blob/eabd7f017f8bcfc09460ff4765c3eb06676fba27/TV/MagicRemoteService/main.js#L522-L533
 
 ## Using MagicRemoteService
+MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in step 1 and 2.</br>
+
 Magic remote input :</br>
 - The red key shuts down or starts up your PC.</br>
 - The green key opens Windows menu.</br>
