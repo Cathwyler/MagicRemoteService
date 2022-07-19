@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>MagicRemoteService</title>
+	<style type="text/css">
+		body {
+			position: absolute;
+			
+		    padding:0;
+		    margin:0;
+		    top:0%;
+		    left:0%;
+		    
+			height: 100%;
+			width: 100%;
+		}
+
+		video#video {
+			position: absolute;
+			
+		    padding:0;
+		    margin:0;
+		    top:0%;
+		    left:0%;
+		    
+			height: 100%;
+			width: 100%;
+		}
+
+		div#keyboardcontainer{
+			width: 0;
+			overflow: hidden;
+		}
+		input#keyboard{
+			opacity:0;
+			filter:alpha(opacity=0);
+		}
+
+		div#popup {
+			padding: 16px 0px 0px 16px;
+			display: none;
+			position: absolute;
+			background: #4F4F4F;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			width: auto;
+			min-width: 200px;
+			max-width: 600px;
+			height: auto;
+        	border-radius: 5px;
+  			color: #DFDFDF;
+		}
+		div#popup div{
+			padding: 0px 16px 16px 0px;
+		}
+		div#popup-titre{
+			font-size: 32px;
+			font-weight: bold;
+		}
+		div#popup-message{
+			font-size: 24px;
+		}
+		div#popup-button{
+			display: flex;
+		}
+		div#popup-button span{
+			flex: auto;
+		}
+		div#popup-button button{
+			margin: 0px 0px 0px 10px;
+			min-width: 150px;
+			min-height: 50px;
+			font-size: 16px;
+		}
+
+		div#log {
+			padding: 16px 0px 0px 16px;
+			display: none;
+			position: absolute;
+			background: #4F4F4F;
+			top: 100%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-100%);
+			width: auto;
+			height: auto;
+			border-radius: 5px;
+			color: #DFDFDF;
+		}
+		div#log div{
+			padding: 0px 16px 16px 0px;
+		}
+		div#log-titre{
+			font-size: 24px;
+			font-weight: bold;
+		}
+		div#log-message{
+			font-size: 24px;
+		}
+	</style>
+</head>
+
+<script src="webOSTVjs-1.2.4/webOSTV.js" charset="utf-8"></script>
+<script src="webOSTVjs-1.2.4/webOSTV-dev.js" charset="utf-8"></script>
+
+<body>
+	<video id="video" autoplay loop>
+	</video>
+	<div id="keyboardcontainer">
+		<input id="keyboard" type="text">
+	</div>
+	<div id="popup">
+		<div id="popup-titre">
+		</div>
+		<div id="popup-message">
+		</div>
+		<div id="popup-button">
+		</div>
+	</div>
+	<div id="log">
+		<div id="log-titre">
+		</div>
+		<div id="log-message">
+		</div>
+	</div>
+</body>
+<script src="main.js" charset="utf-8"></script>
+</html>
