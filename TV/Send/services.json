@@ -1,9 +1,0 @@
-{
-    "id": "com.cathwyler.magicremoteservice.send",
-    "description": "Send Service",
-    "services": [
-        {
-            "name": "com.cathwyler.magicremoteservice.send"
-        }
-    ]
-}
