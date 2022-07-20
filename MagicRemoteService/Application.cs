@@ -31,16 +31,15 @@ namespace MagicRemoteService {
 			}
 			base.Dispose(disposing);
 		}
-		void Setting(object sender, System.EventArgs e) {
+		public void Setting(object sender, System.EventArgs e) {
 			if(this.sSetting == null || this.sSetting.IsDisposed) {
 				this.sSetting = new MagicRemoteService.Setting(this.mrsService);
 				this.sSetting.Show();
-			} else {
-				this.sSetting.Activate();
-				this.sSetting.WindowState = System.Windows.Forms.FormWindowState.Normal;
 			}
+			this.sSetting.Activate();
+			this.sSetting.WindowState = System.Windows.Forms.FormWindowState.Normal;
 		}
-		void Exit(object sender, System.EventArgs e) {
+		public void Exit(object sender, System.EventArgs e) {
 			System.Windows.Forms.Application.Exit();
 		}
 		public static string CompleteDir(string strPath) {
