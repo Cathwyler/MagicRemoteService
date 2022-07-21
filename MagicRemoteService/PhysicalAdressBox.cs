@@ -86,8 +86,14 @@ namespace MagicRemoteService {
 			if(char.IsControl(e.KeyChar)) {
 				if(e.KeyChar == (char)System.Windows.Forms.Keys.Back) {
 					if(ddbByte.TextLength == 0 && ddbByte.TextLength == ddbByte.SelectionStart) {
-						this.SelectNextControl(ddbByte, false, true, false, false);
-						System.Windows.Forms.SendKeys.Send(e.KeyChar.ToString());
+						if(this.SelectNextControl(ddbByte, false, true, false, false)) {
+							MagicRemoteService.DecimalByteBox ddbNextByte = (MagicRemoteService.DecimalByteBox)this.ActiveControl;
+							if(ddbNextByte.TextLength > 0) {
+								ddbNextByte.Text = ddbNextByte.Text.Substring(0, ddbNextByte.TextLength - 1);
+								ddbNextByte.SelectionStart = ddbNextByte.TextLength;
+								ddbNextByte.SelectionLength = 0;
+							}
+						}
 					}
 				}
 			} else if(System.Uri.IsHexDigit(e.KeyChar)) {
@@ -97,16 +103,18 @@ namespace MagicRemoteService {
 				if(strUnselected.Length == 2) {
 					e.Handled = true;
 					if(ddbByte.TextLength == ddbByte.SelectionStart) {
-						this.SelectNextControl(ddbByte, true, true, false, false);
-						if(!ddbByte.Focused) {
-							System.Windows.Forms.SendKeys.Send("^(a)");
+						if(this.SelectNextControl(ddbByte, true, true, false, false)) {
+							MagicRemoteService.DecimalByteBox ddbNextByte = (MagicRemoteService.DecimalByteBox)this.ActiveControl;
+							ddbNextByte.SelectionStart = 0;
+							ddbNextByte.SelectionLength = ddbByte.TextLength;
 						}
 					}
 				} else if(byte.TryParse(strUnselected.Insert(ddbByte.SelectionStart, e.KeyChar.ToString()), System.Globalization.NumberStyles.HexNumber, null, out uc)) {
 					if(strUnselected.Length == 1 && ddbByte.TextLength == ddbByte.SelectionStart) {
-						this.SelectNextControl(ddbByte, true, true, false, false);
-						if(!ddbByte.Focused) {
-							System.Windows.Forms.SendKeys.Send("^(a)");
+						if(this.SelectNextControl(ddbByte, true, true, false, false)) {
+							MagicRemoteService.DecimalByteBox ddbNextByte = (MagicRemoteService.DecimalByteBox)this.ActiveControl;
+							ddbNextByte.SelectionStart = 0;
+							ddbNextByte.SelectionLength = ddbByte.TextLength;
 						}
 					}
 				} else {
@@ -120,9 +128,10 @@ namespace MagicRemoteService {
 				string strUnselected = ddbByte.Text.Remove(ddbByte.SelectionStart, ddbByte.SelectionLength);
 				byte uc;
 				if(byte.TryParse(strUnselected, System.Globalization.NumberStyles.HexNumber, null, out uc)) {
-					this.SelectNextControl(ddbByte, true, true, false, false);
-					if(!ddbByte.Focused) {
-						System.Windows.Forms.SendKeys.Send("^(a)");
+					if(this.SelectNextControl(ddbByte, true, true, false, false)) {
+						MagicRemoteService.DecimalByteBox ddbNextByte = (MagicRemoteService.DecimalByteBox)this.ActiveControl;
+						ddbNextByte.SelectionStart = 0;
+						ddbNextByte.SelectionLength = ddbByte.TextLength;
 					}
 				}
 			} else {
