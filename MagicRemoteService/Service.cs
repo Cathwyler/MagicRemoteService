@@ -518,7 +518,7 @@ namespace MagicRemoteService {
 													System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
 													pProcess.StartInfo.FileName = "shutdown";
 													pProcess.StartInfo.Arguments = "/s /t 0";
-													pProcess.StartInfo.CreateNoWindow = true;
+													pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 													pProcess.Start();
 													this.LogIfDebug("Processed binary message send/shutdown [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "]");
 													break;
