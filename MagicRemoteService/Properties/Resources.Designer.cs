@@ -62,21 +62,22 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
-        ///    &quot;id&quot;: &quot;com.cathwyler.magicremoteservice&quot;,
-        ///    &quot;title&quot;: &quot;MagicRemoteService&quot;,
-        ///    &quot;main&quot;: &quot;index.html&quot;,
-        ///    &quot;icon&quot;: &quot;icon.png&quot;,
-        ///    &quot;largeIcon&quot;: &quot;largeIcon.png&quot;,
-        ///    &quot;iconColor&quot;: &quot;#4F4F4F&quot;,
-        ///    &quot;type&quot;: &quot;web&quot;,
-        ///    &quot;vendor&quot;: &quot;Cathwyler&quot;,
-        ///    &quot;version&quot;: &quot;0.0.1&quot;,
-        ///    &quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une smart TV LG&quot;,
-        ///    &quot;bgColor&quot;: &quot;#4F4F4F&quot;,
-        ///    &quot;supportTouchMode&quot;: &quot;none&quot;,
-        ///    &quot;disableBackHistoryAPI&quot;: true,
-        ///    &quot;transparent&quot;: true,
-        ///    &quot;supportGIP&quot; [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice&quot;,
+        ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
+        ///	&quot;main&quot;: &quot;index.html&quot;,
+        ///	&quot;icon&quot;: &quot;icon.png&quot;,
+        ///	&quot;largeIcon&quot;: &quot;largeIcon.png&quot;,
+        ///	&quot;iconColor&quot;: &quot;#4F4F4F&quot;,
+        ///	&quot;type&quot;: &quot;web&quot;,
+        ///	&quot;vendor&quot;: &quot;Cathwyler&quot;,
+        ///	&quot;version&quot;: &quot;0.0.1&quot;,
+        ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///	&quot;bgColor&quot;: &quot;#4F4F4F&quot;,
+        ///	&quot;supportTouchMode&quot;: &quot;none&quot;,
+        ///	&quot;disableBackHistoryAPI&quot;: true,
+        ///	&quot;transparent&quot;: true,
+        ///	&quot;supportGIP&quot;: true
+        ///}.
         /// </summary>
         internal static string appinfo {
             get {
@@ -103,6 +104,20 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {
+        ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice&quot;,
+        ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
+        ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
+        ///	&quot;version&quot;: &quot;0.0.1&quot;
+        ///}.
+        /// </summary>
+        internal static string frappinfo {
+            get {
+                return ResourceManager.GetString("frappinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
         internal static byte[] icon {
@@ -122,11 +137,11 @@ namespace MagicRemoteService.Properties {
         ///		body {
         ///			position: absolute;
         ///			
-        ///		    padding:0;
-        ///		    margin:0;
-        ///		    top:0%;
-        ///		    left:0%;
-        ///		    
+        ///			padding:0;
+        ///			margin:0;
+        ///			top:0%;
+        ///			left:0%;
+        ///			
         ///			height: 100%;
         ///			width: 100%;
         ///		}
@@ -134,11 +149,11 @@ namespace MagicRemoteService.Properties {
         ///		video#video {
         ///			position: absolute;
         ///			
-        ///		    padding:0;
-        ///		    margin:0;
-        ///		    top:0%;
-        ///		    left:0%;
-        ///		    
+        ///			padding:0;
+        ///			margin:0;
+        ///			top:0%;
+        ///			left:0%;
+        ///			
         ///			height: 100%;
         ///			width: 100%;
         ///		}
@@ -148,7 +163,8 @@ namespace MagicRemoteService.Properties {
         ///			overflow: hidden;
         ///		}
         ///		input#keyboard{
-        ///			opacity:0 [le reste de la chaîne a été tronqué]&quot;;.
+        ///			opacity:0;
+        ///			filter:alpha(opacity=0); [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string index {
             get {
@@ -221,16 +237,14 @@ namespace MagicRemoteService.Properties {
         ///}
         ///
         ///function Log() {
-        ///	document.getElementById(&quot;log-titre&quot;).innerText = &quot;Log&quot;;
+        ///	document.getElementById(&quot;log-titre&quot;).innerText = oString.strLogTitle;
         ///	document.getElementById(&quot;log-message&quot;).innerText = JSON.stringify(arguments);
         ///	document.getElementById(&quot;log&quot;).style.display = &quot;block&quot;;
         ///	console.log.apply(console, arguments);
         ///}
         ///function LogIfDebug() {
         ///	if(bDebug) {
-        ///		Log.apply(this, arguments);
-        ///	}
-        ///} [le reste de la chaîne a été tronqué]&quot;;.
+        ///		Log.apply(this, argu [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {
@@ -295,6 +309,30 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
+        ///function GetString(){
+        ///	switch(webOS.systemInfo().country) {
+        ///		case &quot;FRA&quot;:
+        ///			return {
+        ///				strAppTittle: &quot;Magic remote service&quot;,
+        ///				strAppDescription: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///			
+        ///				strLogTitle: &quot;Log&quot;,
+        ///				strWarnTitle: &quot;Warn&quot;,
+        ///				strErrorTitle: &quot;Error&quot;,
+        ///			
+        ///				strLaunchAppSuccess: &quot;Success to launch {1}&quot;,
+        ///				strLaunchAppFailure: &quot;Failed to launch {1}&quot;,
+        ///				strGetAllInputStatusSubscribe: &quot;Start to get all input status&quot;,
+        ///				strGetAllInputStatusFai [le reste de la chaîne a été tronqué]&quot;;.
+        /// </summary>
+        internal static string ressource {
+            get {
+                return ResourceManager.GetString("ressource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à 
         ///var pkgInfo = require(&quot;./package.json&quot;);
         ///var Service = require(&quot;webos-service&quot;);
         ///var Dgram = require(&quot;dgram&quot;);
@@ -319,8 +357,7 @@ namespace MagicRemoteService.Properties {
         ///	socClient.setBroadcast(true);
         ///});
         ///
-        ///var bufWol = Buffer.alloc(102);
-        ///bufWol [le reste de la chaîne a été tronqué]&quot;;.
+        ///var bufWol =  [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string send {
             get {

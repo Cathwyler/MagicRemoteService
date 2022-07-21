@@ -102,15 +102,15 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="PhysicalAdress.cs" />
-    <Compile Include="Properties\Resources.fr.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.fr.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.fr.resx</DependentUpon>
     </Compile>
     <Compile Include="WebOSCLI.cs" />
     <Compile Include="Setting.cs">
@@ -154,6 +154,7 @@
     <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="Resources\TV\MagicRemoteService\appinfo.json" />
+    <None Include="Resources\TV\MagicRemoteService\ressources\fr\appinfo.json" />
     <None Include="Resources\TV\Send\package.json" />
     <None Include="Resources\TV\Send\services.json" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Setting.fr.resx">
@@ -221,6 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TV\Send\send.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\TV\MagicRemoteService\ressource.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />

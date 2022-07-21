@@ -6,7 +6,7 @@ ArrayBuffer.prototype.toString = function(base) {
 }
 
 function Log() {
-	document.getElementById("log-titre").innerText = "Log";
+	document.getElementById("log-titre").innerText = oString.strLogTitle;
 	document.getElementById("log-message").innerText = JSON.stringify(arguments);
 	document.getElementById("log").style.display = "block";
 	console.log.apply(console, arguments);
@@ -17,13 +17,13 @@ function LogIfDebug() {
 	}
 }
 function Warn() {
-	document.getElementById("log-titre").innerText = "Warn";
+	document.getElementById("log-titre").innerText = oString.strWarnTitle;
 	document.getElementById("log-message").innerText = JSON.stringify(arguments);
 	document.getElementById("log").style.display = "block";
 	console.warn.apply(console, arguments);
 }
 function Error() {
-	document.getElementById("log-titre").innerText = "Error";
+	document.getElementById("log-titre").innerText = oString.strErrorTitle;
 	document.getElementById("log-message").innerText = JSON.stringify(arguments);
 	document.getElementById("log").style.display = "block";
 	console.error.apply(console, arguments);
@@ -37,10 +37,10 @@ function LaunchApp(sAppId) {
 	webOSDev.launch({
 		id: sAppId,
 		onSuccess: function (inResponse) {
-			LogIfDebug("Success to launch " + sAppId);
+			LogIfDebug(oString.strLaunchAppSuccess.replace("{1}", sAppId));
 		},
 		onFailure: function (inError) {
-			Error("Failed to launch " + sAppId + "[", inError.errorText, "]");
+			Error(oString.strLaunchAppSuccess.replace("{1}", sAppId) + " [", inError.errorText, "]");
 		}
 	});
 }
@@ -102,9 +102,11 @@ const sBroadcast = sIP.split(".").map(function(x, i) {
 	return(x | (parseInt(sMask.split(".")[i], 10) ^ 0xFF)).toString(10);
 }).join(".");
 const tabMac = sMac.split(":").map(function(x) {
-    return parseInt(x, 16);
+	return parseInt(x, 16);
 });
 const sAppID = webOS.fetchAppId();
+
+const oString = GetString();
 
 var options = {
 	mediaTransportType: "URI",
@@ -139,7 +141,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 	},
 	onSuccess: function(inResponse){
 		if(typeof(inResponse.subscribed) === "boolean") {
-			LogIfDebug("Start to get all input status");
+			LogIfDebug(oString.strGetAllInputStatusSubscribe);
 		} else {
 			var bLastInputSourceStatus = bInputSourceStatus;
 			inResponse.devices.forEach(function(dDevice) {
@@ -168,9 +170,9 @@ webOS.service.request("luna://com.webos.service.eim", {
 						Close();
 					}
 				}
-				Dialogue("Magic remote service", "L'ordinateur distant semble être éteint. Voulez-vous le demarrer ?", [
+				Dialogue(oString.strAppTittle, oString.strInputDisconect, [
 					{
-						sName: "Demarrer",
+						sName: oString.strInputDisconectStart,
 						fAction: function() {
 							SendWol({
 								tabMac: tabMac
@@ -190,7 +192,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 							}
 							iTimeoutSourceStatus = setTimeout(function() {
 								iTimeoutSourceStatus = 0;
-								Dialogue("Magic remote service", "L'ordinateur distant semble être éteint et ne pas réagir au Wake on Lan ou semble être débranché. Veuillez vérifier le bon fonctionnement du Wake on Lan ainsi que de la connexion vidéo", []);
+								Dialogue(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
 							}, 5000);
 						}
 					}
@@ -199,7 +201,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 		}
 	},
 	onFailure: function(inError){
-		Warn("Failed to get all input status [", inError.errorText, "]");
+		Warn(oString.strGetAllInputStatusFailure + " [", inError.errorText, "]");
 	}
 });
 
@@ -208,7 +210,7 @@ var iTimeoutConnect = 0;
 var socClient = null;
 function Connect() {
 	if(socClient !== null) {
-		Error("Socket encore ouverte");
+		Error(oString.strSocketErrorOpen);
 		socClient.close();
 	}
 	socClient = new WebSocket("ws://" + sIP + ":" + uiPort);
@@ -225,7 +227,7 @@ function Connect() {
 				});
 			}
 		}
-		LogIfDebug("Connexion au serveur");
+		LogIfDebug(oString.strSocketConnecting);
 	};
 	socClient.onclose = function(e) {
 		iTimeoutRetryConnect = setTimeout(function() {
@@ -233,19 +235,19 @@ function Connect() {
 			Connect();
 		}, 1000);
 		socClient = null;
-		LogIfDebug("Deconnexion du serveur");
+		LogIfDebug(oString.strSocketDisconnecting);
 	};
 	if(iTimeoutConnect) {
 	} else {
 		iTimeoutConnect = setTimeout(function() {
 			iTimeoutConnect = 0;
-			Dialogue("Magic remote service", "L'ordinateur distant semble être allumé mais le service n'est pas démarré ou n'est pas joignable. Veuillez vérifier le bon fonctionnement du service sur l'ordinateur distant ainsi que vos paramètres réseaux", []);
+			Dialogue(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
 		}, 30000);
 	}
 }
 function Close() {
 	if(socClient === null) {
-		Error("Socket déjà fermée");
+		Error(oString.strSocketErrorClosed);
 		socClient = new WebSocket("ws://" + sIP + ":" + uiPort);
 	}
 	if(iTimeoutRetryConnect) {
@@ -258,7 +260,7 @@ function Close() {
 	}
 	socClient.onclose = function(e) {
 		socClient = null;
-		LogIfDebug("Deconnexion du serveur");
+		LogIfDebug(oString.strSocketDisconnecting);
 	};
 	if(CursorVisible()) {
 		if((AppVisible() && AppFocus()) || bInputOpened) {
@@ -278,10 +280,10 @@ function SendWol(mMac, sBroadcast) {
 			sBroadcast: sBroadcast
 		},
 		onSuccess: function(inResponse) {
-			console.log("Success to send/wol [0x" + inResponse.sBuffer + "]@" + sBroadcast + ":9", mMac);
+			console.log(oString.strSendWolSuccess + " [0x" + inResponse.sBuffer + "]@" + sBroadcast + ":9", mMac);
 		},
 		onFailure: function(inError) {
-			Error("Failed to send/wol [", inError.eError, "]@" + sBroadcast + ":9", mMac);
+			Error(oString.strSendWolFailure + " [", inError.eError, "]@" + sBroadcast + ":9", mMac);
 		}
 	});
 }
@@ -295,9 +297,9 @@ function SendMousePosition(pPosition) {
 			dwMousePosition.setUint16(1, pPosition.usX, true);
 			dwMousePosition.setUint16(3, pPosition.usY, true);
 			socClient.send(bufMousePosition);
-			//LogIfDebug("Success to send/mouse/position [0x" + bufMousePosition.toString(16) + "]@" + sIP + ":" + uiPort, pPosition);
+			//LogIfDebug(oString.strSendMousePositionSuccess + " [0x" + bufMousePosition.toString(16) + "]@" + sIP + ":" + uiPort, pPosition);
 		} catch(eError) {
-			Error("Failed to send/mouse/position [", eError, "]@" + sIP + ":" + uiPort, pPosition);
+			Error(oString.strSendMousePositionFailure + " [", eError, "]@" + sIP + ":" + uiPort, pPosition);
 		}
 	}
 }
@@ -311,9 +313,9 @@ function SendMouseKey(kKey) {
 			dwMouseKey.setUint16(1, kKey.usC, true);
 			dwMouseKey.setUint8(3, kKey.bS);
 			socClient.send(bufMouseKey);
-			LogIfDebug("Success to send/mouse/key [0x" + bufMouseKey.toString(16) + "]@" + sIP + ":" + uiPort, kKey);
+			LogIfDebug(oString.strSendMouseKeySuccess + " [0x" + bufMouseKey.toString(16) + "]@" + sIP + ":" + uiPort, kKey);
 		} catch(eError) {
-			Error("Failed to send/mouse/key [", eError, "]@" + sIP + ":" + uiPort, kKey);
+			Error(oString.strSendMouseKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort, kKey);
 		}
 	}
 }
@@ -326,9 +328,9 @@ function SendMouseWheel(wWheel) {
 		try {
 			dwMouseWheel.setInt16(1, wWheel.sY, true);
 			socClient.send(bufMouseWheel);
-			LogIfDebug("Success to send/mouse/wheel [0x" + bufMouseWheel.toString(16) + "]@" + sIP + ":" + uiPort, wWheel);
+			LogIfDebug(oString.strSendMouseWheelSuccess + " [0x" + bufMouseWheel.toString(16) + "]@" + sIP + ":" + uiPort, wWheel);
 		} catch(eError) {
-			Error("Failed to send/mouse/wheel [", eError, "]@" + sIP + ":" + uiPort, wWheel);
+			Error(oString.strSendMouseWheelFailure + " [", eError, "]@" + sIP + ":" + uiPort, wWheel);
 		}
 	}
 }
@@ -341,9 +343,9 @@ function SendMouseVisible(vVisible) {
 		try {
 			dwMouseVisible.setUint8(1, vVisible.bV);
 			socClient.send(bufMouseVisible);
-			LogIfDebug("Success to send/mouse/Visible [0x" + bufMouseVisible.toString(16) + "]@" + sIP + ":" + uiPort, vVisible);
+			LogIfDebug(oString.strSendMouseVisibleSuccess + " [0x" + bufMouseVisible.toString(16) + "]@" + sIP + ":" + uiPort, vVisible);
 		} catch(eError) {
-			Error("Failed to send/mouse/Visible [", eError, "]@" + sIP + ":" + uiPort, vVisible);
+			Error(oString.strSendMouseVisibleFailure + " [", eError, "]@" + sIP + ":" + uiPort, vVisible);
 		}
 	}
 }
@@ -357,9 +359,9 @@ function SendKeyboardKey(kKey) {
 			dwKeyboardKey.setUint16(1, kKey.usC, true);
 			dwKeyboardKey.setUint8(3, kKey.bS);
 			socClient.send(bufKeyboardKey);
-			LogIfDebug("Success to send/keyboard/key [0x" + bufKeyboardKey.toString(16) + "]@" + sIP + ":" + uiPort, kKey);
+			LogIfDebug(oString.strSendKeyboardKeySuccess + " [0x" + bufKeyboardKey.toString(16) + "]@" + sIP + ":" + uiPort, kKey);
 		} catch(eError) {
-			Error("Failed to send/keyboard/key [", eError, "]@" + sIP + ":" + uiPort, kKey);
+			Error(oString.strSendKeyboardKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort, kKey);
 		}
 	}
 }
@@ -372,9 +374,9 @@ function SendKeyboardUnicode(kUnicode) {
 		try {
 			dwKeyboardUnicode.setUint16(1, kUnicode.usC, true);
 			socClient.send(bufKeyboardUnicode);
-			LogIfDebug("Success to send/keyboard/unicode [0x" + bufKeyboardUnicode.toString(16) + "]@" + sIP + ":" + uiPort, kUnicode);
+			LogIfDebug(oString.strSendKeyboardUnicodeSuccess + " [0x" + bufKeyboardUnicode.toString(16) + "]@" + sIP + ":" + uiPort, kUnicode);
 		} catch(eError) {
-			Error("Failed to send/keyboard/unicode [", eError, "]@" + sIP + ":" + uiPort, kUnicode);
+			Error(oString.strSendKeyboardUnicodeFailure + " [", eError, "]@" + sIP + ":" + uiPort, kUnicode);
 		}
 	}
 }
@@ -386,9 +388,9 @@ function SendShutdown() {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
 			socClient.send(bufShutdown);
-			LogIfDebug("Success to send/shutdown [0x" + bufShutdown.toString(16) + "]@" + sIP + ":" + uiPort);
+			LogIfDebug(oString.strSendShutdownSuccess + " [0x" + bufShutdown.toString(16) + "]@" + sIP + ":" + uiPort);
 		} catch(eError) {
-			Error("Failed to send/shutdown [", eError, "]@" + sIP + ":" + uiPort);
+			Error(oString.strSendShutdownFailure + " [", eError, "]@" + sIP + ":" + uiPort);
 		}
 	}
 }
@@ -416,7 +418,7 @@ var iIntervalSubscription = setInterval(function() {
 		onSuccess: function(inResponse) {
 			clearInterval(iIntervalSubscription);
 			if(typeof(inResponse.subscribed) === "boolean") {
-				LogIfDebug("Start to send/mouse/position");
+				LogIfDebug(oString.strGetSensorDataSubscribe);
 	 		} else {
 				if(bInputOpened) {
 					LaunchApp(sAppID);
@@ -453,36 +455,11 @@ var iIntervalSubscription = setInterval(function() {
 			return true;
 		},
 		onFailure: function(inError) {
-			Warn("Failed to get sensor data [", inError.errorText, "]");
+			Warn(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
 			return;
 		}
 	});
 }, 1000);
-
-/*var iIntervalKeepalive = setInterval(function() {
-	webOS.service.request("luna://" + sAppID + ".send", {
-		method: "keepalive",
-		onSuccess: function(inResponse) {
-			LogIfDebug("Success to keep alive");
-		},
-		onFailure: function(inError) {
-			Error("Failed to keep alive [", inError, "]");
-		}
-	});
-}, 1000);*/
-
-/*webOS.service.request("luna://com.webos.service.eim", {
-	method: "deleteDevice",
-	parameters: {
-		appId: sAppID
-	},
-	onSuccess: function(inResponse){
-		LogIfDebug("Sucess to delete device");
-	},
-	onFailure: function(inError){
-		Error("Failed to delete device [", inError.errorText, "]");
-	}
-});*/
 
 webOS.service.request("luna://com.webos.service.eim", { 
  	method: "addDevice", 
@@ -492,41 +469,16 @@ webOS.service.request("luna://com.webos.service.eim", {
  		mvpdIcon: "", 
  		type: "MVPD_IP", 
  		showPopup: true, 
- 		label: "Magic remote service " + sInputName, 
- 		description: "Service permettant de contrôler un ordinateur à l'aide d'une smart TV LG", 
+ 		label: oString.strAppTittle + " " + sInputName, 
+ 		description: oString.strAppDescription, 
  	}, 
  	onSuccess: function(inResponse){ 
- 		LogIfDebug("Sucess to add device"); 
+ 		LogIfDebug(oString.strAddDeviceSuccess); 
  	}, 
  	onFailure: function(inError){ 
- 		Error("Failed to add device [", inError.errorText, "]"); 
+ 		Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
  	} 
  });
-
-/*document.getElementById("fullscreen").addEventListener("click", function(){
-	if (!document.fullscreenElement){
-		if(video.requestFullscreen){
-			video.requestFullscreen();
-		}
-	} else {
-		if (document.exitFullscreen){
-			document.exitFullscreen();
-		}
-	}
-});*/
-
-/*webOS.service.request("luna://com.webos.service.applicationManager/", {
-	method: "launch",
-	parameters: {
-		id: "com.webos.app.screensaver"
-	},
-	onSuccess: function(inResponse) {
- 		LogIfDebug("Success getCurrentSettings [", inResponse, "]");
-	},
-	onFailure: function(inError) {
-		Error("Failed to getCurrentSettings [", inError, "]");
-	}
-});*/
 
 document.addEventListener("mousedown", function(inEvent) {
 	if(iTimeoutRightClick) {
@@ -617,28 +569,28 @@ document.addEventListener("keyup", function(inEvent) {
 			break;
 		case 0x193:
 			if(bInputSourceStatus){
-				Dialogue("Magic remote service", "Voulez-vous éteindre l'ordinateur distant ?", [
+				Dialogue(oString.strAppTittle, oString.strShutdownMessage, [
 					{
-						sName: "Eteindre",
+						sName: oString.strShutdownShutdown,
 						fAction: function(){
 							SendShutdown();
 						}
 					}, {
-						sName: "Ne rien faire",
+						sName: oString.strShutdownAbort,
 						fAction: null
 					}
 				]);
 			} else {
-				Dialogue("Magic remote service", "Voulez-vous demarrer l'ordinateur distant ?", [
+				Dialogue(oString.strAppTittle, oString.strStartMessage [
 					{
-						sName: "Demarrer",
+						sName: oString.strStartStart,
 						fAction: function(){
 							SendWol({
 								tabMac: tabMac
 							}, sBroadcast);
 						}
 					}, {
-						sName: "Ne rien faire",
+						sName: oString.strStartAbort,
 						fAction: null
 					}
 				]);

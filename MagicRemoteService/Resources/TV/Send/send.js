@@ -5,19 +5,6 @@ var Dgram = require("dgram");
 
 var serService = new Service(pkgInfo.name);
 
-/*serService.register("keepalive", function(mMessage) {
-	try {
-		mMessage.respond({
-			returnValue: true
-		});
-	} catch(eError) {
-		mMessage.respond({
-			eError: eError,
-			returnValue: false
-		});
-	}
-});*/
-
 var socClient = Dgram.createSocket("udp4");
 socClient.bind(function() {
 	socClient.setBroadcast(true);
