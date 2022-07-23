@@ -10,11 +10,6 @@ MagicRemoteService is composed of two apps, one for TV sending magic remote inpu
 ### About security
 There is no encryption data between the TV and the PC. Don't use it if you are unsure of the security of your local network. I strongly recommend to not use it on the internet without a VPN connection. Don't use it to enter password, bank card or any other sensitive information. I clear myself of any responsibility if you got data hacked.
 
-### Before beginning
-Tools needed :
-- WebOS Command line interface. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/installation/.
-- LG WebOS TV with developer mode activated. Please refer to https://webostv.developer.lge.com/develop/app-test/using-devmode-app/.
-
 ### Possible Improvement
 - I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.
 - I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard inputs.
