@@ -421,7 +421,6 @@ namespace MagicRemoteService {
 						break;
 				}
 			}
-
 		}
 	}
 }
