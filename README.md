@@ -20,10 +20,8 @@ Tools needed :
 - I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard inputs.
 - I already tried to use system and user service but due to Windows security the mouse and keyboard inputs could not be properly reproduced. A dedicated driver should probably fix it.
 - Find a way to detect focus in TextBox control on Windows to automatically pop up the WebOS keyboard.
-- ~~Add HMI for configuring TV and PC app.~~
-- ~~Add possibility to install or uninstall MagicRemoteService input and manage multiple remote video inputs.~~
 - Add possibility to choose a PC screen.
-- Find a better wey to get ride of TV screen saver.
+- Find a better way to get ride of TV screen saver.
 
 ## Installation
 
@@ -33,10 +31,8 @@ Tools needed :
 - Configure PC and save.
 - Select a TV then configure and install it.
 - Others
-  - Configure your firewall to grant TCP entering access from your TV to your PC with the port you set earlier.
   - (Optionnal) Setup Wake-on-LAN on your motherboard's PC.
   - (Optionnal) Setup Windows auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon.
-  - (Optionnal) Setup a scheduled task at opening session tu run MagicRemoteService.exe on your PC. You can check maximal authorization to grant access to your task manager for example.
   - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev.
 
 ## Using MagicRemoteService
