@@ -238,7 +238,7 @@
     <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;labPCPort.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="labInput.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -364,7 +364,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnPCSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 89</value>
+    <value>151, 112</value>
   </data>
   <data name="btnPCSave.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -385,7 +385,7 @@
     <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;btnPCSave.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btnClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -394,7 +394,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>322, 400</value>
+    <value>322, 423</value>
   </data>
   <data name="btnClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -436,37 +436,37 @@
     <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;numboxListenPort.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
-  <data name="checkboxInactivity.AutoSize" type="System.Boolean, mscorlib">
+  <data name="chkboxInactivity.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkboxInactivity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="chkboxInactivity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkboxInactivity.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="chkboxInactivity.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 40</value>
   </data>
-  <data name="checkboxInactivity.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="chkboxInactivity.Size" type="System.Drawing.Size, System.Drawing">
     <value>278, 17</value>
   </data>
-  <data name="checkboxInactivity.TabIndex" type="System.Int32, mscorlib">
+  <data name="chkboxInactivity.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
   </data>
-  <data name="checkboxInactivity.Text" xml:space="preserve">
+  <data name="chkboxInactivity.Text" xml:space="preserve">
     <value>Automatically turn off the computer when the TV is on</value>
   </data>
-  <data name="&gt;&gt;checkboxInactivity.Name" xml:space="preserve">
-    <value>checkboxInactivity</value>
+  <data name="&gt;&gt;chkboxInactivity.Name" xml:space="preserve">
+    <value>chkboxInactivity</value>
   </data>
-  <data name="&gt;&gt;checkboxInactivity.Type" xml:space="preserve">
+  <data name="&gt;&gt;chkboxInactivity.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkboxInactivity.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chkboxInactivity.Parent" xml:space="preserve">
     <value>grpboxPC</value>
   </data>
-  <data name="&gt;&gt;checkboxInactivity.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;chkboxInactivity.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="numboxTimeoutInactivity.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 63</value>
@@ -487,7 +487,7 @@
     <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;numboxTimeoutInactivity.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="labTimeoutIncativity.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -517,7 +517,7 @@
     <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;labTimeoutIncativity.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="cmbboxTV.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 19</value>
@@ -631,7 +631,7 @@
     <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;labTimeoutIncativityUnit.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="labTimeoutRightClickUnit.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -804,11 +804,38 @@
   <data name="grpboxPC.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="chkboxStartup.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkboxStartup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 89</value>
+  </data>
+  <data name="chkboxStartup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 17</value>
+  </data>
+  <data name="chkboxStartup.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="chkboxStartup.Text" xml:space="preserve">
+    <value>Automatically launch at startup</value>
+  </data>
+  <data name="&gt;&gt;chkboxStartup.Name" xml:space="preserve">
+    <value>chkboxStartup</value>
+  </data>
+  <data name="&gt;&gt;chkboxStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkboxStartup.Parent" xml:space="preserve">
+    <value>grpboxPC</value>
+  </data>
+  <data name="&gt;&gt;chkboxStartup.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="grpboxPC.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
   </data>
   <data name="grpboxPC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 118</value>
+    <value>418, 141</value>
   </data>
   <data name="grpboxPC.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -830,6 +857,66 @@
   </data>
   <data name="grpboxTV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSendIP.Name" xml:space="preserve">
+    <value>ipadrboxSendIP</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSendIP.Type" xml:space="preserve">
+    <value>MagicRemoteService.IPAddressBox, MagicRemoteService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSendIP.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSendIP.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;phyadrboxPCMac.Name" xml:space="preserve">
+    <value>phyadrboxPCMac</value>
+  </data>
+  <data name="&gt;&gt;phyadrboxPCMac.Type" xml:space="preserve">
+    <value>MagicRemoteService.MacAddressBox, MagicRemoteService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;phyadrboxPCMac.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
+  </data>
+  <data name="&gt;&gt;phyadrboxPCMac.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSubnetMask.Name" xml:space="preserve">
+    <value>ipadrboxSubnetMask</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSubnetMask.Type" xml:space="preserve">
+    <value>MagicRemoteService.IPAddressBox, MagicRemoteService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSubnetMask.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxSubnetMask.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="grpboxTV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 159</value>
+  </data>
+  <data name="grpboxTV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>418, 258</value>
+  </data>
+  <data name="grpboxTV.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="grpboxTV.Text" xml:space="preserve">
+    <value>TVs</value>
+  </data>
+  <data name="&gt;&gt;grpboxTV.Name" xml:space="preserve">
+    <value>grpboxTV</value>
+  </data>
+  <data name="&gt;&gt;grpboxTV.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpboxTV.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpboxTV.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="ipadrboxSendIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 73</value>
@@ -906,30 +993,6 @@
   <data name="&gt;&gt;ipadrboxSubnetMask.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="grpboxTV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 136</value>
-  </data>
-  <data name="grpboxTV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 258</value>
-  </data>
-  <data name="grpboxTV.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="grpboxTV.Text" xml:space="preserve">
-    <value>TVs</value>
-  </data>
-  <data name="&gt;&gt;grpboxTV.Name" xml:space="preserve">
-    <value>grpboxTV</value>
-  </data>
-  <data name="&gt;&gt;grpboxTV.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpboxTV.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpboxTV.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -937,7 +1000,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>442, 435</value>
+    <value>442, 458</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

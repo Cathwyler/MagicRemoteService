@@ -37,7 +37,7 @@ namespace MagicRemoteService {
 			this.btnPCSave = new System.Windows.Forms.Button();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.numboxListenPort = new System.Windows.Forms.NumericUpDown();
-			this.checkboxInactivity = new System.Windows.Forms.CheckBox();
+			this.chkboxInactivity = new System.Windows.Forms.CheckBox();
 			this.numboxTimeoutInactivity = new System.Windows.Forms.NumericUpDown();
 			this.labTimeoutIncativity = new System.Windows.Forms.Label();
 			this.cmbboxTV = new System.Windows.Forms.ComboBox();
@@ -53,6 +53,7 @@ namespace MagicRemoteService {
 			this.numboxSendPort = new System.Windows.Forms.NumericUpDown();
 			this.labTVPort = new System.Windows.Forms.Label();
 			this.grpboxPC = new System.Windows.Forms.GroupBox();
+			this.chkboxStartup = new System.Windows.Forms.CheckBox();
 			this.grpboxTV = new System.Windows.Forms.GroupBox();
 			this.ipadrboxSendIP = new MagicRemoteService.IPAddressBox();
 			this.phyadrboxPCMac = new MagicRemoteService.MacAddressBox();
@@ -130,11 +131,11 @@ namespace MagicRemoteService {
             0});
 			this.numboxListenPort.Name = "numboxListenPort";
 			// 
-			// checkboxInactivity
+			// chkboxInactivity
 			// 
-			resources.ApplyResources(this.checkboxInactivity, "checkboxInactivity");
-			this.checkboxInactivity.Name = "checkboxInactivity";
-			this.checkboxInactivity.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.chkboxInactivity, "chkboxInactivity");
+			this.chkboxInactivity.Name = "chkboxInactivity";
+			this.chkboxInactivity.UseVisualStyleBackColor = true;
 			// 
 			// numboxTimeoutInactivity
 			// 
@@ -242,15 +243,22 @@ namespace MagicRemoteService {
 			// grpboxPC
 			// 
 			resources.ApplyResources(this.grpboxPC, "grpboxPC");
+			this.grpboxPC.Controls.Add(this.chkboxStartup);
 			this.grpboxPC.Controls.Add(this.labPCPort);
 			this.grpboxPC.Controls.Add(this.btnPCSave);
 			this.grpboxPC.Controls.Add(this.numboxListenPort);
-			this.grpboxPC.Controls.Add(this.checkboxInactivity);
+			this.grpboxPC.Controls.Add(this.chkboxInactivity);
 			this.grpboxPC.Controls.Add(this.numboxTimeoutInactivity);
 			this.grpboxPC.Controls.Add(this.labTimeoutIncativity);
 			this.grpboxPC.Controls.Add(this.labTimeoutIncativityUnit);
 			this.grpboxPC.Name = "grpboxPC";
 			this.grpboxPC.TabStop = false;
+			// 
+			// chkboxStartup
+			// 
+			resources.ApplyResources(this.chkboxStartup, "chkboxStartup");
+			this.chkboxStartup.Name = "chkboxStartup";
+			this.chkboxStartup.UseVisualStyleBackColor = true;
 			// 
 			// grpboxTV
 			// 
@@ -344,7 +352,7 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnPCSave;
 		private System.Windows.Forms.Button btnClose;
 		private System.Windows.Forms.NumericUpDown numboxListenPort;
-		private System.Windows.Forms.CheckBox checkboxInactivity;
+		private System.Windows.Forms.CheckBox chkboxInactivity;
 		private System.Windows.Forms.NumericUpDown numboxTimeoutInactivity;
 		private System.Windows.Forms.Label labTimeoutIncativity;
 		private System.Windows.Forms.ComboBox cmbboxTV;
@@ -362,5 +370,6 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label labTVPort;
 		private System.Windows.Forms.GroupBox grpboxPC;
 		private System.Windows.Forms.GroupBox grpboxTV;
+		private System.Windows.Forms.CheckBox chkboxStartup;
 	}
 }
