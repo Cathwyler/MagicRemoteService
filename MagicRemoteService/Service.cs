@@ -251,7 +251,11 @@ namespace MagicRemoteService {
 				tInactivity.Interval = this.iTimeoutInactivity;
 				tInactivity.AutoReset = false;
 				tInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
-					System.Diagnostics.Process.Start("shutdown", "/s /t 0");
+					System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+					pProcess.StartInfo.FileName = "shutdown";
+					pProcess.StartInfo.Arguments = "/s /t 0";
+					pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+					pProcess.Start();
 				};
 				if(this.bInactivity) {
 					tInactivity.Start();

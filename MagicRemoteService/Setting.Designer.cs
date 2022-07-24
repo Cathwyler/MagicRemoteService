@@ -55,6 +55,7 @@ namespace MagicRemoteService {
 			this.grpboxPC = new System.Windows.Forms.GroupBox();
 			this.chkboxStartup = new System.Windows.Forms.CheckBox();
 			this.grpboxTV = new System.Windows.Forms.GroupBox();
+			this.chkboxExtend = new System.Windows.Forms.CheckBox();
 			this.ipadrboxSendIP = new MagicRemoteService.IPAddressBox();
 			this.phyadrboxPCMac = new MagicRemoteService.MacAddressBox();
 			this.ipadrboxSubnetMask = new MagicRemoteService.IPAddressBox();
@@ -290,6 +291,7 @@ namespace MagicRemoteService {
 			// grpboxTV
 			// 
 			resources.ApplyResources(this.grpboxTV, "grpboxTV");
+			this.grpboxTV.Controls.Add(this.chkboxExtend);
 			this.grpboxTV.Controls.Add(this.labTV);
 			this.grpboxTV.Controls.Add(this.ipadrboxSendIP);
 			this.grpboxTV.Controls.Add(this.numboxSendPort);
@@ -313,6 +315,13 @@ namespace MagicRemoteService {
 			this.grpboxTV.Name = "grpboxTV";
 			this.grpboxTV.TabStop = false;
 			this.ttFormating.SetToolTip(this.grpboxTV, resources.GetString("grpboxTV.ToolTip"));
+			// 
+			// chkboxExtend
+			// 
+			resources.ApplyResources(this.chkboxExtend, "chkboxExtend");
+			this.chkboxExtend.Name = "chkboxExtend";
+			this.ttFormating.SetToolTip(this.chkboxExtend, resources.GetString("chkboxExtend.ToolTip"));
+			this.chkboxExtend.UseVisualStyleBackColor = true;
 			// 
 			// ipadrboxSendIP
 			// 
@@ -403,5 +412,6 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.GroupBox grpboxPC;
 		private System.Windows.Forms.GroupBox grpboxTV;
 		private System.Windows.Forms.CheckBox chkboxStartup;
+		private System.Windows.Forms.CheckBox chkboxExtend;
 	}
 }

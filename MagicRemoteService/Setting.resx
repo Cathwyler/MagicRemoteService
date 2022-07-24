@@ -117,16 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="phyadrboxPCMac.ToolTip" xml:space="preserve">
+  <data name="btnTVInstall.ToolTip" xml:space="preserve">
     <value />
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labTV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 13</value>
+  </data>
   <data name="labTimeoutIncativity.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 65</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labInput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
+  </data>
+  <data name="labTimeoutIncativityUnit.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="grpboxPC.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
@@ -135,17 +141,17 @@
   <data name="labTimeoutIncativity.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;numboxTimeoutScreensaver.Name" xml:space="preserve">
-    <value>numboxTimeoutScreensaver</value>
+  <data name="btnTVRefresh.Text" xml:space="preserve">
+    <value>Refresh TVs</value>
   </data>
   <data name="&gt;&gt;ipadrboxSubnetMask.Name" xml:space="preserve">
     <value>ipadrboxSubnetMask</value>
   </data>
   <data name="btnTVRefresh.Location" type="System.Drawing.Point, System.Drawing">
     <value>310, 18</value>
+  </data>
+  <data name="&gt;&gt;labTimeoutScreensaverUnit.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="ipadrboxSubnetMask.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 20</value>
@@ -162,26 +168,35 @@
   <data name="cmbboxInput.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
-  <data name="&gt;&gt;numboxTimeoutRightClick.Parent" xml:space="preserve">
-    <value>grpboxTV</value>
+  <data name="&gt;&gt;grpboxPC.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;labInput.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
-  <data name="&gt;&gt;btnPCSave.Name" xml:space="preserve">
-    <value>btnPCSave</value>
+  <data name="&gt;&gt;numboxTimeoutRightClick.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
   </data>
   <data name="btnPCSave.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 112</value>
   </data>
+  <data name="labTimeoutRightClickUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;labSubnetMask.Name" xml:space="preserve">
+    <value>labSubnetMask</value>
+  </data>
   <data name="labSendIP.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 13</value>
+  </data>
+  <data name="labTimeoutScreensaverUnit.Text" xml:space="preserve">
+    <value>ms</value>
   </data>
   <data name="chkboxInactivity.Text" xml:space="preserve">
     <value>Automatically turn off the computer when the TV is on</value>
   </data>
-  <data name="labTimeoutScreensaverUnit.Text" xml:space="preserve">
-    <value>ms</value>
+  <data name="&gt;&gt;btnTVRefresh.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="labTimeoutRightClickUnit.ToolTip" xml:space="preserve">
     <value />
@@ -189,8 +204,8 @@
   <data name="grpboxTV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="labTimeoutRightClickUnit.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
+  <data name="&gt;&gt;labPCMac.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;numboxTimeoutScreensaver.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -199,7 +214,7 @@
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;labTVPort.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="btnClose.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -214,7 +229,7 @@
     <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;labTimeoutRightClickUnit.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="btnClose.ToolTip" xml:space="preserve">
     <value />
@@ -226,7 +241,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ipadrboxSubnetMask.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="labTimeoutScreensaverUnit.Location" type="System.Drawing.Point, System.Drawing">
     <value>258, 205</value>
@@ -234,8 +249,11 @@
   <data name="&gt;&gt;labTimeoutRightClick.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;grpboxPC.Name" xml:space="preserve">
-    <value>grpboxPC</value>
+  <data name="labTimeoutRightClick.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="chkboxExtend.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
   </data>
   <data name="&gt;&gt;numboxSendPort.Name" xml:space="preserve">
     <value>numboxSendPort</value>
@@ -246,17 +264,14 @@
   <data name="&gt;&gt;cmbboxInput.Parent" xml:space="preserve">
     <value>grpboxTV</value>
   </data>
-  <data name="ipadrboxSubnetMask.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;btnPCSave.Parent" xml:space="preserve">
+    <value>grpboxPC</value>
   </data>
   <data name="btnClose.Text" xml:space="preserve">
     <value>Close</value>
   </data>
   <data name="btnClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;ipadrboxSendIP.Parent" xml:space="preserve">
-    <value>grpboxTV</value>
   </data>
   <data name="labTimeoutScreensaverUnit.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -273,23 +288,23 @@
   <data name="&gt;&gt;numboxListenPort.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;chkboxStartup.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="cmbboxTV.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
-  <data name="&gt;&gt;labPCMac.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="numboxTimeoutScreensaver.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
   </data>
   <data name="numboxSendPort.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;labTimeoutScreensaverUnit.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="&gt;&gt;labTimeoutIncativity.Parent" xml:space="preserve">
+    <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;numboxTimeoutScreensaver.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="grpboxPC.Size" type="System.Drawing.Size, System.Drawing">
     <value>418, 141</value>
@@ -302,6 +317,9 @@
   </data>
   <data name="&gt;&gt;ttFormating.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labTimeoutScreensaver.Name" xml:space="preserve">
+    <value>labTimeoutScreensaver</value>
   </data>
   <data name="numboxTimeoutInactivity.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -318,17 +336,23 @@
   <data name="numboxTimeoutRightClick.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="&gt;&gt;numboxTimeoutInactivity.Parent" xml:space="preserve">
-    <value>grpboxPC</value>
+  <data name="&gt;&gt;grpboxPC.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labTimeoutIncativity.Name" xml:space="preserve">
+    <value>labTimeoutIncativity</value>
   </data>
   <data name="labTimeoutScreensaver.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="&gt;&gt;btnTVInstall.Name" xml:space="preserve">
+    <value>btnTVInstall</value>
+  </data>
+  <data name="cmbboxInput.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="&gt;&gt;btnClose.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labInput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
   </data>
   <data name="grpboxPC.ToolTip" xml:space="preserve">
     <value />
@@ -345,17 +369,20 @@
   <data name="btnTVInstall.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
   </data>
-  <data name="btnTVInstall.Text" xml:space="preserve">
-    <value>Install on TV</value>
-  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
+  </data>
+  <data name="chkboxExtend.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="phyadrboxPCMac.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 20</value>
   </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="&gt;&gt;numboxSendPort.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;phyadrboxPCMac.Type" xml:space="preserve">
     <value>MagicRemoteService.MacAddressBox, MagicRemoteService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
@@ -363,14 +390,11 @@
   <data name="labTVPort.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;labTimeoutIncativityUnit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="labSendIP.Text" xml:space="preserve">
     <value>Computer IP address</value>
   </data>
   <data name="btnClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>322, 423</value>
+    <value>322, 441</value>
   </data>
   <data name="ipadrboxSendIP.ToolTip" xml:space="preserve">
     <value />
@@ -381,17 +405,20 @@
   <data name="labSendIP.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;labInput.Parent" xml:space="preserve">
-    <value>grpboxTV</value>
+  <data name="labTV.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;ipadrboxSendIP.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="labTimeoutScreensaver.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 205</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkboxExtend.Size" type="System.Drawing.Size, System.Drawing">
+    <value>251, 17</value>
   </data>
   <data name="&gt;&gt;phyadrboxPCMac.Name" xml:space="preserve">
     <value>phyadrboxPCMac</value>
@@ -417,6 +444,9 @@
   <data name="labTV.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
+  <data name="&gt;&gt;btnPCSave.Name" xml:space="preserve">
+    <value>btnPCSave</value>
+  </data>
   <data name="labPCMac.Text" xml:space="preserve">
     <value>Computer MAC address</value>
   </data>
@@ -426,8 +456,8 @@
   <data name="&gt;&gt;ipadrboxSendIP.Name" xml:space="preserve">
     <value>ipadrboxSendIP</value>
   </data>
-  <data name="labTimeoutIncativityUnit.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labInput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 13</value>
   </data>
   <data name="numboxSendPort.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 99</value>
@@ -437,6 +467,9 @@
   </data>
   <data name="&gt;&gt;btnTVRefresh.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labTVPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="labPCMac.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -453,6 +486,9 @@
   <data name="numboxListenPort.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="chkboxExtend.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="&gt;&gt;numboxListenPort.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -462,8 +498,14 @@
   <data name="chkboxStartup.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 17</value>
   </data>
+  <data name="ipadrboxSubnetMask.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labSendIP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;grpboxPC.Name" xml:space="preserve">
+    <value>grpboxPC</value>
   </data>
   <data name="&gt;&gt;labSendIP.Name" xml:space="preserve">
     <value>labSendIP</value>
@@ -2554,9 +2596,6 @@
         WJRNgX0CE2QAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="&gt;&gt;btnPCSave.Parent" xml:space="preserve">
-    <value>grpboxPC</value>
-  </data>
   <data name="labTimeoutIncativityUnit.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 13</value>
   </data>
@@ -2581,9 +2620,6 @@
   <data name="&gt;&gt;numboxTimeoutInactivity.Name" xml:space="preserve">
     <value>numboxTimeoutInactivity</value>
   </data>
-  <data name="ipadrboxSendIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 20</value>
-  </data>
   <data name="&gt;&gt;btnClose.Name" xml:space="preserve">
     <value>btnClose</value>
   </data>
@@ -2603,7 +2639,7 @@
     <value>labPCPort</value>
   </data>
   <data name="&gt;&gt;numboxTimeoutRightClick.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="chkboxStartup.ToolTip" xml:space="preserve">
     <value />
@@ -2615,13 +2651,13 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labTV.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="labInput.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
   <data name="grpboxTV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 258</value>
+    <value>418, 281</value>
   </data>
   <data name="labTimeoutScreensaverUnit.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -2632,14 +2668,11 @@
   <data name="chkboxInactivity.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="chkboxExtend.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 229</value>
+  </data>
   <data name="btnTVInstall.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;grpboxPC.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labTV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 13</value>
   </data>
   <data name="labInput.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 49</value>
@@ -2656,8 +2689,8 @@
   <data name="&gt;&gt;chkboxStartup.Parent" xml:space="preserve">
     <value>grpboxPC</value>
   </data>
-  <data name="&gt;&gt;labPCMac.Parent" xml:space="preserve">
-    <value>grpboxTV</value>
+  <data name="ipadrboxSendIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 20</value>
   </data>
   <data name="btnTVRefresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 23</value>
@@ -2669,7 +2702,7 @@
     <value>grpboxTV</value>
   </data>
   <data name="&gt;&gt;labSendIP.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="labTV.ToolTip" xml:space="preserve">
     <value />
@@ -2679,6 +2712,9 @@
   </data>
   <data name="&gt;&gt;labPCPort.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="chkboxExtend.Text" xml:space="preserve">
+    <value>Automatically extend developer mode every day</value>
   </data>
   <data name="grpboxTV.Text" xml:space="preserve">
     <value>TVs</value>
@@ -2693,10 +2729,13 @@
     <value>24</value>
   </data>
   <data name="&gt;&gt;btnTVInstall.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="labTVPort.Text" xml:space="preserve">
     <value>Send port</value>
+  </data>
+  <data name="labTimeoutScreensaverUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labTimeoutIncativityUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2710,6 +2749,9 @@
   <data name="&gt;&gt;labTimeoutRightClick.Parent" xml:space="preserve">
     <value>grpboxTV</value>
   </data>
+  <data name="labSubnetMask.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labTimeoutIncativity.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2719,14 +2761,17 @@
   <data name="labTimeoutScreensaver.Text" xml:space="preserve">
     <value>Screen saver timeout</value>
   </data>
+  <data name="&gt;&gt;chkboxExtend.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="labSubnetMask.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="labPCPort.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;labTimeoutScreensaver.Name" xml:space="preserve">
-    <value>labTimeoutScreensaver</value>
+  <data name="btnTVInstall.Text" xml:space="preserve">
+    <value>Install on TV</value>
   </data>
   <data name="numboxTimeoutRightClick.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -2734,8 +2779,8 @@
   <data name="btnPCSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labTimeoutRightClickUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labSubnetMask.Text" xml:space="preserve">
+    <value>Subnet mask</value>
   </data>
   <data name="&gt;&gt;labTimeoutIncativityUnit.Name" xml:space="preserve">
     <value>labTimeoutIncativityUnit</value>
@@ -2743,8 +2788,8 @@
   <data name="&gt;&gt;numboxSendPort.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="cmbboxInput.ToolTip" xml:space="preserve">
-    <value />
+  <data name="grpboxPC.Text" xml:space="preserve">
+    <value>PC</value>
   </data>
   <data name="ipadrboxSubnetMask.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 125</value>
@@ -2753,7 +2798,7 @@
     <value>2</value>
   </data>
   <data name="&gt;&gt;cmbboxTV.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="cmbboxInput.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
@@ -2764,14 +2809,11 @@
   <data name="labTVPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 13</value>
   </data>
-  <data name="&gt;&gt;btnTVInstall.Name" xml:space="preserve">
-    <value>btnTVInstall</value>
+  <data name="&gt;&gt;ipadrboxSendIP.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
   </data>
   <data name="&gt;&gt;labTVPort.Name" xml:space="preserve">
     <value>labTVPort</value>
-  </data>
-  <data name="&gt;&gt;btnTVRefresh.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <data name="labTimeoutRightClick.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 13</value>
@@ -2788,14 +2830,14 @@
   <data name="numboxTimeoutScreensaver.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="btnTVInstall.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;cmbboxInput.Name" xml:space="preserve">
+    <value>cmbboxInput</value>
+  </data>
+  <data name="&gt;&gt;chkboxExtend.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
   </data>
   <data name="&gt;&gt;btnClose.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="&gt;&gt;cmbboxInput.Name" xml:space="preserve">
-    <value>cmbboxInput</value>
   </data>
   <data name="&gt;&gt;labPCMac.Name" xml:space="preserve">
     <value>labPCMac</value>
@@ -2806,8 +2848,8 @@
   <data name="chkboxStartup.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 89</value>
   </data>
-  <data name="grpboxPC.Text" xml:space="preserve">
-    <value>PC</value>
+  <data name="&gt;&gt;numboxTimeoutScreensaver.Name" xml:space="preserve">
+    <value>numboxTimeoutScreensaver</value>
   </data>
   <data name="chkboxInactivity.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -2815,8 +2857,8 @@
   <data name="labTimeoutRightClick.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labSubnetMask.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Setting</value>
   </data>
   <data name="&gt;&gt;labTimeoutRightClickUnit.Name" xml:space="preserve">
     <value>labTimeoutRightClickUnit</value>
@@ -2851,11 +2893,14 @@
   <data name="chkboxInactivity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;labPCMac.ZOrder" xml:space="preserve">
-    <value>11</value>
+  <data name="chkboxExtend.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;numboxListenPort.Parent" xml:space="preserve">
     <value>grpboxPC</value>
+  </data>
+  <data name="&gt;&gt;labPCMac.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
   </data>
   <data name="grpboxTV.ToolTip" xml:space="preserve">
     <value />
@@ -2882,10 +2927,10 @@
     <value>Right click timeout</value>
   </data>
   <data name="&gt;&gt;labTimeoutRightClick.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="btnTVInstall.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 229</value>
+    <value>151, 252</value>
   </data>
   <data name="&gt;&gt;chkboxInactivity.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2896,20 +2941,20 @@
   <data name="phyadrboxPCMac.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 151</value>
   </data>
-  <data name="&gt;&gt;labSubnetMask.Name" xml:space="preserve">
-    <value>labSubnetMask</value>
+  <data name="&gt;&gt;btnClose.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="btnClose.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>Setting</value>
-  </data>
-  <data name="ipadrboxSendIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 73</value>
+  <data name="chkboxStartup.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;btnTVRefresh.Parent" xml:space="preserve">
     <value>grpboxTV</value>
+  </data>
+  <data name="&gt;&gt;labPCMac.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="grpboxPC.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -2924,7 +2969,7 @@
     <value>6, 127</value>
   </data>
   <data name="&gt;&gt;cmbboxInput.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="&gt;&gt;labPCPort.Parent" xml:space="preserve">
     <value>grpboxPC</value>
@@ -2941,8 +2986,11 @@
   <data name="labTV.Text" xml:space="preserve">
     <value>TV name</value>
   </data>
-  <data name="labTimeoutScreensaverUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labPCPort.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="phyadrboxPCMac.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;labSendIP.Parent" xml:space="preserve">
     <value>grpboxTV</value>
@@ -2950,11 +2998,8 @@
   <data name="labTimeoutIncativityUnit.Location" type="System.Drawing.Point, System.Drawing">
     <value>258, 65</value>
   </data>
-  <data name="&gt;&gt;grpboxTV.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnClose.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;chkboxExtend.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="labTimeoutScreensaverUnit.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 13</value>
@@ -2965,23 +3010,20 @@
   <data name="btnTVRefresh.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="labTimeoutRightClickUnit.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
   <data name="&gt;&gt;labSubnetMask.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;labTimeoutIncativityUnit.Parent" xml:space="preserve">
     <value>grpboxPC</value>
   </data>
-  <data name="labSubnetMask.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 13</value>
-  </data>
   <data name="&gt;&gt;labTimeoutScreensaver.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="&gt;&gt;numboxTimeoutInactivity.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labPCMac.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 13</value>
   </data>
   <data name="&gt;&gt;labTV.Parent" xml:space="preserve">
     <value>grpboxTV</value>
@@ -2992,8 +3034,8 @@
   <data name="labTimeoutRightClickUnit.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 13</value>
   </data>
-  <data name="labPCPort.ToolTip" xml:space="preserve">
-    <value />
+  <data name="ipadrboxSendIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 73</value>
   </data>
   <data name="&gt;&gt;phyadrboxPCMac.Parent" xml:space="preserve">
     <value>grpboxTV</value>
@@ -3010,14 +3052,11 @@
   <data name="&gt;&gt;labTimeoutIncativityUnit.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="&gt;&gt;labTimeoutIncativity.Parent" xml:space="preserve">
+  <data name="&gt;&gt;grpboxTV.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numboxTimeoutInactivity.Parent" xml:space="preserve">
     <value>grpboxPC</value>
-  </data>
-  <data name="numboxTimeoutScreensaver.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="&gt;&gt;labTimeoutIncativity.Name" xml:space="preserve">
-    <value>labTimeoutIncativity</value>
   </data>
   <data name="&gt;&gt;grpboxTV.Parent" xml:space="preserve">
     <value>$this</value>
@@ -3029,13 +3068,10 @@
     <value>29</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>442, 458</value>
+    <value>442, 476</value>
   </data>
   <data name="labTVPort.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="labSubnetMask.Text" xml:space="preserve">
-    <value>Subnet mask</value>
   </data>
   <data name="chkboxInactivity.Size" type="System.Drawing.Size, System.Drawing">
     <value>278, 17</value>
@@ -3043,17 +3079,11 @@
   <data name="labTimeoutIncativityUnit.Text" xml:space="preserve">
     <value>ms</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="&gt;&gt;cmbboxTV.Parent" xml:space="preserve">
     <value>grpboxTV</value>
   </data>
-  <data name="btnTVRefresh.Text" xml:space="preserve">
-    <value>Refresh TVs</value>
-  </data>
   <data name="&gt;&gt;phyadrboxPCMac.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="labPCMac.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -3064,10 +3094,13 @@
   <data name="&gt;&gt;numboxTimeoutScreensaver.Parent" xml:space="preserve">
     <value>grpboxTV</value>
   </data>
+  <data name="&gt;&gt;labInput.Parent" xml:space="preserve">
+    <value>grpboxTV</value>
+  </data>
   <data name="&gt;&gt;labTV.Name" xml:space="preserve">
     <value>labTV</value>
   </data>
-  <data name="&gt;&gt;labTVPort.Type" xml:space="preserve">
+  <data name="&gt;&gt;labTimeoutIncativityUnit.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="numboxTimeoutInactivity.ToolTip" xml:space="preserve">
@@ -3079,8 +3112,11 @@
   <data name="labPCMac.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;grpboxPC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;chkboxStartup.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labTimeoutIncativity.Text" xml:space="preserve">
+    <value>Timeout</value>
   </data>
   <data name="&gt;&gt;grpboxTV.Name" xml:space="preserve">
     <value>grpboxTV</value>
@@ -3112,9 +3148,6 @@
   <data name="cmbboxTV.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
   </data>
-  <data name="labTV.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="&gt;&gt;labInput.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -3133,14 +3166,17 @@
   <data name="cmbboxTV.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="labTimeoutRightClick.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labSubnetMask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 13</value>
   </data>
   <data name="labInput.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="labSubnetMask.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
+  </data>
+  <data name="&gt;&gt;chkboxExtend.Name" xml:space="preserve">
+    <value>chkboxExtend</value>
   </data>
   <data name="&gt;&gt;labTimeoutScreensaverUnit.Name" xml:space="preserve">
     <value>labTimeoutScreensaverUnit</value>
@@ -3154,9 +3190,12 @@
   <data name="numboxListenPort.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
-  <data name="labTimeoutIncativity.Text" xml:space="preserve">
-    <value>Timeout</value>
+  <data name="labPCMac.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 13</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>fr</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

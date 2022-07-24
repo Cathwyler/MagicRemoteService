@@ -2,5 +2,5 @@
 	"id": "com.cathwyler.magicremoteservice",
 	"title": "MagicRemoteService",
 	"appDescription": "Service permettant de contrôler un ordinateur à l'aide d'une TV WebOS LG",
-	"version": "0.0.1"
+	"version": "1.0.2"
 }

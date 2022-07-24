@@ -70,7 +70,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;iconColor&quot;: &quot;#4F4F4F&quot;,
         ///	&quot;type&quot;: &quot;web&quot;,
         ///	&quot;vendor&quot;: &quot;Cathwyler&quot;,
-        ///	&quot;version&quot;: &quot;0.0.1&quot;,
+        ///	&quot;version&quot;: &quot;1.0.2&quot;,
         ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
         ///	&quot;bgColor&quot;: &quot;#4F4F4F&quot;,
         ///	&quot;supportTouchMode&quot;: &quot;none&quot;,
@@ -108,7 +108,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice&quot;,
         ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
         ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
-        ///	&quot;version&quot;: &quot;0.0.1&quot;
+        ///	&quot;version&quot;: &quot;1.0.2&quot;
         ///}.
         /// </summary>
         internal static string frappinfo {
@@ -309,21 +309,20 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
-        ///function GetString(){
-        ///	switch(webOS.systemInfo().country) {
-        ///		case &quot;FRA&quot;:
-        ///			return {
-        ///				strAppTittle: &quot;Magic remote service&quot;,
-        ///				strAppDescription: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
-        ///			
-        ///				strLogTitle: &quot;Log&quot;,
-        ///				strWarnTitle: &quot;Warn&quot;,
-        ///				strErrorTitle: &quot;Error&quot;,
-        ///			
-        ///				strLaunchAppSuccess: &quot;Success to launch {1}&quot;,
-        ///				strLaunchAppFailure: &quot;Failed to launch {1}&quot;,
-        ///				strGetAllInputStatusSubscribe: &quot;Start to get all input status&quot;,
-        ///				strGetAllInputStatusFai [le reste de la chaîne a été tronqué]&quot;;.
+        ///const oStringDefault = {
+        ///	strAppTittle: &quot;Magic remote service&quot;,
+        ///	strAppDescription: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///
+        ///	strLogTitle: &quot;Log&quot;,
+        ///	strWarnTitle: &quot;Warn&quot;,
+        ///	strErrorTitle: &quot;Error&quot;,
+        ///
+        ///	strLaunchAppSuccess: &quot;Success to launch {1}&quot;,
+        ///	strLaunchAppFailure: &quot;Failed to launch {1}&quot;,
+        ///	strGetAllInputStatusSubscribe: &quot;Start to get all input status&quot;,
+        ///	strGetAllInputStatusFailure: &quot;Failed to get all input status&quot;,
+        ///	strSendWolSuccess: &quot;Success to send WoL&quot;,
+        ///	strSendWolF [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string ressource {
             get {
@@ -339,25 +338,18 @@ namespace MagicRemoteService.Properties {
         ///
         ///var serService = new Service(pkgInfo.name);
         ///
-        ////*serService.register(&quot;keepalive&quot;, function(mMessage) {
-        ///	try {
-        ///		mMessage.respond({
-        ///			returnValue: true
-        ///		});
-        ///	} catch(eError) {
-        ///		mMessage.respond({
-        ///			eError: eError,
-        ///			returnValue: false
-        ///		});
-        ///	}
-        ///});*/
-        ///
         ///var socClient = Dgram.createSocket(&quot;udp4&quot;);
         ///socClient.bind(function() {
         ///	socClient.setBroadcast(true);
         ///});
         ///
-        ///var bufWol =  [le reste de la chaîne a été tronqué]&quot;;.
+        ///var bufWol = Buffer.alloc(102);
+        ///bufWol.fill(0xFF, 0, 6);
+        ///
+        ///serService.register(&quot;wol&quot;, function(mMessage) {
+        ///	try {
+        ///		bufWol.fill(Buffer.from(mMessage.payload.mMac.tabMac), 6);
+        ///		socClient.send(bufWol, 9, mMessage.payload.sBroadcas [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string send {
             get {

@@ -54,7 +54,7 @@ function AppFocus() {
 }
 
 function KeyboardVisible() {
-	return webOS.keyboard.isShowing() === true;
+	return window.PalmSystem.isKeyboardVisible === true;
 }
 
 function CursorVisible() {
