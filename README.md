@@ -1,5 +1,5 @@
 # MagicRemoteService
-Service providing computer remote control using a LG WebOS TV.</br>
+Service providing computer remote control using a LG WebOS TV.
 Tested with WebOS 6.0 (OLED65C1, OLED48C1) and Windows 10.
 
 ## Introduction
@@ -31,7 +31,7 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
   - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev.
 
 ## Using MagicRemoteService
-MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in step 1 and 2.
+MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in installation step.
 
 Magic remote inputs :
 - The red key shuts down or starts up your PC.
