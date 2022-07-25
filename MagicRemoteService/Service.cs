@@ -5,7 +5,6 @@ namespace MagicRemoteService {
 		INPUT_KEYBOARD = 1,
 		INPUT_HARDWARE = 2
 	}
-
 	[System.Flags]
 	public enum KeybdInputFlags : uint {
 		KEYEVENTF_KEYDOWN = 0x0000,
@@ -14,7 +13,6 @@ namespace MagicRemoteService {
 		KEYEVENTF_UNICODE = 0x0004,
 		KEYEVENTF_SCANCODE = 0x0008
 	}
-
 	[System.Flags]
 	public enum MouseInputFlags : uint {
 		MOUSEEVENTF_MOVE = 0x0001,
@@ -32,7 +30,6 @@ namespace MagicRemoteService {
 		MOUSEEVENTF_VIRTUALDESK = 0x4000,
 		MOUSEEVENTF_ABSOLUTE = 0x8000
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct MouseInput {
 		public int dx;
@@ -42,7 +39,6 @@ namespace MagicRemoteService {
 		public uint time;
 		public System.IntPtr dwExtraInfo;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct KeybdInput {
 		public ushort wVk;
@@ -51,26 +47,22 @@ namespace MagicRemoteService {
 		public uint time;
 		public System.IntPtr dwExtraInfo;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct HardwareInput {
 		public uint uMsg;
 		public ushort wParamL;
 		public ushort wParamH;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)] public MouseInput mi;
 		[System.Runtime.InteropServices.FieldOffset(0)] public KeybdInput ki;
 		[System.Runtime.InteropServices.FieldOffset(0)] public HardwareInput hi;
 	}
-
 	public struct Input {
 		public InputType type;
 		public DummyUnionName u;
 	}
-
 	[System.Flags]
 	public enum MapTypeFlags : uint {
 		MAPVK_VK_TO_VSC = 0,
@@ -79,7 +71,6 @@ namespace MagicRemoteService {
 		MAPVK_VSC_TO_VK_EX = 3,
 		MAPVK_VK_TO_VSC_EX = 04
 	}
-
 	public enum ServiceCurrentState : uint {
 		SERVICE_STOPPED = 0x00000001,
 		SERVICE_START_PENDING = 0x00000002,
@@ -89,7 +80,6 @@ namespace MagicRemoteService {
 		SERVICE_PAUSE_PENDING = 0x00000006,
 		SERVICE_PAUSED = 0x00000007,
 	}
-
 	/*[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct ServiceStatus {
 		public uint dwServiceType;
@@ -100,12 +90,12 @@ namespace MagicRemoteService {
 		public uint dwCheckPoint;
 		public uint dwWaitHint;
 	};*/
-
 	public partial class Service : System.ServiceProcess.ServiceBase {
 		private volatile int iPort;
 		private volatile bool bInactivity;
 		private volatile int iTimeoutInactivity;
 		private System.Threading.Thread thrServeur;
+		private System.Timers.Timer[] tabExtend;
 		private volatile bool bActive;
 		private ServiceCurrentState scsState;
 		public ServiceCurrentState State {
@@ -121,10 +111,8 @@ namespace MagicRemoteService {
 			this.elEventLog.Source = this.ServiceName;
 			this.elEventLog.Log = "Application";
 		}
-
 		/*[System.Runtime.InteropServices.DllImport("advapi32.dll", SetLastError = true)]
 		private static extern bool SetServiceStatus(System.IntPtr handle, ref ServiceStatus serviceStatus);*/
-
 		public void ServiceStart() {
 			this.Log("Service start");
 
@@ -145,6 +133,34 @@ namespace MagicRemoteService {
 				this.iTimeoutInactivity = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
 			}
 
+			this.tabExtend = System.Array.ConvertAll(System.Array.FindAll(rkMagicRemoteService.GetSubKeyNames(), delegate(string str) {
+				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\MagicRemoteService\\" + str);
+				return (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
+			}), new System.Converter<string, System.Timers.Timer>(delegate (string str) {
+
+				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\MagicRemoteService\\" + str);
+				
+				System.Timers.Timer tExtend = new System.Timers.Timer();
+				tExtend.AutoReset = false;
+				tExtend.Interval = System.Math.Max(100, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-1).Ticks)).AddHours(-4).Date.AddDays(1).AddHours(4) - System.DateTime.Now).TotalMilliseconds);
+				tExtend.Elapsed += async delegate(System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+					if(await System.Threading.Tasks.Task.Run<bool>(delegate () {
+						try {
+							WebOSCLI.Extend(str);
+							return true;
+						} catch(System.Exception) {
+							return false;
+						}
+					})) {
+						rkMagicRemoteServiceDevice.SetValue("LastExtend", System.DateTime.Now.Ticks, Microsoft.Win32.RegistryValueKind.QWord);
+					}
+					tExtend.Interval = System.Math.Max(60000, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-1).Ticks)).AddHours(-4).Date.AddDays(1).AddHours(4) - System.DateTime.Now).TotalMilliseconds);
+					tExtend.Start();
+				};
+				tExtend.Start();
+				return tExtend;
+			}));
+
 			this.bActive = true;
 
 			System.Net.Sockets.Socket socServeur = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
@@ -157,7 +173,6 @@ namespace MagicRemoteService {
 			/*ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_RUNNING;
 			Service.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);*/
 		}
-
 		public void ServiceStop() {
 			this.Log("Service stop");
 
@@ -167,6 +182,12 @@ namespace MagicRemoteService {
 			ssServiceStatus.dwWaitHint = 100000;
 			Service.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);*/
 
+			foreach(System.Timers.Timer tExtend in this.tabExtend) {
+				tExtend.Stop();
+				tExtend.Dispose();
+			}
+			this.tabExtend = null;
+
 			this.bActive = false;
 			this.thrServeur.Join();
 			this.thrServeur = null;
@@ -175,42 +196,32 @@ namespace MagicRemoteService {
 			/*ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_STOPPED;
 			Service.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);*/
 		}
-
 		protected override void OnStart(string[] args) {
 			this.ServiceStart();
 		}
-
 		protected override void OnStop() {
 			this.ServiceStop();
 		}
-
 		public void Log(string sLog) {
 			this.elEventLog.WriteEntry(sLog, System.Diagnostics.EventLogEntryType.Information);
 		}
-
 		public void LogIfDebug(string sLog) {
 #if DEBUG
 			Log(sLog);
 #endif
 		}
-
 		public void Warn(string sWarn) {
 			this.elEventLog.WriteEntry(sWarn, System.Diagnostics.EventLogEntryType.Warning);
 		}
-
 		public void Error(string sError) {
 			this.elEventLog.WriteEntry(sError, System.Diagnostics.EventLogEntryType.Error);
 		}
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		private static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		private static extern uint MapVirtualKeyA(uint uCode, MapTypeFlags uMapType);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll")]
 		private static extern System.IntPtr GetMessageExtraInfo();
-
 		private void ThreadServeur(System.Net.Sockets.Socket socServeur) {
 			try {
 				System.Collections.Generic.List<System.Threading.Thread> liClient = new System.Collections.Generic.List<System.Threading.Thread>();
@@ -240,8 +251,6 @@ namespace MagicRemoteService {
 				this.Error(eException.ToString());
 			}
 		}
-
-
 		private void ThreadClient(System.Net.Sockets.Socket socClient) {
 			try {
 				this.Log("Socket accepted [" + socClient.GetHashCode() + "]");

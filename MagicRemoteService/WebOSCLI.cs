@@ -119,7 +119,9 @@ namespace MagicRemoteService {
 			};
 		}
 		static public MagicRemoteService.WebOSCLIDevice[] SetupDeviceList() {
-			return System.Text.Json.JsonSerializer.Deserialize<MagicRemoteService.WebOSCLIDevice[]>(MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", "-F"));
+			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
+			tabArguments.Add("-F");
+			return System.Text.Json.JsonSerializer.Deserialize<MagicRemoteService.WebOSCLIDevice[]>(MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", string.Join(" ", tabArguments)));
 		}
 		static public void Package(string strOutDir, string strApp, string strService = null, string strPkg = null) {
 			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
@@ -158,6 +160,11 @@ namespace MagicRemoteService {
 			tabArguments.Add("-d \"" + strDevice + "\"");
 			tabArguments.Add("\"" + strAppId + "\"");
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-launch", string.Join(" ", tabArguments));
+		}
+		static public void Extend(string strDevice) {
+			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
+			tabArguments.Add("-d \"" + strDevice + "\"");
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-extend-dev", string.Join(" ", tabArguments));
 		}
 	}
 }

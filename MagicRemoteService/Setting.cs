@@ -67,13 +67,9 @@ namespace MagicRemoteService {
 			TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
 			ts.Connect();
 			TaskScheduler.IRegisteredTask rtStartup = null;
-			foreach(TaskScheduler.ITaskFolder tf in ts.GetFolder("\\").GetFolders(0)) {
-				if(tf.Name == "MagicRemoteService") {
-					foreach(TaskScheduler.IRegisteredTask rt in tf.GetTasks(0)) {
-						if(rt.Name == "Startup") {
-							rtStartup = rt;
-						}
-					}
+			foreach(TaskScheduler.IRegisteredTask rt in ts.GetFolder("\\").GetTasks(0)) {
+				if(rt.Name == "Startup") {
+					rtStartup = rt;
 				}
 			}
 			if(rtStartup == null) {
@@ -91,16 +87,6 @@ namespace MagicRemoteService {
 
 			TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
 			ts.Connect();
-			TaskScheduler.ITaskFolder tfRoot = ts.GetFolder("\\");
-			TaskScheduler.ITaskFolder tfMagicRemoteService = null;
-			foreach(TaskScheduler.ITaskFolder tf in tfRoot.GetFolders(0)) {
-				if(tf.Name == "MagicRemoteService") {
-					tfMagicRemoteService = tf;
-				}
-			}
-			if(tfMagicRemoteService == null) {
-				tfMagicRemoteService = tfRoot.CreateFolder("MagicRemoteService");
-			}
 			TaskScheduler.ITaskDefinition tdStartup = ts.NewTask(0);
 			tdStartup.Principal.RunLevel = TaskScheduler._TASK_RUNLEVEL.TASK_RUNLEVEL_HIGHEST;
 			tdStartup.Settings.Enabled = this.chkboxStartup.Checked;
@@ -113,7 +99,7 @@ namespace MagicRemoteService {
 			TaskScheduler.IExecAction eaStartup = (TaskScheduler.IExecAction)tdStartup.Actions.Create(TaskScheduler._TASK_ACTION_TYPE.TASK_ACTION_EXEC);
 			eaStartup.Path = System.IO.Path.GetFullPath(".\\MagicRemoteService.exe");
 			eaStartup.WorkingDirectory = System.IO.Path.GetFullPath(".");
-			tfMagicRemoteService.RegisterTaskDefinition("Startup", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
+			ts.GetFolder("\\").RegisterTaskDefinition("Startup", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
 
 			NetFwTypeLib.INetFwRule nfrMagicRemoteService = (NetFwTypeLib.INetFwRule)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("HNetCfg.FWRule"));
 			nfrMagicRemoteService.Direction = NetFwTypeLib.NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_IN;
@@ -164,6 +150,7 @@ namespace MagicRemoteService {
 					this.phyadrboxPCMac.Value = MagicRemoteService.Setting.paMacDefaut;
 					this.numboxTimeoutRightClick.Value = 1500;
 					this.numboxTimeoutScreensaver.Value = 120000;
+					this.chkboxExtend.Checked = false;
 				} else {
 					string sInputId = (string)rkMagicRemoteServiceDevice.GetValue("Input");
 					if(sInputId == null) {
@@ -192,24 +179,7 @@ namespace MagicRemoteService {
 					}
 					this.numboxTimeoutRightClick.Value = (int)rkMagicRemoteServiceDevice.GetValue("TimeoutRightClick", 1500);
 					this.numboxTimeoutScreensaver.Value = (int)rkMagicRemoteServiceDevice.GetValue("TimeoutScreensaver", 120000);
-				}
-
-				TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
-				ts.Connect();
-				TaskScheduler.IRegisteredTask rtExtend = null;
-				foreach(TaskScheduler.ITaskFolder tf in ts.GetFolder("\\").GetFolders(0)) {
-					if(tf.Name == "MagicRemoteService") {
-						foreach(TaskScheduler.IRegisteredTask rt in tf.GetTasks(0)) {
-							if(rt.Name == "Extend " + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name) {
-								rtExtend = rt;
-							}
-						}
-					}
-				}
-				if(rtExtend == null) {
-					this.chkboxExtend.Checked = false;
-				} else {
-					this.chkboxExtend.Checked = rtExtend.Enabled;
+					this.chkboxExtend.Checked = (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
 				}
 			}
 			this.wcdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
@@ -230,38 +200,7 @@ namespace MagicRemoteService {
 			rkMagicRemoteServiceDevice.SetValue("PCMac", this.phyadrboxPCMac.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("TimeoutRightClick", this.numboxTimeoutRightClick.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteServiceDevice.SetValue("TimeoutScreensaver", this.numboxTimeoutScreensaver.Value, Microsoft.Win32.RegistryValueKind.DWord);
-
-			TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
-			ts.Connect();
-			TaskScheduler.ITaskFolder tfRoot = ts.GetFolder("\\");
-			TaskScheduler.ITaskFolder tfMagicRemoteService = null;
-			foreach(TaskScheduler.ITaskFolder tf in ts.GetFolder("\\").GetFolders(0)) {
-				if(tf.Name == "MagicRemoteService") {
-					tfMagicRemoteService = tf;
-				}
-			}
-			if(tfMagicRemoteService == null) {
-				tfMagicRemoteService = tfRoot.CreateFolder("MagicRemoteService");
-			}
-			TaskScheduler.ITaskDefinition tdExtend = ts.NewTask(0);
-			tdExtend.Principal.RunLevel = TaskScheduler._TASK_RUNLEVEL.TASK_RUNLEVEL_HIGHEST;
-			tdExtend.Settings.Enabled = this.chkboxExtend.Checked;
-			tdExtend.Settings.IdleSettings.StopOnIdleEnd = false;
-			tdExtend.Settings.StartWhenAvailable = true;
-			tdExtend.Settings.RestartInterval = "PT1M";
-			tdExtend.Settings.RestartCount = 1440;
-			tdExtend.Settings.DisallowStartIfOnBatteries = false;
-			tdExtend.Settings.StopIfGoingOnBatteries = false;
-			tdExtend.Settings.ExecutionTimeLimit = "PT0S";
-			tdExtend.Settings.MultipleInstances = TaskScheduler._TASK_INSTANCES_POLICY.TASK_INSTANCES_STOP_EXISTING;
-			TaskScheduler.IDailyTrigger ltExtend = (TaskScheduler.IDailyTrigger)tdExtend.Triggers.Create(TaskScheduler._TASK_TRIGGER_TYPE2.TASK_TRIGGER_DAILY);
-			ltExtend.StartBoundary = "1999-11-30T00:00:00";
-			ltExtend.DaysInterval = 1;
-			TaskScheduler.IExecAction eaExtend = (TaskScheduler.IExecAction)tdExtend.Actions.Create(TaskScheduler._TASK_ACTION_TYPE.TASK_ACTION_EXEC);
-			eaExtend.Path = "ares-extend-dev";
-			eaExtend.Arguments = "-d " + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name;
-			tfMagicRemoteService.RegisterTaskDefinition("Extend " + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name, tdExtend, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
-
+			rkMagicRemoteServiceDevice.SetValue("Extend", this.chkboxStartup.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 		}
 		public static void AppExtract(
 			MagicRemoteService.WebOSCLIDeviceInput wcdiInput,

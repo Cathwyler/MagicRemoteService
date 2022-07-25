@@ -11,7 +11,7 @@ namespace MagicRemoteService {
 			try {
 				pa = MagicRemoteService.PhysicalAddress.Parse(str.ToUpper().Replace(':', '-'));
 				return true;
-			} catch(System.FormatException e) {
+			} catch(System.FormatException) {
 				pa = null;
 				return false;
 			}
