@@ -68,7 +68,7 @@ namespace MagicRemoteService {
 			ts.Connect();
 			TaskScheduler.IRegisteredTask rtStartup = null;
 			foreach(TaskScheduler.IRegisteredTask rt in ts.GetFolder("\\").GetTasks(0)) {
-				if(rt.Name == "Startup") {
+				if(rt.Name == "MagicRemoteService") {
 					rtStartup = rt;
 				}
 			}
@@ -99,7 +99,7 @@ namespace MagicRemoteService {
 			TaskScheduler.IExecAction eaStartup = (TaskScheduler.IExecAction)tdStartup.Actions.Create(TaskScheduler._TASK_ACTION_TYPE.TASK_ACTION_EXEC);
 			eaStartup.Path = System.IO.Path.GetFullPath(".\\MagicRemoteService.exe");
 			eaStartup.WorkingDirectory = System.IO.Path.GetFullPath(".");
-			ts.GetFolder("\\").RegisterTaskDefinition("Startup", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
+			ts.GetFolder("\\").RegisterTaskDefinition("MagicRemoteService", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
 
 			NetFwTypeLib.INetFwRule nfrMagicRemoteService = (NetFwTypeLib.INetFwRule)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("HNetCfg.FWRule"));
 			nfrMagicRemoteService.Direction = NetFwTypeLib.NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_IN;
@@ -200,7 +200,7 @@ namespace MagicRemoteService {
 			rkMagicRemoteServiceDevice.SetValue("PCMac", this.phyadrboxPCMac.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("TimeoutRightClick", this.numboxTimeoutRightClick.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteServiceDevice.SetValue("TimeoutScreensaver", this.numboxTimeoutScreensaver.Value, Microsoft.Win32.RegistryValueKind.DWord);
-			rkMagicRemoteServiceDevice.SetValue("Extend", this.chkboxStartup.Checked, Microsoft.Win32.RegistryValueKind.DWord);
+			rkMagicRemoteServiceDevice.SetValue("Extend", this.chkboxExtend.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 		}
 		public static void AppExtract(
 			MagicRemoteService.WebOSCLIDeviceInput wcdiInput,
@@ -391,6 +391,8 @@ namespace MagicRemoteService {
 				this.bInactivity != this.chkboxInactivity.Checked
 				||
 				this.dTimeoutInactivity != this.numboxTimeoutInactivity.Value
+				||
+				this.bStartup != this.chkboxStartup.Checked
 			)) {
 				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingPCSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
 					case System.Windows.Forms.DialogResult.Yes:
@@ -417,6 +419,8 @@ namespace MagicRemoteService {
 				this.dTimeoutRightClick != this.numboxTimeoutRightClick.Value
 				||
 				this.dTimeoutScreensaver != this.numboxTimeoutScreensaver.Value
+				||
+				this.bExtend != this.chkboxExtend.Checked
 			)) {
 				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingTVSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
 					case System.Windows.Forms.DialogResult.Yes:
