@@ -50,7 +50,7 @@ namespace MagicRemoteService {
 
 		}
 		public void PCDataRefresh() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\MagicRemoteService");
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
 			if(rkMagicRemoteService == null) {
 				this.numboxListenPort.Value = 41230;
 				this.chkboxInactivity.Checked = true;
@@ -64,53 +64,98 @@ namespace MagicRemoteService {
 			this.bInactivity = this.chkboxInactivity.Checked;
 			this.dTimeoutInactivity = this.numboxTimeoutInactivity.Value;
 
-			TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
-			ts.Connect();
-			TaskScheduler.IRegisteredTask rtStartup = null;
-			foreach(TaskScheduler.IRegisteredTask rt in ts.GetFolder("\\").GetTasks(0)) {
-				if(rt.Name == "MagicRemoteService") {
-					rtStartup = rt;
+			if(MagicRemoteService.Program.bElevated) {
+				System.ServiceProcess.ServiceController scService = System.Array.Find<System.ServiceProcess.ServiceController>(System.ServiceProcess.ServiceController.GetServices(), delegate (System.ServiceProcess.ServiceController sc) {
+					return sc.ServiceName == "MagicRemoteService";
+				});
+				if(scService == null) {
+					this.chkboxStartup.Checked = true;
+				} else {
+					this.chkboxStartup.Checked = scService.StartType == System.ServiceProcess.ServiceStartMode.Automatic;
+				}
+			} else {
+				TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
+				ts.Connect();
+				TaskScheduler.IRegisteredTask rtStartup = null;
+				foreach(TaskScheduler.IRegisteredTask rt in ts.GetFolder("\\").GetTasks(0)) {
+					if(rt.Name == "MagicRemoteService") {
+						rtStartup = rt;
+					}
+				}
+				if(rtStartup == null) {
+					this.chkboxStartup.Checked = true;
+				} else {
+					this.chkboxStartup.Checked = rtStartup.Enabled;
 				}
 			}
-			if(rtStartup == null) {
-				this.chkboxStartup.Checked = true;
-			} else {
-				this.chkboxStartup.Checked = rtStartup.Enabled;
-			}
 			this.bStartup = this.chkboxStartup.Checked;
+
+
 		}
 		public void PCDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\MagicRemoteService");
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService");
 			rkMagicRemoteService.SetValue("Port", this.numboxListenPort.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteService.SetValue("Inactivity", this.chkboxInactivity.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteService.SetValue("TimeoutInactivity", this.numboxTimeoutInactivity.Value, Microsoft.Win32.RegistryValueKind.DWord);
 
-			TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
-			ts.Connect();
-			TaskScheduler.ITaskDefinition tdStartup = ts.NewTask(0);
-			tdStartup.Principal.RunLevel = TaskScheduler._TASK_RUNLEVEL.TASK_RUNLEVEL_HIGHEST;
-			tdStartup.Settings.Enabled = this.chkboxStartup.Checked;
-			tdStartup.Settings.IdleSettings.StopOnIdleEnd = false;
-			tdStartup.Settings.DisallowStartIfOnBatteries = false;
-			tdStartup.Settings.StopIfGoingOnBatteries = false;
-			tdStartup.Settings.ExecutionTimeLimit = "PT0S";
-			tdStartup.Settings.MultipleInstances = TaskScheduler._TASK_INSTANCES_POLICY.TASK_INSTANCES_STOP_EXISTING;
-			TaskScheduler.ILogonTrigger ltStartup = (TaskScheduler.ILogonTrigger)tdStartup.Triggers.Create(TaskScheduler._TASK_TRIGGER_TYPE2.TASK_TRIGGER_LOGON);
-			TaskScheduler.IExecAction eaStartup = (TaskScheduler.IExecAction)tdStartup.Actions.Create(TaskScheduler._TASK_ACTION_TYPE.TASK_ACTION_EXEC);
-			eaStartup.Path = System.IO.Path.GetFullPath(".\\MagicRemoteService.exe");
-			eaStartup.WorkingDirectory = System.IO.Path.GetFullPath(".");
-			ts.GetFolder("\\").RegisterTaskDefinition("MagicRemoteService", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
+			if(MagicRemoteService.Program.bElevated) {
+				System.ServiceProcess.ServiceController scService = System.Array.Find<System.ServiceProcess.ServiceController>(System.ServiceProcess.ServiceController.GetServices(), delegate (System.ServiceProcess.ServiceController sc) {
+					return sc.ServiceName == "MagicRemoteService";
+				});
+				System.Configuration.Install.AssemblyInstaller ai = new System.Configuration.Install.AssemblyInstaller(System.Reflection.Assembly.GetExecutingAssembly(), this.chkboxStartup.Checked ? new string[] {"enable"} : new string[] { });
+				System.Collections.Hashtable h = new System.Collections.Hashtable();
+				ai.UseNewContext = true;
+				try {
+					if(scService != null) {
+						ai.Uninstall(h);
+					}
+					ai.Install(h);
+					ai.Commit(h);
+				} catch {
+					try {
+						ai.Rollback(h);
+					} catch { }
+					throw;
+				}
+				ai.Dispose();
+				scService = System.Array.Find<System.ServiceProcess.ServiceController>(System.ServiceProcess.ServiceController.GetServices(), delegate (System.ServiceProcess.ServiceController sc) {
+					return sc.ServiceName == "MagicRemoteService";
+				});
+				if(scService != null) {
+					scService.Start();
+				}
+			} else {
+				TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
+				ts.Connect();
+				TaskScheduler.ITaskDefinition tdStartup = ts.NewTask(0);
+				//tdStartup.Principal.RunLevel = TaskScheduler._TASK_RUNLEVEL.TASK_RUNLEVEL_HIGHEST;
+				tdStartup.Settings.Enabled = this.chkboxStartup.Checked;
+				tdStartup.Settings.IdleSettings.StopOnIdleEnd = false;
+				tdStartup.Settings.DisallowStartIfOnBatteries = false;
+				tdStartup.Settings.StopIfGoingOnBatteries = false;
+				tdStartup.Settings.ExecutionTimeLimit = "PT0S";
+				tdStartup.Settings.MultipleInstances = TaskScheduler._TASK_INSTANCES_POLICY.TASK_INSTANCES_STOP_EXISTING;
+				TaskScheduler.ILogonTrigger ltStartup = (TaskScheduler.ILogonTrigger)tdStartup.Triggers.Create(TaskScheduler._TASK_TRIGGER_TYPE2.TASK_TRIGGER_LOGON);
+				ltStartup.UserId = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+				TaskScheduler.IExecAction eaStartup = (TaskScheduler.IExecAction)tdStartup.Actions.Create(TaskScheduler._TASK_ACTION_TYPE.TASK_ACTION_EXEC);
+				eaStartup.Path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+				eaStartup.WorkingDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+				ts.GetFolder("\\").RegisterTaskDefinition("MagicRemoteService", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
+			}
 
-			NetFwTypeLib.INetFwRule nfrMagicRemoteService = (NetFwTypeLib.INetFwRule)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("HNetCfg.FWRule"));
-			nfrMagicRemoteService.Direction = NetFwTypeLib.NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_IN;
-			nfrMagicRemoteService.Name = "MagicRemoteService";
-			nfrMagicRemoteService.Enabled = true;
-			nfrMagicRemoteService.Action = NetFwTypeLib.NET_FW_ACTION_.NET_FW_ACTION_ALLOW;
-			nfrMagicRemoteService.ApplicationName = System.IO.Path.GetFullPath(".\\MagicRemoteService.exe");
-			nfrMagicRemoteService.Protocol = (int)NetFwTypeLib.NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_TCP;
-			NetFwTypeLib.INetFwPolicy2 nfp = (NetFwTypeLib.INetFwPolicy2)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
-			nfp.Rules.Remove("MagicRemoteService");
-			nfp.Rules.Add(nfrMagicRemoteService);
+			if(MagicRemoteService.Program.bElevated) {
+				NetFwTypeLib.INetFwRule nfrMagicRemoteService = (NetFwTypeLib.INetFwRule)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("HNetCfg.FWRule"));
+				nfrMagicRemoteService.Direction = NetFwTypeLib.NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_IN;
+				nfrMagicRemoteService.Name = "MagicRemoteService";
+				nfrMagicRemoteService.Enabled = true;
+				nfrMagicRemoteService.Action = NetFwTypeLib.NET_FW_ACTION_.NET_FW_ACTION_ALLOW;
+				nfrMagicRemoteService.ApplicationName = System.Reflection.Assembly.GetExecutingAssembly().Location;
+				nfrMagicRemoteService.Protocol = (int)NetFwTypeLib.NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_TCP;
+				NetFwTypeLib.INetFwPolicy2 nfp = (NetFwTypeLib.INetFwPolicy2)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
+				nfp.Rules.Remove("MagicRemoteService");
+				nfp.Rules.Add(nfrMagicRemoteService);
+			}
+
 		}
 		public void TVDataRefresh() {
 			if(this.cmbboxTV.SelectedItem == null) {
@@ -141,7 +186,7 @@ namespace MagicRemoteService {
 				this.numboxTimeoutScreensaver.Enabled = true;
 				this.btnTVInstall.Enabled = true;
 				this.chkboxExtend.Enabled = true;
-				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
+				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
 				if(rkMagicRemoteServiceDevice == null) {
 					this.cmbboxInput.SelectedIndex = 0;
 					this.ipadrboxSendIP.Value = MagicRemoteService.Setting.ipaSendIPDefaut;
@@ -192,7 +237,7 @@ namespace MagicRemoteService {
 			this.bExtend = this.chkboxExtend.Checked;
 		}
 		public void TVDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
 			rkMagicRemoteServiceDevice.SetValue("Input", ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem).Id, Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("SendIp", this.ipadrboxSendIP.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("SendPort", this.numboxSendPort.Value, Microsoft.Win32.RegistryValueKind.DWord);

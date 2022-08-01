@@ -40,17 +40,16 @@ namespace MagicRemoteService
 			// 
 			// siServiceInstaller
 			// 
-			this.siServiceInstaller.Description = "Service permettant de contrôler l\'ordinateur à l\'aide d\'une smart TV LG";
+			this.siServiceInstaller.Description = "Service providing computer remote control using a LG WebOS TV";
 			this.siServiceInstaller.DisplayName = "Magic remote service";
 			this.siServiceInstaller.ServiceName = "MagicRemoteService";
 			this.siServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
-			this.siServiceInstaller.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller1_AfterInstall);
 			// 
 			// ProjectInstaller
 			// 
 			this.Installers.AddRange(new System.Configuration.Install.Installer[] {
-			this.spiServiceProcessInstaller,
-			this.siServiceInstaller});
+            this.spiServiceProcessInstaller,
+            this.siServiceInstaller});
 
 		}
 

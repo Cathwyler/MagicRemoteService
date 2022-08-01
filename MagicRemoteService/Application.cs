@@ -17,15 +17,22 @@ namespace MagicRemoteService {
 			this.niIcon.DoubleClick += this.Setting;
 			this.niIcon.Visible = true;
 
-
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\MagicRemoteService");
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
 			if(rkMagicRemoteService == null) {
 				this.Setting(this, new System.EventArgs());
 			}
+			Microsoft.Win32.SystemEvents.SessionEnding += SessionEndingEvent;
+			Microsoft.Win32.SystemEvents.SessionSwitch += SessionSwitchEvent;
+		}
+		public void SessionSwitchEvent(object sender, Microsoft.Win32.SessionSwitchEventArgs e) {
+			System.Windows.Forms.Application.Exit();
+		}
+		public void SessionEndingEvent(object sender, Microsoft.Win32.SessionEndingEventArgs e) {
+			this.mrsService.ServiceStop();
 		}
 		protected override void Dispose(bool disposing) {
+			this.mrsService.ServiceStop();
 			if(disposing) {
-				this.mrsService.ServiceStop();
 				this.mrsService.Dispose();
 				this.niIcon.Dispose();
 			}

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using System.Configuration.Install;
 
 namespace MagicRemoteService {
@@ -7,9 +8,9 @@ namespace MagicRemoteService {
 		public ProjectInstaller() {
 			this.InitializeComponent();
 		}
-
-		private void serviceInstaller1_AfterInstall(object sender, InstallEventArgs e) {
-
+		public override void Install(IDictionary stateSaver) {
+			this.siServiceInstaller.StartType = this.Context.Parameters.ContainsKey("enable") ? System.ServiceProcess.ServiceStartMode.Automatic : System.ServiceProcess.ServiceStartMode.Manual;
+			base.Install(stateSaver);
 		}
 	}
 }

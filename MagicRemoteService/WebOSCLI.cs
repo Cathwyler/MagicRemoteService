@@ -149,12 +149,12 @@ namespace MagicRemoteService {
 			tabArguments.Add("--remove \"" + strPkgFile + "\"");
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArguments));
 		}
-		static public void InstallList(string strDevice, string strPkgFile) {
-			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-			tabArguments.Add("-d \"" + strDevice + "\"");
-			tabArguments.Add("-l");
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArguments));
-		}
+		//static public void InstallList(string strDevice, string strPkgFile) {
+		//	System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
+		//	tabArguments.Add("-d \"" + strDevice + "\"");
+		//	tabArguments.Add("-l");
+		//	MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArguments));
+		//}
 		static public void Launch(string strDevice, string strAppId) {
 			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
 			tabArguments.Add("-d \"" + strDevice + "\"");
