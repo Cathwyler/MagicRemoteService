@@ -12,8 +12,6 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 
 ### Possible Improvement
 - I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.
-- I didn't try to use a dedicated mouse and keyboard driver to reproduce mouse and keyboard inputs.
-- I already tried to use system and user service but due to Windows security the mouse and keyboard inputs could not be properly reproduced. A dedicated driver should probably fix it.
 - Find a way to detect focus in TextBox control on Windows to automatically pop up the WebOS keyboard.
 - Add possibility to choose a PC screen.
 - Find a better way to get ride of TV screen saver.
