@@ -1,6 +1,9 @@
-# [MagicRemoteService](https://github.com/Cathwyler/MagicRemoteService)
+# MagicRemoteService
 Service providing computer remote control using a LG WebOS TV.
 Tested with WebOS 6.0 (OLED65C1, OLED48C1) and Windows 10.
+
+- [Source](https://github.com/Cathwyler/MagicRemoteService)
+- [Release](https://github.com/Cathwyler/MagicRemoteService/releases)
 
 ## Introduction
 
