@@ -18,15 +18,15 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 
 ## Installation
 
-- Install WebOS Command line interface on your PC. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/installation/.
-- Install and activate developer mode app on your LG WebOS TV. Please refer to https://webostv.developer.lge.com/develop/app-test/using-devmode-app/.
+- Install WebOS Command line interface on your PC. Please refer to https://webostv.developer.lge.com/develop/tools/cli-installation.
+- Install and activate developer mode app on your LG WebOS TV. Please refer to https://webostv.developer.lge.com/develop/getting-started/developer-mode-app.
 - Open MagicRemoteService on PC.
 - Configure PC and save.
 - Select a TV then configure and install it.
 - Others
   - (Optionnal) Setup Wake-on-LAN on your motherboard's PC.
   - (Optionnal) Setup Windows auto logon. Please refer to https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon.
-  - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/sdk/command-line-interface/intro-cli/?wos_flag=ares-extend-dev#ares-extend-dev.
+  - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to https://webostv.developer.lge.com/develop/tools/cli-introduction#ares-extend-dev.
 
 ## Using MagicRemoteService
 MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in installation step.
