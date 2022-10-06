@@ -1,5 +1,6 @@
 # MagicRemoteService
-Use your LG Magic Remote as a Windows mouse and control your PC with the LG Magic Remote from your LG WebOS TV. MagicRemoteService is a Windows service providing computer remote control from a WebOS app on LG WebOS TV.
+Use your LG Magic Remote as a Windows mouse and control your PC with the LG Magic Remote from your LG WebOS TV.
+MagicRemoteService is a Windows service providing computer remote control from a WebOS app on LG WebOS TV.
 Tested with WebOS 6.0 (OLED65C1, OLED48C1) and Windows 10.
 
 - [Source](https://github.com/Cathwyler/MagicRemoteService)
