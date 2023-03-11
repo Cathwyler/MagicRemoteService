@@ -102,6 +102,12 @@ namespace MagicRemoteService {
 				System.ServiceProcess.ServiceController scService = System.Array.Find<System.ServiceProcess.ServiceController>(System.ServiceProcess.ServiceController.GetServices(), delegate (System.ServiceProcess.ServiceController sc) {
 					return sc.ServiceName == "MagicRemoteService";
 				});
+				if(scService != null) {
+					if(scService.CanStop) {
+						scService.Stop();
+						scService.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped);
+					}
+				}
 				System.Configuration.Install.AssemblyInstaller ai = new System.Configuration.Install.AssemblyInstaller(System.Reflection.Assembly.GetExecutingAssembly(), this.chkboxStartup.Checked ? new string[] {"enable"} : new string[] { });
 				System.Collections.Hashtable h = new System.Collections.Hashtable();
 				ai.UseNewContext = true;
@@ -155,7 +161,6 @@ namespace MagicRemoteService {
 				nfp.Rules.Remove("MagicRemoteService");
 				nfp.Rules.Add(nfrMagicRemoteService);
 			}
-
 		}
 		public void TVDataRefresh() {
 			if(this.cmbboxTV.SelectedItem == null) {
@@ -301,15 +306,33 @@ namespace MagicRemoteService {
 				.Replace("\"name\": \"com.cathwyler.magicremoteservice.send\"", "\"name\": \"com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + ".send\"")
 			);
 		}
-		private void btnPCSave_Click(object sender, System.EventArgs e) {
+		private async void btnPCSave_Click(object sender, System.EventArgs e) {
 			this.Enabled = false;
-			if(this.mrsService.State == MagicRemoteService.ServiceCurrentState.SERVICE_RUNNING) {
-				this.mrsService.ServiceStop();
+			string strError = null;
+			string strErrorInfo = null;
+			if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
+				try {
+					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
+						this.mrsService.ServiceStop();
+					}
+					this.PCDataSave();
+					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
+						this.mrsService.ServiceStart();
+					}
+					return true;
+				} catch(System.Exception ex) {
+					strError = MagicRemoteService.Properties.Resources.SettingTVRefreshlErrorTitle;
+					strErrorInfo = ex.Message;
+					return false;
+				}
+			})) {
+				this.PCDataRefresh();
+				this.Enabled = true;
+				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+			} else {
+				this.PCDataRefresh();
+				this.Enabled = true;
 			}
-			this.PCDataSave();
-			this.PCDataRefresh();
-			this.mrsService.ServiceStart();
-			this.Enabled = true;
 		}
 		private void btnClose_Click(object sender, System.EventArgs e) {
 			this.Close();

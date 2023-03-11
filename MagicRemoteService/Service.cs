@@ -291,6 +291,11 @@ namespace MagicRemoteService {
 				return scsState;
 			}
 		}
+		public ServiceType Type {
+			get {
+				return stType;
+			}
+		}
 		public Service() {
 			this.InitializeComponent();
 			if(!System.Diagnostics.EventLog.SourceExists(this.ServiceName)) {
@@ -320,7 +325,7 @@ namespace MagicRemoteService {
 				if(!Service.mClient.WaitOne(System.TimeSpan.Zero, true)) {
 					throw new System.Exception("Client already running");
 				}
-				if(!(System.Array.IndexOf<string>(System.Environment.GetCommandLineArgs(), "-c") < 0)) {
+				if(!(System.Array.IndexOf<string>(System.Environment.GetCommandLineArgs(), "-c") < 0) && System.Windows.Forms.Application.OpenForms.Count == 0) {
 					this.stType = ServiceType.Client;
 				} else  if(!Service.ewhServiceStoped.WaitOne(System.TimeSpan.Zero, true)) {
 					this.stType = ServiceType.Client;
@@ -332,15 +337,16 @@ namespace MagicRemoteService {
 			ServiceStatus ssServiceStatus = new ServiceStatus();
 			switch(this.stType) {
 				case ServiceType.Server:
+					this.Log("Service server start");
+					break;
 				case ServiceType.Both:
-					this.Log("Service start");
-
-					this.scsState = ServiceCurrentState.SERVICE_START_PENDING;
+					this.Log("Service both start");
 					break;
 				case ServiceType.Client:
 					this.Log("Service client start");
 					break;
 			}
+			this.scsState = ServiceCurrentState.SERVICE_START_PENDING;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_START_PENDING;
@@ -419,15 +425,16 @@ namespace MagicRemoteService {
 			this.thrServeur.Start();
 			switch(this.stType) {
 				case ServiceType.Server:
+					this.Log("Service server started");
+					break;
 				case ServiceType.Both:
-					this.Log("Service started");
-
-					this.scsState = ServiceCurrentState.SERVICE_RUNNING;
+					this.Log("Service both started");
 					break;
 				case ServiceType.Client:
 					this.Log("Service client started");
 					break;
 			}
+			this.scsState = ServiceCurrentState.SERVICE_RUNNING;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_RUNNING;
@@ -443,15 +450,16 @@ namespace MagicRemoteService {
 			ServiceStatus ssServiceStatus = new ServiceStatus();
 			switch(this.stType) {
 				case ServiceType.Server:
+					this.Log("Service server stop");
+					break;
 				case ServiceType.Both:
-					this.Log("Service stop");
-
-					this.scsState = ServiceCurrentState.SERVICE_STOP_PENDING;
+					this.Log("Service both stop");
 					break;
 				case ServiceType.Client:
 					this.Log("Service client stop");
 					break;
 			}
+			this.scsState = ServiceCurrentState.SERVICE_STOP_PENDING;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_STOP_PENDING;
@@ -492,15 +500,16 @@ namespace MagicRemoteService {
 			this.thrServeur = null;
 			switch(this.stType) {
 				case ServiceType.Server:
+					this.Log("Service server stoped");
+					break;
 				case ServiceType.Both:
-					this.Log("Service stoped");
-
-					this.scsState = ServiceCurrentState.SERVICE_STOPPED;
+					this.Log("Service both stoped");
 					break;
 				case ServiceType.Client:
 					this.Log("Service client stoped");
 					break;
 			}
+			this.scsState = ServiceCurrentState.SERVICE_STOPPED;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_STOPPED;
@@ -782,9 +791,6 @@ namespace MagicRemoteService {
 						psServer.Close();
 						psServer.Dispose();
 
-						if(piProcess.hProcess != System.IntPtr.Zero && !WaitProcess(piProcess, 0)) {
-							WaitProcess(piProcess);
-						}
 						CloseHandle(piProcess.hProcess);
 						socServer.Close();
 						socServer.Dispose();
@@ -890,7 +896,7 @@ namespace MagicRemoteService {
 									break;
 								case 1:
 									if(tClient.Result == null) {
-										if(!(System.Array.IndexOf<string>(System.Environment.GetCommandLineArgs(), "-c") < 0)) {
+										if(!(System.Array.IndexOf<string>(System.Environment.GetCommandLineArgs(), "-c") < 0) && System.Windows.Forms.Application.OpenForms.Count == 0) {
 											System.Windows.Forms.Application.Exit();
 										} else {
 											System.Threading.Tasks.Task.Run(delegate () {
