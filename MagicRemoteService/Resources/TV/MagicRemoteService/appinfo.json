@@ -7,7 +7,7 @@
 	"iconColor": "#4F4F4F",
 	"type": "web",
 	"vendor": "Cathwyler",
-	"version": "1.0.2",
+	"version": "1.0.0",
 	"appDescription": "Service providing computer remote control using a LG WebOS TV",
 	"bgColor": "#4F4F4F",
 	"supportTouchMode": "none",

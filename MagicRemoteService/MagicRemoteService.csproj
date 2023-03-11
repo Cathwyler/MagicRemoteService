@@ -216,12 +216,6 @@
     <None Include="Resources\TV\MagicRemoteService\main.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV-dev.js" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\TV\Send\send.js" />
   </ItemGroup>
   <ItemGroup>
@@ -246,7 +240,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\TV\MagicRemoteService\ressource.js" />
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV-dev.js" />
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
