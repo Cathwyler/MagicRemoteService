@@ -35,7 +35,7 @@ MagicRemoteService need to run PC and TV app. TV and PC need properly network an
 
 Magic remote inputs :
 - The red key shuts down or starts up your PC.
-- The yellow key is actually unused.
+- The yellow key sends a right click to the PC.
 - The green key opens Windows menu.
 - The blue key pops up the WebOS keyboard.
 - The return key sends an escape key to the PC.
