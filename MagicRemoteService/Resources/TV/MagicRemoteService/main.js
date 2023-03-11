@@ -543,6 +543,12 @@ document.addEventListener("keydown", function(inEvent) {
 				bS: true
 			});
 			break;
+		case 0x195:
+			SendMouseKey({
+				usC: 1,
+				bS: true
+			});
+			break;
 		case 0x1CD:
 			SendKeyboardKey({
 				usC: 0x1B,
@@ -599,6 +605,12 @@ document.addEventListener("keyup", function(inEvent) {
 		case 0x194:
 			SendKeyboardKey({
 				usC: 0x5B,
+				bS: false
+			});
+			break;
+		case 0x195:
+			SendMouseKey({
+				usC: 1,
 				bS: false
 			});
 			break;

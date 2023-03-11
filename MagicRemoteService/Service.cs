@@ -106,7 +106,6 @@ namespace MagicRemoteService {
 	}
 	[System.Flags]
 	public enum AccessMaskWinsta : uint {
-		WINSTA_ALL_ACCESS = 0x37F,
 		WINSTA_ACCESSCLIPBOARD = 0x0004,
 		WINSTA_ACCESSGLOBALATOMS = 0x0020,
 		WINSTA_CREATEDESKTOP = 0x0008,
@@ -116,6 +115,18 @@ namespace MagicRemoteService {
 		WINSTA_READATTRIBUTES = 0x0002,
 		WINSTA_READSCREEN = 0x0200,
 		WINSTA_WRITEATTRIBUTES = 0x0010
+	}
+	[System.Flags]
+	public enum AccessMaskToken : uint {
+		TOKEN_ASSIGN_PRIMARY = 0x0001,
+		TOKEN_DUPLICATE = 0x0002,
+		TOKEN_IMPERSONATE = 0x0004,
+		TOKEN_QUERY = 0x0008,
+		TOKEN_QUERY_SOURCE = 0x0010,
+		TOKEN_ADJUST_PRIVILEGES = 0x0020,
+		TOKEN_ADJUST_GROUPS = 0x0040,
+		TOKEN_ADJUST_DEFAULT = 0x0080,
+		TOKEN_ADJUST_SESSIONID = 0x0100
 	}
 	[System.Flags]
 	public enum AccessMaskDesktop : uint {
@@ -226,7 +237,7 @@ namespace MagicRemoteService {
 	}
 	public partial class Service : System.ServiceProcess.ServiceBase {
 		private static readonly System.IntPtr WTS_CURRENT_SERVER_HANDLE = System.IntPtr.Zero;
-
+		
 		public const uint STANDARD_RIGHTS_ALL = (uint)(AccessMaskStandard.DELETE | AccessMaskStandard.READ_CONTROL | AccessMaskStandard.WRITE_DAC | AccessMaskStandard.WRITE_OWNER | AccessMaskStandard.SYNCHRONIZE);
 		public const uint STANDARD_RIGHTS_READ = (uint)(AccessMaskStandard.READ_CONTROL);
 		public const uint STANDARD_RIGHTS_WRITE = (uint)(AccessMaskStandard.READ_CONTROL);
@@ -242,7 +253,18 @@ namespace MagicRemoteService {
 		public const uint DESKTOP_GENERIC_WRITE = STANDARD_RIGHTS_WRITE | (uint)(AccessMaskDesktop.DESKTOP_CREATEMENU | AccessMaskDesktop.DESKTOP_CREATEWINDOW | AccessMaskDesktop.DESKTOP_HOOKCONTROL | AccessMaskDesktop.DESKTOP_JOURNALPLAYBACK | AccessMaskDesktop.DESKTOP_JOURNALRECORD | AccessMaskDesktop.DESKTOP_WRITEOBJECTS);
 		public const uint DESKTOP_GENERIC_EXECUTE = STANDARD_RIGHTS_EXECUTE | (uint)(AccessMaskDesktop.DESKTOP_SWITCHDESKTOP);
 		public const uint DESKTOP_GENERIC_ALL = STANDARD_RIGHTS_REQUIRED | (uint)(AccessMaskDesktop.DESKTOP_CREATEMENU | AccessMaskDesktop.DESKTOP_CREATEWINDOW | AccessMaskDesktop.DESKTOP_ENUMERATE | AccessMaskDesktop.DESKTOP_HOOKCONTROL | AccessMaskDesktop.DESKTOP_JOURNALPLAYBACK | AccessMaskDesktop.DESKTOP_JOURNALRECORD | AccessMaskDesktop.DESKTOP_READOBJECTS | AccessMaskDesktop.DESKTOP_SWITCHDESKTOP | AccessMaskDesktop.DESKTOP_WRITEOBJECTS);
+		
+		public const uint TOKEN_READ = STANDARD_RIGHTS_READ | (uint)(AccessMaskToken.TOKEN_QUERY);
+		public const uint TOKEN_WRITE = STANDARD_RIGHTS_WRITE | (uint)(AccessMaskToken.TOKEN_ADJUST_PRIVILEGES | AccessMaskToken.TOKEN_ADJUST_GROUPS | AccessMaskToken.TOKEN_ADJUST_DEFAULT);
+		public const uint TOKEN_EXECUTE = STANDARD_RIGHTS_EXECUTE;
+		public const uint TOKEN_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED | (uint)(AccessMaskToken.TOKEN_ADJUST_DEFAULT | AccessMaskToken.TOKEN_ADJUST_GROUPS | AccessMaskToken.TOKEN_ADJUST_PRIVILEGES | AccessMaskToken.TOKEN_ADJUST_SESSIONID | AccessMaskToken.TOKEN_ASSIGN_PRIMARY | AccessMaskToken.TOKEN_DUPLICATE | AccessMaskToken.TOKEN_IMPERSONATE | AccessMaskToken.TOKEN_QUERY | AccessMaskToken.TOKEN_QUERY_SOURCE);
 
+		public const uint MAXIMUM_ALLOWED = 0x02000000;
+
+		public const uint GENERIC_READ = 0x80000000;
+		public const uint GENERIC_WRITE = 0x20000000;
+		public const uint GENERIC_EXECUTE = 0x40000000;
+		public const uint GENERIC_ALL = 0x10000000;
 
 		private volatile int iPort;
 		private volatile bool bInactivity;
@@ -576,17 +598,24 @@ namespace MagicRemoteService {
 		private static extern bool CreateProcessAsUser(System.IntPtr hToken, string lpApplicationName, string lpCommandLine, ref SECURITY_ATTRIBUTES lpProcessAttributes, ref SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, System.IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
 		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
 		private static extern uint WaitForSingleObject(System.IntPtr hHandle, uint dwMilliseconds);
+		[System.Runtime.InteropServices.DllImport("wtsapi32.dll", SetLastError = true)]
+		private static extern bool WTSQueryUserToken(uint sessionId, out System.IntPtr hToken);
+		[System.Runtime.InteropServices.DllImport("userenv.dll", SetLastError = true)]
+		private static extern bool CreateEnvironmentBlock(out System.IntPtr lpEnvironment, System.IntPtr hToken, bool bInherit);
+		[System.Runtime.InteropServices.DllImport("userenv.dll", SetLastError = true)]
+		private static extern bool DestroyEnvironmentBlock(System.IntPtr lpEnvironment);
+		
 		private static uint SendInputAdmin(Input[] pInputs) {
 			if(Service.SessionId == WTSGetActiveConsoleSessionId()) {
 				uint uiInput = Service.SendInput((uint)pInputs.Length, pInputs, System.Runtime.InteropServices.Marshal.SizeOf(typeof(Input)));
 				if(0 == uiInput) {
-					System.IntPtr hLastInputDestop = GetThreadDesktop(GetCurrentThreadId());
-					System.IntPtr hInputDestop = OpenInputDesktop(0, true, 0x10000000);
-					if(((int)hInputDestop) == 0) {
-					} else if(!SetThreadDesktop(hInputDestop)) {
+					System.IntPtr hLastInputDesktop = GetThreadDesktop(GetCurrentThreadId());
+					System.IntPtr hInputDesktop = OpenInputDesktop(0, true, 0x10000000);
+					if(((int)hInputDesktop) == 0) {
+					} else if(!SetThreadDesktop(hInputDesktop)) {
 					} else {
-						if(((int)hLastInputDestop) == 0) {
-						} else if(!CloseDesktop(hLastInputDestop)) {
+						if(((int)hLastInputDesktop) == 0) {
+						} else if(!CloseDesktop(hLastInputDesktop)) {
 						} else {
 						}
 						uiInput = Service.SendInput((uint)pInputs.Length, pInputs, System.Runtime.InteropServices.Marshal.SizeOf(typeof(Input)));
@@ -618,36 +647,56 @@ namespace MagicRemoteService {
 			if(hProcess == System.IntPtr.Zero) {
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
-			
+
 			System.IntPtr hProcessToken;
 			if(!OpenProcessToken(hProcess, 0x0002, out hProcessToken)) {
 				CloseHandle(hProcess);
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
-			
+
 			System.IntPtr hProcessTokenDupplicate;
 			SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
 			sa.Length = System.Runtime.InteropServices.Marshal.SizeOf(sa);
-			if(!DuplicateTokenEx(hProcessToken, 0x2000000, ref sa, SECURITY_IMPERSONATION_LEVEL.SecurityIdentification, TOKEN_TYPE.TokenPrimary, out hProcessTokenDupplicate)) {
+			if(!DuplicateTokenEx(hProcessToken, MAXIMUM_ALLOWED, ref sa, SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation, TOKEN_TYPE.TokenPrimary, out hProcessTokenDupplicate)) {
 				CloseHandle(hProcess);
 				CloseHandle(hProcessToken);
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
 
-			//piProcess = new PROCESS_INFORMATION();
-			STARTUPINFO si = new STARTUPINFO();
-			si.cb = System.Runtime.InteropServices.Marshal.SizeOf(si);
-			si.lpDesktop = "winsta0\\default";
-			if(!CreateProcessAsUser(hProcessTokenDupplicate, applicationName, args, ref sa, ref sa, false, 0, System.IntPtr.Zero, null, ref si, out piProcess)) {
+			System.IntPtr hUserToken;
+			if(!WTSQueryUserToken(uiSessionId, out hUserToken)) {
 				CloseHandle(hProcess);
 				CloseHandle(hProcessToken);
 				CloseHandle(hProcessTokenDupplicate);
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
 
+			System.IntPtr lpEnvironmentBlock;
+			if(!CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, false)) {
+				CloseHandle(hProcess);
+				CloseHandle(hProcessToken);
+				CloseHandle(hProcessTokenDupplicate);
+				CloseHandle(hUserToken);
+				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+			}
+
+			STARTUPINFO si = new STARTUPINFO();
+			si.cb = System.Runtime.InteropServices.Marshal.SizeOf(si);
+			si.lpDesktop = "winsta0\\default";
+			if(!CreateProcessAsUser(hProcessTokenDupplicate, applicationName, args, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), ref si, out piProcess)) {
+				CloseHandle(hProcess);
+				CloseHandle(hProcessToken);
+				CloseHandle(hProcessTokenDupplicate);
+				CloseHandle(hUserToken);
+				DestroyEnvironmentBlock(lpEnvironmentBlock);
+				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+			}
+
 			CloseHandle(hProcess);
 			CloseHandle(hProcessToken);
 			CloseHandle(hProcessTokenDupplicate);
+			CloseHandle(hUserToken);
+			DestroyEnvironmentBlock(lpEnvironmentBlock);
 		}
 		private static bool WaitProcess(PROCESS_INFORMATION piProcess, uint dwMilliseconds = 0xFFFFFFFF) {
 			switch((ObjectSate)WaitForSingleObject(piProcess.hProcess, dwMilliseconds)) {
