@@ -629,7 +629,7 @@ namespace MagicRemoteService {
 				return 0;
 			}
 		}
-		private static void OpenUserInteractiveProcess(string applicationName, string args, out PROCESS_INFORMATION piProcess) {
+		private static void OpenUserInteractiveProcess(string strApplication, string strArgument, out PROCESS_INFORMATION piProcess) {
 
 			uint uiSessionId = WTSGetActiveConsoleSessionId();
 			if(uiSessionId == 0xFFFFFFFF) {
@@ -683,7 +683,7 @@ namespace MagicRemoteService {
 			STARTUPINFO si = new STARTUPINFO();
 			si.cb = System.Runtime.InteropServices.Marshal.SizeOf(si);
 			si.lpDesktop = "winsta0\\default";
-			if(!CreateProcessAsUser(hProcessTokenDupplicate, applicationName, args, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), ref si, out piProcess)) {
+			if(!CreateProcessAsUser(hProcessTokenDupplicate, strApplication, strArgument, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(strApplication), ref si, out piProcess)) {
 				CloseHandle(hProcess);
 				CloseHandle(hProcessToken);
 				CloseHandle(hProcessTokenDupplicate);

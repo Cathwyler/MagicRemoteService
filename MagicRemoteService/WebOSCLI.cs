@@ -90,13 +90,13 @@ namespace MagicRemoteService {
 			}
 			return strWebOSCliDir;
 		}
-		static private string ExecWebOSCLICmd(string strCmd, string strArguments, string strWorkingDirectory = null) {
+		static private string ExecWebOSCLICmd(string strCommand, string strArgument, string strWorkingDirectory = null) {
 			System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-			pProcess.StartInfo.FileName = Application.CompleteDir(WebOSCLI.GetWebOSCLIDir()) + strCmd + ".cmd";
+			pProcess.StartInfo.FileName = Application.CompleteDir(WebOSCLI.GetWebOSCLIDir()) + strCommand + ".cmd";
 			if(!string.IsNullOrEmpty(strWorkingDirectory)) {
 				pProcess.StartInfo.WorkingDirectory = strWorkingDirectory;
 			}
-			pProcess.StartInfo.Arguments = strArguments;
+			pProcess.StartInfo.Arguments = strArgument;
 			pProcess.StartInfo.UseShellExecute = false;
 			pProcess.StartInfo.CreateNoWindow = true;
 			pProcess.StartInfo.RedirectStandardError = true;
@@ -119,52 +119,52 @@ namespace MagicRemoteService {
 			};
 		}
 		static public MagicRemoteService.WebOSCLIDevice[] SetupDeviceList() {
-			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-			tabArguments.Add("-F");
-			return System.Text.Json.JsonSerializer.Deserialize<MagicRemoteService.WebOSCLIDevice[]>(MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", string.Join(" ", tabArguments)));
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+			tabArgument.Add("-F");
+			return System.Text.Json.JsonSerializer.Deserialize<MagicRemoteService.WebOSCLIDevice[]>(MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", string.Join(" ", tabArgument)));
 		}
-		static public void Package(string strOutDir, string strApp, string strService = null, string strPkg = null) {
-			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-			tabArguments.Add("\"" + strApp + "\"");
+		static public void Package(string strOutDirectory, string strApplication, string strService = null, string strPackage = null) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+			tabArgument.Add("\"" + strApplication + "\"");
 			if(!string.IsNullOrEmpty(strService)) {
-				tabArguments.Add("-o \"" + strOutDir + "\"");
+				tabArgument.Add("-o \"" + strOutDirectory + "\"");
 			}
 			if(!string.IsNullOrEmpty(strService)) {
-				tabArguments.Add("\"" + strService + "\"");
+				tabArgument.Add("\"" + strService + "\"");
 			}
-			if(!string.IsNullOrEmpty(strPkg)) {
-				tabArguments.Add("\"" + strPkg + "\"");
+			if(!string.IsNullOrEmpty(strPackage)) {
+				tabArgument.Add("\"" + strPackage + "\"");
 			}
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-package", string.Join(" ", tabArguments));
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-package", string.Join(" ", tabArgument));
 		}
-		static public void Install(string strDevice, string strPkgFile) {
-			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-			tabArguments.Add("-d \"" + strDevice + "\"");
-			tabArguments.Add("\"" + strPkgFile + "\"");
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArguments));
+		static public void Install(string strDevice, string strPackageFile) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+			tabArgument.Add("-d \"" + strDevice + "\"");
+			tabArgument.Add("\"" + strPackageFile + "\"");
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArgument));
 		}
-		static public void InstallRemove(string strDevice, string strPkgFile) {
-			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-			tabArguments.Add("-d \"" + strDevice + "\"");
-			tabArguments.Add("--remove \"" + strPkgFile + "\"");
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArguments));
+		static public void InstallRemove(string strDevice, string strPackageFile) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+			tabArgument.Add("-d \"" + strDevice + "\"");
+			tabArgument.Add("--remove \"" + strPackageFile + "\"");
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArgument));
 		}
-		//static public void InstallList(string strDevice, string strPkgFile) {
-		//	System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-		//	tabArguments.Add("-d \"" + strDevice + "\"");
-		//	tabArguments.Add("-l");
-		//	MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArguments));
+		//static public void InstallList(string strDevice, string strPackageFile) {
+		//	System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+		//	tabArgument.Add("-d \"" + strDevice + "\"");
+		//	tabArgument.Add("-l");
+		//	MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArgument));
 		//}
-		static public void Launch(string strDevice, string strAppId) {
-			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-			tabArguments.Add("-d \"" + strDevice + "\"");
-			tabArguments.Add("\"" + strAppId + "\"");
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-launch", string.Join(" ", tabArguments));
+		static public void Launch(string strDevice, string strApplicationId) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+			tabArgument.Add("-d \"" + strDevice + "\"");
+			tabArgument.Add("\"" + strApplicationId + "\"");
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-launch", string.Join(" ", tabArgument));
 		}
 		static public void Extend(string strDevice) {
-			System.Collections.Generic.List<string> tabArguments = new System.Collections.Generic.List<string>();
-			tabArguments.Add("-d \"" + strDevice + "\"");
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-extend-dev", string.Join(" ", tabArguments));
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+			tabArgument.Add("-d \"" + strDevice + "\"");
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-extend-dev", string.Join(" ", tabArgument));
 		}
 	}
 }
