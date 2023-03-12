@@ -662,50 +662,45 @@ namespace MagicRemoteService {
 				CloseHandle(hProcess);
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
+			CloseHandle(hProcess);
 
 			System.IntPtr hProcessTokenDupplicate;
 			SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
 			sa.Length = System.Runtime.InteropServices.Marshal.SizeOf(sa);
 			if(!DuplicateTokenEx(hProcessToken, MAXIMUM_ALLOWED, ref sa, SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation, TOKEN_TYPE.TokenPrimary, out hProcessTokenDupplicate)) {
-				CloseHandle(hProcess);
 				CloseHandle(hProcessToken);
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
-
-			System.IntPtr hUserToken;
-			if(!WTSQueryUserToken(uiSessionId, out hUserToken)) {
-				CloseHandle(hProcess);
-				CloseHandle(hProcessToken);
-				CloseHandle(hProcessTokenDupplicate);
-				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
-			}
+			CloseHandle(hProcessToken);
 
 			System.IntPtr lpEnvironmentBlock;
-			if(!CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, false)) {
-				CloseHandle(hProcess);
-				CloseHandle(hProcessToken);
-				CloseHandle(hProcessTokenDupplicate);
+			System.IntPtr hUserToken;
+			if(!WTSQueryUserToken(uiSessionId, out hUserToken)) {
+				lpEnvironmentBlock = System.IntPtr.Zero;
+				//throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+			} else {
+				if(!CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, false)) {
+					CloseHandle(hUserToken);
+					throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+				}
 				CloseHandle(hUserToken);
-				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
 
 			STARTUPINFO si = new STARTUPINFO();
 			si.cb = System.Runtime.InteropServices.Marshal.SizeOf(si);
 			si.lpDesktop = "winsta0\\default";
 			if(!CreateProcessAsUser(hProcessTokenDupplicate, strApplication, strArgument, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(strApplication), ref si, out piProcess)) {
-				CloseHandle(hProcess);
-				CloseHandle(hProcessToken);
 				CloseHandle(hProcessTokenDupplicate);
-				CloseHandle(hUserToken);
-				DestroyEnvironmentBlock(lpEnvironmentBlock);
+				if(lpEnvironmentBlock != System.IntPtr.Zero) {
+					DestroyEnvironmentBlock(lpEnvironmentBlock);
+				}
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
 
-			CloseHandle(hProcess);
-			CloseHandle(hProcessToken);
 			CloseHandle(hProcessTokenDupplicate);
-			CloseHandle(hUserToken);
-			DestroyEnvironmentBlock(lpEnvironmentBlock);
+			if(lpEnvironmentBlock != System.IntPtr.Zero) {
+				DestroyEnvironmentBlock(lpEnvironmentBlock);
+			}
 		}
 		private static bool WaitProcess(PROCESS_INFORMATION piProcess, uint dwMilliseconds = 0xFFFFFFFF) {
 			switch((ObjectSate)WaitForSingleObject(piProcess.hProcess, dwMilliseconds)) {
