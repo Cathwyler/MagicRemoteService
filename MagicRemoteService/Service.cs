@@ -230,6 +230,11 @@ namespace MagicRemoteService {
 		public uint dwCheckPoint;
 		public uint dwWaitHint;
 	};
+	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+	public struct LASTINPUTINFO {
+		public uint cbSize;
+		public uint dwTime;
+	}
 	public enum ServiceType {
 		Server,
 		Client,
@@ -613,7 +618,9 @@ namespace MagicRemoteService {
 		private static extern bool CreateEnvironmentBlock(out System.IntPtr lpEnvironment, System.IntPtr hToken, bool bInherit);
 		[System.Runtime.InteropServices.DllImport("userenv.dll", SetLastError = true)]
 		private static extern bool DestroyEnvironmentBlock(System.IntPtr lpEnvironment);
-		
+		[System.Runtime.InteropServices.DllImport("User32.dll", SetLastError = true)]
+		private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+
 		private static uint SendInputAdmin(Input[] pInputs) {
 			if(Service.SessionId == WTSGetActiveConsoleSessionId()) {
 				uint uiInput = Service.SendInput((uint)pInputs.Length, pInputs, System.Runtime.InteropServices.Marshal.SizeOf(typeof(Input)));
@@ -935,16 +942,34 @@ namespace MagicRemoteService {
 				this.Log("Socket accepted [" + socClient.GetHashCode() + "]");
 				byte[] tabData = new byte[4096];
 				System.Threading.ManualResetEvent mreClientStop = new System.Threading.ManualResetEvent(false);
+				System.Timers.Timer tUserInput = new System.Timers.Timer();
+				tUserInput.Interval = 10;
+				tUserInput.AutoReset = true;
+				tUserInput.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+					LASTINPUTINFO lii = new LASTINPUTINFO();
+					lii.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lii);
+					if(!GetLastInputInfo(ref lii)) {
+					} else if(((uint)System.Environment.TickCount - lii.dwTime) < 10) {
+						System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+						pProcess.StartInfo.FileName = "shutdown";
+						pProcess.StartInfo.Arguments = "/a";
+						pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+						pProcess.Start();
+						tUserInput.Stop();
+					}
+				};
 				System.Timers.Timer tInactivity = new System.Timers.Timer();
-				tInactivity.Interval = this.iTimeoutInactivity;
+				tInactivity.Interval = this.iTimeoutInactivity - 300000;
 				tInactivity.AutoReset = false;
 				tInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
 					pProcess.StartInfo.FileName = "shutdown";
-					pProcess.StartInfo.Arguments = "/s /t 0";
+					pProcess.StartInfo.Arguments = "/s /t 300";
 					pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 					pProcess.Start();
+					tUserInput.Start();
 				};
+
 				if(this.bInactivity) {
 					tInactivity.Start();
 				}

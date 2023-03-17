@@ -158,8 +158,18 @@ namespace MagicRemoteService {
             0,
             0,
             0});
+			this.numboxTimeoutInactivity.Minimum = new decimal(new int[] {
+            300000,
+            0,
+            0,
+            0});
 			this.numboxTimeoutInactivity.Name = "numboxTimeoutInactivity";
 			this.ttFormating.SetToolTip(this.numboxTimeoutInactivity, resources.GetString("numboxTimeoutInactivity.ToolTip"));
+			this.numboxTimeoutInactivity.Value = new decimal(new int[] {
+            300000,
+            0,
+            0,
+            0});
 			// 
 			// labTimeoutIncativity
 			// 
