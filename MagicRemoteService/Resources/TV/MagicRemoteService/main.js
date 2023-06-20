@@ -220,12 +220,10 @@ function Connect() {
 			iTimeoutConnect = 0;
 		}
 		CancelDialogue();
-		if(CursorVisible()) {
-			if((AppVisible() && AppFocus()) || bInputOpened) {
-				SendMouseVisible({
-					bV: true
-				});
-			}
+		if(CursorVisible() && AppVisible() && AppFocus()) {
+			SendMouseVisible({
+				bV: true
+			});
 		}
 		LogIfDebug(oString.strSocketConnecting);
 	};
@@ -262,12 +260,10 @@ function Close() {
 		socClient = null;
 		LogIfDebug(oString.strSocketDisconnecting);
 	};
-	if(CursorVisible()) {
-		if((AppVisible() && AppFocus()) || bInputOpened) {
-			SendMouseVisible({
-				bV: false
-			});
-		}
+	if(CursorVisible() && AppVisible() && AppFocus()) {
+		SendMouseVisible({
+			bV: false
+		});
 	}
 	socClient.close();
 }
@@ -357,7 +353,7 @@ function SendKeyboardKey(kKey) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
 			dwKeyboardKey.setUint16(1, kKey.usC, true);
-			dwKeyboardKey.setUint8(3, kKey.bS);
+			dwKeyboardKey.setUint8(3, (kKey.bS << 0) | (kKey.bE << 1));
 			socClient.send(bufKeyboardKey);
 			LogIfDebug(oString.strSendKeyboardKeySuccess + " [0x" + bufKeyboardKey.toString(16) + "]@" + sIP + ":" + uiPort, kKey);
 		} catch(eError) {
@@ -395,6 +391,56 @@ function SendShutdown() {
 	}
 }
 
+webOS.service.request("luna://com.webos.service.eim", { 
+	method: "addDevice", 
+	parameters: { 
+		appId: sAppID, 
+		pigImage: "", 
+		mvpdIcon: "", 
+		type: "MVPD_IP", 
+		showPopup: true, 
+		label: oString.strAppTittle + " " + sInputName, 
+		description: oString.strAppDescription, 
+	}, 
+	onSuccess: function(inResponse){ 
+		LogIfDebug(oString.strAddDeviceSuccess); 
+	}, 
+	onFailure: function(inError){ 
+		Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
+	} 
+});
+
+webOS.service.request("luna://com.webos.service.tvpower/", { 
+	method: "power/registerScreenSaverRequest", 
+	parameters: {
+		clientName: sAppID,
+		subscribe: true
+	}, 
+	onSuccess: function(inResponse){ 
+		if(typeof(inResponse.subscribed) === "boolean") {
+			LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
+		} else {
+			webOS.service.request("luna://com.webos.service.tvpower/", { 
+				method: "power/responseScreenSaverRequest", 
+				parameters: {
+					clientName: sAppID,
+					ack: false,
+					timestamp: inResponse.timestamp
+				}, 
+				onSuccess: function(inResponse){ 
+					LogIfDebug(oString.strResponseScreenSaverRequestSuccess); 
+				}, 
+				onFailure: function(inError){ 
+					Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+				} 
+			});
+		} 
+	}, 
+	onFailure: function(inError){ 
+		Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+	} 
+});
+
 var pMouse = {
 	usX: 0,
 	usY: 0
@@ -405,8 +451,6 @@ var pMouseDown = {
 };
 var bMouseDownSent = false;
 var iTimeoutRightClick = 0;
-var bInputOpened = false;
-var iTimeoutInactivity = 0;
 
 var iIntervalSubscription = setInterval(function() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
@@ -420,21 +464,7 @@ var iIntervalSubscription = setInterval(function() {
 			if(typeof(inResponse.subscribed) === "boolean") {
 				LogIfDebug(oString.strGetSensorDataSubscribe);
 	 		} else {
-				if(bInputOpened) {
-					LaunchApp(sAppID);
-				}
-				if((AppVisible() && AppFocus()) || bInputOpened) {
-					if(iTimeoutInactivity) {
-						clearTimeout(iTimeoutInactivity);
-						iTimeoutInactivity = 0;
-					}
-					iTimeoutInactivity = setTimeout(function() {
-						iTimeoutInactivity = 0;
-						if((AppVisible() && AppFocus()) || bInputOpened) {
-							bInputOpened = true;
-							LaunchApp(sInputAppId);
-						}
-					}, uiScreensaver);
+				if((AppVisible() && AppFocus())){
 					if(iTimeoutRightClick && ((pMouseDown.usX - inResponse.coordinate.x) > 3 || (pMouseDown.usX - inResponse.coordinate.x) < -3 || (pMouseDown.usY - inResponse.coordinate.y) > 3 || (pMouseDown.usY - inResponse.coordinate.y) < -3)) {
 						clearTimeout(iTimeoutRightClick);
 						iTimeoutRightClick = 0;
@@ -460,25 +490,6 @@ var iIntervalSubscription = setInterval(function() {
 		}
 	});
 }, 1000);
-
-webOS.service.request("luna://com.webos.service.eim", { 
- 	method: "addDevice", 
- 	parameters: { 
- 		appId: sAppID, 
- 		pigImage: "", 
- 		mvpdIcon: "", 
- 		type: "MVPD_IP", 
- 		showPopup: true, 
- 		label: oString.strAppTittle + " " + sInputName, 
- 		description: oString.strAppDescription, 
- 	}, 
- 	onSuccess: function(inResponse){ 
- 		LogIfDebug(oString.strAddDeviceSuccess); 
- 	}, 
- 	onFailure: function(inError){ 
- 		Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
- 	} 
- });
 
 document.addEventListener("mousedown", function(inEvent) {
 	if(iTimeoutRightClick) {
@@ -528,19 +539,27 @@ document.addEventListener("keydown", function(inEvent) {
 	switch(inEvent.keyCode) {
 		case 0x08:
 		case 0x0D:
+			SendKeyboardKey({
+				usC: inEvent.keyCode,
+				bS: true,
+				bE: false
+			});
+			break;
 		case 0x25:
 		case 0x26:
 		case 0x27:
 		case 0x28:
 			SendKeyboardKey({
 				usC: inEvent.keyCode,
-				bS: true
+				bS: true,
+				bE: true
 			});
 			break;
 		case 0x194:
 			SendKeyboardKey({
 				usC: 0x5B,
-				bS: true
+				bS: true,
+				bE: true
 			});
 			break;
 		case 0x195:
@@ -552,7 +571,8 @@ document.addEventListener("keydown", function(inEvent) {
 		case 0x1CD:
 			SendKeyboardKey({
 				usC: 0x1B,
-				bS: true
+				bS: true,
+				bE: false
 			});
 			break;
 		default:
@@ -564,13 +584,20 @@ document.addEventListener("keyup", function(inEvent) {
 	switch(inEvent.keyCode) {
 		case 0x08:
 		case 0x0D:
+			SendKeyboardKey({
+				usC: inEvent.keyCode,
+				bS: false,
+				bE: false
+			});
+			break;
 		case 0x25:
 		case 0x26:
 		case 0x27:
 		case 0x28:
 			SendKeyboardKey({
 				usC: inEvent.keyCode,
-				bS: false
+				bS: false,
+				bE: true
 			});
 			break;
 		case 0x193:
@@ -605,13 +632,15 @@ document.addEventListener("keyup", function(inEvent) {
 		case 0x194:
 			SendKeyboardKey({
 				usC: 0x5B,
-				bS: false
+				bS: false,
+				bE: true
 			});
 			break;
 		case 0x195:
 			SendMouseKey({
 				usC: 1,
-				bS: false
+				bS: false,
+				bE: false
 			});
 			break;
 		case 0x196:
@@ -624,7 +653,8 @@ document.addEventListener("keyup", function(inEvent) {
 		case 0x1CD:
 			SendKeyboardKey({
 				usC: 0x1B,
-				bS: false
+				bS: false,
+				bE: false
 			});
 			break;
 		default:
@@ -639,19 +669,12 @@ document.getElementById("keyboard").addEventListener('input', function(inEvent) 
 });
 
 document.addEventListener("visibilitychange", function() {
-	if(bInputOpened) {
-		if(AppVisible()) {
-			bInputOpened = false;
-		}
+	if(!bInputSourceStatus) {
 	} else {
-		if(!bInputSourceStatus) {
-
+		if(AppVisible()) {
+			Connect();
 		} else {
-			if(AppVisible()) {
-				Connect();
-			} else {
-				Close();
-			}
+			Close();
 		}
 	}
 });

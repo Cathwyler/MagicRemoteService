@@ -1055,7 +1055,7 @@ namespace MagicRemoteService {
 																	{
 																		dx = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65535) / 1920),
 																		dy = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65535) / 1080),
-																		dwFlags = MouseInputFlags.MOUSEEVENTF_MOVE | MouseInputFlags.MOUSEEVENTF_ABSOLUTE,
+																		dwFlags = MouseInputFlags.MOUSEEVENTF_ABSOLUTE | MouseInputFlags.MOUSEEVENTF_MOVE,
 																		dwExtraInfo = GetMessageExtraInfo()
 																	}
 																}
@@ -1104,6 +1104,25 @@ namespace MagicRemoteService {
 																Service.SendInputAdmin(piInput);
 																this.LogIfDebug("Processed binary message send/mouse/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 																break;
+															//case 0x02:
+															//	piInput = new Input[]
+															//	{
+															//		new Input
+															//		{
+															//			type = InputType.INPUT_MOUSE,
+															//			u = new DummyUnionName
+															//			{
+															//				mi = new MouseInput
+															//				{
+															//					dwFlags = (tabData[ulOffsetData + 3] == 1) ? MouseInputFlags.MOUSEEVENTF_MIDDLEDOWN : MouseInputFlags.MOUSEEVENTF_MIDDLEUP,
+															//					dwExtraInfo = GetMessageExtraInfo()
+															//				}
+															//			}
+															//		}
+															//	};
+															//	Service.SendInputAdmin(piInput);
+															//	this.LogIfDebug("Processed binary message send/mouse/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+															//	break;
 															default:
 																this.Warn("Unprocessed binary message send/mouse/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 																break;
@@ -1139,8 +1158,14 @@ namespace MagicRemoteService {
 														break;
 													case 0x04:
 														switch(System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1)) {
-															case 0x08:
-															case 0x1B:
+															case 0x08: //BACKSPACE
+															case 0x0D: //ENTER
+															case 0x1B: //ESCAPE
+															case 0x25: //ARROW
+															case 0x26: //ARROW
+															case 0x27: //ARROW
+															case 0x28: //ARROW
+															case 0x5B: //WIN
 																piInput = new Input[]
 																{
 																	new Input
@@ -1151,40 +1176,37 @@ namespace MagicRemoteService {
 																			ki = new KeybdInput
 																			{
 																				wScan = (ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC),
-																				dwFlags = ((tabData[ulOffsetData + 3] == 1) ? KeybdInputFlags.KEYEVENTF_KEYDOWN : KeybdInputFlags.KEYEVENTF_KEYUP) | KeybdInputFlags.KEYEVENTF_SCANCODE,
+																				dwFlags = (((tabData[ulOffsetData + 3] & 0x01) == 0x01) ? KeybdInputFlags.KEYEVENTF_KEYDOWN : KeybdInputFlags.KEYEVENTF_KEYUP) | (((tabData[ulOffsetData + 3] & 0x02) == 0x02) ? (KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | KeybdInputFlags.KEYEVENTF_SCANCODE) : KeybdInputFlags.KEYEVENTF_SCANCODE),
 																				dwExtraInfo = GetMessageExtraInfo()
 																			}
 																		}
 																	}
 																};
 																Service.SendInputAdmin(piInput);
-																this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString() + ", bS: " + (ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC));
+																this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString() + ", wScan: " + (ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC));
 																break;
-															case 0x0D:
-															case 0x25:
-															case 0x26:
-															case 0x27:
-															case 0x28:
-															case 0x5B:
-																piInput = new Input[]
-																{
-																	new Input
-																	{
-																		type = InputType.INPUT_KEYBOARD,
-																		u = new DummyUnionName
-																		{
-																			ki = new KeybdInput
-																			{
-																				wScan = (ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC),
-																				dwFlags = ((tabData[ulOffsetData + 3] == 1) ? KeybdInputFlags.KEYEVENTF_KEYDOWN : KeybdInputFlags.KEYEVENTF_KEYUP) | KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | KeybdInputFlags.KEYEVENTF_SCANCODE,
-																				dwExtraInfo = GetMessageExtraInfo()
-																			}
-																		}
-																	}
-																};
-																Service.SendInputAdmin(piInput);
-																this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString() + ", bS: " + (ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC));
-																break;
+
+																//byte[] tabScan = System.BitConverter.GetBytes((ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC_EX));
+																//piInput = new Input[]
+																//{
+																//	new Input
+																//	{
+																//		type = InputType.INPUT_KEYBOARD,
+																//		u = new DummyUnionName
+																//		{
+																//			ki = new KeybdInput
+																//			{
+																//				wScan = tabScan[0],
+																//				dwFlags = ((tabData[ulOffsetData + 3] == 1) ? KeybdInputFlags.KEYEVENTF_KEYDOWN : KeybdInputFlags.KEYEVENTF_KEYUP) | KeybdInputFlags.KEYEVENTF_SCANCODE | ((tabScan[1] == 0xE0 || tabScan[1] == 0xE1) ? KeybdInputFlags.KEYEVENTF_EXTENDEDKEY : 0),
+																//				dwExtraInfo = GetMessageExtraInfo()
+																//			}
+																//		}
+																//	}
+																//};
+																//Service.SendInputAdmin(piInput);
+																//this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString() + ", wScan: 0x" + System.BitConverter.ToString(tabScan).Replace("-", System.String.Empty));
+																//break;
+
 																//piInput = new Input[]
 																//{
 																//	new Input
@@ -1201,7 +1223,7 @@ namespace MagicRemoteService {
 																//		}
 																//	}
 																//};
-																//MagicRemoteService.SendInput((uint)piInput.Length, piInput, System.Runtime.InteropServices.Marshal.SizeOf(typeof(Input)));
+																//Service.SendInputAdmin(piInput);
 																//this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 																//break;
 															default:
