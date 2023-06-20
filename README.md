@@ -15,8 +15,7 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 ### Possible Improvement
 - I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.
 - Find a way to detect focus in TextBox control on Windows to automatically pop up the WebOS keyboard.
-- Add possibility to choose a PC screen.
-- Find a better way to get ride of TV screen saver.
+- Add the ability to configure the remote control keys.
 
 ## Installation
 
@@ -43,8 +42,6 @@ Magic remote inputs :
 - A short middle click sends a left click to the PC.
 - A long middle click sends a right click to the PC.
 - A wheel scroll is sent to the PC.
-
-To prevent screen saver on the TV, the app switches automatically on the video input after 2 minutes of inactivity. If the cursor reappears the app switches back foreground. While the video input is foreground all magic remote inputs is not caught. You need to shake the magic remote or use the scroll before getting magic remote inputs working if the app is in his inactivity phase.
 
 If you are stuck at startup because Wake-on-LAN didn't work, you can do a long press on the return button to relaunch the app or starts up PC manually.
 
