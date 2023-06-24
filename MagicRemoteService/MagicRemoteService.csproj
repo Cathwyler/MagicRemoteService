@@ -157,6 +157,7 @@
     <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="Resources\TV\MagicRemoteService\appinfo.json" />
+    <None Include="Resources\TV\MagicRemoteService\MuseoSans-Medium.ttf" />
     <None Include="Resources\TV\MagicRemoteService\ressources\fr\appinfo.json" />
     <None Include="Resources\TV\Send\package.json" />
     <None Include="Resources\TV\Send\services.json" />

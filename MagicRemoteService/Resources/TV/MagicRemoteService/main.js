@@ -5,48 +5,76 @@ ArrayBuffer.prototype.toString = function(base) {
 	}).join("");
 }
 
+function Toast(sTitre, sMessage){
+	CancelToast();
+	let deScreen = document.createElement("div");
+	deScreen.className = "screen flex justify-center align-flex-end";
+	let deLog = document.createElement("div");
+	deLog.className = "window";
+	deLog.id = "toast"
+	deLog.addEventListener("click", CancelToast);
+	let dePopupTitre = document.createElement("div");
+	dePopupTitre.className = "titre";
+	dePopupTitre.innerText = sTitre;
+	deLog.appendChild(dePopupTitre);
+	if(arguments.length) {
+		let dePopupMessage = document.createElement("div");
+		dePopupMessage.className = "message";
+		dePopupMessage.innerText = sMessage;
+		deLog.appendChild(dePopupMessage);
+	}
+	deScreen.appendChild(deLog);
+	document.body.appendChild(deScreen);
+}
+
+function CancelToast(){
+	let deLog = document.getElementById("toast")
+	if(deLog !== null) {
+		deLog.parentNode.remove();
+	}
+}
+
 function Log() {
-	document.getElementById("log-titre").innerText = oString.strLogTitle;
-	document.getElementById("log-message").innerText = JSON.stringify(arguments);
-	document.getElementById("log").style.display = "block";
+	Toast(oString.strLogTitle, Object.values(arguments).map(function(x) {
+		if(typeof x === "object") {
+			return JSON.stringify(x);
+		} else {
+			return x.toString();
+		}
+	}).join(""));
 	console.log.apply(console, arguments);
 }
+
 function LogIfDebug() {
 	if(bDebug) {
 		Log.apply(this, arguments);
 	}
 }
+
 function Warn() {
-	document.getElementById("log-titre").innerText = oString.strWarnTitle;
-	document.getElementById("log-message").innerText = JSON.stringify(arguments);
-	document.getElementById("log").style.display = "block";
+	Toast(oString.strWarnTitle, Object.values(arguments).map(function(x) {
+		if(typeof x === "object") {
+			return JSON.stringify(x);
+		} else {
+			return x.toString();
+		}
+	}).join(""));
 	console.warn.apply(console, arguments);
 }
+
 function Error() {
-	document.getElementById("log-titre").innerText = oString.strErrorTitle;
-	document.getElementById("log-message").innerText = JSON.stringify(arguments);
-	document.getElementById("log").style.display = "block";
+	Toast(oString.strErrorTitle, Object.values(arguments).map(function(x) {
+		if(typeof x === "object") {
+			return JSON.stringify(x);
+		} else {
+			return x.toString();
+		}
+	}).join(""));
 	console.error.apply(console, arguments);
 }
 
-document.getElementById("log").addEventListener("click", function() {
-	document.getElementById("log").style.display = "none";
-});
-
-function LaunchApp(sAppId) {
-	webOSDev.launch({
-		id: sAppId,
-		onSuccess: function (inResponse) {
-			LogIfDebug(oString.strLaunchAppSuccess.replace("{1}", sAppId));
-		},
-		onFailure: function (inError) {
-			Error(oString.strLaunchAppSuccess.replace("{1}", sAppId) + " [", inError.errorText, "]");
-		}
-	});
-}
-
 function AppVisible() {
-	return document.visibilityState === 'visible';
+	return document.visibilityState === "visible";
 }
 
 function AppFocus() {
@@ -61,27 +89,45 @@ function CursorVisible() {
 	return window.PalmSystem.cursor.visibility === true;
 }
 
-function Dialogue(sTitre, sMessage, tabButton){
-	CancelDialogue();
-	document.getElementById("popup-titre").innerText = sTitre;
-	document.getElementById("popup-message").innerText = sMessage;
-	let dePopupButton = document.getElementById("popup-button");
-	dePopupButton.appendChild(document.createElement("span"));
-	tabButton.forEach(function(bButton) {
-		let deButton = document.createElement("button");
-		deButton.innerText = bButton.sName;
-		deButton.addEventListener("click", CancelDialogue);
-		deButton.addEventListener("click", bButton.fAction);
-		dePopupButton.appendChild(deButton);
-	});
-	document.getElementById("popup").style.display = "block";
+function Dialog(sTitre, sMessage, tabButton){
+	CancelDialog();
+	let deScreen = document.createElement("div");
+	deScreen.className = "screen flex justify-center align-center";
+	let deDialog = document.createElement("div");
+	deDialog.className = "window";
+	deDialog.id = "dialog"
+	if(sTitre.length) {
+		let dePopupTitre = document.createElement("div");
+		dePopupTitre.className = "titre";
+		dePopupTitre.innerText = sTitre;
+		deDialog.appendChild(dePopupTitre);
+	}
+	if(sMessage.length) {
+		let dePopupMessage = document.createElement("div");
+		dePopupMessage.className = "message";
+		dePopupMessage.innerText = sMessage;
+		deDialog.appendChild(dePopupMessage);
+	}
+	if(tabButton.length) {
+		let dePopupButton = document.createElement("div");
+		dePopupButton.className = "button flex justify-flex-end align-center";
+		tabButton.forEach(function(bButton) {
+			let deButton = document.createElement("button");
+			deButton.innerText = bButton.sName;
+			deButton.addEventListener("click", CancelDialog);
+			deButton.addEventListener("click", bButton.fAction);
+			dePopupButton.appendChild(deButton);
+		});
+		deDialog.appendChild(dePopupButton);
+	}
+	deScreen.appendChild(deDialog);
+	document.body.appendChild(deScreen);
 }
 
-function CancelDialogue(){
-	document.getElementById("popup").style.display = "none";
-	let dePopupButton = document.getElementById("popup-button");
-	while(dePopupButton.firstChild) {
-		dePopupButton.removeChild(dePopupButton.firstChild);
+function CancelDialog(){
+	let deDialog = document.getElementById("dialog")
+	if(deDialog !== null) {
+		deDialog.parentNode.remove();
 	}
 }
 
@@ -158,7 +204,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 					clearTimeout(iTimeoutSourceStatus);
 					iTimeoutSourceStatus = 0;
 				}
-				CancelDialogue();
+				CancelDialog();
 				if(bLastInputSourceStatus !== bInputSourceStatus) {
 					if(AppVisible()) {
 						Connect();
@@ -170,7 +216,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 						Close();
 					}
 				}
-				Dialogue(oString.strAppTittle, oString.strInputDisconect, [
+				Dialog(oString.strAppTittle, oString.strInputDisconect, [
 					{
 						sName: oString.strInputDisconectStart,
 						fAction: function() {
@@ -192,7 +238,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 							}
 							iTimeoutSourceStatus = setTimeout(function() {
 								iTimeoutSourceStatus = 0;
-								Dialogue(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
+								Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
 							}, 5000);
 						}
 					}
@@ -219,7 +265,7 @@ function Connect() {
 			clearTimeout(iTimeoutConnect);
 			iTimeoutConnect = 0;
 		}
-		CancelDialogue();
+		CancelDialog();
 		if(CursorVisible() && AppVisible() && AppFocus()) {
 			SendMouseVisible({
 				bV: true
@@ -239,7 +285,7 @@ function Connect() {
 	} else {
 		iTimeoutConnect = setTimeout(function() {
 			iTimeoutConnect = 0;
-			Dialogue(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
+			Dialog(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
 		}, 30000);
 	}
 }
@@ -276,10 +322,10 @@ function SendWol(mMac, sBroadcast) {
 			sBroadcast: sBroadcast
 		},
 		onSuccess: function(inResponse) {
-			console.log(oString.strSendWolSuccess + " [0x" + inResponse.sBuffer + "]@" + sBroadcast + ":9", mMac);
+			LogIfDebug(oString.strSendWolSuccess + " [0x" + inResponse.sBuffer + "]@" + sBroadcast + ":9 ", mMac);
 		},
 		onFailure: function(inError) {
-			Error(oString.strSendWolFailure + " [", inError.eError, "]@" + sBroadcast + ":9", mMac);
+			Error(oString.strSendWolFailure + " [", inError.eError, "]@" + sBroadcast + ":9 ", mMac);
 		}
 	});
 }
@@ -293,9 +339,9 @@ function SendMousePosition(pPosition) {
 			dwMousePosition.setUint16(1, pPosition.usX, true);
 			dwMousePosition.setUint16(3, pPosition.usY, true);
 			socClient.send(bufMousePosition);
-			//LogIfDebug(oString.strSendMousePositionSuccess + " [0x" + bufMousePosition.toString(16) + "]@" + sIP + ":" + uiPort, pPosition);
+			//LogIfDebug(oString.strSendMousePositionSuccess + " [0x" + bufMousePosition.toString(16) + "]@" + sIP + ":" + uiPort + " ", pPosition);
 		} catch(eError) {
-			Error(oString.strSendMousePositionFailure + " [", eError, "]@" + sIP + ":" + uiPort, pPosition);
+			Error(oString.strSendMousePositionFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", pPosition);
 		}
 	}
 }
@@ -309,9 +355,9 @@ function SendMouseKey(kKey) {
 			dwMouseKey.setUint16(1, kKey.usC, true);
 			dwMouseKey.setUint8(3, kKey.bS);
 			socClient.send(bufMouseKey);
-			LogIfDebug(oString.strSendMouseKeySuccess + " [0x" + bufMouseKey.toString(16) + "]@" + sIP + ":" + uiPort, kKey);
+			LogIfDebug(oString.strSendMouseKeySuccess + " [0x" + bufMouseKey.toString(16) + "]@" + sIP + ":" + uiPort + " ", kKey);
 		} catch(eError) {
-			Error(oString.strSendMouseKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort, kKey);
+			Error(oString.strSendMouseKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kKey);
 		}
 	}
 }
@@ -324,9 +370,9 @@ function SendMouseWheel(wWheel) {
 		try {
 			dwMouseWheel.setInt16(1, wWheel.sY, true);
 			socClient.send(bufMouseWheel);
-			LogIfDebug(oString.strSendMouseWheelSuccess + " [0x" + bufMouseWheel.toString(16) + "]@" + sIP + ":" + uiPort, wWheel);
+			LogIfDebug(oString.strSendMouseWheelSuccess + " [0x" + bufMouseWheel.toString(16) + "]@" + sIP + ":" + uiPort + " ", wWheel);
 		} catch(eError) {
-			Error(oString.strSendMouseWheelFailure + " [", eError, "]@" + sIP + ":" + uiPort, wWheel);
+			Error(oString.strSendMouseWheelFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", wWheel);
 		}
 	}
 }
@@ -339,9 +385,9 @@ function SendMouseVisible(vVisible) {
 		try {
 			dwMouseVisible.setUint8(1, vVisible.bV);
 			socClient.send(bufMouseVisible);
-			LogIfDebug(oString.strSendMouseVisibleSuccess + " [0x" + bufMouseVisible.toString(16) + "]@" + sIP + ":" + uiPort, vVisible);
+			LogIfDebug(oString.strSendMouseVisibleSuccess + " [0x" + bufMouseVisible.toString(16) + "]@" + sIP + ":" + uiPort + " ", vVisible);
 		} catch(eError) {
-			Error(oString.strSendMouseVisibleFailure + " [", eError, "]@" + sIP + ":" + uiPort, vVisible);
+			Error(oString.strSendMouseVisibleFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", vVisible);
 		}
 	}
 }
@@ -355,9 +401,9 @@ function SendKeyboardKey(kKey) {
 			dwKeyboardKey.setUint16(1, kKey.usC, true);
 			dwKeyboardKey.setUint8(3, (kKey.bS << 0) | (kKey.bE << 1));
 			socClient.send(bufKeyboardKey);
-			LogIfDebug(oString.strSendKeyboardKeySuccess + " [0x" + bufKeyboardKey.toString(16) + "]@" + sIP + ":" + uiPort, kKey);
+			LogIfDebug(oString.strSendKeyboardKeySuccess + " [0x" + bufKeyboardKey.toString(16) + "]@" + sIP + ":" + uiPort + " ", kKey);
 		} catch(eError) {
-			Error(oString.strSendKeyboardKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort, kKey);
+			Error(oString.strSendKeyboardKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kKey);
 		}
 	}
 }
@@ -370,9 +416,9 @@ function SendKeyboardUnicode(kUnicode) {
 		try {
 			dwKeyboardUnicode.setUint16(1, kUnicode.usC, true);
 			socClient.send(bufKeyboardUnicode);
-			LogIfDebug(oString.strSendKeyboardUnicodeSuccess + " [0x" + bufKeyboardUnicode.toString(16) + "]@" + sIP + ":" + uiPort, kUnicode);
+			LogIfDebug(oString.strSendKeyboardUnicodeSuccess + " [0x" + bufKeyboardUnicode.toString(16) + "]@" + sIP + ":" + uiPort + " ", kUnicode);
 		} catch(eError) {
-			Error(oString.strSendKeyboardUnicodeFailure + " [", eError, "]@" + sIP + ":" + uiPort, kUnicode);
+			Error(oString.strSendKeyboardUnicodeFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kUnicode);
 		}
 	}
 }
@@ -410,36 +456,41 @@ webOS.service.request("luna://com.webos.service.eim", {
 	} 
 });
 
-webOS.service.request("luna://com.webos.service.tvpower/", { 
-	method: "power/registerScreenSaverRequest", 
-	parameters: {
-		clientName: sAppID,
-		subscribe: true
-	}, 
-	onSuccess: function(inResponse){ 
-		if(typeof(inResponse.subscribed) === "boolean") {
-			LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
-		} else {
-			webOS.service.request("luna://com.webos.service.tvpower/", { 
-				method: "power/responseScreenSaverRequest", 
-				parameters: {
-					clientName: sAppID,
-					ack: false,
-					timestamp: inResponse.timestamp
-				}, 
-				onSuccess: function(inResponse){ 
-					LogIfDebug(oString.strResponseScreenSaverRequestSuccess); 
-				}, 
-				onFailure: function(inError){ 
-					Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]"); 
-				} 
-			});
+var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
+	webOS.service.request("luna://com.webos.service.tvpower", { 
+		method: "power/registerScreenSaverRequest", 
+		parameters: {
+			clientName: sAppID,
+			subscribe: true
+		}, 
+		onSuccess: function(inResponse){
+			clearInterval(iIntervalSubscriptionRegisterScreenSaverRequest);
+			if(typeof(inResponse.subscribed) === "boolean") {
+				LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
+			} else {
+				if((AppVisible() && AppFocus())){
+					webOS.service.request("luna://com.webos.service.tvpower", { 
+						method: "power/responseScreenSaverRequest", 
+						parameters: {
+							clientName: sAppID,
+							ack: !bInputSourceStatus,
+							timestamp: inResponse.timestamp
+						}, 
+						onSuccess: function(inResponse){ 
+							LogIfDebug(oString.strResponseScreenSaverRequestSuccess); 
+						}, 
+						onFailure: function(inError){ 
+							Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+						} 
+					});
+				}
+			} 
+		}, 
+		onFailure: function(inError){ 
+			Warn(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
 		} 
-	}, 
-	onFailure: function(inError){ 
-		Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
-	} 
-});
+	});
+}, 1000);
 
 var pMouse = {
 	usX: 0,
@@ -452,7 +503,7 @@ var pMouseDown = {
 var bMouseDownSent = false;
 var iTimeoutRightClick = 0;
 
-var iIntervalSubscription = setInterval(function() {
+var iIntervalSubscriptionGetSensorData = setInterval(function() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
 		method: "sensor/getSensorData",
 		parameters: {
@@ -460,7 +511,7 @@ var iIntervalSubscription = setInterval(function() {
 			subscribe: true
 		},
 		onSuccess: function(inResponse) {
-			clearInterval(iIntervalSubscription);
+			clearInterval(iIntervalSubscriptionGetSensorData);
 			if(typeof(inResponse.subscribed) === "boolean") {
 				LogIfDebug(oString.strGetSensorDataSubscribe);
 	 		} else {
@@ -602,7 +653,7 @@ document.addEventListener("keyup", function(inEvent) {
 			break;
 		case 0x193:
 			if(bInputSourceStatus){
-				Dialogue(oString.strAppTittle, oString.strShutdownMessage, [
+				Dialog(oString.strAppTittle, oString.strShutdownMessage, [
 					{
 						sName: oString.strShutdownShutdown,
 						fAction: function(){
@@ -614,7 +665,7 @@ document.addEventListener("keyup", function(inEvent) {
 					}
 				]);
 			} else {
-				Dialogue(oString.strAppTittle, oString.strStartMessage [
+				Dialog(oString.strAppTittle, oString.strStartMessage [
 					{
 						sName: oString.strStartStart,
 						fAction: function(){
@@ -662,7 +713,7 @@ document.addEventListener("keyup", function(inEvent) {
 	}
 });
 
-document.getElementById("keyboard").addEventListener('input', function(inEvent) {
+document.getElementById("keyboard").addEventListener("input", function(inEvent) {
 	SendKeyboardUnicode({
 		usC: inEvent.data.charCodeAt()
 	});

@@ -70,7 +70,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;iconColor&quot;: &quot;#4F4F4F&quot;,
         ///	&quot;type&quot;: &quot;web&quot;,
         ///	&quot;vendor&quot;: &quot;Cathwyler&quot;,
-        ///	&quot;version&quot;: &quot;1.0.2&quot;,
+        ///	&quot;version&quot;: &quot;1.0.0&quot;,
         ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
         ///	&quot;bgColor&quot;: &quot;#4F4F4F&quot;,
         ///	&quot;supportTouchMode&quot;: &quot;none&quot;,
@@ -108,7 +108,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice&quot;,
         ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
         ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
-        ///	&quot;version&quot;: &quot;1.0.2&quot;
+        ///	&quot;version&quot;: &quot;1.0.0&quot;
         ///}.
         /// </summary>
         internal static string frappinfo {
@@ -134,37 +134,35 @@ namespace MagicRemoteService.Properties {
         ///&lt;head&gt;
         ///	&lt;title&gt;MagicRemoteService&lt;/title&gt;
         ///	&lt;style type=&quot;text/css&quot;&gt;
+        ///		@font-face {
+        ///			font-family: Sandstone;
+        ///			src: url(&quot;MuseoSans-Medium.ttf&quot;);
+        ///		}
+        ///		* {
+        ///			font-family: Sandstone;
+        ///		}
+        ///
         ///		body {
-        ///			position: absolute;
-        ///			
-        ///			padding:0;
         ///			margin:0;
-        ///			top:0%;
-        ///			left:0%;
+        ///			padding:0;
+        ///		}
+        ///
+        ///		.screen{
+        ///			position: fixed;
+        ///			pointer-events: none;
+        ///			text-overflow: ellipsis;
         ///			
         ///			height: 100%;
         ///			width: 100%;
         ///		}
         ///
-        ///		video#video {
-        ///			position: absolute;
-        ///			
-        ///			padding:0;
-        ///			margin:0;
-        ///			top:0%;
-        ///			left:0%;
-        ///			
-        ///			height: 100%;
-        ///			width: 100%;
+        ///		div.flex{
+        ///			display: flex;
+        ///			flex-flow: row wrap;
+        ///			gap: 1rem;
         ///		}
-        ///
-        ///		div#keyboardcontainer{
-        ///			width: 0;
-        ///			overflow: hidden;
-        ///		}
-        ///		input#keyboard{
-        ///			opacity:0;
-        ///			filter:alpha(opacity=0); [le reste de la chaîne a été tronqué]&quot;;.
+        ///		div.justify-center{
+        ///			ju [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string index {
             get {
@@ -238,17 +236,24 @@ namespace MagicRemoteService.Properties {
         ///
         ///function Log() {
         ///	document.getElementById(&quot;log-titre&quot;).innerText = oString.strLogTitle;
-        ///	document.getElementById(&quot;log-message&quot;).innerText = JSON.stringify(arguments);
-        ///	document.getElementById(&quot;log&quot;).style.display = &quot;block&quot;;
-        ///	console.log.apply(console, arguments);
-        ///}
-        ///function LogIfDebug() {
-        ///	if(bDebug) {
-        ///		Log.apply(this, argu [le reste de la chaîne a été tronqué]&quot;;.
+        ///	let deLogMessage = document.getElementById(&quot;log-message&quot;);
+        ///	deLogMessage.innerText = Object.values(arguments).join(&apos;&apos;);
+        ///	deLogMessage.style.display = deLogMessage.innerText.length ? null : &quot;none&quot;;
+        ///	document.getElementById(&quot;log&quot;).style.displ [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {
                 return ResourceManager.GetString("main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] MuseoSans_Medium {
+            get {
+                object obj = ResourceManager.GetObject("MuseoSans_Medium", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

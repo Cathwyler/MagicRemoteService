@@ -291,6 +291,7 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllText(".\\TV/MagicRemoteService\\ressource.js", MagicRemoteService.Properties.Resources.ressource);
 			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\icon.png", MagicRemoteService.Properties.Resources.icon);
 			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
+			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.4\\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.4\\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\ressources\\fr\\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo

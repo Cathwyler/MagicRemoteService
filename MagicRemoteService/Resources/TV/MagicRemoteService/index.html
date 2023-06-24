@@ -4,99 +4,83 @@
 <head>
 	<title>MagicRemoteService</title>
 	<style type="text/css">
+		@font-face {
+			font-family: Sandstone;
+			src: url("MuseoSans-Medium.ttf");
+		}
+		* {
+			font-family: Sandstone;
+			text-overflow: ellipsis;
+		}
+
 		body {
-			position: absolute;
-			
-			padding:0;
 			margin:0;
-			top:0%;
-			left:0%;
+			padding:0;
+		}
+
+		.screen{
+			position: fixed;
+			pointer-events: none;
 			
 			height: 100%;
 			width: 100%;
 		}
 
-		video#video {
-			position: absolute;
-			
-			padding:0;
-			margin:0;
-			top:0%;
-			left:0%;
-			
-			height: 100%;
-			width: 100%;
-		}
-
-		div#keyboardcontainer{
-			width: 0;
-			overflow: hidden;
-		}
-		input#keyboard{
-			opacity:0;
-			filter:alpha(opacity=0);
-		}
-
-		div#popup {
-			padding: 16px 0px 0px 16px;
-			display: none;
-			position: absolute;
-			background: #4F4F4F;
-			top: 50%;
-			left: 50%;
-			transform: translateX(-50%) translateY(-50%);
-			width: auto;
-			min-width: 200px;
-			max-width: 600px;
-			height: auto;
-			border-radius: 5px;
-  			color: #DFDFDF;
-		}
-		div#popup div{
-			padding: 0px 16px 16px 0px;
-		}
-		div#popup-titre{
-			font-size: 32px;
-			font-weight: bold;
-		}
-		div#popup-message{
-			font-size: 24px;
-		}
-		div#popup-button{
+		div.flex{
 			display: flex;
+			flex-flow: row wrap;
+			gap: 1rem;
 		}
-		div#popup-button span{
-			flex: auto;
+		div.justify-center{
+			justify-content:center;
 		}
-		div#popup-button button{
-			margin: 0px 0px 0px 10px;
-			min-width: 150px;
-			min-height: 50px;
-			font-size: 16px;
+		div.justify-flex-end{
+			justify-content:flex-end;
+		}
+		div.align-flex-end{
+			align-items:flex-end;
+		}
+		div.align-center{
+			align-items:center;
+		}
+		
+		div.window{
+			margin: 1.5rem;
+			pointer-events: auto;
+			border-radius: .5rem;
+			background: #575E66;
+			color: #E6E6E6;
+		}
+		div.window div{
+			margin: 1.5rem;
+		}
+		div.titre{
+			font-weight: bold;
+			font-size: 3rem;
+		}
+		div.message{
+			font-size: 1.5rem;
+		}
+		div.button button{
+			padding: 1rem;
+			min-width: 15rem;
+			max-width: 50%;
+			font-size: 1.5rem;
 		}
 
-		div#log {
-			padding: 16px 0px 0px 16px;
-			display: none;
-			position: absolute;
-			background: #4F4F4F;
-			top: 100%;
-			left: 50%;
-			transform: translateX(-50%) translateY(-100%);
-			width: auto;
-			height: auto;
-			border-radius: 5px;
-			color: #DFDFDF;
+
+		input#keyboard{
+			visibility:0;
 		}
-		div#log div{
-			padding: 0px 16px 16px 0px;
+
+		div#dialog {
+			min-width: 30%;
+			max-width: 50%;
 		}
-		div#log-titre{
-			font-size: 24px;
-			font-weight: bold;
-		}
-		div#log-message{
-			font-size: 24px;
+
+		div#toast {
+			min-width: 30%;
+			max-width: 80%;
 		}
 	</style>
 </head>
@@ -106,25 +90,12 @@
 <script src="ressource.js" charset="utf-8"></script>
 
 <body>
-	<video id="video" autoplay loop>
-	</video>
-	<div id="keyboardcontainer">
+	<div class="screen">
 		<input id="keyboard" type="text">
 	</div>
-	<div id="popup">
-		<div id="popup-titre">
-		</div>
-		<div id="popup-message">
-		</div>
-		<div id="popup-button">
-		</div>
-	</div>
-	<div id="log">
-		<div id="log-titre">
-		</div>
-		<div id="log-message">
-		</div>
-	</div>
+	<video class="screen" id="video" autoplay loop>
+	</video>
 </body>
+
 <script src="main.js" charset="utf-8"></script>
 </html>

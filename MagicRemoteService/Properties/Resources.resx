@@ -235,4 +235,7 @@
   <data name="webOSTV_dev" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV-dev.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="MuseoSans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TV\MagicRemoteService\MuseoSans-Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
