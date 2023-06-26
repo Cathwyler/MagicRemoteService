@@ -301,6 +301,8 @@ namespace MagicRemoteService {
 				return stType;
 			}
 		}
+		private static readonly byte[] tabPing = { (0b1000 << 4) | (0x9 << 0), 0x00 };
+		private static readonly byte[] tabPong = { (0b1000 << 4) | (0xA << 0), 0x00 };
 		public Service() {
 			this.InitializeComponent();
 			if(!System.Diagnostics.EventLog.SourceExists(this.ServiceName)) {
@@ -969,6 +971,19 @@ namespace MagicRemoteService {
 					pProcess.Start();
 					tUserInput.Start();
 				};
+				System.Timers.Timer tPong = new System.Timers.Timer();
+				tPong.Interval = 5000;
+				tPong.AutoReset = false;
+				tPong.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+					mreClientStop.Set();
+				};
+				System.Timers.Timer tPing = new System.Timers.Timer();
+				tPing.Interval = 30000;
+				tPing.AutoReset = true;
+				tPing.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+					socClient.Send(Service.tabPing);
+					tPong.Start();
+				};
 
 				if(this.bInactivity) {
 					tInactivity.Start();
@@ -988,6 +1003,8 @@ namespace MagicRemoteService {
 							break;
 						case 2:
 							if(this.bInactivity) {
+								tPing.Stop();
+								tPing.Start();
 								tInactivity.Stop();
 								tInactivity.Start();
 							}
@@ -1001,6 +1018,7 @@ namespace MagicRemoteService {
 
 								//TODO Something to ask TV if cursor visible
 								this.Log("Client connected on socket [" + socClient.GetHashCode() + "]");
+								tPing.Start();
 							} else {
 								ulong ulOffsetFrame = 0;
 								while(!(ulOffsetFrame == ulLenMessage)) {
@@ -1283,6 +1301,14 @@ namespace MagicRemoteService {
 											mreClientStop.Set();
 											this.Log("Client disconnected on socket [" + socClient.GetHashCode() + "]");
 											break;
+										case 0x9: //Ping
+											socClient.Send(Service.tabPong);
+											this.LogIfDebug("Ping received on socket [" + socClient.GetHashCode() + "]");
+											break;
+										case 0xA: //Pong
+											tPong.Stop();
+											this.LogIfDebug("Pong received on socket [" + socClient.GetHashCode() + "]");
+											break;
 										default:
 											this.Warn("Unprocessed message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], " + System.Text.Encoding.Default.GetString(tabData, (int)ulOffsetData, (int)ulLenData));
 											break;
@@ -1296,8 +1322,11 @@ namespace MagicRemoteService {
 					}
 				} while(bAlive);
 				SystemCursor.ShowSytemCursor();
+				tPing.Stop();
+				tPong.Stop();
 				if(this.bInactivity) {
 					tInactivity.Stop();
+					tUserInput.Stop();
 				}
 				socClient.Close();
 				socClient.Dispose();
