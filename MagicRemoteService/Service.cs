@@ -1326,7 +1326,6 @@ namespace MagicRemoteService {
 				tPong.Stop();
 				if(this.bInactivity) {
 					tInactivity.Stop();
-					tUserInput.Stop();
 				}
 				socClient.Close();
 				socClient.Dispose();
