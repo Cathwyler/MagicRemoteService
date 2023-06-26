@@ -18,7 +18,7 @@
 			padding:0;
 		}
 
-		.screen{
+		.screen {
 			position: fixed;
 			pointer-events: none;
 			
@@ -26,42 +26,45 @@
 			width: 100%;
 		}
 
-		div.flex{
+		div.flex {
 			display: flex;
 			flex-flow: row wrap;
-			gap: 1rem;
+			/*gap: 1rem; chrome < 84*/
 		}
-		div.justify-center{
+		div.justify-center {
 			justify-content:center;
 		}
-		div.justify-flex-end{
+		div.justify-flex-end {
 			justify-content:flex-end;
 		}
-		div.align-flex-end{
+		div.align-flex-end {
 			align-items:flex-end;
 		}
-		div.align-center{
+		div.align-center {
 			align-items:center;
 		}
 		
-		div.window{
+		div.window {
 			margin: 1.5rem;
 			pointer-events: auto;
 			border-radius: .5rem;
 			background: #575E66;
 			color: #E6E6E6;
 		}
-		div.window div{
+		div.titre {
 			margin: 1.5rem;
-		}
-		div.titre{
 			font-weight: bold;
 			font-size: 3rem;
 		}
-		div.message{
+		div.message {
+			margin: 1.5rem;
 			font-size: 1.5rem;
 		}
-		div.button button{
+		div.button {
+			margin: 1.5rem 0.5rem 0.5rem 1.5rem /*gap: 1rem; chrome < 84*/
+		}
+		div.button button {
+			margin: 0 1rem 1rem 0; /*gap: 1rem; chrome < 84*/
 			padding: 1rem;
 			min-width: 15rem;
 			max-width: 50%;
@@ -69,15 +72,13 @@
 		}
 
 
-		input#keyboard{
+		input#keyboard {
 			visibility:0;
 		}
-
 		div#dialog {
 			min-width: 30%;
 			max-width: 50%;
 		}
-
 		div#toast {
 			min-width: 30%;
 			max-width: 80%;

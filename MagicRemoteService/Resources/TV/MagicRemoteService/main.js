@@ -665,7 +665,7 @@ document.addEventListener("keyup", function(inEvent) {
 					}
 				]);
 			} else {
-				Dialog(oString.strAppTittle, oString.strStartMessage [
+				Dialog(oString.strAppTittle, oString.strStartMessage, [
 					{
 						sName: oString.strStartStart,
 						fAction: function(){
