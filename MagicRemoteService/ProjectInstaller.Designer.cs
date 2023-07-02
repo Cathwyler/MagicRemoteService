@@ -41,7 +41,7 @@ namespace MagicRemoteService
 			// siServiceInstaller
 			// 
 			this.siServiceInstaller.Description = "Service providing computer remote control using a LG WebOS TV";
-			this.siServiceInstaller.DisplayName = "Magic remote service";
+			this.siServiceInstaller.DisplayName = "MagicRemoteService";
 			this.siServiceInstaller.ServiceName = "MagicRemoteService";
 			this.siServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
 			// 

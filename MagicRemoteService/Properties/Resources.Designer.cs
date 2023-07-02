@@ -67,12 +67,12 @@ namespace MagicRemoteService.Properties {
         ///	&quot;main&quot;: &quot;index.html&quot;,
         ///	&quot;icon&quot;: &quot;icon.png&quot;,
         ///	&quot;largeIcon&quot;: &quot;largeIcon.png&quot;,
-        ///	&quot;iconColor&quot;: &quot;#4F4F4F&quot;,
+        ///	&quot;iconColor&quot;: &quot;#575E66&quot;,
         ///	&quot;type&quot;: &quot;web&quot;,
         ///	&quot;vendor&quot;: &quot;Cathwyler&quot;,
         ///	&quot;version&quot;: &quot;1.0.0&quot;,
         ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
-        ///	&quot;bgColor&quot;: &quot;#4F4F4F&quot;,
+        ///	&quot;bgColor&quot;: &quot;#575E66&quot;,
         ///	&quot;supportTouchMode&quot;: &quot;none&quot;,
         ///	&quot;disableBackHistoryAPI&quot;: true,
         ///	&quot;transparent&quot;: true,
@@ -100,6 +100,60 @@ namespace MagicRemoteService.Properties {
         internal static string ApplicationSetting {
             get {
                 return ResourceManager.GetString("ApplicationSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Keyboard.
+        /// </summary>
+        internal static string BindActionValueKeyboard {
+            get {
+                return ResourceManager.GetString("BindActionValueKeyboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Shutdown.
+        /// </summary>
+        internal static string BindActionValueShutdown {
+            get {
+                return ResourceManager.GetString("BindActionValueShutdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error.
+        /// </summary>
+        internal static string BindKeyboardErreur {
+            get {
+                return ResourceManager.GetString("BindKeyboardErreur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Left button.
+        /// </summary>
+        internal static string BindMouseValueLeft {
+            get {
+                return ResourceManager.GetString("BindMouseValueLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Middle button.
+        /// </summary>
+        internal static string BindMouseValueMiddle {
+            get {
+                return ResourceManager.GetString("BindMouseValueMiddle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Right button.
+        /// </summary>
+        internal static string BindMouseValueRight {
+            get {
+                return ResourceManager.GetString("BindMouseValueRight", resourceCulture);
             }
         }
         
@@ -140,6 +194,7 @@ namespace MagicRemoteService.Properties {
         ///		}
         ///		* {
         ///			font-family: Sandstone;
+        ///			text-overflow: ellipsis;
         ///		}
         ///
         ///		body {
@@ -147,22 +202,20 @@ namespace MagicRemoteService.Properties {
         ///			padding:0;
         ///		}
         ///
-        ///		.screen{
+        ///		.screen {
         ///			position: fixed;
         ///			pointer-events: none;
-        ///			text-overflow: ellipsis;
         ///			
         ///			height: 100%;
         ///			width: 100%;
         ///		}
         ///
-        ///		div.flex{
+        ///		div.flex {
         ///			display: flex;
         ///			flex-flow: row wrap;
-        ///			gap: 1rem;
+        ///			/*gap: 1rem; chrome &lt; 84*/
         ///		}
-        ///		div.justify-center{
-        ///			ju [le reste de la chaîne a été tronqué]&quot;;.
+        ///		div.just [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string index {
             get {
@@ -234,12 +287,15 @@ namespace MagicRemoteService.Properties {
         ///	}).join(&quot;&quot;);
         ///}
         ///
-        ///function Log() {
-        ///	document.getElementById(&quot;log-titre&quot;).innerText = oString.strLogTitle;
-        ///	let deLogMessage = document.getElementById(&quot;log-message&quot;);
-        ///	deLogMessage.innerText = Object.values(arguments).join(&apos;&apos;);
-        ///	deLogMessage.style.display = deLogMessage.innerText.length ? null : &quot;none&quot;;
-        ///	document.getElementById(&quot;log&quot;).style.displ [le reste de la chaîne a été tronqué]&quot;;.
+        ///function Toast(sTitre, sMessage){
+        ///	CancelToast();
+        ///	let deScreen = document.createElement(&quot;div&quot;);
+        ///	deScreen.className = &quot;screen flex justify-center align-flex-end&quot;;
+        ///	let deLog = document.createElement(&quot;div&quot;);
+        ///	deLog.className = &quot;window&quot;;
+        ///	deLog.id = &quot;toast&quot;
+        ///	deLog.addEventListener(&quot;click&quot;, CancelToast);
+        ///	let dePopupTitre = do [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {
@@ -315,7 +371,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
         ///const oStringDefault = {
-        ///	strAppTittle: &quot;Magic remote service&quot;,
+        ///	strAppTittle: &quot;MagicRemoteService&quot;,
         ///	strAppDescription: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
         ///
         ///	strLogTitle: &quot;Log&quot;,
@@ -327,7 +383,7 @@ namespace MagicRemoteService.Properties {
         ///	strGetAllInputStatusSubscribe: &quot;Start to get all input status&quot;,
         ///	strGetAllInputStatusFailure: &quot;Failed to get all input status&quot;,
         ///	strSendWolSuccess: &quot;Success to send WoL&quot;,
-        ///	strSendWolF [le reste de la chaîne a été tronqué]&quot;;.
+        ///	strSendWolFai [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string ressource {
             get {
@@ -425,11 +481,38 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Do you want to save the changes made to the PC service?.
+        ///   Recherche une chaîne localisée semblable à Error while saving PC configuration.
+        /// </summary>
+        internal static string SettingPCSaveErrorTittle {
+            get {
+                return ResourceManager.GetString("SettingPCSaveErrorTittle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want to save the changes made to the PC service ?.
         /// </summary>
         internal static string SettingPCSaveMessage {
             get {
                 return ResourceManager.GetString("SettingPCSaveMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error while saving remote configuration.
+        /// </summary>
+        internal static string SettingRemoteSaveErrorTittle {
+            get {
+                return ResourceManager.GetString("SettingRemoteSaveErrorTittle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want to save the changes made to the remote keybind ?.
+        /// </summary>
+        internal static string SettingRemoteSaveMessage {
+            get {
+                return ResourceManager.GetString("SettingRemoteSaveMessage", resourceCulture);
             }
         }
         
@@ -488,7 +571,7 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Do you want to install the changes made to the TV app?.
+        ///   Recherche une chaîne localisée semblable à Do you want to install the changes made to the TV app ?.
         /// </summary>
         internal static string SettingTVSaveMessage {
             get {

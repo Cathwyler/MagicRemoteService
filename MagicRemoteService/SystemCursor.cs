@@ -1,36 +1,8 @@
 ﻿namespace MagicRemoteService {
 
-	public enum CursorName {
-		OCR_APPSTARTING = 32650,
-		OCR_NORMAL = 32512,
-		OCR_CROSS = 32515,
-		OCR_HAND = 32649,
-		OCR_HELP = 32651,
-		OCR_IBEAM = 32513,
-		OCR_NO = 32648,
-		OCR_SIZEALL = 32646,
-		OCR_SIZENESW = 32643,
-		OCR_SIZENS = 32645,
-		OCR_SIZENWSE = 32642,
-		OCR_SIZEWE = 32644,
-		OCR_UP = 32516,
-		OCR_WAIT = 32514
-	}
-
 	static class SystemCursor {
-		[System.Runtime.InteropServices.DllImport("user32.dll")]
-		private static extern bool SetSystemCursor(System.IntPtr hcur, uint id);
 
-		[System.Runtime.InteropServices.DllImport("user32.dll")]
-		private static extern System.IntPtr LoadCursor(System.IntPtr hInstance, int lpCursorName);
-
-		[System.Runtime.InteropServices.DllImport("user32.dll")]
-		private static extern System.IntPtr CreateCursor(System.IntPtr hInst, int xHotSpot, int yHotSpot, int nWidth, int nHeight, byte[] pvANDPlane, byte[] pvXORPlane);
-
-		[System.Runtime.InteropServices.DllImport("user32.dll")]
-		private static extern System.IntPtr CopyIcon(System.IntPtr pcur);
-
-		private static readonly System.IntPtr hInvisibleCursor = CreateCursor(System.IntPtr.Zero, 0, 0, 32, 32, new byte[]
+		private static readonly System.IntPtr hInvisibleCursor = WinApi.User32.CreateCursor(System.IntPtr.Zero, 0, 0, 32, 32, new byte[]
 		{
 			0xFF, 0xFF, 0xFF, 0xFF,   // line 1 
 			0xFF, 0xFF, 0xFF, 0xFF,   // line 2 
@@ -114,20 +86,20 @@
 			0x00, 0x00, 0x00, 0x00	// line 32 
 		});
 
-		private static System.Collections.Generic.IDictionary<CursorName, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<CursorName, System.IntPtr>();
+		private static System.Collections.Generic.IDictionary<WinApi.CursorName, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<WinApi.CursorName, System.IntPtr>();
 
 		public static void HideSytemCursor() {
-			foreach(CursorName cnCursorName in (CursorName[])System.Enum.GetValues(typeof(CursorName))) {
+			foreach(WinApi.CursorName cnCursorName in (WinApi.CursorName[])System.Enum.GetValues(typeof(WinApi.CursorName))) {
 				if(!MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
-					MagicRemoteService.SystemCursor.dSystemCursor.Add(cnCursorName, CopyIcon(LoadCursor(System.IntPtr.Zero, (int)cnCursorName)));
+					MagicRemoteService.SystemCursor.dSystemCursor.Add(cnCursorName, WinApi.User32.CopyIcon(WinApi.User32.LoadCursor(System.IntPtr.Zero, (int)cnCursorName)));
 				}
-				SetSystemCursor(CopyIcon(MagicRemoteService.SystemCursor.hInvisibleCursor), (uint)cnCursorName);
+				WinApi.User32.SetSystemCursor(WinApi.User32.CopyIcon(MagicRemoteService.SystemCursor.hInvisibleCursor), (uint)cnCursorName);
 			}
 		}
 		public static void ShowSytemCursor() {
-			foreach(CursorName cnCursorName in (CursorName[])System.Enum.GetValues(typeof(CursorName))) {
+			foreach(WinApi.CursorName cnCursorName in (WinApi.CursorName[])System.Enum.GetValues(typeof(WinApi.CursorName))) {
 				if(MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
-					SetSystemCursor(MagicRemoteService.SystemCursor.dSystemCursor[cnCursorName], (uint)cnCursorName);
+					WinApi.User32.SetSystemCursor(MagicRemoteService.SystemCursor.dSystemCursor[cnCursorName], (uint)cnCursorName);
 					MagicRemoteService.SystemCursor.dSystemCursor.Remove(cnCursorName);
 				}
 			}

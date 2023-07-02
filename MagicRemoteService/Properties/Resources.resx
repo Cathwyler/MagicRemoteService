@@ -197,7 +197,7 @@
     <value>Invalid physical address</value>
   </data>
   <data name="SettingPCSaveMessage" xml:space="preserve">
-    <value>Do you want to save the changes made to the PC service?</value>
+    <value>Do you want to save the changes made to the PC service ?</value>
   </data>
   <data name="SettingSendIPErrorMessage" xml:space="preserve">
     <value>{0} is not a valid IP address. Please specify a valid IP address.</value>
@@ -218,7 +218,7 @@
     <value>Error while refreshing TVs</value>
   </data>
   <data name="SettingTVSaveMessage" xml:space="preserve">
-    <value>Do you want to install the changes made to the TV app?</value>
+    <value>Do you want to install the changes made to the TV app ?</value>
   </data>
   <data name="SettingTVSelectErrorMessage" xml:space="preserve">
     <value>Please select a TV</value>
@@ -237,5 +237,32 @@
   </data>
   <data name="MuseoSans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\MuseoSans-Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SettingPCSaveErrorTittle" xml:space="preserve">
+    <value>Error while saving PC configuration</value>
+  </data>
+  <data name="SettingRemoteSaveErrorTittle" xml:space="preserve">
+    <value>Error while saving remote configuration</value>
+  </data>
+  <data name="BindActionValueKeyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="BindActionValueShutdown" xml:space="preserve">
+    <value>Shutdown</value>
+  </data>
+  <data name="BindKeyboardErreur" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="BindMouseValueLeft" xml:space="preserve">
+    <value>Left button</value>
+  </data>
+  <data name="BindMouseValueMiddle" xml:space="preserve">
+    <value>Middle button</value>
+  </data>
+  <data name="BindMouseValueRight" xml:space="preserve">
+    <value>Right button</value>
+  </data>
+  <data name="SettingRemoteSaveMessage" xml:space="preserve">
+    <value>Do you want to save the changes made to the remote keybind ?</value>
   </data>
 </root>

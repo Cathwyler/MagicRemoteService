@@ -12,6 +12,9 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,11 +27,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,6 +104,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
+    <Compile Include="BindCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BindCreator.Designer.cs">
+      <DependentUpon>BindCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BindControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindControl.Designer.cs">
+      <DependentUpon>BindControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bind.cs" />
+    <Compile Include="WinApi\Advapi32.cs" />
+    <Compile Include="WinApi\Userenv.cs" />
+    <Compile Include="WinApi\Wtsapi32.cs" />
+    <Compile Include="WinApi\Kernel32.cs" />
+    <Compile Include="WinApi\User32.cs" />
     <Compile Include="PhysicalAdress.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -163,6 +181,15 @@
     <None Include="Resources\TV\Send\services.json" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BindControl.resx">
+      <DependentUpon>BindControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindCreator.fr.resx">
+      <DependentUpon>BindCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindCreator.resx">
+      <DependentUpon>BindCreator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IPAddressBox.resx">
       <DependentUpon>IPAddressBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +213,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting.resx">
       <DependentUpon>Setting.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PhysicalAdressBox.resx">
       <DependentUpon>PhysicalAdressBox.cs</DependentUpon>

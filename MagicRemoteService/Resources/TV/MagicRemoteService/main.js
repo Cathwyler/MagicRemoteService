@@ -133,7 +133,7 @@ function CancelDialog(){
 
 const bDebug = false;
 
-const uiRightClick = 1500;
+const uiLongDown = 1500;
 const uiScreensaver = 120000;
 const sInputId = "HDMI_1";
 const sInputName = "HDMI 1";
@@ -260,6 +260,7 @@ function Connect() {
 		socClient.close();
 	}
 	socClient = new WebSocket("ws://" + sIP + ":" + uiPort);
+	socClient.binaryType = "arraybuffer";
 	socClient.onopen = function(e) {
 		if(iTimeoutConnect) {
 			clearTimeout(iTimeoutConnect);
@@ -267,7 +268,7 @@ function Connect() {
 		}
 		CancelDialog();
 		if(CursorVisible() && AppVisible() && AppFocus()) {
-			SendMouseVisible({
+			SendVisible({
 				bV: true
 			});
 		}
@@ -281,6 +282,37 @@ function Connect() {
 		socClient = null;
 		LogIfDebug(oString.strSocketDisconnecting);
 	};
+	socClient.onmessage = function(e) {
+		if (e.data instanceof ArrayBuffer) {
+			var dwData = new DataView(e.data);
+			switch(dwData.getUint8(0)){
+				case 0x01:
+					Dialog(oString.strAppTittle, oString.strShutdownMessage, [
+						{
+							sName: oString.strShutdownShutdown,
+							fAction: function(){
+								SendShutdown();
+							}
+						}, {
+							sName: oString.strShutdownAbort,
+							fAction: null
+						}
+					]);
+					break;
+				case 0x02:
+					if (KeyboardVisible() === true) {
+						document.getElementById("keyboard").blur();
+					} else {
+						document.getElementById("keyboard").focus();
+					}
+					break;
+				default:
+					Error(oString.strActionUnprocessed);
+			}
+		} else {
+			Log(e.data);
+		}
+	}
 	if(iTimeoutConnect) {
 	} else {
 		iTimeoutConnect = setTimeout(function() {
@@ -290,10 +322,6 @@ function Connect() {
 	}
 }
 function Close() {
-	if(socClient === null) {
-		Error(oString.strSocketErrorClosed);
-		socClient = new WebSocket("ws://" + sIP + ":" + uiPort);
-	}
 	if(iTimeoutRetryConnect) {
 		clearTimeout(iTimeoutRetryConnect);
 		iTimeoutRetryConnect = 0;
@@ -302,12 +330,16 @@ function Close() {
 		clearTimeout(iTimeoutConnect);
 		iTimeoutConnect = 0;
 	}
-	socClient.onclose = function(e) {
-		socClient = null;
-		LogIfDebug(oString.strSocketDisconnecting);
-	};
+	if(socClient === null) {
+		Error(oString.strSocketErrorClosed);
+	} else {
+		socClient.onclose = function(e) {
+			socClient = null;
+			LogIfDebug(oString.strSocketDisconnecting);
+		};
+	}
 	if(CursorVisible() && AppVisible() && AppFocus()) {
-		SendMouseVisible({
+		SendVisible({
 			bV: false
 		});
 	}
@@ -330,102 +362,86 @@ function SendWol(mMac, sBroadcast) {
 	});
 }
   
-var bufMousePosition = new ArrayBuffer(5);
-var dwMousePosition = new DataView(bufMousePosition);
-dwMousePosition.setUint8(0, 0x00);
-function SendMousePosition(pPosition) {
+var bufPosition = new ArrayBuffer(5);
+var dwPosition = new DataView(bufPosition);
+dwPosition.setUint8(0, 0x00);
+function SendPosition(pPosition) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
-			dwMousePosition.setUint16(1, pPosition.usX, true);
-			dwMousePosition.setUint16(3, pPosition.usY, true);
-			socClient.send(bufMousePosition);
-			//LogIfDebug(oString.strSendMousePositionSuccess + " [0x" + bufMousePosition.toString(16) + "]@" + sIP + ":" + uiPort + " ", pPosition);
+			dwPosition.setUint16(1, pPosition.usX, true);
+			dwPosition.setUint16(3, pPosition.usY, true);
+			socClient.send(bufPosition);
+			//LogIfDebug(oString.strSendPositionSuccess + " [0x" + bufPosition.toString(16) + "]@" + sIP + ":" + uiPort + " ", pPosition);
 		} catch(eError) {
-			Error(oString.strSendMousePositionFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", pPosition);
+			Error(oString.strSendPositionFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", pPosition);
 		}
 	}
 }
 
-var bufMouseKey = new ArrayBuffer(4);
-var dwMouseKey = new DataView(bufMouseKey);
-dwMouseKey.setUint8(0, 0x01);
-function SendMouseKey(kKey) {
+var bufWheel = new ArrayBuffer(3);
+var dwWheel = new DataView(bufWheel);
+dwWheel.setUint8(0, 0x01);
+function SendWheel(wWheel) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
-			dwMouseKey.setUint16(1, kKey.usC, true);
-			dwMouseKey.setUint8(3, kKey.bS);
-			socClient.send(bufMouseKey);
-			LogIfDebug(oString.strSendMouseKeySuccess + " [0x" + bufMouseKey.toString(16) + "]@" + sIP + ":" + uiPort + " ", kKey);
+			dwWheel.setInt16(1, wWheel.sY, true);
+			socClient.send(bufWheel);
+			LogIfDebug(oString.strSendWheelSuccess + " [0x" + bufWheel.toString(16) + "]@" + sIP + ":" + uiPort + " ", wWheel);
 		} catch(eError) {
-			Error(oString.strSendMouseKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kKey);
+			Error(oString.strSendWheelFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", wWheel);
 		}
 	}
 }
 
-var bufMouseWheel = new ArrayBuffer(3);
-var dwMouseWheel = new DataView(bufMouseWheel);
-dwMouseWheel.setUint8(0, 0x02);
-function SendMouseWheel(wWheel) {
+var bufVisible = new ArrayBuffer(2);
+var dwVisible = new DataView(bufVisible);
+dwVisible.setUint8(0, 0x02);
+function SendVisible(vVisible) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
-			dwMouseWheel.setInt16(1, wWheel.sY, true);
-			socClient.send(bufMouseWheel);
-			LogIfDebug(oString.strSendMouseWheelSuccess + " [0x" + bufMouseWheel.toString(16) + "]@" + sIP + ":" + uiPort + " ", wWheel);
+			dwVisible.setUint8(1, vVisible.bV);
+			socClient.send(bufVisible);
+			LogIfDebug(oString.strSendVisibleSuccess + " [0x" + bufVisible.toString(16) + "]@" + sIP + ":" + uiPort + " ", vVisible);
 		} catch(eError) {
-			Error(oString.strSendMouseWheelFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", wWheel);
+			Error(oString.strSendVisibleFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", vVisible);
 		}
 	}
 }
 
-var bufMouseVisible = new ArrayBuffer(2);
-var dwMouseVisible = new DataView(bufMouseVisible);
-dwMouseVisible.setUint8(0, 0x03);
-function SendMouseVisible(vVisible) {
+var bufKey = new ArrayBuffer(4);
+var dwKey = new DataView(bufKey);
+dwKey.setUint8(0, 0x03);
+function SendKey(kKey) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
-			dwMouseVisible.setUint8(1, vVisible.bV);
-			socClient.send(bufMouseVisible);
-			LogIfDebug(oString.strSendMouseVisibleSuccess + " [0x" + bufMouseVisible.toString(16) + "]@" + sIP + ":" + uiPort + " ", vVisible);
+			dwKey.setUint16(1, kKey.usC, true);
+			dwKey.setUint8(3, kKey.bS);
+			socClient.send(bufKey);
+			LogIfDebug(oString.strSendKeySuccess + " [0x" + bufKey.toString(16) + "]@" + sIP + ":" + uiPort + " ", kKey);
 		} catch(eError) {
-			Error(oString.strSendMouseVisibleFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", vVisible);
+			Error(oString.strSendKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kKey);
 		}
 	}
 }
 
-var bufKeyboardKey = new ArrayBuffer(4);
-var dwKeyboardKey = new DataView(bufKeyboardKey);
-dwKeyboardKey.setUint8(0, 0x04);
-function SendKeyboardKey(kKey) {
+var bufUnicode = new ArrayBuffer(3);
+var dwUnicode = new DataView(bufUnicode);
+dwUnicode.setUint8(0, 0x04);
+function SendUnicode(kUnicode) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
-			dwKeyboardKey.setUint16(1, kKey.usC, true);
-			dwKeyboardKey.setUint8(3, (kKey.bS << 0) | (kKey.bE << 1));
-			socClient.send(bufKeyboardKey);
-			LogIfDebug(oString.strSendKeyboardKeySuccess + " [0x" + bufKeyboardKey.toString(16) + "]@" + sIP + ":" + uiPort + " ", kKey);
+			dwUnicode.setUint16(1, kUnicode.usC, true);
+			socClient.send(bufUnicode);
+			LogIfDebug(oString.strSendUnicodeSuccess + " [0x" + bufUnicode.toString(16) + "]@" + sIP + ":" + uiPort + " ", kUnicode);
 		} catch(eError) {
-			Error(oString.strSendKeyboardKeyFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kKey);
-		}
-	}
-}
-
-var bufKeyboardUnicode = new ArrayBuffer(3);
-var dwKeyboardUnicode = new DataView(bufKeyboardUnicode);
-dwKeyboardUnicode.setUint8(0, 0x05);
-function SendKeyboardUnicode(kUnicode) {
-	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
-		try {
-			dwKeyboardUnicode.setUint16(1, kUnicode.usC, true);
-			socClient.send(bufKeyboardUnicode);
-			LogIfDebug(oString.strSendKeyboardUnicodeSuccess + " [0x" + bufKeyboardUnicode.toString(16) + "]@" + sIP + ":" + uiPort + " ", kUnicode);
-		} catch(eError) {
-			Error(oString.strSendKeyboardUnicodeFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kUnicode);
+			Error(oString.strSendUnicodeFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", kUnicode);
 		}
 	}
 }
 
 var bufShutdown = new ArrayBuffer(1);
 var dwShutdown = new DataView(bufShutdown);
-dwShutdown.setUint8(0, 0x06);
+dwShutdown.setUint8(0, 0x05);
 function SendShutdown() {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
@@ -492,16 +508,16 @@ var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
 	});
 }, 1000);
 
-var pMouse = {
+var pCurrent = {
 	usX: 0,
 	usY: 0
 };
-var pMouseDown = {
+var pDown = {
 	usX: 0,
 	usY: 0
 };
-var bMouseDownSent = false;
-var iTimeoutRightClick = 0;
+var bPositionDownSent = false;
+var iTimeoutLongDown = 0;
 
 var iIntervalSubscriptionGetSensorData = setInterval(function() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
@@ -516,18 +532,18 @@ var iIntervalSubscriptionGetSensorData = setInterval(function() {
 				LogIfDebug(oString.strGetSensorDataSubscribe);
 	 		} else {
 				if((AppVisible() && AppFocus())){
-					if(iTimeoutRightClick && ((pMouseDown.usX - inResponse.coordinate.x) > 3 || (pMouseDown.usX - inResponse.coordinate.x) < -3 || (pMouseDown.usY - inResponse.coordinate.y) > 3 || (pMouseDown.usY - inResponse.coordinate.y) < -3)) {
-						clearTimeout(iTimeoutRightClick);
-						iTimeoutRightClick = 0;
-						SendMouseKey({
-							usC: 0,
+					if(iTimeoutLongDown && ((pDown.usX - inResponse.coordinate.x) > 3 || (pDown.usX - inResponse.coordinate.x) < -3 || (pDown.usY - inResponse.coordinate.y) > 3 || (pDown.usY - inResponse.coordinate.y) < -3)) {
+						clearTimeout(iTimeoutLongDown);
+						iTimeoutLongDown = 0;
+						SendKey({
+							usC: 0x01,
 							bS: true
 						});
-						bMouseDownSent = true;
+						bPositionDownSent = true;
 					}
-					pMouse.usX = inResponse.coordinate.x;
-					pMouse.usY = inResponse.coordinate.y;
-					SendMousePosition({
+					pCurrent.usX = inResponse.coordinate.x;
+					pCurrent.usY = inResponse.coordinate.y;
+					SendPosition({
 						usX: inResponse.coordinate.x,
 						usY: inResponse.coordinate.y
 					});
@@ -542,179 +558,66 @@ var iIntervalSubscriptionGetSensorData = setInterval(function() {
 	});
 }, 1000);
 
-document.addEventListener("mousedown", function(inEvent) {
-	if(iTimeoutRightClick) {
+document.getElementById("video").addEventListener("mousedown", function(inEvent) {
+	if(iTimeoutLongDown) {
 	} else {
-		iTimeoutRightClick = setTimeout(function() {
-			iTimeoutRightClick = 0;
-			SendMouseKey({
-				usC: 1,
+		iTimeoutLongDown = setTimeout(function() {
+			iTimeoutLongDown = 0;
+			SendKey({
+				usC: 0x02,
 				bS: true
 			});
-			SendMouseKey({
-				usC: 1,
+			SendKey({
+				usC: 0x02,
 				bS: false
 			});
-		}, uiRightClick);
-		pMouseDown.usX = pMouse.usX
-		pMouseDown.usY = pMouse.usY
+		}, uiLongDown);
+		pDown.usX = pCurrent.usX
+		pDown.usY = pCurrent.usY
 	}
 });
 
-document.addEventListener("mouseup", function(inEvent) {
-	if(iTimeoutRightClick) {
-		clearTimeout(iTimeoutRightClick);
-		iTimeoutRightClick = 0;
-		SendMouseKey({
-			usC: 0,
+document.getElementById("video").addEventListener("mouseup", function(inEvent) {
+	if(iTimeoutLongDown) {
+		clearTimeout(iTimeoutLongDown);
+		iTimeoutLongDown = 0;
+		SendKey({
+			usC: 0x01,
 			bS: true
 		});
-		bMouseDownSent = true;
+		bPositionDownSent = true;
 	}
-	if(bMouseDownSent) {
-		SendMouseKey({
-			usC: 0,
+	if(bPositionDownSent) {
+		SendKey({
+			usC: 0x01,
 			bS: false
 		});
-		bMouseDownSent = false;
+		bPositionDownSent = false;
 	}
 });
 
-document.addEventListener("wheel", function(inEvent) {
-	SendMouseWheel({
+document.getElementById("video").addEventListener("wheel", function(inEvent) {
+	SendWheel({
 		sY: inEvent.deltaY
 	});
 });
 
 document.addEventListener("keydown", function(inEvent) {
-	switch(inEvent.keyCode) {
-		case 0x08:
-		case 0x0D:
-			SendKeyboardKey({
-				usC: inEvent.keyCode,
-				bS: true,
-				bE: false
-			});
-			break;
-		case 0x25:
-		case 0x26:
-		case 0x27:
-		case 0x28:
-			SendKeyboardKey({
-				usC: inEvent.keyCode,
-				bS: true,
-				bE: true
-			});
-			break;
-		case 0x194:
-			SendKeyboardKey({
-				usC: 0x5B,
-				bS: true,
-				bE: true
-			});
-			break;
-		case 0x195:
-			SendMouseKey({
-				usC: 1,
-				bS: true
-			});
-			break;
-		case 0x1CD:
-			SendKeyboardKey({
-				usC: 0x1B,
-				bS: true,
-				bE: false
-			});
-			break;
-		default:
-			break;
-	}
+	SendKey({
+		usC: inEvent.keyCode,
+		bS: true
+	});
 });
 
 document.addEventListener("keyup", function(inEvent) {
-	switch(inEvent.keyCode) {
-		case 0x08:
-		case 0x0D:
-			SendKeyboardKey({
-				usC: inEvent.keyCode,
-				bS: false,
-				bE: false
-			});
-			break;
-		case 0x25:
-		case 0x26:
-		case 0x27:
-		case 0x28:
-			SendKeyboardKey({
-				usC: inEvent.keyCode,
-				bS: false,
-				bE: true
-			});
-			break;
-		case 0x193:
-			if(bInputSourceStatus){
-				Dialog(oString.strAppTittle, oString.strShutdownMessage, [
-					{
-						sName: oString.strShutdownShutdown,
-						fAction: function(){
-							SendShutdown();
-						}
-					}, {
-						sName: oString.strShutdownAbort,
-						fAction: null
-					}
-				]);
-			} else {
-				Dialog(oString.strAppTittle, oString.strStartMessage, [
-					{
-						sName: oString.strStartStart,
-						fAction: function(){
-							SendWol({
-								tabMac: tabMac
-							}, sBroadcast);
-						}
-					}, {
-						sName: oString.strStartAbort,
-						fAction: null
-					}
-				]);
-			}
-			break;
-		case 0x194:
-			SendKeyboardKey({
-				usC: 0x5B,
-				bS: false,
-				bE: true
-			});
-			break;
-		case 0x195:
-			SendMouseKey({
-				usC: 1,
-				bS: false,
-				bE: false
-			});
-			break;
-		case 0x196:
-			if (KeyboardVisible() === true) {
-				document.getElementById("keyboard").blur();
-			} else {
-				document.getElementById("keyboard").focus();
-			}
-			break;
-		case 0x1CD:
-			SendKeyboardKey({
-				usC: 0x1B,
-				bS: false,
-				bE: false
-			});
-			break;
-		default:
-			break;
-	}
+	SendKey({
+		usC: inEvent.keyCode,
+		bS: false
+	});
 });
 
 document.getElementById("keyboard").addEventListener("input", function(inEvent) {
-	SendKeyboardUnicode({
+	SendUnicode({
 		usC: inEvent.data.charCodeAt()
 	});
 });
@@ -732,7 +635,7 @@ document.addEventListener("visibilitychange", function() {
 
 window.addEventListener("focus", function() {
 	if(CursorVisible()) {
-		SendMouseVisible({
+		SendVisible({
 			bV: true
 		});
 	}
@@ -740,14 +643,14 @@ window.addEventListener("focus", function() {
 
 window.addEventListener("blur", function() {
 	if(CursorVisible()) {
-		SendMouseVisible({
+		SendVisible({
 			bV: false
 		});
 	}
 });
 
 document.addEventListener("cursorStateChange", function(inEvent) {
-	SendMouseVisible({
+	SendVisible({
 		bV: CursorVisible()
 	});
 });

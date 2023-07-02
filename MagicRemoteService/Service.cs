@@ -1,285 +1,40 @@
 ﻿
 namespace MagicRemoteService {
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct PROCESS_INFORMATION {
-		public System.IntPtr hProcess;
-		public System.IntPtr hThread;
-		public uint dwProcessId;
-		public uint dwThreadId;
-	}
-	public enum ObjectSate : uint {
-		WAIT_ABANDONED = 0x00000080,
-		WAIT_OBJECT_0 = 0x00000000,
-		WAIT_TIMEOUT = 0x00000102,
-		WAIT_FAILED = 0xFFFFFFFF,
-	}
-	public enum WTS_CONNECTSTATE_CLASS {
-		WTSActive,
-		WTSConnected,
-		WTSConnectQuery,
-		WTSShadow,
-		WTSDisconnected,
-		WTSIdle,
-		WTSListen,
-		WTSReset,
-		WTSDown,
-		WTSInit
-	}
-	public enum WTSInfoClass {
-		WTSInitialProgram,
-		WTSApplicationName,
-		WTSWorkingDirectory,
-		WTSOEMId,
-		WTSSessionId,
-		WTSUserName,
-		WTSWinStationName,
-		WTSDomainName,
-		WTSConnectState,
-		WTSClientBuildNumber,
-		WTSClientName,
-		WTSClientDirectory,
-		WTSClientProductId,
-		WTSClientHardwareId,
-		WTSClientAddress,
-		WTSClientDisplay,
-		WTSClientProtocolType,
-		WTSIdleTime,
-		WTSLogonTime,
-		WTSIncomingBytes,
-		WTSOutgoingBytes,
-		WTSIncomingFrames,
-		WTSOutgoingFrames,
-		WTSClientInfo,
-		WTSSessionInfo
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	struct WTS_SESSION_INFO {
-		public uint SessionID;
-		[System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPStr)]
-		public string pWinStationName;
-		public WTS_CONNECTSTATE_CLASS State;
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct SECURITY_ATTRIBUTES {
-		public int Length;
-		public System.IntPtr lpSecurityDescriptor;
-		public bool bInheritHandle;
-	}
-	public enum SECURITY_IMPERSONATION_LEVEL : int {
-		SecurityAnonymous = 0,
-		SecurityIdentification = 1,
-		SecurityImpersonation = 2,
-		SecurityDelegation = 3,
-	}
-	public enum TOKEN_TYPE : int {
-		TokenPrimary = 1,
-		TokenImpersonation = 2
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct STARTUPINFO {
-		public int cb;
-		public string lpReserved;
-		public string lpDesktop;
-		public string lpTitle;
-		public uint dwX;
-		public uint dwY;
-		public uint dwXSize;
-		public uint dwYSize;
-		public uint dwXCountChars;
-		public uint dwYCountChars;
-		public uint dwFillAttribute;
-		public uint dwFlags;
-		public ushort wShowWindow;
-		public short cbReserved2;
-		public System.IntPtr lpReserved2;
-		public System.IntPtr hStdInput;
-		public System.IntPtr hStdOutput;
-		public System.IntPtr hStdError;
-	}
-	[System.Flags]
-	public enum AccessMaskStandard : uint {
-		DELETE = 0x00010000,
-		READ_CONTROL = 0x00020000,
-		SYNCHRONIZE = 0x00100000,
-		WRITE_DAC = 0x00040000,
-		WRITE_OWNER = 0x00080000
-	}
-	[System.Flags]
-	public enum AccessMaskWinsta : uint {
-		WINSTA_ACCESSCLIPBOARD = 0x0004,
-		WINSTA_ACCESSGLOBALATOMS = 0x0020,
-		WINSTA_CREATEDESKTOP = 0x0008,
-		WINSTA_ENUMDESKTOPS = 0x0001,
-		WINSTA_ENUMERATE = 0x0100,
-		WINSTA_EXITWINDOWS = 0x0040,
-		WINSTA_READATTRIBUTES = 0x0002,
-		WINSTA_READSCREEN = 0x0200,
-		WINSTA_WRITEATTRIBUTES = 0x0010
-	}
-	[System.Flags]
-	public enum AccessMaskToken : uint {
-		TOKEN_ASSIGN_PRIMARY = 0x0001,
-		TOKEN_DUPLICATE = 0x0002,
-		TOKEN_IMPERSONATE = 0x0004,
-		TOKEN_QUERY = 0x0008,
-		TOKEN_QUERY_SOURCE = 0x0010,
-		TOKEN_ADJUST_PRIVILEGES = 0x0020,
-		TOKEN_ADJUST_GROUPS = 0x0040,
-		TOKEN_ADJUST_DEFAULT = 0x0080,
-		TOKEN_ADJUST_SESSIONID = 0x0100
-	}
-	[System.Flags]
-	public enum AccessMaskDesktop : uint {
-		DESKTOP_CREATEMENU = 0x0004,
-		DESKTOP_CREATEWINDOW = 0x0002,
-		DESKTOP_ENUMERATE = 0x0040,
-		DESKTOP_HOOKCONTROL = 0x0008,
-		DESKTOP_JOURNALPLAYBACK = 0x0020,
-		DESKTOP_JOURNALRECORD = 0x0010,
-		DESKTOP_READOBJECTS = 0x0001,
-		DESKTOP_SWITCHDESKTOP = 0x0100,
-		DESKTOP_WRITEOBJECTS = 0x0080
-	}
-	public enum InputType : uint {
-		INPUT_MOUSE = 0,
-		INPUT_KEYBOARD = 1,
-		INPUT_HARDWARE = 2
-	}
-	[System.Flags]
-	public enum KeybdInputFlags : uint {
-		KEYEVENTF_KEYDOWN = 0x0000,
-		KEYEVENTF_EXTENDEDKEY = 0x0001,
-		KEYEVENTF_KEYUP = 0x0002,
-		KEYEVENTF_UNICODE = 0x0004,
-		KEYEVENTF_SCANCODE = 0x0008
-	}
-	[System.Flags]
-	public enum MouseInputFlags : uint {
-		MOUSEEVENTF_MOVE = 0x0001,
-		MOUSEEVENTF_LEFTDOWN = 0x0002,
-		MOUSEEVENTF_LEFTUP = 0x0004,
-		MOUSEEVENTF_RIGHTDOWN = 0x0008,
-		MOUSEEVENTF_RIGHTUP = 0x0010,
-		MOUSEEVENTF_MIDDLEDOWN = 0x0020,
-		MOUSEEVENTF_MIDDLEUP = 0x0040,
-		MOUSEEVENTF_XDOWN = 0x0080,
-		MOUSEEVENTF_XUP = 0x0100,
-		MOUSEEVENTF_WHEEL = 0x0800,
-		MOUSEEVENTF_HWHEEL = 0x01000,
-		MOUSEEVENTF_MOVE_NOCOALESCE = 0x2000,
-		MOUSEEVENTF_VIRTUALDESK = 0x4000,
-		MOUSEEVENTF_ABSOLUTE = 0x8000
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct MouseInput {
-		public int dx;
-		public int dy;
-		public uint mouseData;
-		public MouseInputFlags dwFlags;
-		public uint time;
-		public System.IntPtr dwExtraInfo;
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct KeybdInput {
-		public ushort wVk;
-		public ushort wScan;
-		public KeybdInputFlags dwFlags;
-		public uint time;
-		public System.IntPtr dwExtraInfo;
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct HardwareInput {
-		public uint uMsg;
-		public ushort wParamL;
-		public ushort wParamH;
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
-	public struct DummyUnionName {
-		[System.Runtime.InteropServices.FieldOffset(0)] public MouseInput mi;
-		[System.Runtime.InteropServices.FieldOffset(0)] public KeybdInput ki;
-		[System.Runtime.InteropServices.FieldOffset(0)] public HardwareInput hi;
-	}
-	public struct Input {
-		public InputType type;
-		public DummyUnionName u;
-	}
-	[System.Flags]
-	public enum MapTypeFlags : uint {
-		MAPVK_VK_TO_VSC = 0,
-		MAPVK_VSC_TO_VK = 1,
-		MAPVK_VK_TO_CHAR = 2,
-		MAPVK_VSC_TO_VK_EX = 3,
-		MAPVK_VK_TO_VSC_EX = 04
-	}
-	public enum ServiceCurrentState : uint {
-		SERVICE_STOPPED = 0x00000001,
-		SERVICE_START_PENDING = 0x00000002,
-		SERVICE_STOP_PENDING = 0x00000003,
-		SERVICE_RUNNING = 0x00000004,
-		SERVICE_CONTINUE_PENDING = 0x00000005,
-		SERVICE_PAUSE_PENDING = 0x00000006,
-		SERVICE_PAUSED = 0x00000007,
-	}
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct ServiceStatus {
-		public uint dwServiceType;
-		public ServiceCurrentState dwCurrentState;
-		public uint dwControlsAccepted;
-		public uint dwWin32ExitCode;
-		public uint dwServiceSpecificExitCode;
-		public uint dwCheckPoint;
-		public uint dwWaitHint;
-	};
-	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct LASTINPUTINFO {
-		public uint cbSize;
-		public uint dwTime;
-	}
 	public enum ServiceType {
 		Server,
 		Client,
 		Both
 	}
 	public partial class Service : System.ServiceProcess.ServiceBase {
-		private static readonly System.IntPtr WTS_CURRENT_SERVER_HANDLE = System.IntPtr.Zero;
-		
-		public const uint STANDARD_RIGHTS_ALL = (uint)(AccessMaskStandard.DELETE | AccessMaskStandard.READ_CONTROL | AccessMaskStandard.WRITE_DAC | AccessMaskStandard.WRITE_OWNER | AccessMaskStandard.SYNCHRONIZE);
-		public const uint STANDARD_RIGHTS_READ = (uint)(AccessMaskStandard.READ_CONTROL);
-		public const uint STANDARD_RIGHTS_WRITE = (uint)(AccessMaskStandard.READ_CONTROL);
-		public const uint STANDARD_RIGHTS_EXECUTE = (uint)(AccessMaskStandard.READ_CONTROL);
-		public const uint STANDARD_RIGHTS_REQUIRED = (uint)(AccessMaskStandard.DELETE | AccessMaskStandard.READ_CONTROL | AccessMaskStandard.WRITE_DAC | AccessMaskStandard.WRITE_OWNER);
-
-		public const uint WINSTA_GENERIC_READ = STANDARD_RIGHTS_READ | (uint)(AccessMaskWinsta.WINSTA_ENUMDESKTOPS | AccessMaskWinsta.WINSTA_ENUMERATE | AccessMaskWinsta.WINSTA_READATTRIBUTES | AccessMaskWinsta.WINSTA_READSCREEN);
-		public const uint WINSTA_GENERIC_WRITE = STANDARD_RIGHTS_WRITE | (uint)(AccessMaskWinsta.WINSTA_ACCESSCLIPBOARD | AccessMaskWinsta.WINSTA_CREATEDESKTOP | AccessMaskWinsta.WINSTA_WRITEATTRIBUTES);
-		public const uint WINSTA_GENERIC_EXECUTE = STANDARD_RIGHTS_EXECUTE | (uint)(AccessMaskWinsta.WINSTA_ACCESSGLOBALATOMS | AccessMaskWinsta.WINSTA_EXITWINDOWS);
-		public const uint WINSTA_GENERIC_ALL = STANDARD_RIGHTS_REQUIRED | (uint)(AccessMaskWinsta.WINSTA_ACCESSCLIPBOARD | AccessMaskWinsta.WINSTA_ACCESSGLOBALATOMS | AccessMaskWinsta.WINSTA_CREATEDESKTOP | AccessMaskWinsta.WINSTA_ENUMDESKTOPS | AccessMaskWinsta.WINSTA_ENUMERATE | AccessMaskWinsta.WINSTA_EXITWINDOWS | AccessMaskWinsta.WINSTA_READATTRIBUTES | AccessMaskWinsta.WINSTA_READSCREEN | AccessMaskWinsta.WINSTA_WRITEATTRIBUTES);
-
-		public const uint DESKTOP_GENERIC_READ = STANDARD_RIGHTS_READ | (uint)(AccessMaskDesktop.DESKTOP_ENUMERATE | AccessMaskDesktop.DESKTOP_READOBJECTS);
-		public const uint DESKTOP_GENERIC_WRITE = STANDARD_RIGHTS_WRITE | (uint)(AccessMaskDesktop.DESKTOP_CREATEMENU | AccessMaskDesktop.DESKTOP_CREATEWINDOW | AccessMaskDesktop.DESKTOP_HOOKCONTROL | AccessMaskDesktop.DESKTOP_JOURNALPLAYBACK | AccessMaskDesktop.DESKTOP_JOURNALRECORD | AccessMaskDesktop.DESKTOP_WRITEOBJECTS);
-		public const uint DESKTOP_GENERIC_EXECUTE = STANDARD_RIGHTS_EXECUTE | (uint)(AccessMaskDesktop.DESKTOP_SWITCHDESKTOP);
-		public const uint DESKTOP_GENERIC_ALL = STANDARD_RIGHTS_REQUIRED | (uint)(AccessMaskDesktop.DESKTOP_CREATEMENU | AccessMaskDesktop.DESKTOP_CREATEWINDOW | AccessMaskDesktop.DESKTOP_ENUMERATE | AccessMaskDesktop.DESKTOP_HOOKCONTROL | AccessMaskDesktop.DESKTOP_JOURNALPLAYBACK | AccessMaskDesktop.DESKTOP_JOURNALRECORD | AccessMaskDesktop.DESKTOP_READOBJECTS | AccessMaskDesktop.DESKTOP_SWITCHDESKTOP | AccessMaskDesktop.DESKTOP_WRITEOBJECTS);
-		
-		public const uint TOKEN_READ = STANDARD_RIGHTS_READ | (uint)(AccessMaskToken.TOKEN_QUERY);
-		public const uint TOKEN_WRITE = STANDARD_RIGHTS_WRITE | (uint)(AccessMaskToken.TOKEN_ADJUST_PRIVILEGES | AccessMaskToken.TOKEN_ADJUST_GROUPS | AccessMaskToken.TOKEN_ADJUST_DEFAULT);
-		public const uint TOKEN_EXECUTE = STANDARD_RIGHTS_EXECUTE;
-		public const uint TOKEN_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED | (uint)(AccessMaskToken.TOKEN_ADJUST_DEFAULT | AccessMaskToken.TOKEN_ADJUST_GROUPS | AccessMaskToken.TOKEN_ADJUST_PRIVILEGES | AccessMaskToken.TOKEN_ADJUST_SESSIONID | AccessMaskToken.TOKEN_ASSIGN_PRIMARY | AccessMaskToken.TOKEN_DUPLICATE | AccessMaskToken.TOKEN_IMPERSONATE | AccessMaskToken.TOKEN_QUERY | AccessMaskToken.TOKEN_QUERY_SOURCE);
-
-		public const uint MAXIMUM_ALLOWED = 0x02000000;
-
-		public const uint GENERIC_READ = 0x80000000;
-		public const uint GENERIC_WRITE = 0x20000000;
-		public const uint GENERIC_EXECUTE = 0x40000000;
-		public const uint GENERIC_ALL = 0x10000000;
-
 		private volatile int iPort;
 		private volatile bool bInactivity;
 		private volatile int iTimeoutInactivity;
+		private volatile System.Collections.Generic.Dictionary<ushort, Bind> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>() {
+			{ 0x0001, null },
+			{ 0x0002, null },
+			{ 0x0008, null },
+			{ 0x000D, null },
+			{ 0x0025, null },
+			{ 0x0026, null },
+			{ 0x0027, null },
+			{ 0x0028, null },
+			{ 0x0193, null },
+			{ 0x0194, null },
+			{ 0x0195, null },
+			{ 0x0196, null },
+			{ 0x01CD, null },
+			{ 0x019F, null },
+			{ 0x0013, null },
+			{ 0x01A1, null },
+			{ 0x019C, null },
+			{ 0x019D, null }
+		};
+
 		private System.Threading.Thread thrServeur;
 		private System.Timers.Timer[] tabExtend;
-		//private volatile bool bActive;
-		private ServiceCurrentState scsState;
+		private WinApi.ServiceCurrentState scsState;
 		private ServiceType stType;
-		private static readonly uint SessionId = Service.WTSGetActiveConsoleSessionId();
+		private static readonly uint SessionId = WinApi.Kernel32.WTSGetActiveConsoleSessionId();
 
 		private static System.Threading.ManualResetEvent mreStop = new System.Threading.ManualResetEvent(true);
 		private static System.Threading.Semaphore mServer;
@@ -291,18 +46,20 @@ namespace MagicRemoteService {
 		private static System.Threading.EventWaitHandle ewhClientOnStart;
 		private static System.Threading.EventWaitHandle ewhClientOnStop;
 
-		public ServiceCurrentState State {
+		public WinApi.ServiceCurrentState State {
 			get {
-				return scsState;
+				return this.scsState;
 			}
 		}
 		public ServiceType Type {
 			get {
-				return stType;
+				return this.stType;
 			}
 		}
+		private static readonly byte[] tabClose = { (0b1000 << 4) | (0x8 << 0), 0x00 };
 		private static readonly byte[] tabPing = { (0b1000 << 4) | (0x9 << 0), 0x00 };
-		private static readonly byte[] tabPong = { (0b1000 << 4) | (0xA << 0), 0x00 };
+		private static readonly byte[] tabPingInactivity = { (0b1000 << 4) | (0x9 << 0), 0x01, 0x01 };
+
 		public Service() {
 			this.InitializeComponent();
 			if(!System.Diagnostics.EventLog.SourceExists(this.ServiceName)) {
@@ -311,8 +68,6 @@ namespace MagicRemoteService {
 			this.elEventLog.Source = this.ServiceName;
 			this.elEventLog.Log = "Application";
 		}
-		[System.Runtime.InteropServices.DllImport("advapi32.dll", SetLastError = true)]
-		private static extern bool SetServiceStatus(System.IntPtr handle, ref ServiceStatus serviceStatus);
 		public void ServiceStart() {
 			Service.ewhServiceStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, "Global\\{FFB31601-E362-48A5-B9A2-5DF29A3B06C1}", out _, Program.ewhsAll);
 			Service.ewhServiceStoped = new System.Threading.EventWaitHandle(true, System.Threading.EventResetMode.ManualReset, "Global\\{A99BF327-CEF0-4B97-979B-A7BC9FC007C0}", out _, Program.ewhsAll);
@@ -341,7 +96,7 @@ namespace MagicRemoteService {
 				}
 			}
 
-			ServiceStatus ssServiceStatus = new ServiceStatus();
+			WinApi.ServiceStatus ssServiceStatus = new WinApi.ServiceStatus();
 			switch(this.stType) {
 				case ServiceType.Server:
 					this.Log("Service server start");
@@ -353,18 +108,18 @@ namespace MagicRemoteService {
 					this.Log("Service client start");
 					break;
 			}
-			this.scsState = ServiceCurrentState.SERVICE_START_PENDING;
+			this.scsState = WinApi.ServiceCurrentState.SERVICE_START_PENDING;
 			switch(this.stType) {
 				case ServiceType.Server:
-					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_START_PENDING;
+					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_START_PENDING;
 					ssServiceStatus.dwWaitHint = 100000;
-					bool truc = Service.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
+					bool truc = WinApi.Advapi32.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
 					break;
 				case ServiceType.Both:
 				case ServiceType.Client:
 					break;
 			}
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("Software\\MagicRemoteService");
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
 			if(rkMagicRemoteService == null) {
 				this.iPort = 41230;
 				this.bInactivity = true;
@@ -374,16 +129,50 @@ namespace MagicRemoteService {
 				this.bInactivity = (int)rkMagicRemoteService.GetValue("Inactivity", 1) != 0;
 				this.iTimeoutInactivity = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
 			}
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindMouse");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindKeyboard");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindAction");
+			if(rkMagicRemoteServiceKeyBindMouse == null && rkMagicRemoteServiceKeyBindKeyboard == null && rkMagicRemoteServiceKeyBindAction == null) {
+				this.dKeyBind[0x0001] = new BindMouse(BindMouseValue.Left);       //Click -> Left click
+				this.dKeyBind[0x0002] = new BindMouse(BindMouseValue.Right);      //Long click -> Right click
+				this.dKeyBind[0x0008] = new BindKeyboard(0x000E);           //BACKSPACE -> Keyboard Delete
+				this.dKeyBind[0x000D] = new BindKeyboard(0x001C);           //OK -> Keyboard Return Enter
+				this.dKeyBind[0x0025] = new BindKeyboard(0xE04B);           //Left -> Keyboard LeftArrow
+				this.dKeyBind[0x0026] = new BindKeyboard(0xE048);           //Up -> Keyboard UpArrow
+				this.dKeyBind[0x0027] = new BindKeyboard(0xE04D);           //Right -> Keyboard RightArrow
+				this.dKeyBind[0x0028] = new BindKeyboard(0xE050);           //Down -> Keyboard DownArrow
+				this.dKeyBind[0x0193] = new BindAction(BindActionValue.Shutdown); //Red -> Show shutdown
+				this.dKeyBind[0x0194] = new BindKeyboard(0xE05B);           //Green -> Keyboard Left GUI
+				this.dKeyBind[0x0195] = new BindMouse(BindMouseValue.Right);      //Yellow -> Right click
+				this.dKeyBind[0x0196] = new BindAction(BindActionValue.Keyboard); //Blue -> Show keyboard
+				this.dKeyBind[0x01CD] = new BindKeyboard(0x0001);           //Back -> Keyboard Escape
+				this.dKeyBind[0x019F] = null;								//Play -> Play/Pause
+				this.dKeyBind[0x0013] = null;								//Pause -> Play/Pause
+				this.dKeyBind[0x01A1] = null;								//Fast-forward -> Scan Next Track
+				this.dKeyBind[0x019C] = null;								//Rewind -> Scan Previous Track
+				this.dKeyBind[0x019D] = null;								//Stop -> Stop
+			} else {
+				this.dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>();
+				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
+					this.dKeyBind[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
+				}
+				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
+					this.dKeyBind[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindKeyboard((ushort)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
+				}
+				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
+					this.dKeyBind[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
+				}
+			}
 			switch(this.stType) {
 				case ServiceType.Server:
 				case ServiceType.Both:
 					if(rkMagicRemoteService != null) {
 						this.tabExtend = System.Array.ConvertAll(System.Array.FindAll(rkMagicRemoteService.GetSubKeyNames(), delegate (string str) {
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("Software\\MagicRemoteService\\" + str);
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + str);
 							return (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
 						}), new System.Converter<string, System.Timers.Timer>(delegate (string str) {
 
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = Microsoft.Win32.Registry.LocalMachine.CreateSubKey("Software\\MagicRemoteService\\" + str);
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\" + str);
 
 							System.Timers.Timer tExtend = new System.Timers.Timer();
 							tExtend.AutoReset = false;
@@ -441,11 +230,11 @@ namespace MagicRemoteService {
 					this.Log("Service client started");
 					break;
 			}
-			this.scsState = ServiceCurrentState.SERVICE_RUNNING;
+			this.scsState = WinApi.ServiceCurrentState.SERVICE_RUNNING;
 			switch(this.stType) {
 				case ServiceType.Server:
-					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_RUNNING;
-					Service.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
+					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_RUNNING;
+					WinApi.Advapi32.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
 					break;
 				case ServiceType.Both:
 				case ServiceType.Client:
@@ -454,7 +243,7 @@ namespace MagicRemoteService {
 		}
 		public void ServiceStop() {
 
-			ServiceStatus ssServiceStatus = new ServiceStatus();
+			WinApi.ServiceStatus ssServiceStatus = new WinApi.ServiceStatus();
 			switch(this.stType) {
 				case ServiceType.Server:
 					this.Log("Service server stop");
@@ -466,12 +255,12 @@ namespace MagicRemoteService {
 					this.Log("Service client stop");
 					break;
 			}
-			this.scsState = ServiceCurrentState.SERVICE_STOP_PENDING;
+			this.scsState = WinApi.ServiceCurrentState.SERVICE_STOP_PENDING;
 			switch(this.stType) {
 				case ServiceType.Server:
-					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_STOP_PENDING;
+					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_STOP_PENDING;
 					ssServiceStatus.dwWaitHint = 100000;
-					Service.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
+					WinApi.Advapi32.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
 					break;
 				case ServiceType.Both:
 				case ServiceType.Client:
@@ -516,11 +305,11 @@ namespace MagicRemoteService {
 					this.Log("Service client stoped");
 					break;
 			}
-			this.scsState = ServiceCurrentState.SERVICE_STOPPED;
+			this.scsState = WinApi.ServiceCurrentState.SERVICE_STOPPED;
 			switch(this.stType) {
 				case ServiceType.Server:
-					ssServiceStatus.dwCurrentState = ServiceCurrentState.SERVICE_STOPPED;
-					Service.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
+					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_STOPPED;
+					WinApi.Advapi32.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
 					break;
 				case ServiceType.Both:
 				case ServiceType.Client:
@@ -572,71 +361,21 @@ namespace MagicRemoteService {
 		public void Error(string sError) {
 			this.elEventLog.WriteEntry(sError, System.Diagnostics.EventLogEntryType.Error);
 		}
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		private static extern uint WTSGetActiveConsoleSessionId();
-		[System.Runtime.InteropServices.DllImport("wtsapi32.dll", SetLastError = true)]
-		private static extern bool WTSQuerySessionInformation(System.IntPtr hServer, uint sessionId, WTSInfoClass wtsInfoClass, out string ppBuffer, out uint pBytesReturned);
-		[System.Runtime.InteropServices.DllImport("wtsapi32.dll", SetLastError = true)]
-		private static extern int WTSEnumerateSessions(System.IntPtr hServer, int Reserved, int Version, ref System.IntPtr ppSessionInfo, ref int pCount);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern System.IntPtr GetProcessWindowStation();
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern System.IntPtr OpenWindowStation(string lpszWinSta, bool fInherit, uint dwDesiredAccess);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern bool CloseWindowStation(System.IntPtr hWinsta);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern bool SetProcessWindowStation(System.IntPtr hWinSta);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern System.IntPtr OpenInputDesktop(uint dwFlags, bool fInherit, uint dwDesiredAccess);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern bool CloseDesktop(System.IntPtr hDesktop);
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		private static extern uint GetCurrentThreadId();
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern System.IntPtr GetThreadDesktop(uint dwThreadId);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern bool SetThreadDesktop(System.IntPtr hDesktop);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern uint MapVirtualKeyA(uint uCode, MapTypeFlags uMapType);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		private static extern System.IntPtr GetMessageExtraInfo();
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		private static extern System.IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
-		[System.Runtime.InteropServices.DllImport("advapi32", SetLastError = true)]
-		private static extern bool OpenProcessToken(System.IntPtr hProcessHandle, uint dwDesiredAccess, out System.IntPtr hTokenHandle);
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		private static extern bool CloseHandle(System.IntPtr hObject);
-		[System.Runtime.InteropServices.DllImport("advapi32.dll", SetLastError = true)]
-		private static extern bool DuplicateTokenEx(System.IntPtr hExistingToken, uint dwDesiredAccess, ref SECURITY_ATTRIBUTES lpTokenAttributes, SECURITY_IMPERSONATION_LEVEL ImpersonationLevel, TOKEN_TYPE TokenType, out System.IntPtr phNewToken);
-		[System.Runtime.InteropServices.DllImport("advapi32.dll", SetLastError = true)]
-		private static extern bool CreateProcessAsUser(System.IntPtr hToken, string lpApplicationName, string lpCommandLine, ref SECURITY_ATTRIBUTES lpProcessAttributes, ref SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, System.IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		private static extern uint WaitForSingleObject(System.IntPtr hHandle, uint dwMilliseconds);
-		[System.Runtime.InteropServices.DllImport("wtsapi32.dll", SetLastError = true)]
-		private static extern bool WTSQueryUserToken(uint sessionId, out System.IntPtr hToken);
-		[System.Runtime.InteropServices.DllImport("userenv.dll", SetLastError = true)]
-		private static extern bool CreateEnvironmentBlock(out System.IntPtr lpEnvironment, System.IntPtr hToken, bool bInherit);
-		[System.Runtime.InteropServices.DllImport("userenv.dll", SetLastError = true)]
-		private static extern bool DestroyEnvironmentBlock(System.IntPtr lpEnvironment);
-		[System.Runtime.InteropServices.DllImport("User32.dll", SetLastError = true)]
-		private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
-		private static uint SendInputAdmin(Input[] pInputs) {
-			if(Service.SessionId == WTSGetActiveConsoleSessionId()) {
-				uint uiInput = Service.SendInput((uint)pInputs.Length, pInputs, System.Runtime.InteropServices.Marshal.SizeOf(typeof(Input)));
+		private static uint SendInputAdmin(WinApi.Input[] pInputs) {
+			if(Service.SessionId == WinApi.Kernel32.WTSGetActiveConsoleSessionId()) {
+				uint uiInput = WinApi.User32.SendInput((uint)pInputs.Length, pInputs, System.Runtime.InteropServices.Marshal.SizeOf(typeof(WinApi.Input)));
 				if(0 == uiInput) {
-					System.IntPtr hLastInputDesktop = GetThreadDesktop(GetCurrentThreadId());
-					System.IntPtr hInputDesktop = OpenInputDesktop(0, true, 0x10000000);
+					System.IntPtr hLastInputDesktop = WinApi.User32.GetThreadDesktop(WinApi.Kernel32.GetCurrentThreadId());
+					System.IntPtr hInputDesktop = WinApi.User32.OpenInputDesktop(0, true, 0x10000000);
 					if(((int)hInputDesktop) == 0) {
-					} else if(!SetThreadDesktop(hInputDesktop)) {
+					} else if(!WinApi.User32.SetThreadDesktop(hInputDesktop)) {
 					} else {
 						if(((int)hLastInputDesktop) == 0) {
-						} else if(!CloseDesktop(hLastInputDesktop)) {
+						} else if(!WinApi.User32.CloseDesktop(hLastInputDesktop)) {
 						} else {
 						}
-						uiInput = Service.SendInput((uint)pInputs.Length, pInputs, System.Runtime.InteropServices.Marshal.SizeOf(typeof(Input)));
+						uiInput = WinApi.User32.SendInput((uint)pInputs.Length, pInputs, System.Runtime.InteropServices.Marshal.SizeOf(typeof(WinApi.Input)));
 						if(0 == uiInput) {
 						}
 					}
@@ -647,9 +386,9 @@ namespace MagicRemoteService {
 				return 0;
 			}
 		}
-		private static void OpenUserInteractiveProcess(string strApplication, string strArgument, out PROCESS_INFORMATION piProcess) {
+		private static void OpenUserInteractiveProcess(string strApplication, string strArgument, out WinApi.ProcessInformation piProcess) {
 
-			uint uiSessionId = WTSGetActiveConsoleSessionId();
+			uint uiSessionId = WinApi.Kernel32.WTSGetActiveConsoleSessionId();
 			if(uiSessionId == 0xFFFFFFFF) {
 				throw new System.Exception("Unable to get active console session id");
 			}
@@ -661,61 +400,61 @@ namespace MagicRemoteService {
 				throw new System.Exception("Unable to get winlogon pid");
 			}
 
-			System.IntPtr hProcess = OpenProcess(0x2000000, false, uiWinlogonPid);
+			System.IntPtr hProcess = WinApi.Kernel32.OpenProcess(0x2000000, false, uiWinlogonPid);
 			if(hProcess == System.IntPtr.Zero) {
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
 
 			System.IntPtr hProcessToken;
-			if(!OpenProcessToken(hProcess, 0x0002, out hProcessToken)) {
-				CloseHandle(hProcess);
+			if(!WinApi.Advapi32.OpenProcessToken(hProcess, 0x0002, out hProcessToken)) {
+				WinApi.Kernel32.CloseHandle(hProcess);
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
-			CloseHandle(hProcess);
+			WinApi.Kernel32.CloseHandle(hProcess);
 
 			System.IntPtr hProcessTokenDupplicate;
-			SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
+			WinApi.SecurityAttributes sa = new WinApi.SecurityAttributes();
 			sa.Length = System.Runtime.InteropServices.Marshal.SizeOf(sa);
-			if(!DuplicateTokenEx(hProcessToken, MAXIMUM_ALLOWED, ref sa, SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation, TOKEN_TYPE.TokenPrimary, out hProcessTokenDupplicate)) {
-				CloseHandle(hProcessToken);
+			if(!WinApi.Advapi32.DuplicateTokenEx(hProcessToken, WinApi.Advapi32.MAXIMUM_ALLOWED, ref sa, WinApi.SecurityImpersonationLevel.SecurityImpersonation, WinApi.TokenType.TokenPrimary, out hProcessTokenDupplicate)) {
+				WinApi.Kernel32.CloseHandle(hProcessToken);
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
-			CloseHandle(hProcessToken);
+			WinApi.Kernel32.CloseHandle(hProcessToken);
 
 			System.IntPtr lpEnvironmentBlock;
 			System.IntPtr hUserToken;
-			if(!WTSQueryUserToken(uiSessionId, out hUserToken)) {
+			if(!WinApi.Wtsapi32.WTSQueryUserToken(uiSessionId, out hUserToken)) {
 				lpEnvironmentBlock = System.IntPtr.Zero;
 				//throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			} else {
-				if(!CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, false)) {
-					CloseHandle(hUserToken);
+				if(!WinApi.Userenv.CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, false)) {
+					WinApi.Kernel32.CloseHandle(hUserToken);
 					throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 				}
-				CloseHandle(hUserToken);
+				WinApi.Kernel32.CloseHandle(hUserToken);
 			}
 
-			STARTUPINFO si = new STARTUPINFO();
+			WinApi.StartupInfo si = new WinApi.StartupInfo();
 			si.cb = System.Runtime.InteropServices.Marshal.SizeOf(si);
 			si.lpDesktop = "winsta0\\default";
-			if(!CreateProcessAsUser(hProcessTokenDupplicate, strApplication, strArgument, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(strApplication), ref si, out piProcess)) {
-				CloseHandle(hProcessTokenDupplicate);
+			if(!WinApi.Advapi32.CreateProcessAsUser(hProcessTokenDupplicate, strApplication, strArgument, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(strApplication), ref si, out piProcess)) {
+				WinApi.Kernel32.CloseHandle(hProcessTokenDupplicate);
 				if(lpEnvironmentBlock != System.IntPtr.Zero) {
-					DestroyEnvironmentBlock(lpEnvironmentBlock);
+					WinApi.Userenv.DestroyEnvironmentBlock(lpEnvironmentBlock);
 				}
 				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
 			}
 
-			CloseHandle(hProcessTokenDupplicate);
+			WinApi.Kernel32.CloseHandle(hProcessTokenDupplicate);
 			if(lpEnvironmentBlock != System.IntPtr.Zero) {
-				DestroyEnvironmentBlock(lpEnvironmentBlock);
+				WinApi.Userenv.DestroyEnvironmentBlock(lpEnvironmentBlock);
 			}
 		}
-		private static bool WaitProcess(PROCESS_INFORMATION piProcess, uint dwMilliseconds = 0xFFFFFFFF) {
-			switch((ObjectSate)WaitForSingleObject(piProcess.hProcess, dwMilliseconds)) {
-				case ObjectSate.WAIT_TIMEOUT:
+		private static bool WaitProcess(WinApi.ProcessInformation piProcess, uint dwMilliseconds = 0xFFFFFFFF) {
+			switch((WinApi.ObjectSate)WinApi.Kernel32.WaitForSingleObject(piProcess.hProcess, dwMilliseconds)) {
+				case WinApi.ObjectSate.WAIT_TIMEOUT:
 					return false;
-				case ObjectSate.WAIT_OBJECT_0:
+				case WinApi.ObjectSate.WAIT_OBJECT_0:
 					return true;
 				default:
 					throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
@@ -747,7 +486,7 @@ namespace MagicRemoteService {
 						System.Threading.Tasks.Task<System.Net.Sockets.Socket> tServer = System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(fServer);
 
 						System.IO.Pipes.NamedPipeServerStream psServer = new System.IO.Pipes.NamedPipeServerStream("{2DCF2389-4969-483D-AA13-58FD8DDDD2D5}", System.IO.Pipes.PipeDirection.Out, 1, System.IO.Pipes.PipeTransmissionMode.Message, System.IO.Pipes.PipeOptions.Asynchronous);
-						PROCESS_INFORMATION piProcess = new PROCESS_INFORMATION() { hProcess = System.IntPtr.Zero };
+						WinApi.ProcessInformation piProcess = new WinApi.ProcessInformation() { hProcess = System.IntPtr.Zero };
 
 						System.Threading.WaitHandle[] tabEventServer = new System.Threading.WaitHandle[] { Service.mreStop, Service.ewhClientOnStart, Service.ewhClientOnStop, ((System.IAsyncResult)tServer).AsyncWaitHandle };
 						bool bAliveServer = true;
@@ -795,7 +534,7 @@ namespace MagicRemoteService {
 						psServer.Close();
 						psServer.Dispose();
 
-						CloseHandle(piProcess.hProcess);
+						WinApi.Kernel32.CloseHandle(piProcess.hProcess);
 						socServer.Close();
 						socServer.Dispose();
 						//tServer.Wait();
@@ -948,9 +687,9 @@ namespace MagicRemoteService {
 				tUserInput.Interval = 10;
 				tUserInput.AutoReset = true;
 				tUserInput.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
-					LASTINPUTINFO lii = new LASTINPUTINFO();
+					WinApi.LastInputInfo lii = new WinApi.LastInputInfo();
 					lii.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lii);
-					if(!GetLastInputInfo(ref lii)) {
+					if(!WinApi.User32.GetLastInputInfo(ref lii)) {
 					} else if(((uint)System.Environment.TickCount - lii.dwTime) < 10) {
 						System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
 						pProcess.StartInfo.FileName = "shutdown";
@@ -960,22 +699,29 @@ namespace MagicRemoteService {
 						tUserInput.Stop();
 					}
 				};
+				System.Timers.Timer tPongInactivity = new System.Timers.Timer();
+				tPongInactivity.Interval = 5000;
+				tPongInactivity.AutoReset = false;
+				tPongInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+					socClient.Send(Service.tabClose);
+					mreClientStop.Set();
+					this.Warn("Client timeout pong inactivity on socket [" + socClient.GetHashCode() + "]");
+				};
 				System.Timers.Timer tInactivity = new System.Timers.Timer();
 				tInactivity.Interval = this.iTimeoutInactivity - 300000;
 				tInactivity.AutoReset = false;
 				tInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
-					System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-					pProcess.StartInfo.FileName = "shutdown";
-					pProcess.StartInfo.Arguments = "/s /t 300";
-					pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-					pProcess.Start();
-					tUserInput.Start();
+					socClient.Send(Service.tabPingInactivity);
+					tPongInactivity.Start();
 				};
+
 				System.Timers.Timer tPong = new System.Timers.Timer();
 				tPong.Interval = 5000;
 				tPong.AutoReset = false;
 				tPong.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+					socClient.Send(Service.tabClose);
 					mreClientStop.Set();
+					this.Warn("Client timeout pong on socket [" + socClient.GetHashCode() + "]");
 				};
 				System.Timers.Timer tPing = new System.Timers.Timer();
 				tPing.Interval = 30000;
@@ -985,9 +731,192 @@ namespace MagicRemoteService {
 					tPong.Start();
 				};
 
-				if(this.bInactivity) {
-					tInactivity.Start();
-				}
+				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dKeyBindDown = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
+				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dKeyBindUp = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
+				System.Collections.Generic.Dictionary<ushort, byte[]> dKeyBindActionDown = new System.Collections.Generic.Dictionary<ushort, byte[]>();
+				foreach(System.Collections.Generic.KeyValuePair<ushort, Bind> kvp in this.dKeyBind) {
+					switch(kvp.Value) {
+						case BindMouse bm:
+							switch(bm.bmvValue) {
+								case BindMouseValue.Left:
+									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
+										new WinApi.Input {
+											type = WinApi.InputType.INPUT_MOUSE,
+											u = new WinApi.DummyUnionName {
+												mi = new WinApi.MouseInput {
+													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTDOWN,
+													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+												}
+											}
+										}
+									});
+									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
+										new WinApi.Input {
+											type = WinApi.InputType.INPUT_MOUSE,
+											u = new WinApi.DummyUnionName {
+												mi = new WinApi.MouseInput {
+													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTUP,
+													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+												}
+											}
+										}
+									});
+									break;
+								case BindMouseValue.Right:
+									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
+										new WinApi.Input {
+											type = WinApi.InputType.INPUT_MOUSE,
+											u = new WinApi.DummyUnionName {
+												mi = new WinApi.MouseInput {
+													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTDOWN,
+													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+												}
+											}
+										}
+									});
+									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
+										new WinApi.Input {
+											type = WinApi.InputType.INPUT_MOUSE,
+											u = new WinApi.DummyUnionName {
+												mi = new WinApi.MouseInput {
+													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTUP,
+													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+												}
+											}
+										}
+									});
+									break;
+								case BindMouseValue.Middle:
+									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
+										new WinApi.Input {
+											type = WinApi.InputType.INPUT_MOUSE,
+											u = new WinApi.DummyUnionName {
+												mi = new WinApi.MouseInput {
+													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEDOWN,
+													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+												}
+											}
+										}
+									});
+									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
+										new WinApi.Input {
+											type = WinApi.InputType.INPUT_MOUSE,
+											u = new WinApi.DummyUnionName {
+												mi = new WinApi.MouseInput {
+													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEUP,
+													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+												}
+											}
+										}
+									});
+									break;
+							}
+							break;
+						case BindKeyboard bk:
+							if((bk.usScanCode & 0xFF00) == 0xE000) {
+								dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
+									new WinApi.Input {
+										type = WinApi.InputType.INPUT_KEYBOARD,
+										u = new WinApi.DummyUnionName {
+											ki = new WinApi.KeybdInput {
+												wScan = bk.usScanCode,
+												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE | WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY,
+												dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+											}
+										}
+									}
+								});
+								dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
+									new WinApi.Input {
+										type = WinApi.InputType.INPUT_KEYBOARD,
+										u = new WinApi.DummyUnionName {
+											ki = new WinApi.KeybdInput {
+												wScan = bk.usScanCode,
+												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYUP | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE | WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY,
+												dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+											}
+										}
+									}
+								});
+							} else {
+								dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
+									new WinApi.Input {
+										type = WinApi.InputType.INPUT_KEYBOARD,
+										u = new WinApi.DummyUnionName {
+											ki = new WinApi.KeybdInput {
+												wScan = bk.usScanCode,
+												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE,
+												dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+											}
+										}
+									}
+								});
+								dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
+									new WinApi.Input {
+										type = WinApi.InputType.INPUT_KEYBOARD,
+										u = new WinApi.DummyUnionName {
+											ki = new WinApi.KeybdInput {
+												wScan = bk.usScanCode,
+												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYUP | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE,
+												dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+											}
+										}
+									}
+								});
+							}
+							break;
+						case BindAction ba:
+							dKeyBindActionDown.Add(kvp.Key, new byte[] {
+								(0b1000 << 4) | (0x2 << 0),
+								0x01,
+								(byte)ba.bavValue
+							});
+							break;
+					}
+				};
+
+				WinApi.Input[] piPosition = new WinApi.Input[] {
+					new WinApi.Input {
+						type = WinApi.InputType.INPUT_MOUSE,
+						u = new WinApi.DummyUnionName {
+							mi = new WinApi.MouseInput {
+								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_ABSOLUTE | WinApi.MouseInputFlags.MOUSEEVENTF_MOVE,
+								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+							}
+						}
+					}
+				};
+				WinApi.Input[] piWheel = new WinApi.Input[] {
+					new WinApi.Input {
+						type = WinApi.InputType.INPUT_MOUSE,
+						u = new WinApi.DummyUnionName {
+							mi = new WinApi.MouseInput {
+								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_WHEEL,
+								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+							}
+						}
+					}
+				};
+				WinApi.Input[] piUnicode = new WinApi.Input[] {
+					new WinApi.Input {
+						type = WinApi.InputType.INPUT_KEYBOARD,
+						u = new WinApi.DummyUnionName {
+							ki = new WinApi.KeybdInput {
+								dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_UNICODE | WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN,
+								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+							}
+						}
+					}, new WinApi.Input {
+						type = WinApi.InputType.INPUT_KEYBOARD,
+						u = new WinApi.DummyUnionName {
+							ki = new WinApi.KeybdInput {
+								dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_UNICODE | WinApi.KeybdInputFlags.KEYEVENTF_KEYUP,
+								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+							}
+						}
+					}
+				};
+
 				System.Func<ulong> fClient = delegate () {
 					return (ulong)socClient.Receive(tabData);
 				};
@@ -995,294 +924,144 @@ namespace MagicRemoteService {
 
 				System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] { Service.mreStop, mreClientStop, ((System.IAsyncResult)tClient).AsyncWaitHandle };
 				bool bAlive = true;
-				do {
+				switch(System.Threading.WaitHandle.WaitAny(tabEvent, -1, true)) {
+					case 0:
+					case 1:
+						bAlive = false;
+						break;
+					case 2:
+						ulong ulLenMessage = tClient.Result;
+						if(tabData[0] == 'G' && tabData[1] == 'E' && tabData[2] == 'T') {
+							socClient.Send(System.Text.Encoding.UTF8.GetBytes(
+								"HTTP/1.1 101 Switching Protocols\r\n" +
+								"Connection: Upgrade\r\n" +
+								"Upgrade: websocket\r\n" +
+								"Sec-WebSocket-Accept: " + System.Convert.ToBase64String(System.Security.Cryptography.SHA1.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(System.Text.RegularExpressions.Regex.Match(System.Text.Encoding.UTF8.GetString(tabData), "Sec-WebSocket-Key: (.*)\r\n").Groups[1].Value + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))) + "\r\n\r\n"));
+
+							//TODO Something to ask TV if cursor visible
+							this.Log("Client connected on socket [" + socClient.GetHashCode() + "]");
+							tPing.Start();
+							if(this.bInactivity) {
+								tInactivity.Start();
+							}
+						} else {
+							bAlive = false;
+							this.Warn("Connexion refused on socket [" + socClient.GetHashCode() + "]");
+						}
+						break;
+				}
+				while(bAlive) {
+					tClient = System.Threading.Tasks.Task<ulong>.Run(fClient);
+					tabEvent[2] = ((System.IAsyncResult)tClient).AsyncWaitHandle;
 					switch(System.Threading.WaitHandle.WaitAny(tabEvent, -1, true)) {
 						case 0:
+							socClient.Send(Service.tabClose);
+							bAlive = false;
+							break;
 						case 1:
 							bAlive = false;
 							break;
 						case 2:
-							if(this.bInactivity) {
-								tPing.Stop();
-								tPing.Start();
-								tInactivity.Stop();
-								tInactivity.Start();
-							}
 							ulong ulLenMessage = tClient.Result;
-							if(tabData[0] == 'G' && tabData[1] == 'E' && tabData[2] == 'T') {
-								socClient.Send(System.Text.Encoding.UTF8.GetBytes(
-									"HTTP/1.1 101 Switching Protocols\r\n" +
-									"Connection: Upgrade\r\n" +
-									"Upgrade: websocket\r\n" +
-									"Sec-WebSocket-Accept: " + System.Convert.ToBase64String(System.Security.Cryptography.SHA1.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(System.Text.RegularExpressions.Regex.Match(System.Text.Encoding.UTF8.GetString(tabData), "Sec-WebSocket-Key: (.*)\r\n").Groups[1].Value + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))) + "\r\n\r\n"));
+							ulong ulOffsetFrame = 0;
+							while(!(ulOffsetFrame == ulLenMessage)) {
+								bool bFin = (tabData[ulOffsetFrame] & 0b10000000) == 0b10000000;
+								bool bRsv1 = (tabData[ulOffsetFrame] & 0b01000000) == 0b01000000;
+								bool bRsv2 = (tabData[ulOffsetFrame] & 0b00100000) == 0b00100000;
+								bool bRsv3 = (tabData[ulOffsetFrame] & 0b00010000) == 0b00010000;
+								byte ucOpcode = (byte)(tabData[ulOffsetFrame] & 0b00001111);
 
-								//TODO Something to ask TV if cursor visible
-								this.Log("Client connected on socket [" + socClient.GetHashCode() + "]");
-								tPing.Start();
-							} else {
-								ulong ulOffsetFrame = 0;
-								while(!(ulOffsetFrame == ulLenMessage)) {
-									bool bFin = 0 != (tabData[ulOffsetFrame] & 0b10000000);
-									bool bRsv1 = 0 != (tabData[ulOffsetFrame] & 0b01000000);
-									bool bRsv2 = 0 != (tabData[ulOffsetFrame] & 0b00100000);
-									bool bRsv3 = 0 != (tabData[ulOffsetFrame] & 0b00010000);
-									byte ucOpcode = (byte)(tabData[ulOffsetFrame] & 0b00001111);
+								bool bMask = (tabData[ulOffsetFrame + 1] & 0b10000000) == 0b10000000;
+								ulong ulLenData;
+								ulong ulOffsetMask;
+								if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111110) {
+									ulLenData = System.BitConverter.ToUInt16(new byte[] { tabData[ulOffsetFrame + 3], tabData[ulOffsetFrame + 2] }, 0);
+									ulOffsetMask = ulOffsetFrame + 4;
+								} else if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111111) {
+									ulLenData = System.BitConverter.ToUInt64(new byte[] { tabData[ulOffsetFrame + 9], tabData[ulOffsetFrame + 8], tabData[ulOffsetFrame + 7], tabData[ulOffsetFrame + 6], tabData[ulOffsetFrame + 5], tabData[ulOffsetFrame + 4], tabData[ulOffsetFrame + 3], tabData[ulOffsetFrame + 2] }, 0);
+									ulOffsetMask = ulOffsetFrame + 10;
+								} else {
+									ulLenData = (byte)(tabData[ulOffsetFrame + 1] & 0b01111111);
+									ulOffsetMask = ulOffsetFrame + 2;
+								}
 
-									bool bMask = 0 != (tabData[ulOffsetFrame + 1] & 0b10000000);
-									ulong ulLenData;
-									ulong ulOffsetMask;
-									if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111110) {
-										ulLenData = System.BitConverter.ToUInt16(new byte[] { tabData[ulOffsetFrame + 3], tabData[ulOffsetFrame + 2] }, 0);
-										ulOffsetMask = ulOffsetFrame + 4;
-									} else if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111111) {
-										ulLenData = System.BitConverter.ToUInt64(new byte[] { tabData[ulOffsetFrame + 9], tabData[ulOffsetFrame + 8], tabData[ulOffsetFrame + 7], tabData[ulOffsetFrame + 6], tabData[ulOffsetFrame + 5], tabData[ulOffsetFrame + 4], tabData[ulOffsetFrame + 3], tabData[ulOffsetFrame + 2] }, 0);
-										ulOffsetMask = ulOffsetFrame + 10;
-									} else {
-										ulLenData = (byte)(tabData[ulOffsetFrame + 1] & 0b01111111);
-										ulOffsetMask = ulOffsetFrame + 2;
+								ulong ulOffsetData;
+								if(bMask) {
+									ulOffsetData = ulOffsetMask + 4;
+									for(ulong ul = 0; ul < ulLenData; ul++) {
+										tabData[ulOffsetData + ul] ^= tabData[ulOffsetMask + (ul % 4)];
 									}
-
-									ulong ulOffsetData;
-									if(bMask) {
-										ulOffsetData = ulOffsetMask + 4;
-										for(ulong ul = 0; ul < ulLenData; ul++) {
-											tabData[ulOffsetData + ul] ^= tabData[ulOffsetMask + (ul % 4)];
-										}
-									} else {
-										ulOffsetData = ulOffsetMask;
-									}
+								} else {
+									ulOffsetData = ulOffsetMask;
+								}
+								if(!bFin) {
+									this.Warn("Unable to process split frame on socket [" + socClient.GetHashCode() + "]");
+								} else {
 									switch(ucOpcode) {
+										case 0x0: //Continuation frame
+											this.Warn("Unable to process split frame on socket [" + socClient.GetHashCode() + "]");
+											break;
 										case 0x1: //Text frame
 											if(ulLenData != 0) {
 												this.Warn("Unprocessed text message [" + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData, (int)ulLenData) + "]");
 											}
 											break;
 										case 0x2: //Binary frame
+											tPing.Stop();
+											tPing.Start();
+											if(this.bInactivity) {
+												tInactivity.Stop();
+												tInactivity.Start();
+											}
 											if(ulLenData != 0) {
-												Input[] piInput;
 												switch(tabData[ulOffsetData + 0]) {
 													case 0x00:
-														piInput = new Input[]
-														{
-															new Input
-															{
-																type = InputType.INPUT_MOUSE,
-																u = new DummyUnionName
-																{
-																	mi = new MouseInput
-																	{
-																		dx = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65535) / 1920),
-																		dy = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65535) / 1080),
-																		dwFlags = MouseInputFlags.MOUSEEVENTF_ABSOLUTE | MouseInputFlags.MOUSEEVENTF_MOVE,
-																		dwExtraInfo = GetMessageExtraInfo()
-																	}
-																}
-															}
-														};
-														Service.SendInputAdmin(piInput);
-														//this.LogIfDebug("Processed binary message send/mouse/position [0x" + System.BitConverter.ToString(tabData, ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usX: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 1).ToString() + ", usY: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 3).ToString());
+														piPosition[0].u.mi.dx = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65535) / 1920);
+														piPosition[0].u.mi.dy = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65535) / 1080);
+														Service.SendInputAdmin(piPosition);
+														//this.LogIfDebug("Processed binary message send/position [0x" + System.BitConverter.ToString(tabData, ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usX: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 1).ToString() + ", usY: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 3).ToString());
 														break;
 													case 0x01:
-														switch(System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1)) {
-															case 0x00:
-																piInput = new Input[]
-																{
-																	new Input
-																	{
-																		type = InputType.INPUT_MOUSE,
-																		u = new DummyUnionName
-																		{
-																			mi = new MouseInput
-																			{
-																				dwFlags = (tabData[ulOffsetData + 3] == 1) ? MouseInputFlags.MOUSEEVENTF_LEFTDOWN : MouseInputFlags.MOUSEEVENTF_LEFTUP,
-																				dwExtraInfo = GetMessageExtraInfo()
-																			}
-																		}
-																	}
-																};
-																Service.SendInputAdmin(piInput);
-																this.LogIfDebug("Processed binary message send/mouse/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-																break;
-															case 0x01:
-																piInput = new Input[]
-																{
-																	new Input
-																	{
-																		type = InputType.INPUT_MOUSE,
-																		u = new DummyUnionName
-																		{
-																			mi = new MouseInput
-																			{
-																				dwFlags = (tabData[ulOffsetData + 3] == 1) ? MouseInputFlags.MOUSEEVENTF_RIGHTDOWN : MouseInputFlags.MOUSEEVENTF_RIGHTUP,
-																				dwExtraInfo = GetMessageExtraInfo()
-																			}
-																		}
-																	}
-																};
-																Service.SendInputAdmin(piInput);
-																this.LogIfDebug("Processed binary message send/mouse/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-																break;
-															//case 0x02:
-															//	piInput = new Input[]
-															//	{
-															//		new Input
-															//		{
-															//			type = InputType.INPUT_MOUSE,
-															//			u = new DummyUnionName
-															//			{
-															//				mi = new MouseInput
-															//				{
-															//					dwFlags = (tabData[ulOffsetData + 3] == 1) ? MouseInputFlags.MOUSEEVENTF_MIDDLEDOWN : MouseInputFlags.MOUSEEVENTF_MIDDLEUP,
-															//					dwExtraInfo = GetMessageExtraInfo()
-															//				}
-															//			}
-															//		}
-															//	};
-															//	Service.SendInputAdmin(piInput);
-															//	this.LogIfDebug("Processed binary message send/mouse/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-															//	break;
-															default:
-																this.Warn("Unprocessed binary message send/mouse/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-																break;
-														}
+														piWheel[0].u.mi.mouseData = (uint)(-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1) * 3);
+														Service.SendInputAdmin(piWheel);
+														this.LogIfDebug("Processed binary message send/wheel [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], sY: " + (-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1)).ToString());
 														break;
 													case 0x02:
-														piInput = new Input[]
-														{
-															new Input
-															{
-																type = InputType.INPUT_MOUSE,
-																u = new DummyUnionName
-																{
-																	mi = new MouseInput
-																	{
-																		mouseData = (uint)(-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1) * 3),
-																		dwFlags = MouseInputFlags.MOUSEEVENTF_WHEEL,
-																		dwExtraInfo = GetMessageExtraInfo()
-																	}
-																}
-															}
-														};
-														Service.SendInputAdmin(piInput);
-														this.LogIfDebug("Processed binary message send/mouse/wheel [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], sY: " + (-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1)).ToString());
-														break;
-													case 0x03:
 														if(System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1)) {
 															MagicRemoteService.SystemCursor.HideSytemCursor();
 														} else {
 															MagicRemoteService.SystemCursor.ShowSytemCursor();
 														}
-														this.LogIfDebug("Processed binary message send/mouse/Visible [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], bV: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1).ToString());
+														this.LogIfDebug("Processed binary message send/visible [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], bV: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1).ToString());
+														break;
+													case 0x03:
+														ushort usCode = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
+														if((tabData[ulOffsetData + 3] & 0x01) == 0x01) {
+															if(dKeyBindDown.ContainsKey(usCode)) {
+																Service.SendInputAdmin(dKeyBindDown[usCode]);
+																this.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+															} else if(dKeyBindActionDown.ContainsKey(usCode)) {
+																socClient.Send(dKeyBindActionDown[usCode]);
+																this.LogIfDebug("Processed binary message send/key action [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+															} else {
+																this.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+															}
+														} else {
+															if(dKeyBindUp.ContainsKey(usCode)) {
+																Service.SendInputAdmin(dKeyBindUp[usCode]);
+																this.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+															} else {
+																this.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+															}
+														}
 														break;
 													case 0x04:
-														switch(System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1)) {
-															case 0x08: //BACKSPACE
-															case 0x0D: //ENTER
-															case 0x1B: //ESCAPE
-															case 0x25: //ARROW
-															case 0x26: //ARROW
-															case 0x27: //ARROW
-															case 0x28: //ARROW
-															case 0x5B: //WIN
-																piInput = new Input[]
-																{
-																	new Input
-																	{
-																		type = InputType.INPUT_KEYBOARD,
-																		u = new DummyUnionName
-																		{
-																			ki = new KeybdInput
-																			{
-																				wScan = (ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC),
-																				dwFlags = (((tabData[ulOffsetData + 3] & 0x01) == 0x01) ? KeybdInputFlags.KEYEVENTF_KEYDOWN : KeybdInputFlags.KEYEVENTF_KEYUP) | (((tabData[ulOffsetData + 3] & 0x02) == 0x02) ? (KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | KeybdInputFlags.KEYEVENTF_SCANCODE) : KeybdInputFlags.KEYEVENTF_SCANCODE),
-																				dwExtraInfo = GetMessageExtraInfo()
-																			}
-																		}
-																	}
-																};
-																Service.SendInputAdmin(piInput);
-																this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString() + ", wScan: " + (ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC));
-																break;
-
-																//byte[] tabScan = System.BitConverter.GetBytes((ushort)MapVirtualKeyA((uint)System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1), MapTypeFlags.MAPVK_VK_TO_VSC_EX));
-																//piInput = new Input[]
-																//{
-																//	new Input
-																//	{
-																//		type = InputType.INPUT_KEYBOARD,
-																//		u = new DummyUnionName
-																//		{
-																//			ki = new KeybdInput
-																//			{
-																//				wScan = tabScan[0],
-																//				dwFlags = ((tabData[ulOffsetData + 3] == 1) ? KeybdInputFlags.KEYEVENTF_KEYDOWN : KeybdInputFlags.KEYEVENTF_KEYUP) | KeybdInputFlags.KEYEVENTF_SCANCODE | ((tabScan[1] == 0xE0 || tabScan[1] == 0xE1) ? KeybdInputFlags.KEYEVENTF_EXTENDEDKEY : 0),
-																//				dwExtraInfo = GetMessageExtraInfo()
-																//			}
-																//		}
-																//	}
-																//};
-																//Service.SendInputAdmin(piInput);
-																//this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString() + ", wScan: 0x" + System.BitConverter.ToString(tabScan).Replace("-", System.String.Empty));
-																//break;
-
-																//piInput = new Input[]
-																//{
-																//	new Input
-																//	{
-																//		type = InputType.INPUT_KEYBOARD,
-																//		u = new DummyUnionName
-																//		{
-																//			ki = new KeybdInput
-																//			{
-																//				wVk = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1),
-																//				dwFlags = (tabData[ulOffsetData + 3] == 1) ? KeybdInputFlags.KEYEVENTF_KEYDOWN : KeybdInputFlags.KEYEVENTF_KEYUP,
-																//				dwExtraInfo = GetMessageExtraInfo()
-																//			}
-																//		}
-																//	}
-																//};
-																//Service.SendInputAdmin(piInput);
-																//this.LogIfDebug("Processed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-																//break;
-															default:
-																this.Warn("Unprocessed binary message send/keyboard/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-																break;
-														}
+														piUnicode[0].u.ki.wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
+														piUnicode[1].u.ki.wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
+														Service.SendInputAdmin(piUnicode);
+														this.LogIfDebug("Processed binary message send/Unicode [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData + 1, 2));
 														break;
 													case 0x05:
-														piInput = new Input[]
-														{
-														new Input
-														{
-															type = InputType.INPUT_KEYBOARD,
-															u = new DummyUnionName
-															{
-																ki = new KeybdInput
-																{
-																	wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1),
-																	dwFlags = KeybdInputFlags.KEYEVENTF_UNICODE | KeybdInputFlags.KEYEVENTF_KEYDOWN,
-																	dwExtraInfo = GetMessageExtraInfo()
-																}
-															}
-														},
-														new Input
-														{
-															type = InputType.INPUT_KEYBOARD,
-															u = new DummyUnionName
-															{
-																ki = new KeybdInput
-																{
-																	wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1),
-																	dwFlags = KeybdInputFlags.KEYEVENTF_UNICODE | KeybdInputFlags.KEYEVENTF_KEYUP,
-																	dwExtraInfo = GetMessageExtraInfo()
-																}
-															}
-														}
-														};
-														Service.SendInputAdmin(piInput);
-														this.LogIfDebug("Processed binary message send/keyboard/Unicode [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData + 1, 2));
-														break;
-													case 0x06:
 														System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
 														pProcess.StartInfo.FileName = "shutdown";
 														pProcess.StartInfo.Arguments = "/s /t 0";
@@ -1290,7 +1069,6 @@ namespace MagicRemoteService {
 														pProcess.Start();
 														this.LogIfDebug("Processed binary message send/shutdown [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "]");
 														break;
-
 													default:
 														this.Warn("Uprocessed binary message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "]");
 														break;
@@ -1298,34 +1076,53 @@ namespace MagicRemoteService {
 											}
 											break;
 										case 0x8: //Connection close
+											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetData - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
 											mreClientStop.Set();
 											this.Log("Client disconnected on socket [" + socClient.GetHashCode() + "]");
 											break;
 										case 0x9: //Ping
-											socClient.Send(Service.tabPong);
+											tabData[ulOffsetFrame] = (byte)((tabData[ulOffsetFrame] & 0xF0) | (0x0A & 0x0F));
+											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetData - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
 											this.LogIfDebug("Ping received on socket [" + socClient.GetHashCode() + "]");
 											break;
 										case 0xA: //Pong
-											tPong.Stop();
-											this.LogIfDebug("Pong received on socket [" + socClient.GetHashCode() + "]");
+											if(ulLenData != 0) {
+												switch(tabData[ulOffsetData + 0]) {
+													case 0x01:
+														tPongInactivity.Stop();
+														System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+														pProcess.StartInfo.FileName = "shutdown";
+														pProcess.StartInfo.Arguments = "/s /t 300";
+														pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+														pProcess.Start();
+														tUserInput.Start();
+														this.LogIfDebug("Pong incativity received on socket [" + socClient.GetHashCode() + "]");
+														break;
+													default:
+														this.Warn("Uprocessed pong message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "]");
+														break;
+												}
+											} else {
+												tPong.Stop();
+												this.LogIfDebug("Pong received on socket [" + socClient.GetHashCode() + "]");
+											}
 											break;
 										default:
 											this.Warn("Unprocessed message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], " + System.Text.Encoding.Default.GetString(tabData, (int)ulOffsetData, (int)ulLenData));
 											break;
 									}
-									ulOffsetFrame = ulOffsetData + ulLenData;
 								}
+								ulOffsetFrame = ulOffsetData + ulLenData;
 							}
-							tClient = System.Threading.Tasks.Task<ulong>.Run(fClient);
-							tabEvent[2] = ((System.IAsyncResult)tClient).AsyncWaitHandle;
 							break;
 					}
-				} while(bAlive);
+				}
 				SystemCursor.ShowSytemCursor();
 				tPing.Stop();
 				tPong.Stop();
 				if(this.bInactivity) {
 					tInactivity.Stop();
+					tPongInactivity.Stop();
 				}
 				socClient.Close();
 				socClient.Dispose();

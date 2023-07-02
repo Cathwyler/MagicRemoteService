@@ -1,11 +1,12 @@
 ﻿
 namespace MagicRemoteService {
 	public partial class Setting : System.Windows.Forms.Form {
+
 		private static readonly System.Net.IPAddress ipaSendIPDefaut;
 		private static readonly System.Net.IPAddress ipaMaskDefaut;
 		private static readonly MagicRemoteService.PhysicalAddress paMacDefaut;
 		static Setting() {
-			System.Net.NetworkInformation.NetworkInterface niDefaut = System.Array.Find<System.Net.NetworkInformation.NetworkInterface>(System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces(), delegate (System.Net.NetworkInformation.NetworkInterface ni) {
+			System.Net.NetworkInformation.NetworkInterface niDefaut = System.Linq.Enumerable.First<System.Net.NetworkInformation.NetworkInterface>(System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces(), delegate (System.Net.NetworkInformation.NetworkInterface ni) {
 				return ni.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up && ni.NetworkInterfaceType != System.Net.NetworkInformation.NetworkInterfaceType.Loopback;
 			});
 
@@ -19,6 +20,9 @@ namespace MagicRemoteService {
 		}
 
 		private MagicRemoteService.Service mrsService;
+
+		private System.Collections.Generic.Dictionary<ushort, BindControl> dKeyBindControl;
+		//private System.Collections.Generic.Dictionary<BindControl, ushort> dBindControlKey;
 
 		private decimal dListenPort;
 		private bool bInactivity;
@@ -34,18 +38,60 @@ namespace MagicRemoteService {
 		private decimal dTimeoutScreensaver;
 		private bool bExtend;
 
+		private System.Collections.Generic.Dictionary<ushort, Bind> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>() {
+			{ 0x0001, null },
+			{ 0x0002, null },
+			{ 0x0008, null },
+			{ 0x000D, null },
+			{ 0x0025, null },
+			{ 0x0026, null },
+			{ 0x0027, null },
+			{ 0x0028, null },
+			{ 0x0193, null },
+			{ 0x0194, null },
+			{ 0x0195, null },
+			{ 0x0196, null },
+			{ 0x01CD, null },
+			{ 0x019F, null },
+			{ 0x0013, null },
+			{ 0x01A1, null },
+			{ 0x019C, null },
+			{ 0x019D, null }
+		};
+
 		public Setting(MagicRemoteService.Service mrs) {
 			this.mrsService = mrs;
 			this.InitializeComponent();
+			this.dKeyBindControl = new System.Collections.Generic.Dictionary<ushort, BindControl>() {
+				{ 0x0001, this.bcRemoteClick },
+				{ 0x0002, this.bcRemoteLongClick },
+				{ 0x0008, this.bcRemoteBackspace },
+				{ 0x000D, this.bcRemoteOk },
+				{ 0x0025, this.bcRemoteLeft },
+				{ 0x0026, this.bcRemoteUp },
+				{ 0x0027, this.bcRemoteRight },
+				{ 0x0028, this.bcRemoteDown },
+				{ 0x0193, this.bcRemoteRed },
+				{ 0x0194, this.bcRemoteGreen },
+				{ 0x0195, this.bcRemoteYellow },
+				{ 0x0196, this.bcRemoteBlue },
+				{ 0x01CD, this.bcRemoteBack },
+				{ 0x019F, this.bcRemotePlay },
+				{ 0x0013, this.bcRemotePause },
+				{ 0x01A1, this.bcRemoteFastForward },
+				{ 0x019C, this.bcRemoteRewind },
+				{ 0x019D, this.bcRemoteStop }
+			};
+
 			this.PCDataRefresh();
 			this.TVDataRefresh();
+			this.RemoteDataRefresh();
 			this.btnTVRefresh_Click(this, new System.EventArgs());
 		}
 		private new bool Enabled {
 			set {
 				this.UseWaitCursor = !value;
-				this.grpboxPC.Enabled = value;
-				this.grpboxTV.Enabled = value;
+				this.tabSetting.Enabled = value;
 			}
 
 		}
@@ -252,6 +298,78 @@ namespace MagicRemoteService {
 			rkMagicRemoteServiceDevice.SetValue("TimeoutScreensaver", this.numboxTimeoutScreensaver.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteServiceDevice.SetValue("Extend", this.chkboxExtend.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 		}
+		public void RemoteDataRefresh() {
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindMouse");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindKeyboard");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindAction");
+			if(rkMagicRemoteServiceKeyBindMouse == null && rkMagicRemoteServiceKeyBindKeyboard == null && rkMagicRemoteServiceKeyBindAction == null) {
+				this.bcRemoteClick.Value = new BindMouse(BindMouseValue.Left);		//Click -> Left click
+				this.bcRemoteLongClick.Value = new BindMouse(BindMouseValue.Right);	//Long click -> Right click
+				this.bcRemoteBackspace.Value = new BindKeyboard(0x000E);		//BACKSPACE -> Keyboard Delete
+				this.bcRemoteOk.Value = new BindKeyboard(0x001C);				//OK -> Keyboard Return Enter
+				this.bcRemoteLeft.Value = new BindKeyboard(0xE04B);				//Left -> Keyboard LeftArrow
+				this.bcRemoteUp.Value = new BindKeyboard(0xE048);				//Up -> Keyboard UpArrow
+				this.bcRemoteRight.Value = new BindKeyboard(0xE04D);			//Right -> Keyboard RightArrow
+				this.bcRemoteDown.Value = new BindKeyboard(0xE050);				//Down -> Keyboard DownArrow
+				this.bcRemoteRed.Value = new BindAction(BindActionValue.Shutdown);	//Red -> Show shutdown
+				this.bcRemoteGreen.Value = new BindKeyboard(0xE05B);			//Green -> Keyboard Left GUI
+				this.bcRemoteYellow.Value = new BindMouse(BindMouseValue.Right);		//Yellow -> Right click
+				this.bcRemoteBlue.Value = new BindAction(BindActionValue.Keyboard);	//Blue -> Show keyboard
+				this.bcRemoteBack.Value = new BindKeyboard(0x0001);				//Back -> Keyboard Escape
+				this.bcRemotePlay.Value = null;									//Play
+				this.bcRemotePause.Value = null;								//Pause
+				this.bcRemoteFastForward.Value = null;							//Fast-forward
+				this.bcRemoteRewind.Value = null;								//Rewind
+				this.bcRemoteStop.Value = null;									//Stop
+			} else {
+				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
+					this.dKeyBindControl[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
+				}
+				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
+					this.dKeyBindControl[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindKeyboard((ushort)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
+				}
+				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
+					this.dKeyBindControl[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
+				}
+			}
+			foreach(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp in this.dKeyBindControl) {
+				this.dKeyBind[kvp.Key] = kvp.Value.Value;
+			}
+		}
+		public void RemoteDataSave() {
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\KeyBindMouse");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\KeyBindKeyboard");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\KeyBindAction");
+			foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
+				//if(!this.dKeyBind.ContainsKey(System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber))) {
+					rkMagicRemoteServiceKeyBindMouse.DeleteValue(sKey);
+				//}
+			}
+			foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
+				//if(!this.dKeyBind.ContainsKey(System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber))) {
+					rkMagicRemoteServiceKeyBindKeyboard.DeleteValue(sKey);
+				//}
+			}
+			foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
+				//if(!this.dKeyBind.ContainsKey(System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber))) {
+					rkMagicRemoteServiceKeyBindAction.DeleteValue(sKey);
+				//}
+			}
+			foreach(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp in this.dKeyBindControl) {
+				switch(kvp.Value.Value) {
+					case BindMouse bm:
+						rkMagicRemoteServiceKeyBindMouse.SetValue("0x" + kvp.Key.ToString("X4"), bm.bmvValue, Microsoft.Win32.RegistryValueKind.DWord);
+						break;
+					case BindKeyboard bk:
+						rkMagicRemoteServiceKeyBindKeyboard.SetValue("0x" + kvp.Key.ToString("X4"), bk.usScanCode, Microsoft.Win32.RegistryValueKind.DWord);
+						break;
+					case BindAction ba:
+						rkMagicRemoteServiceKeyBindAction.SetValue("0x" + kvp.Key.ToString("X4"), ba.bavValue, Microsoft.Win32.RegistryValueKind.DWord);
+						break;
+				}
+			}
+
+		}
 		public static void AppExtract(
 			string strVersion,
 			MagicRemoteService.WebOSCLIDeviceInput wcdiInput,
@@ -322,7 +440,7 @@ namespace MagicRemoteService {
 					}
 					return true;
 				} catch(System.Exception ex) {
-					strError = MagicRemoteService.Properties.Resources.SettingTVRefreshlErrorTitle;
+					strError = MagicRemoteService.Properties.Resources.SettingPCSaveErrorTittle;
 					strErrorInfo = ex.Message;
 					return false;
 				}
@@ -508,6 +626,49 @@ namespace MagicRemoteService {
 						e.Cancel = true;
 						break;
 				}
+			}
+			if(!e.Cancel && System.Linq.Enumerable.Any<System.Collections.Generic.KeyValuePair<ushort, BindControl>>(this.dKeyBindControl, delegate(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp){
+				return this.dKeyBind[kvp.Key] != kvp.Value.Value;
+			})) {
+				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingRemoteSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
+					case System.Windows.Forms.DialogResult.Yes:
+						this.btnRemoteSave_Click(this, new System.EventArgs());
+						break;
+					case System.Windows.Forms.DialogResult.No:
+						break;
+					case System.Windows.Forms.DialogResult.Cancel:
+						e.Cancel = true;
+						break;
+				}
+			}
+		}
+
+		private async void btnRemoteSave_Click(object sender, System.EventArgs e) {
+			this.Enabled = false;
+			string strError = null;
+			string strErrorInfo = null;
+			if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
+				try {
+					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
+						this.mrsService.ServiceStop();
+					}
+					this.RemoteDataSave();
+					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
+						this.mrsService.ServiceStart();
+					}
+					return true;
+				} catch(System.Exception ex) {
+					strError = MagicRemoteService.Properties.Resources.SettingRemoteSaveErrorTittle;
+					strErrorInfo = ex.Message;
+					return false;
+				}
+			})) {
+				this.RemoteDataRefresh();
+				this.Enabled = true;
+				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+			} else {
+				this.RemoteDataRefresh();
+				this.Enabled = true;
 			}
 		}
 	}

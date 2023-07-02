@@ -123,6 +123,24 @@
   <data name="ApplicationSetting" xml:space="preserve">
     <value>Paramètres</value>
   </data>
+  <data name="BindActionValueKeyboard" xml:space="preserve">
+    <value>Clavier</value>
+  </data>
+  <data name="BindActionValueShutdown" xml:space="preserve">
+    <value>Éteindre</value>
+  </data>
+  <data name="BindKeyboardErreur" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="BindMouseValueLeft" xml:space="preserve">
+    <value>Bouton gauche</value>
+  </data>
+  <data name="BindMouseValueMiddle" xml:space="preserve">
+    <value>Bouton du milieu</value>
+  </data>
+  <data name="BindMouseValueRight" xml:space="preserve">
+    <value>Bouton droit</value>
+  </data>
   <data name="IPAddressBoxErrorByteEntryMessage" xml:space="preserve">
     <value>{0} n'est pas une entrée valide. Veuillez spécifier une valeur comprise entre 1 et 255.</value>
   </data>
@@ -162,8 +180,17 @@
   <data name="SettingPCMacErrorTitle" xml:space="preserve">
     <value>Adresse physique invalide</value>
   </data>
+  <data name="SettingPCSaveErrorTittle" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement de la configuration du PC</value>
+  </data>
   <data name="SettingPCSaveMessage" xml:space="preserve">
     <value>Voulez-vous enregistrer les modifications apportées au service du PC ?</value>
+  </data>
+  <data name="SettingRemoteSaveErrorTittle" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement de la configuration de la télécommande</value>
+  </data>
+  <data name="SettingRemoteSaveMessage" xml:space="preserve">
+    <value>Voulez-vous enregistrer les modifications apportées aux raccourcis de la télécommande ?</value>
   </data>
   <data name="SettingSendIPErrorMessage" xml:space="preserve">
     <value>{0} n'est pas une adresse IP valide. Veuillez spécifier une adresse IP valide.</value>

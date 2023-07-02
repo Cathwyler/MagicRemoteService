@@ -75,6 +75,9 @@
 		input#keyboard {
 			visibility:0;
 		}
+		video#video {
+			pointer-events: auto;
+		}
 		div#dialog {
 			min-width: 30%;
 			max-width: 50%;
@@ -92,10 +95,11 @@
 
 <body>
 	<div class="screen">
-		<input id="keyboard" type="text">
+		<input id="keyboard" type="text" />
 	</div>
-	<video class="screen" id="video" autoplay loop>
-	</video>
+	<div class="screen">
+		<video id="video" autoplay loop />
+	</div>
 </body>
 
 <script src="main.js" charset="utf-8"></script>
