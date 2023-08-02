@@ -15,15 +15,15 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 ### Possible Improvement
 - I already tried Node.js net (TCP) for the main data exchange to get ride of the WebSockets exchange protocol, but using service on TV had really poor performance compared to WebSockets.
 - Find a way to detect focus in TextBox control on Windows to automatically pop up the WebOS keyboard.
-- Add the ability to configure the remote control keys.
 
 ## Installation
 
 - Install WebOS Command line interface on your PC. Please refer to <https://webostv.developer.lge.com/develop/tools/cli-installation>.
 - Install and activate developer mode app on your LG WebOS TV. Please refer to <https://webostv.developer.lge.com/develop/getting-started/developer-mode-app>.
 - Open MagicRemoteService on PC.
-- Configure PC and save.
 - Select a TV then configure and install it.
+- Configure PC and save.
+- (Optionnal) Configure Remote and save.
 - Others
   - (Optionnal) Setup Wake-on-LAN on your motherboard's PC.
   - (Optionnal) Setup Windows auto logon. Please refer to <https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon>.
@@ -32,7 +32,7 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 ## Using MagicRemoteService
 MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in installation step.
 
-Magic remote inputs :
+Default Magic remote inputs :
 - The red key shuts down or starts up your PC.
 - The yellow key sends a right click to the PC.
 - The green key opens Windows menu.
