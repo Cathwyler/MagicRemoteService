@@ -134,7 +134,6 @@ function CancelDialog(){
 const bDebug = false;
 
 const uiLongDown = 1500;
-const uiScreensaver = 120000;
 const sInputId = "HDMI_1";
 const sInputName = "HDMI 1";
 const sInputSource = "ext://hdmi:1";

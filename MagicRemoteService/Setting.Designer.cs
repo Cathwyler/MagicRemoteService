@@ -41,14 +41,11 @@ namespace MagicRemoteService {
 			this.labSendIP = new System.Windows.Forms.Label();
 			this.btnTVRefresh = new System.Windows.Forms.Button();
 			this.labSubnetMask = new System.Windows.Forms.Label();
-			this.labTimeoutScreensaverUnit = new System.Windows.Forms.Label();
 			this.labPCMac = new System.Windows.Forms.Label();
 			this.labTimeoutRightClickUnit = new System.Windows.Forms.Label();
 			this.labInput = new System.Windows.Forms.Label();
-			this.numboxTimeoutScreensaver = new System.Windows.Forms.NumericUpDown();
 			this.labTimeoutRightClick = new System.Windows.Forms.Label();
 			this.numboxTimeoutRightClick = new System.Windows.Forms.NumericUpDown();
-			this.labTimeoutScreensaver = new System.Windows.Forms.Label();
 			this.cmbboxInput = new System.Windows.Forms.ComboBox();
 			this.cmbboxTV = new System.Windows.Forms.ComboBox();
 			this.tabPC = new System.Windows.Forms.TabPage();
@@ -101,7 +98,6 @@ namespace MagicRemoteService {
 			this.tabSetting.SuspendLayout();
 			this.tabTV.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutScreensaver)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutRightClick)).BeginInit();
 			this.tabPC.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxListenPort)).BeginInit();
@@ -146,14 +142,11 @@ namespace MagicRemoteService {
 			this.tabTV.Controls.Add(this.labSendIP);
 			this.tabTV.Controls.Add(this.btnTVRefresh);
 			this.tabTV.Controls.Add(this.labSubnetMask);
-			this.tabTV.Controls.Add(this.labTimeoutScreensaverUnit);
 			this.tabTV.Controls.Add(this.labPCMac);
 			this.tabTV.Controls.Add(this.labTimeoutRightClickUnit);
 			this.tabTV.Controls.Add(this.labInput);
-			this.tabTV.Controls.Add(this.numboxTimeoutScreensaver);
 			this.tabTV.Controls.Add(this.labTimeoutRightClick);
 			this.tabTV.Controls.Add(this.numboxTimeoutRightClick);
-			this.tabTV.Controls.Add(this.labTimeoutScreensaver);
 			this.tabTV.Controls.Add(this.cmbboxInput);
 			this.tabTV.Controls.Add(this.cmbboxTV);
 			this.tabTV.Name = "tabTV";
@@ -248,12 +241,6 @@ namespace MagicRemoteService {
 			this.labSubnetMask.Name = "labSubnetMask";
 			this.ttFormating.SetToolTip(this.labSubnetMask, resources.GetString("labSubnetMask.ToolTip"));
 			// 
-			// labTimeoutScreensaverUnit
-			// 
-			resources.ApplyResources(this.labTimeoutScreensaverUnit, "labTimeoutScreensaverUnit");
-			this.labTimeoutScreensaverUnit.Name = "labTimeoutScreensaverUnit";
-			this.ttFormating.SetToolTip(this.labTimeoutScreensaverUnit, resources.GetString("labTimeoutScreensaverUnit.ToolTip"));
-			// 
 			// labPCMac
 			// 
 			resources.ApplyResources(this.labPCMac, "labPCMac");
@@ -272,17 +259,6 @@ namespace MagicRemoteService {
 			this.labInput.Name = "labInput";
 			this.ttFormating.SetToolTip(this.labInput, resources.GetString("labInput.ToolTip"));
 			// 
-			// numboxTimeoutScreensaver
-			// 
-			resources.ApplyResources(this.numboxTimeoutScreensaver, "numboxTimeoutScreensaver");
-			this.numboxTimeoutScreensaver.Maximum = new decimal(new int[] {
-            300000,
-            0,
-            0,
-            0});
-			this.numboxTimeoutScreensaver.Name = "numboxTimeoutScreensaver";
-			this.ttFormating.SetToolTip(this.numboxTimeoutScreensaver, resources.GetString("numboxTimeoutScreensaver.ToolTip"));
-			// 
 			// labTimeoutRightClick
 			// 
 			resources.ApplyResources(this.labTimeoutRightClick, "labTimeoutRightClick");
@@ -299,12 +275,6 @@ namespace MagicRemoteService {
             0});
 			this.numboxTimeoutRightClick.Name = "numboxTimeoutRightClick";
 			this.ttFormating.SetToolTip(this.numboxTimeoutRightClick, resources.GetString("numboxTimeoutRightClick.ToolTip"));
-			// 
-			// labTimeoutScreensaver
-			// 
-			resources.ApplyResources(this.labTimeoutScreensaver, "labTimeoutScreensaver");
-			this.labTimeoutScreensaver.Name = "labTimeoutScreensaver";
-			this.ttFormating.SetToolTip(this.labTimeoutScreensaver, resources.GetString("labTimeoutScreensaver.ToolTip"));
 			// 
 			// cmbboxInput
 			// 
@@ -752,7 +722,6 @@ namespace MagicRemoteService {
 			this.tabTV.ResumeLayout(false);
 			this.tabTV.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutScreensaver)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutRightClick)).EndInit();
 			this.tabPC.ResumeLayout(false);
 			this.tabPC.PerformLayout();
@@ -780,14 +749,11 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label labSendIP;
 		private System.Windows.Forms.Button btnTVRefresh;
 		private System.Windows.Forms.Label labSubnetMask;
-		private System.Windows.Forms.Label labTimeoutScreensaverUnit;
 		private System.Windows.Forms.Label labPCMac;
 		private System.Windows.Forms.Label labTimeoutRightClickUnit;
 		private System.Windows.Forms.Label labInput;
-		private System.Windows.Forms.NumericUpDown numboxTimeoutScreensaver;
 		private System.Windows.Forms.Label labTimeoutRightClick;
 		private System.Windows.Forms.NumericUpDown numboxTimeoutRightClick;
-		private System.Windows.Forms.Label labTimeoutScreensaver;
 		private System.Windows.Forms.ComboBox cmbboxInput;
 		private System.Windows.Forms.ComboBox cmbboxTV;
 		private System.Windows.Forms.TabPage tabPC;

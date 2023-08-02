@@ -35,7 +35,6 @@ namespace MagicRemoteService {
 		private System.Net.IPAddress iaSubnetMask;
 		private MagicRemoteService.PhysicalAddress paPCMac;
 		private decimal	dTimeoutRightClick;
-		private decimal dTimeoutScreensaver;
 		private bool bExtend;
 
 		private System.Collections.Generic.Dictionary<ushort, Bind> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>() {
@@ -216,7 +215,6 @@ namespace MagicRemoteService {
 				this.ipadrboxSubnetMask.Enabled = false;
 				this.phyadrboxPCMac.Enabled = false;
 				this.numboxTimeoutRightClick.Enabled = false;
-				this.numboxTimeoutScreensaver.Enabled = false;
 				this.chkboxExtend.Enabled = false;
 				this.btnTVInstall.Enabled = false;
 				this.cmbboxInput.SelectedItem = null;
@@ -225,7 +223,6 @@ namespace MagicRemoteService {
 				this.ipadrboxSubnetMask.Value = MagicRemoteService.Setting.ipaMaskDefaut;
 				this.phyadrboxPCMac.Value = MagicRemoteService.Setting.paMacDefaut;
 				this.numboxTimeoutRightClick.Value = 1500;
-				this.numboxTimeoutScreensaver.Value = 120000;
 				this.chkboxExtend.Checked = false;
 			} else {
 				this.cmbboxInput.Enabled = true;
@@ -234,7 +231,6 @@ namespace MagicRemoteService {
 				this.ipadrboxSubnetMask.Enabled = true;
 				this.phyadrboxPCMac.Enabled = true;
 				this.numboxTimeoutRightClick.Enabled = true;
-				this.numboxTimeoutScreensaver.Enabled = true;
 				this.btnTVInstall.Enabled = true;
 				this.chkboxExtend.Enabled = true;
 				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
@@ -245,7 +241,6 @@ namespace MagicRemoteService {
 					this.ipadrboxSubnetMask.Value = MagicRemoteService.Setting.ipaMaskDefaut;
 					this.phyadrboxPCMac.Value = MagicRemoteService.Setting.paMacDefaut;
 					this.numboxTimeoutRightClick.Value = 1500;
-					this.numboxTimeoutScreensaver.Value = 120000;
 					this.chkboxExtend.Checked = false;
 				} else {
 					string sInputId = (string)rkMagicRemoteServiceDevice.GetValue("Input");
@@ -274,7 +269,6 @@ namespace MagicRemoteService {
 						this.phyadrboxPCMac.FromString(sMac);
 					}
 					this.numboxTimeoutRightClick.Value = (int)rkMagicRemoteServiceDevice.GetValue("TimeoutRightClick", 1500);
-					this.numboxTimeoutScreensaver.Value = (int)rkMagicRemoteServiceDevice.GetValue("TimeoutScreensaver", 120000);
 					this.chkboxExtend.Checked = (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
 				}
 			}
@@ -284,7 +278,6 @@ namespace MagicRemoteService {
 			this.iaSubnetMask = this.ipadrboxSubnetMask.Value;
 			this.paPCMac = this.phyadrboxPCMac.Value;
 			this.dTimeoutRightClick = this.numboxTimeoutRightClick.Value;
-			this.dTimeoutScreensaver = this.numboxTimeoutScreensaver.Value;
 			this.bExtend = this.chkboxExtend.Checked;
 		}
 		public void TVDataSave() {
@@ -295,7 +288,6 @@ namespace MagicRemoteService {
 			rkMagicRemoteServiceDevice.SetValue("Mask", this.ipadrboxSubnetMask.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("PCMac", this.phyadrboxPCMac.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("TimeoutRightClick", this.numboxTimeoutRightClick.Value, Microsoft.Win32.RegistryValueKind.DWord);
-			rkMagicRemoteServiceDevice.SetValue("TimeoutScreensaver", this.numboxTimeoutScreensaver.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteServiceDevice.SetValue("Extend", this.chkboxExtend.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 		}
 		public void RemoteDataRefresh() {
@@ -377,8 +369,7 @@ namespace MagicRemoteService {
 			decimal dSendPort,
 			System.Net.IPAddress ipaMask,
 			MagicRemoteService.PhysicalAddress paPCMac,
-			decimal dTimeoutRightClick,
-			decimal dTimeoutScreensaver
+			decimal dTimeoutRightClick
 		) {
 			if(System.IO.Directory.Exists(".\\TV")) {
 				System.IO.Directory.Delete(".\\TV", true);
@@ -391,7 +382,6 @@ namespace MagicRemoteService {
 			System.IO.Directory.CreateDirectory(".\\TV\\Send");
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\main.js", MagicRemoteService.Properties.Resources.main
 				.Replace("const uiRightClick = 1500;", "const uiRightClick = " + dTimeoutRightClick.ToString() + ";")
-				.Replace("const uiScreensaver = 120000;", "const uiScreensaver = " + dTimeoutScreensaver.ToString() + ";")
 				.Replace("const sInputId = \"HDMI_1\";", "const sInputId = \"" + wcdiInput.Id + "\";")
 				.Replace("const sInputName = \"HDMI 1\";", "const sInputName = \"" + wcdiInput.Name + "\";")
 				.Replace("const sInputSource = \"ext://hdmi:1\";", "const sInputSource = \"" + wcdiInput.Source + "\";")
@@ -510,7 +500,6 @@ namespace MagicRemoteService {
 				this.Enabled = false;
 				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
 				decimal dTimeoutRightClick = this.numboxTimeoutRightClick.Value;
-				decimal dTimeoutScreensaver = this.numboxTimeoutScreensaver.Value;
 				MagicRemoteService.WebOSCLIDeviceInput wcdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
 				System.Net.IPAddress ipaSendIP = this.ipadrboxSendIP.Value;
 				decimal dSendPort = this.numboxSendPort.Value;
@@ -522,7 +511,7 @@ namespace MagicRemoteService {
 					try {
 						System.Version vAssembly = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 						string strVersion = vAssembly.Major + "." + vAssembly.Minor + "." + vAssembly.Build;
-						MagicRemoteService.Setting.AppExtract(strVersion, wcdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dTimeoutRightClick, dTimeoutScreensaver);
+						MagicRemoteService.Setting.AppExtract(strVersion, wcdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dTimeoutRightClick);
 						string strTVDir = System.IO.Path.GetFullPath(".\\TV");
 						MagicRemoteService.WebOSCLI.Package(strTVDir, MagicRemoteService.Application.CompleteDir(strTVDir) + "MagicRemoteService", MagicRemoteService.Application.CompleteDir(strTVDir) + "Send");
 						MagicRemoteService.WebOSCLI.Install(wcdDevice.Name, ".\\TV\\com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + "_" + strVersion + "_all.ipk");
@@ -611,8 +600,6 @@ namespace MagicRemoteService {
 				this.paPCMac?.ToString() != this.phyadrboxPCMac.Value?.ToString()
 				||
 				this.dTimeoutRightClick != this.numboxTimeoutRightClick.Value
-				||
-				this.dTimeoutScreensaver != this.numboxTimeoutScreensaver.Value
 				||
 				this.bExtend != this.chkboxExtend.Checked
 			)) {

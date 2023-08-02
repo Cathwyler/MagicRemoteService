@@ -193,9 +193,6 @@
   <data name="labSubnetMask.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="labTimeoutScreensaverUnit.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="labPCMac.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 13</value>
   </data>
@@ -217,9 +214,6 @@
   <data name="labInput.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="numboxTimeoutScreensaver.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="labTimeoutRightClick.Text" xml:space="preserve">
     <value>Délai du click droit</value>
   </data>
@@ -227,15 +221,6 @@
     <value />
   </data>
   <data name="numboxTimeoutRightClick.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="labTimeoutScreensaver.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 13</value>
-  </data>
-  <data name="labTimeoutScreensaver.Text" xml:space="preserve">
-    <value>Délai de l'écran de veille</value>
-  </data>
-  <data name="labTimeoutScreensaver.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="cmbboxInput.ToolTip" xml:space="preserve">

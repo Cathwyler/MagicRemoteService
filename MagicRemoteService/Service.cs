@@ -697,6 +697,7 @@ namespace MagicRemoteService {
 						pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 						pProcess.Start();
 						tUserInput.Stop();
+						this.Log("Client user input activity on socket [" + socClient.GetHashCode() + "]");
 					}
 				};
 				System.Timers.Timer tPongInactivity = new System.Timers.Timer();
@@ -713,6 +714,7 @@ namespace MagicRemoteService {
 				tInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					socClient.Send(Service.tabPingInactivity);
 					tPongInactivity.Start();
+					this.Log("Client timeout inactivity on socket [" + socClient.GetHashCode() + "]");
 				};
 
 				System.Timers.Timer tPong = new System.Timers.Timer();
