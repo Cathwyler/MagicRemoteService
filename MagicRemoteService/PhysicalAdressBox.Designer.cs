@@ -1,6 +1,6 @@
 ﻿
 namespace MagicRemoteService {
-	partial class MacAddressBox {
+	partial class PhysicalAddressBox {
 		/// <summary> 
 		/// Variable nécessaire au concepteur.
 		/// </summary>
@@ -49,7 +49,7 @@ namespace MagicRemoteService {
 			this.lDot3.Size = new System.Drawing.Size(10, 13);
 			this.lDot3.TabIndex = 12;
 			this.lDot3.Text = ":";
-			this.lDot3.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.lDot3.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			// 
 			// lDot2
 			// 
@@ -61,7 +61,7 @@ namespace MagicRemoteService {
 			this.lDot2.Size = new System.Drawing.Size(10, 13);
 			this.lDot2.TabIndex = 11;
 			this.lDot2.Text = ":";
-			this.lDot2.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.lDot2.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			// 
 			// lDot1
 			// 
@@ -73,7 +73,7 @@ namespace MagicRemoteService {
 			this.lDot1.Size = new System.Drawing.Size(10, 13);
 			this.lDot1.TabIndex = 8;
 			this.lDot1.Text = ":";
-			this.lDot1.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.lDot1.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			// 
 			// lDot4
 			// 
@@ -85,7 +85,7 @@ namespace MagicRemoteService {
 			this.lDot4.Size = new System.Drawing.Size(10, 13);
 			this.lDot4.TabIndex = 14;
 			this.lDot4.Text = ":";
-			this.lDot4.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.lDot4.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			// 
 			// lDot5
 			// 
@@ -97,7 +97,7 @@ namespace MagicRemoteService {
 			this.lDot5.Size = new System.Drawing.Size(10, 13);
 			this.lDot5.TabIndex = 16;
 			this.lDot5.Text = ":";
-			this.lDot5.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.lDot5.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			// 
 			// ttFormating
 			// 
@@ -116,7 +116,7 @@ namespace MagicRemoteService {
 			this.dbbByte5.TabIndex = 17;
 			this.dbbByte5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte5.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
-			this.dbbByte5.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.dbbByte5.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			this.dbbByte5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
 			// 
 			// dbbByte4
@@ -131,7 +131,7 @@ namespace MagicRemoteService {
 			this.dbbByte4.TabIndex = 15;
 			this.dbbByte4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte4.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
-			this.dbbByte4.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.dbbByte4.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			this.dbbByte4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
 			// 
 			// dbbByte3
@@ -146,7 +146,7 @@ namespace MagicRemoteService {
 			this.dbbByte3.TabIndex = 13;
 			this.dbbByte3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte3.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
-			this.dbbByte3.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.dbbByte3.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			this.dbbByte3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
 			// 
 			// dbbByte2
@@ -161,7 +161,7 @@ namespace MagicRemoteService {
 			this.dbbByte2.TabIndex = 10;
 			this.dbbByte2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte2.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
-			this.dbbByte2.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.dbbByte2.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			this.dbbByte2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
 			// 
 			// dbbByte1
@@ -176,7 +176,7 @@ namespace MagicRemoteService {
 			this.dbbByte1.TabIndex = 9;
 			this.dbbByte1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte1.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
-			this.dbbByte1.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.dbbByte1.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			this.dbbByte1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
 			// 
 			// dbbByte0
@@ -191,10 +191,10 @@ namespace MagicRemoteService {
 			this.dbbByte0.TabIndex = 7;
 			this.dbbByte0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte0.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
-			this.dbbByte0.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.dbbByte0.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			this.dbbByte0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
 			// 
-			// MacAddressBox
+			// PhysicalAddressBox
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -214,9 +214,9 @@ namespace MagicRemoteService {
 			this.Controls.Add(this.dbbByte0);
 			this.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.MinimumSize = new System.Drawing.Size(152, 20);
-			this.Name = "MacAddressBox";
+			this.Name = "PhysicalAddressBox";
 			this.Size = new System.Drawing.Size(150, 18);
-			this.Click += new System.EventHandler(this.MacAddressBox_Click);
+			this.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

@@ -1,6 +1,6 @@
 ﻿
 namespace MagicRemoteService {
-	public partial class MacAddressBox : System.Windows.Forms.UserControl {
+	public partial class PhysicalAddressBox : System.Windows.Forms.UserControl {
 		public MagicRemoteService.PhysicalAddress Value {
 			get {
 				byte[] tabByte = new byte[6];
@@ -24,7 +24,7 @@ namespace MagicRemoteService {
 				}
 			}
 			set {
-				if(value == null) {
+				if(value == null || !(value.GetAddressBytes().Length == 6)) {
 					this.dbbByte0.Text = "";
 					this.dbbByte1.Text = "";
 					this.dbbByte2.Text = "";
@@ -41,25 +41,25 @@ namespace MagicRemoteService {
 				}
 			}
 		}
-		public MacAddressBox() : base() {
+		public PhysicalAddressBox() : base() {
 			this.InitializeComponent();
 		}
 		public void FromString(string sIp) {
 			MagicRemoteService.PhysicalAddress paMac;
-			if(MagicRemoteService.PhysicalAddress.TryParse(sIp, out paMac)) {
-				this.dbbByte0.Text = paMac.GetAddressBytes()[0].ToString("X2");
-				this.dbbByte1.Text = paMac.GetAddressBytes()[1].ToString("X2");
-				this.dbbByte2.Text = paMac.GetAddressBytes()[2].ToString("X2");
-				this.dbbByte3.Text = paMac.GetAddressBytes()[3].ToString("X2");
-				this.dbbByte4.Text = paMac.GetAddressBytes()[4].ToString("X2");
-				this.dbbByte5.Text = paMac.GetAddressBytes()[5].ToString("X2");
-			} else {
+			if(!MagicRemoteService.PhysicalAddress.TryParse(sIp, out paMac) || !(paMac.GetAddressBytes().Length == 6)) {
 				this.dbbByte0.Text = "";
 				this.dbbByte1.Text = "";
 				this.dbbByte2.Text = "";
 				this.dbbByte3.Text = "";
 				this.dbbByte4.Text = "";
 				this.dbbByte5.Text = "";
+			} else {
+				this.dbbByte0.Text = paMac.GetAddressBytes()[0].ToString("X2");
+				this.dbbByte1.Text = paMac.GetAddressBytes()[1].ToString("X2");
+				this.dbbByte2.Text = paMac.GetAddressBytes()[2].ToString("X2");
+				this.dbbByte3.Text = paMac.GetAddressBytes()[3].ToString("X2");
+				this.dbbByte4.Text = paMac.GetAddressBytes()[4].ToString("X2");
+				this.dbbByte5.Text = paMac.GetAddressBytes()[5].ToString("X2");
 			}
 		}
 		private void dbbByte_EventPaste(object sender, System.EventArgs e) {
@@ -138,7 +138,7 @@ namespace MagicRemoteService {
 				e.Handled = true;
 			}
 		}
-		private void MacAddressBox_Click(object sender, System.EventArgs e) {
+		private void PhysicalAddressBox_Click(object sender, System.EventArgs e) {
 			ttFormating.Hide(this);
 		}
 	}

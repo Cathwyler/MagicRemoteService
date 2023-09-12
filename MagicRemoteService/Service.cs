@@ -5,6 +5,22 @@ namespace MagicRemoteService {
 		Client,
 		Both
 	}
+	public enum WebSocketOpCode : byte {
+		Continuation = 0x0,
+		Text = 0x1,
+		Binary = 0x2,
+		ConnectionClose,
+		Ping = 0x9,
+		Pong = 0xA
+	}
+	public enum MessageType : byte {
+		Position = 0x00,
+		Wheel = 0x01,
+		Visible = 0x02,
+		Key = 0x03,
+		Unicode= 0x04,
+		Shutdown = 0x05
+	}
 	public partial class Service : System.ServiceProcess.ServiceBase {
 		private volatile int iPort;
 		private volatile bool bInactivity;
@@ -1000,15 +1016,15 @@ namespace MagicRemoteService {
 									this.Warn("Unable to process split frame on socket [" + socClient.GetHashCode() + "]");
 								} else {
 									switch(ucOpcode) {
-										case 0x0: //Continuation frame
+										case (byte)MagicRemoteService.WebSocketOpCode.Continuation:
 											this.Warn("Unable to process split frame on socket [" + socClient.GetHashCode() + "]");
 											break;
-										case 0x1: //Text frame
+										case (byte)MagicRemoteService.WebSocketOpCode.Text:
 											if(ulLenData != 0) {
 												this.Warn("Unprocessed text message [" + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData, (int)ulLenData) + "]");
 											}
 											break;
-										case 0x2: //Binary frame
+										case (byte)MagicRemoteService.WebSocketOpCode.Binary:
 											tPing.Stop();
 											tPing.Start();
 											if(this.bInactivity) {
@@ -1017,18 +1033,18 @@ namespace MagicRemoteService {
 											}
 											if(ulLenData != 0) {
 												switch(tabData[ulOffsetData + 0]) {
-													case 0x00:
+													case (byte)MagicRemoteService.MessageType.Position:
 														piPosition[0].u.mi.dx = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65535) / 1920);
 														piPosition[0].u.mi.dy = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65535) / 1080);
 														Service.SendInputAdmin(piPosition);
 														//this.LogIfDebug("Processed binary message send/position [0x" + System.BitConverter.ToString(tabData, ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usX: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 1).ToString() + ", usY: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 3).ToString());
 														break;
-													case 0x01:
+													case (byte)MagicRemoteService.MessageType.Wheel:
 														piWheel[0].u.mi.mouseData = (uint)(-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1) * 3);
 														Service.SendInputAdmin(piWheel);
 														this.LogIfDebug("Processed binary message send/wheel [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], sY: " + (-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1)).ToString());
 														break;
-													case 0x02:
+													case (byte)MagicRemoteService.MessageType.Visible:
 														if(System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1)) {
 															MagicRemoteService.SystemCursor.HideSytemCursor();
 														} else {
@@ -1036,7 +1052,7 @@ namespace MagicRemoteService {
 														}
 														this.LogIfDebug("Processed binary message send/visible [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], bV: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1).ToString());
 														break;
-													case 0x03:
+													case (byte)MagicRemoteService.MessageType.Key:
 														ushort usCode = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														if((tabData[ulOffsetData + 3] & 0x01) == 0x01) {
 															if(dKeyBindDown.ContainsKey(usCode)) {
@@ -1057,13 +1073,13 @@ namespace MagicRemoteService {
 															}
 														}
 														break;
-													case 0x04:
+													case (byte)MagicRemoteService.MessageType.Unicode:
 														piUnicode[0].u.ki.wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														piUnicode[1].u.ki.wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														Service.SendInputAdmin(piUnicode);
-														this.LogIfDebug("Processed binary message send/Unicode [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData + 1, 2));
+														this.LogIfDebug("Processed binary message send/unicode [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData + 1, 2));
 														break;
-													case 0x05:
+													case (byte)MagicRemoteService.MessageType.Shutdown:
 														System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
 														pProcess.StartInfo.FileName = "shutdown";
 														pProcess.StartInfo.Arguments = "/s /t 0";
@@ -1077,17 +1093,17 @@ namespace MagicRemoteService {
 												}
 											}
 											break;
-										case 0x8: //Connection close
+										case (byte)MagicRemoteService.WebSocketOpCode.ConnectionClose:
 											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetData - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
 											mreClientStop.Set();
 											this.Log("Client disconnected on socket [" + socClient.GetHashCode() + "]");
 											break;
-										case 0x9: //Ping
+										case (byte)MagicRemoteService.WebSocketOpCode.Ping:
 											tabData[ulOffsetFrame] = (byte)((tabData[ulOffsetFrame] & 0xF0) | (0x0A & 0x0F));
 											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetData - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
 											this.LogIfDebug("Ping received on socket [" + socClient.GetHashCode() + "]");
 											break;
-										case 0xA: //Pong
+										case (byte)MagicRemoteService.WebSocketOpCode.Pong:
 											if(ulLenData != 0) {
 												switch(tabData[ulOffsetData + 0]) {
 													case 0x01:

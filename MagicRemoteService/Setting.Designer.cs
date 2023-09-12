@@ -34,7 +34,7 @@ namespace MagicRemoteService {
 			this.labTV = new System.Windows.Forms.Label();
 			this.ipadrboxSendIP = new MagicRemoteService.IPAddressBox();
 			this.numboxSendPort = new System.Windows.Forms.NumericUpDown();
-			this.phyadrboxPCMac = new MagicRemoteService.MacAddressBox();
+			this.phyadrboxPCMac = new MagicRemoteService.PhysicalAddressBox();
 			this.labTVPort = new System.Windows.Forms.Label();
 			this.ipadrboxSubnetMask = new MagicRemoteService.IPAddressBox();
 			this.btnTVInstall = new System.Windows.Forms.Button();
@@ -742,7 +742,7 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label labTV;
 		private IPAddressBox ipadrboxSendIP;
 		private System.Windows.Forms.NumericUpDown numboxSendPort;
-		private MacAddressBox phyadrboxPCMac;
+		private PhysicalAddressBox phyadrboxPCMac;
 		private System.Windows.Forms.Label labTVPort;
 		private IPAddressBox ipadrboxSubnetMask;
 		private System.Windows.Forms.Button btnTVInstall;

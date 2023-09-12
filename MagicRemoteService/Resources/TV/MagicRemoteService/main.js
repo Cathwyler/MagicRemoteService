@@ -133,6 +133,15 @@ function CancelDialog(){
 
 const bDebug = false;
 
+const MessageType = {
+	Position: 0x00,
+	Wheel: 0x01,
+	Visible: 0x02,
+	Key: 0x03,
+	Unicode: 0x04,
+	Shutdown: 0x05
+}
+
 const uiLongDown = 1500;
 const sInputId = "HDMI_1";
 const sInputName = "HDMI 1";
@@ -363,7 +372,7 @@ function SendWol(mMac, sBroadcast) {
   
 var bufPosition = new ArrayBuffer(5);
 var dwPosition = new DataView(bufPosition);
-dwPosition.setUint8(0, 0x00);
+dwPosition.setUint8(0, MessageType.Position);
 function SendPosition(pPosition) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
@@ -379,7 +388,7 @@ function SendPosition(pPosition) {
 
 var bufWheel = new ArrayBuffer(3);
 var dwWheel = new DataView(bufWheel);
-dwWheel.setUint8(0, 0x01);
+dwWheel.setUint8(0, MessageType.Wheel);
 function SendWheel(wWheel) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
@@ -394,7 +403,7 @@ function SendWheel(wWheel) {
 
 var bufVisible = new ArrayBuffer(2);
 var dwVisible = new DataView(bufVisible);
-dwVisible.setUint8(0, 0x02);
+dwVisible.setUint8(0, MessageType.Visible);
 function SendVisible(vVisible) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
@@ -409,7 +418,7 @@ function SendVisible(vVisible) {
 
 var bufKey = new ArrayBuffer(4);
 var dwKey = new DataView(bufKey);
-dwKey.setUint8(0, 0x03);
+dwKey.setUint8(0, MessageType.Key);
 function SendKey(kKey) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
@@ -425,7 +434,7 @@ function SendKey(kKey) {
 
 var bufUnicode = new ArrayBuffer(3);
 var dwUnicode = new DataView(bufUnicode);
-dwUnicode.setUint8(0, 0x04);
+dwUnicode.setUint8(0, MessageType.Unicode);
 function SendUnicode(kUnicode) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
@@ -440,7 +449,7 @@ function SendUnicode(kUnicode) {
 
 var bufShutdown = new ArrayBuffer(1);
 var dwShutdown = new DataView(bufShutdown);
-dwShutdown.setUint8(0, 0x05);
+dwShutdown.setUint8(0, MessageType.Shutdown);
 function SendShutdown() {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
@@ -551,7 +560,7 @@ var iIntervalSubscriptionGetSensorData = setInterval(function() {
 			return true;
 		},
 		onFailure: function(inError) {
-			Warn(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
+			//Warn(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
 			return;
 		}
 	});

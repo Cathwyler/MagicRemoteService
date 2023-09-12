@@ -20,7 +20,7 @@ namespace MagicRemoteService {
 				}
 			}
 			set {
-				if(value == null) {
+				if(value == null || !(value.GetAddressBytes().Length == 4)) {
 					this.dbbByte0.Text = "";
 					this.dbbByte1.Text = "";
 					this.dbbByte2.Text = "";
@@ -38,16 +38,16 @@ namespace MagicRemoteService {
 		}
 		public void FromString(string sIp) {
 			System.Net.IPAddress ipaIp;
-			if(System.Net.IPAddress.TryParse(sIp, out ipaIp)) {
-				this.dbbByte0.Text = ipaIp.GetAddressBytes()[0].ToString();
-				this.dbbByte1.Text = ipaIp.GetAddressBytes()[1].ToString();
-				this.dbbByte2.Text = ipaIp.GetAddressBytes()[2].ToString();
-				this.dbbByte3.Text = ipaIp.GetAddressBytes()[3].ToString();
-			} else {
+			if(!System.Net.IPAddress.TryParse(sIp, out ipaIp) || !(ipaIp.GetAddressBytes().Length == 4)) {
 				this.dbbByte0.Text = "";
 				this.dbbByte1.Text = "";
 				this.dbbByte2.Text = "";
 				this.dbbByte3.Text = "";
+			} else {
+				this.dbbByte0.Text = ipaIp.GetAddressBytes()[0].ToString();
+				this.dbbByte1.Text = ipaIp.GetAddressBytes()[1].ToString();
+				this.dbbByte2.Text = ipaIp.GetAddressBytes()[2].ToString();
+				this.dbbByte3.Text = ipaIp.GetAddressBytes()[3].ToString();
 			}
 		}
 		private void dbbByte_EventPaste(object sender, System.EventArgs e) {

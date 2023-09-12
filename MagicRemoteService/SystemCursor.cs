@@ -85,11 +85,21 @@
 			0x00, 0x00, 0x00, 0x00,   // line 31 
 			0x00, 0x00, 0x00, 0x00	// line 32 
 		});
+		private static readonly WinApi.CursorName[] arrCursor = new WinApi.CursorName[] {
+			WinApi.CursorName.OCR_NORMAL,
+			WinApi.CursorName.OCR_IBEAM,
+			WinApi.CursorName.OCR_WAIT,
+			WinApi.CursorName.OCR_CROSS,
+			WinApi.CursorName.OCR_UP,
+			WinApi.CursorName.OCR_HAND,
+			WinApi.CursorName.OCR_NO,
+			WinApi.CursorName.OCR_APPSTARTING
+		};
 
 		private static System.Collections.Generic.IDictionary<WinApi.CursorName, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<WinApi.CursorName, System.IntPtr>();
 
 		public static void HideSytemCursor() {
-			foreach(WinApi.CursorName cnCursorName in (WinApi.CursorName[])System.Enum.GetValues(typeof(WinApi.CursorName))) {
+			foreach(WinApi.CursorName cnCursorName in MagicRemoteService.SystemCursor.arrCursor) {
 				if(!MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
 					MagicRemoteService.SystemCursor.dSystemCursor.Add(cnCursorName, WinApi.User32.CopyIcon(WinApi.User32.LoadCursor(System.IntPtr.Zero, (int)cnCursorName)));
 				}
@@ -97,7 +107,7 @@
 			}
 		}
 		public static void ShowSytemCursor() {
-			foreach(WinApi.CursorName cnCursorName in (WinApi.CursorName[])System.Enum.GetValues(typeof(WinApi.CursorName))) {
+			foreach(WinApi.CursorName cnCursorName in MagicRemoteService.SystemCursor.arrCursor) {
 				if(MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
 					WinApi.User32.SetSystemCursor(MagicRemoteService.SystemCursor.dSystemCursor[cnCursorName], (uint)cnCursorName);
 					MagicRemoteService.SystemCursor.dSystemCursor.Remove(cnCursorName);

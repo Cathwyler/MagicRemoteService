@@ -4136,7 +4136,7 @@
     <value>libRemoteLongClick</value>
   </data>
   <data name="&gt;&gt;phyadrboxPCMac.Type" xml:space="preserve">
-    <value>MagicRemoteService.MacAddressBox, MagicRemoteService, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MagicRemoteService.PhysicalAddressBox, MagicRemoteService, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="libRemoteRed.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 185</value>
