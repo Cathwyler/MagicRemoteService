@@ -99,6 +99,16 @@ const oStringfr = {
 	strShutdownAbort: "Ne rien faire"
 };
 
+function ObjectSpread(o1, o2){
+	let o = o1;
+	for (const strProperty in o) {
+		if(strProperty in o2) {
+			o[strProperty] = o2[strProperty];
+		}
+	}
+	return o;
+}
+
 function GetString(){
 	switch(window.PalmSystem.locale) {
 		case "fr":
@@ -108,10 +118,7 @@ function GetString(){
 		case "fr-FR":
 		case "fr-LU":
 		case "fr-MC":
-			return {
-				...oStringDefault,
-				...oStringfr
-			};
+			return ObjectSpread(oStringDefault, oStringfr);
 			break;
 		default:
 			return oStringDefault;

@@ -34,14 +34,22 @@ function CancelToast(){
 	}
 }
 
-function Log() {
-	Toast(oString.strLogTitle, Object.values(arguments).map(function(x) {
+function ObjectToString(o){
+	let arr = [];
+	for (const strProperty in o) {
+		arr.push(o[strProperty])
+	}
+	return arr.map(function(x) {
 		if(typeof x === "object") {
 			return JSON.stringify(x);
 		} else {
 			return x.toString();
 		}
-	}).join(""));
+	}).join("");
+}
+
+function Log() {
+	Toast(oString.strLogTitle, ObjectToString(arguments));
 	console.log.apply(console, arguments);
 }
 
@@ -52,24 +60,12 @@ function LogIfDebug() {
 }
 
 function Warn() {
-	Toast(oString.strWarnTitle, Object.values(arguments).map(function(x) {
-		if(typeof x === "object") {
-			return JSON.stringify(x);
-		} else {
-			return x.toString();
-		}
-	}).join(""));
+	Toast(oString.strWarnTitle, ObjectToString(arguments));
 	console.warn.apply(console, arguments);
 }
 
 function Error() {
-	Toast(oString.strErrorTitle, Object.values(arguments).map(function(x) {
-		if(typeof x === "object") {
-			return JSON.stringify(x);
-		} else {
-			return x.toString();
-		}
-	}).join(""));
+	Toast(oString.strErrorTitle, ObjectToString(arguments));
 	console.error.apply(console, arguments);
 }
 
