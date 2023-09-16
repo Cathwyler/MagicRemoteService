@@ -49,3 +49,7 @@ If you are stuck at startup because Wake-on-LAN didn't work, you can do a long p
 Some debugs logs notifications can appear at the bottom of the screen. Short click on it to hide.
 
 I strongly recommend adding a Windows automatic screen shutdown to prevent pixel remaining with OLED TV.
+
+##Updating MagicRemoteService
+After almost all MagicRemoteService updates, for changes to take effect and to prevent compatibility bugs, you need to reinstall the TV app.
+Be careful while updating MagicRemoteService on the PC if you have "Automatically launch at startup" option checked or older executable file version running. You need to stop MagicRemoteService on your Windows service or any running instance and replace the executable file. Otherwise there is a chance, due to the unique allowed running instance and even if you launch a new version, to keep an older MagicRemoteVersion running.
