@@ -100,8 +100,8 @@ const oStringfr = {
 };
 
 function ObjectSpread(o1, o2){
-	let o = o1;
-	for (const strProperty in o) {
+	var o = o1;
+	for (var strProperty in o) {
 		if(strProperty in o2) {
 			o[strProperty] = o2[strProperty];
 		}
@@ -119,9 +119,7 @@ function GetString(){
 		case "fr-LU":
 		case "fr-MC":
 			return ObjectSpread(oStringDefault, oStringfr);
-			break;
 		default:
 			return oStringDefault;
-			break;
 	}
 }

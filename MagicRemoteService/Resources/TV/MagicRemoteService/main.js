@@ -7,18 +7,18 @@ ArrayBuffer.prototype.toString = function(base) {
 
 function Toast(sTitre, sMessage){
 	CancelToast();
-	let deScreen = document.createElement("div");
+	var deScreen = document.createElement("div");
 	deScreen.className = "screen flex justify-center align-flex-end";
-	let deLog = document.createElement("div");
+	var deLog = document.createElement("div");
 	deLog.className = "window";
 	deLog.id = "toast"
 	deLog.addEventListener("click", CancelToast);
-	let dePopupTitre = document.createElement("div");
+	var dePopupTitre = document.createElement("div");
 	dePopupTitre.className = "titre";
 	dePopupTitre.innerText = sTitre;
 	deLog.appendChild(dePopupTitre);
 	if(arguments.length) {
-		let dePopupMessage = document.createElement("div");
+		var dePopupMessage = document.createElement("div");
 		dePopupMessage.className = "message";
 		dePopupMessage.innerText = sMessage;
 		deLog.appendChild(dePopupMessage);
@@ -28,15 +28,15 @@ function Toast(sTitre, sMessage){
 }
 
 function CancelToast(){
-	let deLog = document.getElementById("toast")
+	var deLog = document.getElementById("toast")
 	if(deLog !== null) {
 		deLog.parentNode.remove();
 	}
 }
 
 function ObjectToString(o){
-	let arr = [];
-	for (const strProperty in o) {
+	var arr = [];
+	for (var strProperty in o) {
 		arr.push(o[strProperty])
 	}
 	return arr.map(function(x) {
@@ -87,28 +87,28 @@ function CursorVisible() {
 
 function Dialog(sTitre, sMessage, tabButton){
 	CancelDialog();
-	let deScreen = document.createElement("div");
+	var deScreen = document.createElement("div");
 	deScreen.className = "screen flex justify-center align-center";
-	let deDialog = document.createElement("div");
+	var deDialog = document.createElement("div");
 	deDialog.className = "window";
 	deDialog.id = "dialog"
 	if(sTitre.length) {
-		let dePopupTitre = document.createElement("div");
+		var dePopupTitre = document.createElement("div");
 		dePopupTitre.className = "titre";
 		dePopupTitre.innerText = sTitre;
 		deDialog.appendChild(dePopupTitre);
 	}
 	if(sMessage.length) {
-		let dePopupMessage = document.createElement("div");
+		var dePopupMessage = document.createElement("div");
 		dePopupMessage.className = "message";
 		dePopupMessage.innerText = sMessage;
 		deDialog.appendChild(dePopupMessage);
 	}
 	if(tabButton.length) {
-		let dePopupButton = document.createElement("div");
+		var dePopupButton = document.createElement("div");
 		dePopupButton.className = "button flex justify-flex-end align-center";
 		tabButton.forEach(function(bButton) {
-			let deButton = document.createElement("button");
+			var deButton = document.createElement("button");
 			deButton.innerText = bButton.sName;
 			deButton.addEventListener("click", CancelDialog);
 			deButton.addEventListener("click", bButton.fAction);
@@ -121,7 +121,7 @@ function Dialog(sTitre, sMessage, tabButton){
 }
 
 function CancelDialog(){
-	let deDialog = document.getElementById("dialog")
+	var deDialog = document.getElementById("dialog")
 	if(deDialog !== null) {
 		deDialog.parentNode.remove();
 	}
