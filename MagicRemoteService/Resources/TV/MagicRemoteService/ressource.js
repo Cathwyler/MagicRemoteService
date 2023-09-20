@@ -109,6 +109,14 @@ function ObjectSpread(o1, o2){
 	return o;
 }
 
+/*window.PalmSystem = {
+	isKeyboardVisible: true,
+	locale: "fr",
+	cursor: {
+		visibility: true
+	}
+};*/
+
 function GetString(){
 	switch(window.PalmSystem.locale) {
 		case "fr":

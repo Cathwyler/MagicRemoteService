@@ -1,7 +1,7 @@
 
 ArrayBuffer.prototype.toString = function(base) {
-	return Array.from(new Uint8Array(this)).map(function(x) {
-		return x.toString(base).padStart(2, "0");
+	return [].slice.call(new Uint8Array(this)).map(function(x) {
+		return ("00" + x.toString(base)).slice(-2);
 	}).join("");
 }
 
