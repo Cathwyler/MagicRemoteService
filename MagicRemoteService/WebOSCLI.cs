@@ -203,7 +203,7 @@ namespace MagicRemoteService {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
 			tabArgument.Add("-d \"" + strDevice + "\"");
 			tabArgument.Add("-k");
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-novacom", string.Join(" ", tabArgument), new System.Collections.Generic.Dictionary<ushort, string>(){ { 1, "" }, { 2, strPassphrase} });
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-novacom", string.Join(" ", tabArgument), new System.Collections.Generic.Dictionary<ushort, string>(){ { 1, strPassphrase } });
 		}
 		static public void Package(string strOutDirectory, string strApplication, string strService = null, string strPackage = null) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
