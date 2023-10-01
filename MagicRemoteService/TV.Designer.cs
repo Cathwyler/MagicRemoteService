@@ -53,7 +53,6 @@ namespace MagicRemoteService {
 			this.pnlPort = new System.Windows.Forms.Panel();
 			this.pnlUser = new System.Windows.Forms.Panel();
 			this.pnlPassword = new System.Windows.Forms.Panel();
-			this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
 			this.cbAdvanced = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
 			this.tlpTV.SuspendLayout();
@@ -255,12 +254,6 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.pnlPassword, "pnlPassword");
 			this.pnlPassword.Name = "pnlPassword";
 			// 
-			// directorySearcher1
-			// 
-			this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
-			this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
-			this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-			// 
 			// cbAdvanced
 			// 
 			resources.ApplyResources(this.cbAdvanced, "cbAdvanced");
@@ -328,7 +321,6 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.TextBox tbName;
 		private System.Windows.Forms.Label labName;
 		private System.Windows.Forms.Panel pnlName;
-		private System.DirectoryServices.DirectorySearcher directorySearcher1;
 		private System.Windows.Forms.Panel pnlPassphrase;
 		private System.Windows.Forms.Panel pnlIP;
 		private System.Windows.Forms.Panel pnlPort;

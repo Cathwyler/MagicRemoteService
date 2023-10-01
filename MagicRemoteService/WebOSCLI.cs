@@ -139,7 +139,10 @@ namespace MagicRemoteService {
 					strOutput += e.Data;
 					usOutputLine++;
 					if(dInput != null && dInput.ContainsKey(usOutputLine)) {
-						pProcess.StandardInput.WriteLineAsync(dInput[usOutputLine]);
+						System.Threading.Tasks.Task.Run(async delegate () {
+							await System.Threading.Tasks.Task.Delay(10);
+							await pProcess.StandardInput.WriteLineAsync(dInput[usOutputLine]);
+						});
 					}
 				}
 			};
