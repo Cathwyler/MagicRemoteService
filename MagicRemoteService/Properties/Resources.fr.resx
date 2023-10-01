@@ -204,11 +204,20 @@
   <data name="SettingSubnetMaskErrorTitle" xml:space="preserve">
     <value>Masque de sous-réseau invalide</value>
   </data>
+  <data name="SettingTVAddErrorTitle" xml:space="preserve">
+    <value>Erreur lors de l'ajout de la TV</value>
+  </data>
   <data name="SettingTVInstallErrorTitle" xml:space="preserve">
     <value>Erreur lors de l'installation de l'application sur la TV</value>
   </data>
+  <data name="SettingTVModifyErrorTitle" xml:space="preserve">
+    <value>Erreur lors de la modification de la TV</value>
+  </data>
   <data name="SettingTVRefreshlErrorTitle" xml:space="preserve">
     <value>Erreur lors du rafraichissement des TVs</value>
+  </data>
+  <data name="SettingTVRemoveErrorTitle" xml:space="preserve">
+    <value>Erreur lors de la suppression de la TV</value>
   </data>
   <data name="SettingTVSaveMessage" xml:space="preserve">
     <value>Voulez-vous installer les modifications apportées à l'application de la TV ?</value>

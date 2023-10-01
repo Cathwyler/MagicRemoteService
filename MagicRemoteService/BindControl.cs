@@ -1,8 +1,8 @@
 ﻿
 namespace MagicRemoteService {
 	public partial class BindControl : System.Windows.Forms.UserControl {
-		private Bind b = null;
-		public Bind Value {
+		private MagicRemoteService.Bind b = null;
+		public MagicRemoteService.Bind Value {
 			get {
 				return this.b;
 			}
@@ -22,7 +22,7 @@ namespace MagicRemoteService {
 		private void btnBind_Click(object sender, System.EventArgs e) {
 
 			System.Windows.Forms.Button btn = (System.Windows.Forms.Button)sender;
-			BindCreator win = new BindCreator(this.Value);
+			MagicRemoteService.BindCreator win = new MagicRemoteService.BindCreator(this.Value);
 			switch(win.ShowDialog()) {
 				case System.Windows.Forms.DialogResult.OK:
 					this.Value = win.bBind;

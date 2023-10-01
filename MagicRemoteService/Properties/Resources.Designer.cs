@@ -282,20 +282,20 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
         ///ArrayBuffer.prototype.toString = function(base) {
-        ///	return Array.from(new Uint8Array(this)).map(function(x) {
-        ///		return x.toString(base).padStart(2, &quot;0&quot;);
+        ///	return [].slice.call(new Uint8Array(this)).map(function(x) {
+        ///		return (&quot;00&quot; + x.toString(base)).slice(-2);
         ///	}).join(&quot;&quot;);
         ///}
         ///
         ///function Toast(sTitre, sMessage){
         ///	CancelToast();
-        ///	let deScreen = document.createElement(&quot;div&quot;);
+        ///	var deScreen = document.createElement(&quot;div&quot;);
         ///	deScreen.className = &quot;screen flex justify-center align-flex-end&quot;;
-        ///	let deLog = document.createElement(&quot;div&quot;);
+        ///	var deLog = document.createElement(&quot;div&quot;);
         ///	deLog.className = &quot;window&quot;;
         ///	deLog.id = &quot;toast&quot;
         ///	deLog.addEventListener(&quot;click&quot;, CancelToast);
-        ///	let dePopupTitre = do [le reste de la chaîne a été tronqué]&quot;;.
+        ///	var dePopupTitre [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {
@@ -553,11 +553,29 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Error installing app on TV.
+        ///   Recherche une chaîne localisée semblable à Error while adding TV.
+        /// </summary>
+        internal static string SettingTVAddErrorTitle {
+            get {
+                return ResourceManager.GetString("SettingTVAddErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error while installing app on TV.
         /// </summary>
         internal static string SettingTVInstallErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVInstallErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error while modifying TV.
+        /// </summary>
+        internal static string SettingTVModifyErrorTitle {
+            get {
+                return ResourceManager.GetString("SettingTVModifyErrorTitle", resourceCulture);
             }
         }
         
@@ -567,6 +585,15 @@ namespace MagicRemoteService.Properties {
         internal static string SettingTVRefreshlErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVRefreshlErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error while removing TV.
+        /// </summary>
+        internal static string SettingTVRemoveErrorTitle {
+            get {
+                return ResourceManager.GetString("SettingTVRemoveErrorTitle", resourceCulture);
             }
         }
         

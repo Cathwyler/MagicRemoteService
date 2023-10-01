@@ -1,6 +1,7 @@
 ﻿
 namespace MagicRemoteService {
 	public partial class IPAddressBox : System.Windows.Forms.UserControl {
+		public event System.EventHandler ValueChanged;
 		public System.Net.IPAddress Value {
 			get {
 				byte[] tabByte = new byte[4];
@@ -125,6 +126,30 @@ namespace MagicRemoteService {
 		}
 		private void IPAddressBox_Click(object sender, System.EventArgs e) {
 			ttFormating.Hide(this);
+		}
+
+		private void dbbByte0_TextChanged(object sender, System.EventArgs e) {
+			if(this.ValueChanged != null) {
+				this.ValueChanged(this, e);
+			}
+		}
+
+		private void dbbByte1_TextChanged(object sender, System.EventArgs e) {
+			if(this.ValueChanged != null) {
+				this.ValueChanged(this, e);
+			}
+		}
+
+		private void dbbByte2_TextChanged(object sender, System.EventArgs e) {
+			if(this.ValueChanged != null) {
+				this.ValueChanged(this, e);
+			}
+		}
+
+		private void dbbByte3_TextChanged(object sender, System.EventArgs e) {
+			if(this.ValueChanged != null) {
+				this.ValueChanged(this, e);
+			}
 		}
 	}
 }

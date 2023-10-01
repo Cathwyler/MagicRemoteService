@@ -30,6 +30,9 @@ namespace MagicRemoteService {
 			this.ttFormating = new System.Windows.Forms.ToolTip(this.components);
 			this.tabSetting = new System.Windows.Forms.TabControl();
 			this.tabTV = new System.Windows.Forms.TabPage();
+			this.btnTVRemove = new System.Windows.Forms.Button();
+			this.btnTVModify = new System.Windows.Forms.Button();
+			this.btnTVAdd = new System.Windows.Forms.Button();
 			this.chkboxExtend = new System.Windows.Forms.CheckBox();
 			this.labTV = new System.Windows.Forms.Label();
 			this.ipadrboxSendIP = new MagicRemoteService.IPAddressBox();
@@ -108,6 +111,7 @@ namespace MagicRemoteService {
 			// btnClose
 			// 
 			resources.ApplyResources(this.btnClose, "btnClose");
+			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnClose.Name = "btnClose";
 			this.ttFormating.SetToolTip(this.btnClose, resources.GetString("btnClose.ToolTip"));
 			this.btnClose.UseVisualStyleBackColor = true;
@@ -131,6 +135,9 @@ namespace MagicRemoteService {
 			// tabTV
 			// 
 			resources.ApplyResources(this.tabTV, "tabTV");
+			this.tabTV.Controls.Add(this.btnTVRemove);
+			this.tabTV.Controls.Add(this.btnTVModify);
+			this.tabTV.Controls.Add(this.btnTVAdd);
 			this.tabTV.Controls.Add(this.chkboxExtend);
 			this.tabTV.Controls.Add(this.labTV);
 			this.tabTV.Controls.Add(this.ipadrboxSendIP);
@@ -152,6 +159,30 @@ namespace MagicRemoteService {
 			this.tabTV.Name = "tabTV";
 			this.ttFormating.SetToolTip(this.tabTV, resources.GetString("tabTV.ToolTip"));
 			this.tabTV.UseVisualStyleBackColor = true;
+			// 
+			// btnTVRemove
+			// 
+			resources.ApplyResources(this.btnTVRemove, "btnTVRemove");
+			this.btnTVRemove.Name = "btnTVRemove";
+			this.ttFormating.SetToolTip(this.btnTVRemove, resources.GetString("btnTVRemove.ToolTip"));
+			this.btnTVRemove.UseVisualStyleBackColor = true;
+			this.btnTVRemove.Click += new System.EventHandler(this.btnTVRemove_Click);
+			// 
+			// btnTVModify
+			// 
+			resources.ApplyResources(this.btnTVModify, "btnTVModify");
+			this.btnTVModify.Name = "btnTVModify";
+			this.ttFormating.SetToolTip(this.btnTVModify, resources.GetString("btnTVModify.ToolTip"));
+			this.btnTVModify.UseVisualStyleBackColor = true;
+			this.btnTVModify.Click += new System.EventHandler(this.btnTVModify_Click);
+			// 
+			// btnTVAdd
+			// 
+			resources.ApplyResources(this.btnTVAdd, "btnTVAdd");
+			this.btnTVAdd.Name = "btnTVAdd";
+			this.ttFormating.SetToolTip(this.btnTVAdd, resources.GetString("btnTVAdd.ToolTip"));
+			this.btnTVAdd.UseVisualStyleBackColor = true;
+			this.btnTVAdd.Click += new System.EventHandler(this.btnTVAdd_Click);
 			// 
 			// chkboxExtend
 			// 
@@ -710,6 +741,7 @@ namespace MagicRemoteService {
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.CancelButton = this.btnClose;
 			this.Controls.Add(this.tabSetting);
 			this.Controls.Add(this.btnClose);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -803,5 +835,8 @@ namespace MagicRemoteService {
 		private BindControl bcRemoteRight;
 		private BindControl bcRemoteLeft;
 		private BindControl bcRemoteUp;
+		private System.Windows.Forms.Button btnTVAdd;
+		private System.Windows.Forms.Button btnTVRemove;
+		private System.Windows.Forms.Button btnTVModify;
 	}
 }

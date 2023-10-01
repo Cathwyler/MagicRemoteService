@@ -39,11 +39,11 @@ namespace MagicRemoteService {
 			this.selActionShutdown = new System.Windows.Forms.RadioButton();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnConfirm = new System.Windows.Forms.Button();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.tlpBind = new System.Windows.Forms.TableLayoutPanel();
 			this.pnlBind.SuspendLayout();
 			this.pnlMouse.SuspendLayout();
 			this.pnlAction.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.tlpBind.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// selBindMouse
@@ -69,18 +69,18 @@ namespace MagicRemoteService {
 			// 
 			// pnlBind
 			// 
-			resources.ApplyResources(this.pnlBind, "pnlBind");
 			this.pnlBind.Controls.Add(this.selBindMouse);
 			this.pnlBind.Controls.Add(this.selBindAction);
 			this.pnlBind.Controls.Add(this.selBindKeyboard);
+			resources.ApplyResources(this.pnlBind, "pnlBind");
 			this.pnlBind.Name = "pnlBind";
 			// 
 			// pnlMouse
 			// 
-			resources.ApplyResources(this.pnlMouse, "pnlMouse");
 			this.pnlMouse.Controls.Add(this.selMouseRight);
 			this.pnlMouse.Controls.Add(this.selMouseMiddle);
 			this.pnlMouse.Controls.Add(this.selMouseLeft);
+			resources.ApplyResources(this.pnlMouse, "pnlMouse");
 			this.pnlMouse.Name = "pnlMouse";
 			// 
 			// selMouseRight
@@ -114,9 +114,9 @@ namespace MagicRemoteService {
 			// 
 			// pnlAction
 			// 
-			resources.ApplyResources(this.pnlAction, "pnlAction");
 			this.pnlAction.Controls.Add(this.selActionKeyboard);
 			this.pnlAction.Controls.Add(this.selActionShutdown);
+			resources.ApplyResources(this.pnlAction, "pnlAction");
 			this.pnlAction.Name = "pnlAction";
 			// 
 			// selActionKeyboard
@@ -137,6 +137,7 @@ namespace MagicRemoteService {
 			// 
 			// btnCancel
 			// 
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			resources.ApplyResources(this.btnCancel, "btnCancel");
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
@@ -149,19 +150,21 @@ namespace MagicRemoteService {
 			this.btnConfirm.UseVisualStyleBackColor = true;
 			this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
 			// 
-			// tableLayoutPanel1
+			// tlpBind
 			// 
-			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-			this.tableLayoutPanel1.Controls.Add(this.libKeyboard, 0, 1);
-			this.tableLayoutPanel1.Controls.Add(this.pnlAction, 0, 2);
-			this.tableLayoutPanel1.Controls.Add(this.pnlMouse, 0, 0);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			resources.ApplyResources(this.tlpBind, "tlpBind");
+			this.tlpBind.Controls.Add(this.libKeyboard, 0, 1);
+			this.tlpBind.Controls.Add(this.pnlAction, 0, 2);
+			this.tlpBind.Controls.Add(this.pnlMouse, 0, 0);
+			this.tlpBind.Name = "tlpBind";
 			// 
 			// BindCreator
 			// 
+			this.AcceptButton = this.btnConfirm;
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.tableLayoutPanel1);
+			this.CancelButton = this.btnCancel;
+			this.Controls.Add(this.tlpBind);
 			this.Controls.Add(this.btnConfirm);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pnlBind);
@@ -176,7 +179,7 @@ namespace MagicRemoteService {
 			this.pnlMouse.PerformLayout();
 			this.pnlAction.ResumeLayout(false);
 			this.pnlAction.PerformLayout();
-			this.tableLayoutPanel1.ResumeLayout(false);
+			this.tlpBind.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -197,6 +200,6 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.RadioButton selActionShutdown;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnConfirm;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.TableLayoutPanel tlpBind;
 	}
 }

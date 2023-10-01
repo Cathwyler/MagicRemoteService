@@ -81,7 +81,6 @@ namespace MagicRemoteService {
 				{ 0x019C, this.bcRemoteRewind },
 				{ 0x019D, this.bcRemoteStop }
 			};
-
 			this.PCDataRefresh();
 			this.TVDataRefresh();
 			this.RemoteDataRefresh();
@@ -92,7 +91,6 @@ namespace MagicRemoteService {
 				this.UseWaitCursor = !value;
 				this.tabSetting.Enabled = value;
 			}
-
 		}
 		public void PCDataRefresh() {
 			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
@@ -462,8 +460,8 @@ namespace MagicRemoteService {
 					return false;
 				}
 			})) {
-				this.Enabled = true;
 				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+				this.Enabled = true;
 			} else {
 				this.cmbboxTV.DataSource = tabDevice;
 				if(sName != null) {
@@ -656,6 +654,106 @@ namespace MagicRemoteService {
 			} else {
 				this.RemoteDataRefresh();
 				this.Enabled = true;
+			}
+		}
+
+		private async void btnTVAdd_Click(object sender, System.EventArgs e) {
+			MagicRemoteService.TV win = new MagicRemoteService.TV();
+			switch(win.ShowDialog()) {
+				case System.Windows.Forms.DialogResult.OK:
+					this.Enabled = false;
+					string strError = null;
+					string strErrorInfo = null;
+					if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
+						try {
+							MagicRemoteService.WebOSCLI.SetupDeviceAdd(win.wcdTV, win.strPassword);
+							if(!win.bAdvanced) {
+								MagicRemoteService.WebOSCLI.NovacomGetKey(win.wcdTV.Name, win.wcdTV.DeviceDetail.Passphrase);
+							}
+							return true;
+						} catch(System.Exception ex) {
+							strError = MagicRemoteService.Properties.Resources.SettingTVAddErrorTitle;
+							strErrorInfo = ex.Message;
+							return false;
+						}
+					})) {
+						this.Enabled = true;
+						System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+					} else {
+						this.Enabled = true;
+						this.btnTVRefresh_Click(this, new System.EventArgs());
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		private async void btnTVModify_Click(object sender, System.EventArgs e) {
+			if(this.cmbboxTV.SelectedItem == null) {
+				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
+				ttFormating.Show("", this.cmbboxTV);
+				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
+			} else {
+				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
+				MagicRemoteService.TV win = new MagicRemoteService.TV(wcdDevice);
+				switch(win.ShowDialog()) {
+					case System.Windows.Forms.DialogResult.OK:
+						this.Enabled = false;
+						string strError = null;
+						string strErrorInfo = null;
+						if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
+							try {
+								MagicRemoteService.WebOSCLI.SetupDeviceModify(wcdDevice.Name, win.wcdTV, win.strPassword);
+								if (!win.bAdvanced) {
+									MagicRemoteService.WebOSCLI.NovacomGetKey(win.wcdTV.Name, win.wcdTV.DeviceDetail.Passphrase);
+								}
+								return true;
+							} catch(System.Exception ex) {
+								strError = MagicRemoteService.Properties.Resources.SettingTVModifyErrorTitle;
+								strErrorInfo = ex.Message;
+								return false;
+							}
+						})) {
+							this.Enabled = true;
+							System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+						} else {
+							this.Enabled = true;
+							this.btnTVRefresh_Click(this, new System.EventArgs());
+						}
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		private async void btnTVRemove_Click(object sender, System.EventArgs e) {
+			if(this.cmbboxTV.SelectedItem == null) {
+				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
+				ttFormating.Show("", this.cmbboxTV);
+				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
+			} else {
+				this.Enabled = false;
+				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
+				string strError = null;
+				string strErrorInfo = null;
+				if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
+					try {
+						MagicRemoteService.WebOSCLI.SetupDeviceRemove(wcdDevice.Name);
+						return true;
+					} catch(System.Exception ex) {
+						strError = MagicRemoteService.Properties.Resources.SettingTVRemoveErrorTitle;
+						strErrorInfo = ex.Message;
+						return false;
+					}
+				})) {
+					this.Enabled = true;
+					System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+				} else {
+					this.Enabled = true;
+					this.btnTVRefresh_Click(this, new System.EventArgs());
+				}
 			}
 		}
 	}

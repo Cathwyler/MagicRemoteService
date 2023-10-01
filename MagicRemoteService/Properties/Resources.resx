@@ -212,7 +212,7 @@
     <value>Invalid subnet mask</value>
   </data>
   <data name="SettingTVInstallErrorTitle" xml:space="preserve">
-    <value>Error installing app on TV</value>
+    <value>Error while installing app on TV</value>
   </data>
   <data name="SettingTVRefreshlErrorTitle" xml:space="preserve">
     <value>Error while refreshing TVs</value>
@@ -264,5 +264,14 @@
   </data>
   <data name="SettingRemoteSaveMessage" xml:space="preserve">
     <value>Do you want to save the changes made to the remote keybind ?</value>
+  </data>
+  <data name="SettingTVAddErrorTitle" xml:space="preserve">
+    <value>Error while adding TV</value>
+  </data>
+  <data name="SettingTVModifyErrorTitle" xml:space="preserve">
+    <value>Error while modifying TV</value>
+  </data>
+  <data name="SettingTVRemoveErrorTitle" xml:space="preserve">
+    <value>Error while removing TV</value>
   </data>
 </root>

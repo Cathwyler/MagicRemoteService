@@ -69,6 +69,7 @@
     </Reference>
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -117,6 +118,12 @@
       <DependentUpon>BindControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Bind.cs" />
+    <Compile Include="TV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TV.Designer.cs">
+      <DependentUpon>TV.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinApi\Advapi32.cs" />
     <Compile Include="WinApi\Userenv.cs" />
     <Compile Include="WinApi\Wtsapi32.cs" />
@@ -186,9 +193,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BindCreator.fr.resx">
       <DependentUpon>BindCreator.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BindCreator.resx">
       <DependentUpon>BindCreator.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="IPAddressBox.resx">
       <DependentUpon>IPAddressBox.cs</DependentUpon>
@@ -196,6 +205,7 @@
     <EmbeddedResource Include="Properties\Resources.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.fr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Service.resx">
       <DependentUpon>Service.cs</DependentUpon>
@@ -210,6 +220,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting.fr.resx">
       <DependentUpon>Setting.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Setting.resx">
       <DependentUpon>Setting.cs</DependentUpon>
@@ -217,6 +228,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PhysicalAdressBox.resx">
       <DependentUpon>PhysicalAdressBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TV.fr.resx">
+      <DependentUpon>TV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TV.resx">
+      <DependentUpon>TV.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
