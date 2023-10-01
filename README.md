@@ -20,15 +20,15 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 
 - Install WebOS Command line interface on your PC. Please refer to [CLI Installation](https://webostv.developer.lge.com/develop/tools/cli-installation#cli-installation).
 - Install and activate developer mode app on your LG WebOS TV. Please refer to [Installing Developer Mode app](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#installing-developer-mode-app) and [Turning Developer Mode on](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#turning-developer-mode-on).
-- Add your TV. Please refer to [Connecting with CLI](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#connecting-with-cli).
 - Open MagicRemoteService on PC.
+- Add your TV. You need to switch on the "Key Server" option on the developer mode app on your LG WebOS TV before confirm. Please refer to [Connecting with CLI](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#connecting-with-cli).
 - Select a TV then configure and install it.
 - Configure PC and save.
 - (Optionnal) Configure Remote and save.
 - Others
   - (Optionnal) Setup Wake-on-LAN on your motherboard's PC.
-  - (Optionnal) Setup Windows auto logon. Please refer to <https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon>.
-  - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to <https://webostv.developer.lge.com/develop/tools/cli-introduction#ares-extend-dev>.
+  - (Optionnal) Setup Windows auto logon. Please refer to [Turn on automatic logon in Windows](https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon).
+  - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to [ares-extend-dev](https://webostv.developer.lge.com/develop/tools/cli-dev-guide#ares-extend-dev).
 
 ## Using MagicRemoteService
 MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in installation step.
