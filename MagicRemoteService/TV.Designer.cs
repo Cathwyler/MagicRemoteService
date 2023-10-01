@@ -30,7 +30,6 @@ namespace MagicRemoteService {
 			this.labIP = new System.Windows.Forms.Label();
 			this.labTVPort = new System.Windows.Forms.Label();
 			this.numboxSendPort = new System.Windows.Forms.NumericUpDown();
-			this.ipadrboxIP = new MagicRemoteService.IPAddressBox();
 			this.labDescription = new System.Windows.Forms.Label();
 			this.tbDescription = new System.Windows.Forms.TextBox();
 			this.labUser = new System.Windows.Forms.Label();
@@ -54,6 +53,8 @@ namespace MagicRemoteService {
 			this.pnlPassword = new System.Windows.Forms.Panel();
 			this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
 			this.cbAdvanced = new System.Windows.Forms.CheckBox();
+			this.labKeyServer = new System.Windows.Forms.Label();
+			this.ipadrboxIP = new MagicRemoteService.IPAddressBox();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
 			this.tlpTV.SuspendLayout();
 			this.pnlPrivateKey.SuspendLayout();
@@ -101,16 +102,6 @@ namespace MagicRemoteService {
             0});
 			this.numboxSendPort.Name = "numboxSendPort";
 			this.numboxSendPort.ValueChanged += new System.EventHandler(this.numboxSendPort_ValueChanged);
-			// 
-			// ipadrboxIP
-			// 
-			this.ipadrboxIP.BackColor = System.Drawing.SystemColors.Window;
-			this.ipadrboxIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ipadrboxIP.ForeColor = System.Drawing.SystemColors.WindowText;
-			resources.ApplyResources(this.ipadrboxIP, "ipadrboxIP");
-			this.ipadrboxIP.Name = "ipadrboxIP";
-			this.ipadrboxIP.Value = null;
-			this.ipadrboxIP.ValueChanged += new System.EventHandler(this.ipadrboxIP_ValueChanged);
 			// 
 			// labDescription
 			// 
@@ -170,6 +161,7 @@ namespace MagicRemoteService {
 			// tlpTV
 			// 
 			resources.ApplyResources(this.tlpTV, "tlpTV");
+			this.tlpTV.Controls.Add(this.labKeyServer, 0, 9);
 			this.tlpTV.Controls.Add(this.pnlPrivateKey, 0, 8);
 			this.tlpTV.Controls.Add(this.pnlPassphrase, 0, 6);
 			this.tlpTV.Controls.Add(this.pnlName, 0, 0);
@@ -261,6 +253,21 @@ namespace MagicRemoteService {
 			this.cbAdvanced.UseVisualStyleBackColor = true;
 			this.cbAdvanced.CheckedChanged += new System.EventHandler(this.cbAdvanced_CheckedChanged);
 			// 
+			// labKeyServer
+			// 
+			resources.ApplyResources(this.labKeyServer, "labKeyServer");
+			this.labKeyServer.Name = "labKeyServer";
+			// 
+			// ipadrboxIP
+			// 
+			this.ipadrboxIP.BackColor = System.Drawing.SystemColors.Window;
+			this.ipadrboxIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.ipadrboxIP.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.ipadrboxIP, "ipadrboxIP");
+			this.ipadrboxIP.Name = "ipadrboxIP";
+			this.ipadrboxIP.Value = null;
+			this.ipadrboxIP.ValueChanged += new System.EventHandler(this.ipadrboxIP_ValueChanged);
+			// 
 			// TV
 			// 
 			this.AcceptButton = this.btnConfirm;
@@ -277,6 +284,7 @@ namespace MagicRemoteService {
 			this.Name = "TV";
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).EndInit();
 			this.tlpTV.ResumeLayout(false);
+			this.tlpTV.PerformLayout();
 			this.pnlPrivateKey.ResumeLayout(false);
 			this.pnlPrivateKey.PerformLayout();
 			this.pnlPassphrase.ResumeLayout(false);
@@ -328,5 +336,6 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Panel pnlPassword;
 		private System.Windows.Forms.Panel pnlPrivateKey;
 		private System.Windows.Forms.CheckBox cbAdvanced;
+		private System.Windows.Forms.Label labKeyServer;
 	}
 }

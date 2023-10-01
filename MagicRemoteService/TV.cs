@@ -98,6 +98,7 @@ namespace MagicRemoteService {
 			this.pnlUser.Visible = this.cbAdvanced.Checked;
 			this.pnlPassword.Visible = this.cbAdvanced.Checked;
 			this.pnlPrivateKey.Visible = this.cbAdvanced.Checked;
+			this.labKeyServer.Visible = !this.cbAdvanced.Checked;
 			if(!this.cbAdvanced.Checked) {
 				this._wcdTV.DeviceDetail.Description = "";
 				this._wcdTV.DeviceInfo.Port = 0;

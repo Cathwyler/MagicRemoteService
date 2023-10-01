@@ -255,30 +255,6 @@
   <data name="&gt;&gt;numboxSendPort.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="ipadrboxIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 0</value>
-  </data>
-  <data name="ipadrboxIP.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>142, 20</value>
-  </data>
-  <data name="ipadrboxIP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 20</value>
-  </data>
-  <data name="ipadrboxIP.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;ipadrboxIP.Name" xml:space="preserve">
-    <value>ipadrboxIP</value>
-  </data>
-  <data name="&gt;&gt;ipadrboxIP.Type" xml:space="preserve">
-    <value>MagicRemoteService.IPAddressBox, MagicRemoteService, Version=1.2.1.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ipadrboxIP.Parent" xml:space="preserve">
-    <value>pnlIP</value>
-  </data>
-  <data name="&gt;&gt;ipadrboxIP.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="labDescription.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -537,6 +513,45 @@
   <data name="tlpTV.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <data name="labKeyServer.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labKeyServer.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labKeyServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labKeyServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 224</value>
+  </data>
+  <data name="labKeyServer.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="labKeyServer.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>260, 0</value>
+  </data>
+  <data name="labKeyServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>258, 26</value>
+  </data>
+  <data name="labKeyServer.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="labKeyServer.Text" xml:space="preserve">
+    <value>You need to switch on the key server option on the developper mode app before confirm</value>
+  </data>
+  <data name="&gt;&gt;labKeyServer.Name" xml:space="preserve">
+    <value>labKeyServer</value>
+  </data>
+  <data name="&gt;&gt;labKeyServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labKeyServer.Parent" xml:space="preserve">
+    <value>tlpTV</value>
+  </data>
+  <data name="&gt;&gt;labKeyServer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="pnlPrivateKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 196</value>
   </data>
@@ -562,7 +577,7 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlPrivateKey.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="pnlPassphrase.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 168</value>
@@ -586,7 +601,7 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlPassphrase.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="labName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -661,7 +676,7 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlName.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="pnlDescription.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 28</value>
@@ -688,7 +703,31 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlDescription.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <data name="ipadrboxIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 0</value>
+  </data>
+  <data name="ipadrboxIP.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>142, 20</value>
+  </data>
+  <data name="ipadrboxIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 20</value>
+  </data>
+  <data name="ipadrboxIP.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxIP.Name" xml:space="preserve">
+    <value>ipadrboxIP</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxIP.Type" xml:space="preserve">
+    <value>MagicRemoteService.IPAddressBox, MagicRemoteService, Version=1.2.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxIP.Parent" xml:space="preserve">
+    <value>pnlIP</value>
+  </data>
+  <data name="&gt;&gt;ipadrboxIP.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="pnlIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 56</value>
@@ -712,7 +751,7 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlIP.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="pnlPort.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 84</value>
@@ -739,7 +778,7 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlPort.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="pnlUser.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 112</value>
@@ -766,7 +805,7 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlUser.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="pnlPassword.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 140</value>
@@ -793,13 +832,13 @@
     <value>tlpTV</value>
   </data>
   <data name="&gt;&gt;pnlPassword.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="tlpTV.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
   </data>
   <data name="tlpTV.RowCount" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="tlpTV.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 216</value>
@@ -820,13 +859,16 @@
     <value>3</value>
   </data>
   <data name="tlpTV.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="pnlPrivateKey" Row="8" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlPassphrase" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlName" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlDescription" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlIP" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlPort" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlUser" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlPassword" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labKeyServer" Row="9" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlPrivateKey" Row="8" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlPassphrase" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlName" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlDescription" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlIP" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlPort" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlUser" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlPassword" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="directorySearcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <data name="cbAdvanced.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="cbAdvanced.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="cbAdvanced.Location" type="System.Drawing.Point, System.Drawing">
     <value>278, 14</value>
@@ -2943,6 +2985,9 @@
         vVuIXb7n44DjYW0M4uNe+JP8IYWvARxedEMF9uHDhw8fPnz48OHDhw8fPnz48OHDhw8fPnz48HEo8f8D
         WJRNgX0CE2QAAAAASUVORK5CYII=
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>TV</value>

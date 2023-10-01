@@ -2249,4 +2249,7 @@
         WJRNgX0CE2QAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="labKeyServer.Text" xml:space="preserve">
+    <value>Vous devez activez l'option "Key Server" dans l'application "Developer mode" sur la TV avant de valider.</value>
+  </data>
 </root>
