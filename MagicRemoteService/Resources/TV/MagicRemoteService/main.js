@@ -6,92 +6,33 @@ ArrayBuffer.prototype.toString = function(base) {
 }
 
 function Toast(sTitre, sMessage){
-	CancelToast();
 	var deScreen = document.createElement("div");
 	deScreen.className = "screen flex justify-center align-flex-end";
-	var deLog = document.createElement("div");
-	deLog.className = "window";
-	deLog.id = "toast"
-	deLog.addEventListener("click", CancelToast);
+	var deToast = document.createElement("div");
+	deToast.className = "window toast";
+	deToast.addEventListener("click", function() {
+		ScreenCancel(deScreen);
+	});
 	var dePopupTitre = document.createElement("div");
 	dePopupTitre.className = "titre";
 	dePopupTitre.innerText = sTitre;
-	deLog.appendChild(dePopupTitre);
+	deToast.appendChild(dePopupTitre);
 	if(arguments.length) {
 		var dePopupMessage = document.createElement("div");
 		dePopupMessage.className = "message";
 		dePopupMessage.innerText = sMessage;
-		deLog.appendChild(dePopupMessage);
+		deToast.appendChild(dePopupMessage);
 	}
-	deScreen.appendChild(deLog);
+	deScreen.appendChild(deToast);
 	document.body.appendChild(deScreen);
+	return deScreen;
 }
 
-function CancelToast(){
-	var deLog = document.getElementById("toast")
-	if(deLog !== null) {
-		deLog.parentNode.remove();
-	}
-}
-
-function ObjectToString(o){
-	var arr = [];
-	for (var strProperty in o) {
-		arr.push(o[strProperty])
-	}
-	return arr.map(function(x) {
-		if(typeof x === "object") {
-			return JSON.stringify(x);
-		} else {
-			return x.toString();
-		}
-	}).join("");
-}
-
-function Log() {
-	Toast(oString.strLogTitle, ObjectToString(arguments));
-	console.log.apply(console, arguments);
-}
-
-function LogIfDebug() {
-	if(bDebug) {
-		Log.apply(this, arguments);
-	}
-}
-
-function Warn() {
-	Toast(oString.strWarnTitle, ObjectToString(arguments));
-	console.warn.apply(console, arguments);
-}
-
-function Error() {
-	Toast(oString.strErrorTitle, ObjectToString(arguments));
-	console.error.apply(console, arguments);
-}
-
-function AppVisible() {
-	return document.visibilityState === "visible";
-}
-
-function AppFocus() {
-	return document.hasFocus() === true;
-}
-
-function KeyboardVisible() {
-	return window.PalmSystem.isKeyboardVisible === true;
-}
-
-function CursorVisible() {
-	return window.PalmSystem.cursor.visibility === true;
-}
-
-function Dialog(sTitre, sMessage, tabButton){
-	CancelDialog();
+function Dialog(sTitre, sMessage, tabButton) {
 	var deScreen = document.createElement("div");
 	deScreen.className = "screen flex justify-center align-center";
 	var deDialog = document.createElement("div");
-	deDialog.className = "window";
-	deDialog.id = "dialog"
+	deDialog.className = "window dialog";
 	if(sTitre.length) {
 		var dePopupTitre = document.createElement("div");
 		dePopupTitre.className = "titre";
@@ -110,7 +51,9 @@ function Dialog(sTitre, sMessage, tabButton){
 		tabButton.forEach(function(bButton) {
 			var deButton = document.createElement("button");
 			deButton.innerText = bButton.sName;
-			deButton.addEventListener("click", CancelDialog);
+			deButton.addEventListener("click", function() {
+				ScreenCancel(deScreen);
+			});
 			deButton.addEventListener("click", bButton.fAction);
 			dePopupButton.appendChild(deButton);
 		});
@@ -118,13 +61,76 @@ function Dialog(sTitre, sMessage, tabButton){
 	}
 	deScreen.appendChild(deDialog);
 	document.body.appendChild(deScreen);
+	return deScreen;
 }
 
-function CancelDialog(){
-	var deDialog = document.getElementById("dialog")
-	if(deDialog !== null) {
-		deDialog.parentNode.remove();
+function ScreenExist(deScreen) {
+	return deScreen !== null && deScreen.parentNode !== null;
+}
+
+function ScreenCancel(deScreen) {
+	deScreen.remove();
+}
+
+function ObjectToString(o){
+	var arr = [];
+	for (var strProperty in o) {
+		arr.push(o[strProperty])
 	}
+	return arr.map(function(x) {
+		if(typeof x === "object") {
+			return JSON.stringify(x);
+		} else {
+			return x.toString();
+		}
+	}).join("");
+}
+
+var deScreenToast = null;
+function Log() {
+	if(ScreenExist(deScreenToast)) {
+		ScreenCancel(deScreenToast);
+	}
+	deScreenToast = Toast(oString.strLogTitle, ObjectToString(arguments));
+	console.log.apply(console, arguments);
+}
+
+function LogIfDebug() {
+	if(bDebug) {
+		Log.apply(this, arguments);
+	}
+}
+
+function Warn() {
+	if(ScreenExist(deScreenToast)) {
+		ScreenCancel(deScreenToast);
+	}
+	deScreenToast = Toast(oString.strWarnTitle, ObjectToString(arguments));
+	console.warn.apply(console, arguments);
+}
+
+function Error() {
+	if(ScreenExist(deScreenToast)) {
+		ScreenCancel(deScreenToast);
+	}
+	deScreenToast = Toast(oString.strErrorTitle, ObjectToString(arguments));
+	console.error.apply(console, arguments);
+}
+
+function AppVisible() {
+	return document.visibilityState === "visible";
+}
+
+function AppFocus() {
+	return document.hasFocus() === true;
+}
+
+function KeyboardVisible() {
+	return window.PalmSystem.isKeyboardVisible === true;
+}
+
+function CursorVisible() {
+	return window.PalmSystem.cursor.visibility === true;
 }
 
 const bDebug = false;
@@ -180,10 +186,10 @@ deSource.setAttribute("type", "service/webos-external;mediaOption=" + encodeURI(
 var deVideo = document.getElementById("video");
 video.appendChild(deSource);
 
+var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
 var iTimeoutSourceStatus = 0;
 var bInputSourceStatus = false;
-
 webOS.service.request("luna://com.webos.service.eim", {
 	method: "getAllInputStatus",
 	parameters: {
@@ -208,7 +214,9 @@ webOS.service.request("luna://com.webos.service.eim", {
 					clearTimeout(iTimeoutSourceStatus);
 					iTimeoutSourceStatus = 0;
 				}
-				CancelDialog();
+				if(ScreenExist(deScreenInput)) {
+					ScreenCancel(deScreenInput);
+				}
 				if(bLastInputSourceStatus !== bInputSourceStatus) {
 					if(AppVisible()) {
 						Connect();
@@ -220,7 +228,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 						Close();
 					}
 				}
-				Dialog(oString.strAppTittle, oString.strInputDisconect, [
+				deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
 					{
 						sName: oString.strInputDisconectStart,
 						fAction: function() {
@@ -242,7 +250,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 							}
 							iTimeoutSourceStatus = setTimeout(function() {
 								iTimeoutSourceStatus = 0;
-								Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
+								deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
 							}, 5000);
 						}
 					}
@@ -255,22 +263,24 @@ webOS.service.request("luna://com.webos.service.eim", {
 	}
 });
 
-var iTimeoutRetryConnect = 0;
+var deScreenConnect = null;
+var deScreenShutdown = null;
+var iIntervalRetryConnect = 0;
 var iTimeoutConnect = 0;
 var socClient = null;
-function Connect() {
-	if(socClient !== null) {
-		Error(oString.strSocketErrorOpen);
-		socClient.close();
-	}
+function SocketConnect(){
 	socClient = new WebSocket("ws://" + sIP + ":" + uiPort);
 	socClient.binaryType = "arraybuffer";
 	socClient.onopen = function(e) {
+		clearInterval(iIntervalRetryConnect);
+		iIntervalRetryConnect = 0;
 		if(iTimeoutConnect) {
 			clearTimeout(iTimeoutConnect);
 			iTimeoutConnect = 0;
 		}
-		CancelDialog();
+		if (ScreenExist(deScreenConnect)) {
+			ScreenCancel(deScreenConnect);
+		}
 		if(CursorVisible() && AppVisible() && AppFocus()) {
 			SendVisible({
 				bV: true
@@ -279,11 +289,19 @@ function Connect() {
 		LogIfDebug(oString.strSocketConnecting);
 	};
 	socClient.onclose = function(e) {
-		iTimeoutRetryConnect = setTimeout(function() {
-			iTimeoutRetryConnect = 0;
-			Connect();
-		}, 1000);
-		socClient = null;
+		if(socClient !== null && !iIntervalRetryConnect) {
+			iTimeoutConnect = setTimeout(function() {
+				iTimeoutConnect = 0;
+				deScreenConnect = Dialog(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
+			}, 30000);
+			iIntervalRetryConnect = setInterval(function() {
+				if(socClient.readyState === WebSocket.CONNECTING) {
+					socClient.close();
+				}
+				SocketConnect();
+			}, 5000);
+			SocketConnect();
+		}
 		LogIfDebug(oString.strSocketDisconnecting);
 	};
 	socClient.onmessage = function(e) {
@@ -291,20 +309,24 @@ function Connect() {
 			var dwData = new DataView(e.data);
 			switch(dwData.getUint8(0)){
 				case 0x01:
-					Dialog(oString.strAppTittle, oString.strShutdownMessage, [
-						{
-							sName: oString.strShutdownShutdown,
-							fAction: function(){
-								SendShutdown();
+					if (ScreenExist(deScreenShutdown)) {
+						ScreenCancel(deScreenShutdown);
+					} else {
+						deScreenShutdown = Dialog(oString.strAppTittle, oString.strShutdownMessage, [
+							{
+								sName: oString.strShutdownShutdown,
+								fAction: function(){
+									SendShutdown();
+								}
+							}, {
+								sName: oString.strShutdownAbort,
+								fAction: null
 							}
-						}, {
-							sName: oString.strShutdownAbort,
-							fAction: null
-						}
-					]);
+						]);
+					}
 					break;
 				case 0x02:
-					if (KeyboardVisible() === true) {
+					if (KeyboardVisible()) {
 						document.getElementById("keyboard").blur();
 					} else {
 						document.getElementById("keyboard").focus();
@@ -317,37 +339,53 @@ function Connect() {
 			Log(e.data);
 		}
 	}
-	if(iTimeoutConnect) {
+}
+function Connect() {
+	if(socClient !== null) {
+		Error(oString.strSocketErrorOpen);
 	} else {
 		iTimeoutConnect = setTimeout(function() {
 			iTimeoutConnect = 0;
-			Dialog(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
+			deScreenConnect = Dialog(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
 		}, 30000);
+		iIntervalRetryConnect = setInterval(function() {
+			if(socClient.readyState === WebSocket.CONNECTING) {
+				socClient.close();
+			}
+			SocketConnect();
+		}, 5000);
+		SocketConnect();
 	}
 }
 function Close() {
-	if(iTimeoutRetryConnect) {
-		clearTimeout(iTimeoutRetryConnect);
-		iTimeoutRetryConnect = 0;
-	}
-	if(iTimeoutConnect) {
-		clearTimeout(iTimeoutConnect);
-		iTimeoutConnect = 0;
-	}
 	if(socClient === null) {
 		Error(oString.strSocketErrorClosed);
 	} else {
-		socClient.onclose = function(e) {
-			socClient = null;
-			LogIfDebug(oString.strSocketDisconnecting);
-		};
+		if(iTimeoutConnect) {
+			clearTimeout(iTimeoutConnect);
+			iTimeoutConnect = 0;
+		}
+		if(iIntervalRetryConnect) {
+			clearInterval(iIntervalRetryConnect);
+			iIntervalRetryConnect = 0;
+		}
+		if (ScreenExist(deScreenConnect)) {
+			ScreenCancel(deScreenConnect);
+		}
+		if(CursorVisible() && AppVisible() && AppFocus()) {
+			SendVisible({
+				bV: false
+			});
+		}
+		if (ScreenExist(deScreenShutdown)) {
+			ScreenCancel(deScreenShutdown);
+		}
+		if (KeyboardVisible()) {
+			document.getElementById("keyboard").blur();
+		}
+		socClient.close();
+		socClient = null;
 	}
-	if(CursorVisible() && AppVisible() && AppFocus()) {
-		SendVisible({
-			bV: false
-		});
-	}
-	socClient.close();
 }
 
 function SendWol(mMac, sBroadcast) {
@@ -522,7 +560,6 @@ var pDown = {
 };
 var bPositionDownSent = false;
 var iTimeoutLongDown = 0;
-
 var iIntervalSubscriptionGetSensorData = setInterval(function() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
 		method: "sensor/getSensorData",
