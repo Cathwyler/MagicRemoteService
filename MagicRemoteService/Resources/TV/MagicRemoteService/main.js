@@ -206,18 +206,18 @@ webOS.service.request("luna://com.webos.service.eim", {
 				}
 			});
 			if(bInputSourceStatus) {
-				if(iIntervalWakeOnLan) {
-					clearInterval(iIntervalWakeOnLan);
-					iIntervalWakeOnLan = 0;
-				}
-				if(iTimeoutSourceStatus) {
-					clearTimeout(iTimeoutSourceStatus);
-					iTimeoutSourceStatus = 0;
-				}
-				if(ScreenExist(deScreenInput)) {
-					ScreenCancel(deScreenInput);
-				}
 				if(bLastInputSourceStatus !== bInputSourceStatus) {
+					if(iIntervalWakeOnLan) {
+						clearInterval(iIntervalWakeOnLan);
+						iIntervalWakeOnLan = 0;
+					}
+					if(iTimeoutSourceStatus) {
+						clearTimeout(iTimeoutSourceStatus);
+						iTimeoutSourceStatus = 0;
+					}
+					if(ScreenExist(deScreenInput)) {
+						ScreenCancel(deScreenInput);
+					}
 					if(AppVisible()) {
 						Connect();
 					}
@@ -227,34 +227,26 @@ webOS.service.request("luna://com.webos.service.eim", {
 					if(AppVisible()) {
 						Close();
 					}
-				}
-				deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
-					{
-						sName: oString.strInputDisconectStart,
-						fAction: function() {
-							SendWol({
-								tabMac: tabMac
-							}, sBroadcast);
-							if(iIntervalWakeOnLan) {
-								clearInterval(iIntervalWakeOnLan);
-								iIntervalWakeOnLan = 0;
-							}
-							iIntervalWakeOnLan = setInterval(function() {
+					deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
+						{
+							sName: oString.strInputDisconectStart,
+							fAction: function() {
 								SendWol({
 									tabMac: tabMac
 								}, sBroadcast);
-							}, 5000);
-							if(iTimeoutSourceStatus) {
-								clearTimeout(iTimeoutSourceStatus);
-								iTimeoutSourceStatus = 0;
+								iIntervalWakeOnLan = setInterval(function() {
+									SendWol({
+										tabMac: tabMac
+									}, sBroadcast);
+								}, 5000);
+								iTimeoutSourceStatus = setTimeout(function() {
+									iTimeoutSourceStatus = 0;
+									deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
+								}, 5000);
 							}
-							iTimeoutSourceStatus = setTimeout(function() {
-								iTimeoutSourceStatus = 0;
-								deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
-							}, 5000);
 						}
-					}
-				]);
+					]);
+				}
 			}
 		}
 	},
@@ -383,8 +375,9 @@ function Close() {
 		if (KeyboardVisible()) {
 			document.getElementById("keyboard").blur();
 		}
-		socClient.close();
+		var soc = socClient;
 		socClient = null;
+		soc.close();
 	}
 }
 
