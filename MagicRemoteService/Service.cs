@@ -1099,9 +1099,8 @@ namespace MagicRemoteService {
 												for(ulong ul = 0; ul < ulLenData; ul++) {
 													tabData[ulOffsetMask + ul] = tabData[ulOffsetData + ul];
 												}
-												ulOffsetData = ulOffsetMask;
 											}
-											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetData - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
+											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetMask - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
 											mreClientStop.Set();
 											this.Log("Client disconnected on socket [" + socClient.GetHashCode() + "]");
 											break;
@@ -1112,9 +1111,8 @@ namespace MagicRemoteService {
 												for(ulong ul = 0; ul < ulLenData; ul++) {
 													tabData[ulOffsetMask + ul] = tabData[ulOffsetData + ul];
 												}
-												ulOffsetData = ulOffsetMask;
 											}
-											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetData - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
+											socClient.Send(tabData, (int)ulOffsetFrame, (int)(ulOffsetMask - ulOffsetFrame + ulLenData), System.Net.Sockets.SocketFlags.None);
 											this.LogIfDebug("Ping received on socket [" + socClient.GetHashCode() + "]");
 											break;
 										case (byte)MagicRemoteService.WebSocketOpCode.Pong:
