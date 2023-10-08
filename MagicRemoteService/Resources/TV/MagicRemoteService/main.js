@@ -522,7 +522,7 @@ var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
 						method: "power/responseScreenSaverRequest", 
 						parameters: {
 							clientName: sAppID,
-							ack: pbLastInputSourceStatus === null || !pbInputSourceStatus,
+							ack: pbInputSourceStatus === null || !pbInputSourceStatus,
 							timestamp: inResponse.timestamp
 						}, 
 						onSuccess: function(inResponse){ 
@@ -655,7 +655,7 @@ document.getElementById("keyboard").addEventListener("input", function(inEvent) 
 });
 
 document.addEventListener("visibilitychange", function() {
-	if(pbLastInputSourceStatus === null || !pbInputSourceStatus) {
+	if(pbInputSourceStatus === null || !pbInputSourceStatus) {
 	} else {
 		if(AppVisible()) {
 			Connect();
