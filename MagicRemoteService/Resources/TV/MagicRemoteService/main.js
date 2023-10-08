@@ -189,7 +189,7 @@ video.appendChild(deSource);
 var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
 var iTimeoutSourceStatus = 0;
-var bInputSourceStatus = false;
+var pbInputSourceStatus = null;
 webOS.service.request("luna://com.webos.service.eim", {
 	method: "getAllInputStatus",
 	parameters: {
@@ -199,14 +199,14 @@ webOS.service.request("luna://com.webos.service.eim", {
 		if(typeof(inResponse.subscribed) === "boolean") {
 			LogIfDebug(oString.strGetAllInputStatusSubscribe);
 		} else {
-			var bLastInputSourceStatus = bInputSourceStatus;
+			var pbLastInputSourceStatus = pbInputSourceStatus;
 			inResponse.devices.forEach(function(dDevice) {
 				if(sInputId === dDevice.id){
-					bInputSourceStatus = dDevice.activate;
+					pbInputSourceStatus = dDevice.activate;
 				}
 			});
-			if(bInputSourceStatus) {
-				if(bLastInputSourceStatus !== bInputSourceStatus) {
+			if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
+				if(pbInputSourceStatus) {
 					if(iIntervalWakeOnLan) {
 						clearInterval(iIntervalWakeOnLan);
 						iIntervalWakeOnLan = 0;
@@ -221,9 +221,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 					if(AppVisible()) {
 						Connect();
 					}
-				}
-			} else {
-				if(bLastInputSourceStatus !== bInputSourceStatus) {
+				} else {
 					if(AppVisible()) {
 						Close();
 					}
@@ -524,7 +522,7 @@ var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
 						method: "power/responseScreenSaverRequest", 
 						parameters: {
 							clientName: sAppID,
-							ack: !bInputSourceStatus,
+							ack: pbLastInputSourceStatus === null || !pbInputSourceStatus,
 							timestamp: inResponse.timestamp
 						}, 
 						onSuccess: function(inResponse){ 
@@ -657,7 +655,7 @@ document.getElementById("keyboard").addEventListener("input", function(inEvent) 
 });
 
 document.addEventListener("visibilitychange", function() {
-	if(!bInputSourceStatus) {
+	if(pbLastInputSourceStatus === null || !pbInputSourceStatus) {
 	} else {
 		if(AppVisible()) {
 			Connect();
