@@ -118,6 +118,7 @@
       <DependentUpon>BindControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Bind.cs" />
+    <Compile Include="Screen.cs" />
     <Compile Include="TV.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -32,6 +32,8 @@ namespace MagicRemoteService {
 			this.mrsService.ServiceStop();
 		}
 		protected override void Dispose(bool disposing) {
+			Microsoft.Win32.SystemEvents.SessionEnding -= SessionEndingEvent;
+			Microsoft.Win32.SystemEvents.SessionSwitch -= SessionSwitchEvent;
 			this.mrsService.ServiceStop();
 			if(disposing) {
 				this.mrsService.Dispose();

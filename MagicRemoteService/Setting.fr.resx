@@ -120,21 +120,48 @@
   <data name="btnClose.Text" xml:space="preserve">
     <value>Fermer</value>
   </data>
+  <data name="btnClose.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labDisplay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 13</value>
+  </data>
+  <data name="labDisplay.Text" xml:space="preserve">
+    <value>Ecran TV</value>
+  </data>
+  <data name="labDisplay.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cmbboxDisplay.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnTVRemove.Text" xml:space="preserve">
     <value>Supprimer la TV</value>
+  </data>
+  <data name="btnTVRemove.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnTVModify.Text" xml:space="preserve">
     <value>Modifier la TV</value>
   </data>
+  <data name="btnTVModify.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnTVAdd.Text" xml:space="preserve">
     <value>Ajouter une TV</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnTVAdd.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="chkboxExtend.Size" type="System.Drawing.Size, System.Drawing">
     <value>313, 17</value>
   </data>
   <data name="chkboxExtend.Text" xml:space="preserve">
     <value>Étendre automatiquement le mode développeur tous les jours</value>
+  </data>
+  <data name="chkboxExtend.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="labTV.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 13</value>
@@ -142,14 +169,35 @@
   <data name="labTV.Text" xml:space="preserve">
     <value>Nom de la TV</value>
   </data>
+  <data name="labTV.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ipadrboxSendIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numboxSendPort.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="phyadrboxPCMac.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labTVPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 13</value>
   </data>
   <data name="labTVPort.Text" xml:space="preserve">
     <value>Port d'envoi</value>
   </data>
+  <data name="labTVPort.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ipadrboxSubnetMask.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnTVInstall.Text" xml:space="preserve">
     <value>Installer sur la TV</value>
+  </data>
+  <data name="btnTVInstall.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="labSendIP.Size" type="System.Drawing.Size, System.Drawing">
     <value>127, 13</value>
@@ -157,8 +205,14 @@
   <data name="labSendIP.Text" xml:space="preserve">
     <value>Adresse IP de l'ordinateur</value>
   </data>
+  <data name="labSendIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnTVRefresh.Text" xml:space="preserve">
     <value>Rafraichir les TVs</value>
+  </data>
+  <data name="btnTVRefresh.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="labSubnetMask.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 13</value>
@@ -166,11 +220,20 @@
   <data name="labSubnetMask.Text" xml:space="preserve">
     <value>Masque de sous-réseau</value>
   </data>
+  <data name="labSubnetMask.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labPCMac.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 13</value>
   </data>
   <data name="labPCMac.Text" xml:space="preserve">
     <value>Adresse MAC de l'ordinateur</value>
+  </data>
+  <data name="labPCMac.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labTimeoutRightClickUnit.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="labInput.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 13</value>
@@ -178,8 +241,26 @@
   <data name="labInput.Text" xml:space="preserve">
     <value>Entrée de la TV</value>
   </data>
+  <data name="labInput.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labTimeoutRightClick.Text" xml:space="preserve">
     <value>Délai du click droit</value>
+  </data>
+  <data name="labTimeoutRightClick.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numboxTimeoutRightClick.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cmbboxInput.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cmbboxTV.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabTV.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="chkboxStartup.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 17</value>
@@ -187,14 +268,26 @@
   <data name="chkboxStartup.Text" xml:space="preserve">
     <value>Lancer automatiquement au démarrage</value>
   </data>
+  <data name="chkboxStartup.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labPCPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
   </data>
   <data name="labPCPort.Text" xml:space="preserve">
     <value>Port d'écoute</value>
   </data>
+  <data name="labPCPort.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnPCSave.Text" xml:space="preserve">
     <value>Enregistrer</value>
+  </data>
+  <data name="btnPCSave.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numboxListenPort.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="chkboxInactivity.Size" type="System.Drawing.Size, System.Drawing">
     <value>324, 17</value>
@@ -202,11 +295,80 @@
   <data name="chkboxInactivity.Text" xml:space="preserve">
     <value>Éteindre automatiquement l'ordinateur lorsque la TV est allumée</value>
   </data>
+  <data name="chkboxInactivity.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numboxTimeoutInactivity.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labTimeoutIncativity.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 13</value>
   </data>
   <data name="labTimeoutIncativity.Text" xml:space="preserve">
     <value>Délai</value>
+  </data>
+  <data name="labTimeoutIncativity.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labTimeoutIncativityUnit.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabPC.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteRewind.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteFastForward.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemotePause.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemotePlay.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteBackspace.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteLongClick.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteClick.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteStop.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteBlue.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteYellow.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteGreen.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteRed.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteBack.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteOk.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteDown.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteRight.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteLeft.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bcRemoteUp.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="libRemoteBackspace.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 13</value>
@@ -214,11 +376,20 @@
   <data name="libRemoteBackspace.Text" xml:space="preserve">
     <value>Retour arrière</value>
   </data>
+  <data name="libRemoteBackspace.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="libRemoteStop.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="libRemoteRewind.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 13</value>
   </data>
   <data name="libRemoteRewind.Text" xml:space="preserve">
     <value>Rembobiner</value>
+  </data>
+  <data name="libRemoteRewind.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="libRemoteFastForward.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 13</value>
@@ -226,14 +397,26 @@
   <data name="libRemoteFastForward.Text" xml:space="preserve">
     <value>Avance rapide</value>
   </data>
+  <data name="libRemoteFastForward.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="libRemotePause.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="libRemotePlay.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 13</value>
   </data>
   <data name="libRemotePlay.Text" xml:space="preserve">
     <value>Jouer</value>
   </data>
+  <data name="libRemotePlay.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="libRemoteBlue.Text" xml:space="preserve">
     <value>Bleu</value>
+  </data>
+  <data name="libRemoteBlue.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="libRemoteYellow.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 13</value>
@@ -241,11 +424,17 @@
   <data name="libRemoteYellow.Text" xml:space="preserve">
     <value>Jaune</value>
   </data>
+  <data name="libRemoteYellow.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="libRemoteGreen.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 13</value>
   </data>
   <data name="libRemoteGreen.Text" xml:space="preserve">
     <value>Vert</value>
+  </data>
+  <data name="libRemoteGreen.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="libRemoteRed.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 13</value>
@@ -253,11 +442,20 @@
   <data name="libRemoteRed.Text" xml:space="preserve">
     <value>Rouge</value>
   </data>
+  <data name="libRemoteRed.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="libRemoteBack.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 13</value>
   </data>
   <data name="libRemoteBack.Text" xml:space="preserve">
     <value>Retour</value>
+  </data>
+  <data name="libRemoteBack.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="libRemoteOk.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="libRemoteDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 13</value>
@@ -265,11 +463,17 @@
   <data name="libRemoteDown.Text" xml:space="preserve">
     <value>Bas</value>
   </data>
+  <data name="libRemoteDown.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="libRemoteRight.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 13</value>
   </data>
   <data name="libRemoteRight.Text" xml:space="preserve">
     <value>Droite</value>
+  </data>
+  <data name="libRemoteRight.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="libRemoteUp.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -277,11 +481,17 @@
   <data name="libRemoteUp.Text" xml:space="preserve">
     <value>Haut</value>
   </data>
+  <data name="libRemoteUp.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="libRemoteLeft.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 13</value>
   </data>
   <data name="libRemoteLeft.Text" xml:space="preserve">
     <value>Gauche</value>
+  </data>
+  <data name="libRemoteLeft.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="libRemoteLongClick.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 13</value>
@@ -289,11 +499,26 @@
   <data name="libRemoteLongClick.Text" xml:space="preserve">
     <value>Click long</value>
   </data>
+  <data name="libRemoteLongClick.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="libRemoteClick.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnRemoteSave.Text" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
+  <data name="btnRemoteSave.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="tabRemote.Text" xml:space="preserve">
     <value>Télécommande</value>
+  </data>
+  <data name="tabRemote.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabSetting.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2380,5 +2605,8 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Paramètres</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

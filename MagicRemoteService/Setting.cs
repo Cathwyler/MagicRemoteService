@@ -30,6 +30,7 @@ namespace MagicRemoteService {
 		private bool bStartup;
 
 		private MagicRemoteService.WebOSCLIDeviceInput wcdiInput;
+		private MagicRemoteService.Screen sDisplay;
 		private System.Net.IPAddress iaSendIP;
 		private decimal dSendPort;
 		private System.Net.IPAddress iaSubnetMask;
@@ -81,6 +82,7 @@ namespace MagicRemoteService {
 				{ 0x019C, this.bcRemoteRewind },
 				{ 0x019D, this.bcRemoteStop }
 			};
+			this.cmbboxDisplay.DataSource = MagicRemoteService.Screen.AllScreen;
 			this.PCDataRefresh();
 			this.TVDataRefresh();
 			this.RemoteDataRefresh();
@@ -208,6 +210,7 @@ namespace MagicRemoteService {
 		public void TVDataRefresh() {
 			if(this.cmbboxTV.SelectedItem == null) {
 				this.cmbboxInput.Enabled = false;
+				this.cmbboxDisplay.Enabled = false;
 				this.ipadrboxSendIP.Enabled = false;
 				this.numboxSendPort.Enabled = false;
 				this.ipadrboxSubnetMask.Enabled = false;
@@ -216,6 +219,7 @@ namespace MagicRemoteService {
 				this.chkboxExtend.Enabled = false;
 				this.btnTVInstall.Enabled = false;
 				this.cmbboxInput.SelectedItem = null;
+				this.cmbboxDisplay.SelectedItem = null;
 				this.ipadrboxSendIP.Value = MagicRemoteService.Setting.ipaSendIPDefaut;
 				this.numboxSendPort.Value = this.numboxListenPort.Value;
 				this.ipadrboxSubnetMask.Value = MagicRemoteService.Setting.ipaMaskDefaut;
@@ -224,6 +228,7 @@ namespace MagicRemoteService {
 				this.chkboxExtend.Checked = false;
 			} else {
 				this.cmbboxInput.Enabled = true;
+				this.cmbboxDisplay.Enabled = true;
 				this.ipadrboxSendIP.Enabled = true;
 				this.numboxSendPort.Enabled = true;
 				this.ipadrboxSubnetMask.Enabled = true;
@@ -234,6 +239,7 @@ namespace MagicRemoteService {
 				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
 				if(rkMagicRemoteServiceDevice == null) {
 					this.cmbboxInput.SelectedIndex = 0;
+					this.cmbboxDisplay.SelectedIndex = 0;
 					this.ipadrboxSendIP.Value = MagicRemoteService.Setting.ipaSendIPDefaut;
 					this.numboxSendPort.Value = this.numboxListenPort.Value;
 					this.ipadrboxSubnetMask.Value = MagicRemoteService.Setting.ipaMaskDefaut;
@@ -246,6 +252,12 @@ namespace MagicRemoteService {
 						this.cmbboxInput.SelectedIndex = 0;
 					} else {
 						this.cmbboxInput.SelectedValue = sInputId;
+					}
+					string sDisplayId = (string)rkMagicRemoteServiceDevice.GetValue("Display");
+					if(sDisplayId == null) {
+						this.cmbboxDisplay.SelectedIndex = 0;
+					} else {
+						this.cmbboxDisplay.SelectedValue = sDisplayId;
 					}
 					string sIp = (string)rkMagicRemoteServiceDevice.GetValue("SendIp");
 					if(sIp == null) {
@@ -271,6 +283,7 @@ namespace MagicRemoteService {
 				}
 			}
 			this.wcdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
+			this.sDisplay = (MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem;
 			this.iaSendIP = this.ipadrboxSendIP.Value;
 			this.dSendPort = this.numboxSendPort.Value;
 			this.iaSubnetMask = this.ipadrboxSubnetMask.Value;
@@ -281,6 +294,7 @@ namespace MagicRemoteService {
 		public void TVDataSave() {
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
 			rkMagicRemoteServiceDevice.SetValue("Input", ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem).Id, Microsoft.Win32.RegistryValueKind.String);
+			rkMagicRemoteServiceDevice.SetValue("Display", ((MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem).InstanceName, Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("SendIp", this.ipadrboxSendIP.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("SendPort", this.numboxSendPort.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteServiceDevice.SetValue("Mask", this.ipadrboxSubnetMask.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
@@ -588,6 +602,8 @@ namespace MagicRemoteService {
 			}
 			if(!e.Cancel && (
 				this.wcdiInput?.Id != ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id
+				||
+				this.sDisplay?.InstanceName != ((MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem)?.InstanceName
 				||
 				this.iaSendIP?.ToString() != this.ipadrboxSendIP.Value?.ToString()
 				||

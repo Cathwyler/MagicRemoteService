@@ -522,7 +522,7 @@ var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
 						method: "power/responseScreenSaverRequest", 
 						parameters: {
 							clientName: sAppID,
-							ack: pbInputSourceStatus === null || !pbInputSourceStatus,
+							ack: socClient === null || socClient.readyState !== WebSocket.OPEN,
 							timestamp: inResponse.timestamp
 						}, 
 						onSuccess: function(inResponse){ 

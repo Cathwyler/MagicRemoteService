@@ -418,13 +418,13 @@ namespace MagicRemoteService {
 
 			System.IntPtr hProcess = WinApi.Kernel32.OpenProcess(0x2000000, false, uiWinlogonPid);
 			if(hProcess == System.IntPtr.Zero) {
-				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+				throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			}
 
 			System.IntPtr hProcessToken;
 			if(!WinApi.Advapi32.OpenProcessToken(hProcess, 0x0002, out hProcessToken)) {
 				WinApi.Kernel32.CloseHandle(hProcess);
-				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+				throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			}
 			WinApi.Kernel32.CloseHandle(hProcess);
 
@@ -433,7 +433,7 @@ namespace MagicRemoteService {
 			sa.Length = System.Runtime.InteropServices.Marshal.SizeOf(sa);
 			if(!WinApi.Advapi32.DuplicateTokenEx(hProcessToken, WinApi.Advapi32.MAXIMUM_ALLOWED, ref sa, WinApi.SecurityImpersonationLevel.SecurityImpersonation, WinApi.TokenType.TokenPrimary, out hProcessTokenDupplicate)) {
 				WinApi.Kernel32.CloseHandle(hProcessToken);
-				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+				throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			}
 			WinApi.Kernel32.CloseHandle(hProcessToken);
 
@@ -441,11 +441,11 @@ namespace MagicRemoteService {
 			System.IntPtr hUserToken;
 			if(!WinApi.Wtsapi32.WTSQueryUserToken(uiSessionId, out hUserToken)) {
 				lpEnvironmentBlock = System.IntPtr.Zero;
-				//throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+				//throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			} else {
 				if(!WinApi.Userenv.CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, false)) {
 					WinApi.Kernel32.CloseHandle(hUserToken);
-					throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+					throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 				}
 				WinApi.Kernel32.CloseHandle(hUserToken);
 			}
@@ -458,7 +458,7 @@ namespace MagicRemoteService {
 				if(lpEnvironmentBlock != System.IntPtr.Zero) {
 					WinApi.Userenv.DestroyEnvironmentBlock(lpEnvironmentBlock);
 				}
-				throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+				throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			}
 
 			WinApi.Kernel32.CloseHandle(hProcessTokenDupplicate);
@@ -473,7 +473,7 @@ namespace MagicRemoteService {
 				case WinApi.ObjectSate.WAIT_OBJECT_0:
 					return true;
 				default:
-					throw new System.Exception(new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error()).Message);
+					throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			}
 		}
 
@@ -760,7 +760,7 @@ namespace MagicRemoteService {
 									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
 										new WinApi.Input {
 											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.DummyUnionName {
+											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTDOWN,
 													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -771,7 +771,7 @@ namespace MagicRemoteService {
 									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
 										new WinApi.Input {
 											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.DummyUnionName {
+											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTUP,
 													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -784,7 +784,7 @@ namespace MagicRemoteService {
 									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
 										new WinApi.Input {
 											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.DummyUnionName {
+											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTDOWN,
 													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -795,7 +795,7 @@ namespace MagicRemoteService {
 									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
 										new WinApi.Input {
 											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.DummyUnionName {
+											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTUP,
 													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -808,7 +808,7 @@ namespace MagicRemoteService {
 									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
 										new WinApi.Input {
 											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.DummyUnionName {
+											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEDOWN,
 													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -819,7 +819,7 @@ namespace MagicRemoteService {
 									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
 										new WinApi.Input {
 											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.DummyUnionName {
+											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEUP,
 													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -835,7 +835,7 @@ namespace MagicRemoteService {
 								dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
 									new WinApi.Input {
 										type = WinApi.InputType.INPUT_KEYBOARD,
-										u = new WinApi.DummyUnionName {
+										u = new WinApi.InputDummyUnionName {
 											ki = new WinApi.KeybdInput {
 												wScan = bk.usScanCode,
 												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE | WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY,
@@ -847,7 +847,7 @@ namespace MagicRemoteService {
 								dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
 									new WinApi.Input {
 										type = WinApi.InputType.INPUT_KEYBOARD,
-										u = new WinApi.DummyUnionName {
+										u = new WinApi.InputDummyUnionName {
 											ki = new WinApi.KeybdInput {
 												wScan = bk.usScanCode,
 												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYUP | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE | WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY,
@@ -860,7 +860,7 @@ namespace MagicRemoteService {
 								dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
 									new WinApi.Input {
 										type = WinApi.InputType.INPUT_KEYBOARD,
-										u = new WinApi.DummyUnionName {
+										u = new WinApi.InputDummyUnionName {
 											ki = new WinApi.KeybdInput {
 												wScan = bk.usScanCode,
 												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE,
@@ -872,7 +872,7 @@ namespace MagicRemoteService {
 								dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
 									new WinApi.Input {
 										type = WinApi.InputType.INPUT_KEYBOARD,
-										u = new WinApi.DummyUnionName {
+										u = new WinApi.InputDummyUnionName {
 											ki = new WinApi.KeybdInput {
 												wScan = bk.usScanCode,
 												dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYUP | WinApi.KeybdInputFlags.KEYEVENTF_SCANCODE,
@@ -896,7 +896,7 @@ namespace MagicRemoteService {
 				WinApi.Input[] piPosition = new WinApi.Input[] {
 					new WinApi.Input {
 						type = WinApi.InputType.INPUT_MOUSE,
-						u = new WinApi.DummyUnionName {
+						u = new WinApi.InputDummyUnionName {
 							mi = new WinApi.MouseInput {
 								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_ABSOLUTE | WinApi.MouseInputFlags.MOUSEEVENTF_MOVE,
 								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -907,7 +907,7 @@ namespace MagicRemoteService {
 				WinApi.Input[] piWheel = new WinApi.Input[] {
 					new WinApi.Input {
 						type = WinApi.InputType.INPUT_MOUSE,
-						u = new WinApi.DummyUnionName {
+						u = new WinApi.InputDummyUnionName {
 							mi = new WinApi.MouseInput {
 								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_WHEEL,
 								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -918,7 +918,7 @@ namespace MagicRemoteService {
 				WinApi.Input[] piUnicode = new WinApi.Input[] {
 					new WinApi.Input {
 						type = WinApi.InputType.INPUT_KEYBOARD,
-						u = new WinApi.DummyUnionName {
+						u = new WinApi.InputDummyUnionName {
 							ki = new WinApi.KeybdInput {
 								dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_UNICODE | WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN,
 								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -926,7 +926,7 @@ namespace MagicRemoteService {
 						}
 					}, new WinApi.Input {
 						type = WinApi.InputType.INPUT_KEYBOARD,
-						u = new WinApi.DummyUnionName {
+						u = new WinApi.InputDummyUnionName {
 							ki = new WinApi.KeybdInput {
 								dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_UNICODE | WinApi.KeybdInputFlags.KEYEVENTF_KEYUP,
 								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
@@ -934,6 +934,17 @@ namespace MagicRemoteService {
 						}
 					}
 				};
+
+				MagicRemoteService.WebOSCLIDevice wocdClient = System.Array.Find<MagicRemoteService.WebOSCLIDevice>(MagicRemoteService.WebOSCLI.SetupDeviceList(), delegate (MagicRemoteService.WebOSCLIDevice wocd) {
+					return wocd.DeviceInfo.IP.Equals(((System.Net.IPEndPoint)socClient.RemoteEndPoint).Address);
+				});
+				string sDisplay;
+				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
+				if(rkMagicRemoteServiceDevice == null) {
+					sDisplay = "";
+				} else {
+					sDisplay = (string)rkMagicRemoteServiceDevice.GetValue("Display", 0); ;
+				}
 
 				System.Func<ulong> fClient = delegate () {
 					return (ulong)socClient.Receive(tabData);
@@ -1034,8 +1045,14 @@ namespace MagicRemoteService {
 											if(ulLenData != 0) {
 												switch(tabData[ulOffsetData + 0]) {
 													case (byte)MagicRemoteService.MessageType.Position:
-														piPosition[0].u.mi.dx = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65535) / 1920);
-														piPosition[0].u.mi.dy = (int)((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65535) / 1080);
+														if(MagicRemoteService.Screen.AllScreenByName.ContainsKey(sDisplay)) {
+															MagicRemoteService.Screen scr = MagicRemoteService.Screen.AllScreenByName[sDisplay];
+															piPosition[0].u.mi.dx = ((scr.Bounds.X + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * scr.Bounds.Width) / 1920)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Width;
+															piPosition[0].u.mi.dy = ((scr.Bounds.Y + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * scr.Bounds.Height) / 1080)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Height;
+														} else {
+															piPosition[0].u.mi.dx = (System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65536) / 1920;
+															piPosition[0].u.mi.dy = (System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65536) / 1080;
+														}
 														Service.SendInputAdmin(piPosition);
 														//this.LogIfDebug("Processed binary message send/position [0x" + System.BitConverter.ToString(tabData, ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usX: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 1).ToString() + ", usY: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 3).ToString());
 														break;

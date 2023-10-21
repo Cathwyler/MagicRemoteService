@@ -30,6 +30,8 @@ namespace MagicRemoteService {
 			this.ttFormating = new System.Windows.Forms.ToolTip(this.components);
 			this.tabSetting = new System.Windows.Forms.TabControl();
 			this.tabTV = new System.Windows.Forms.TabPage();
+			this.labDisplay = new System.Windows.Forms.Label();
+			this.cmbboxDisplay = new System.Windows.Forms.ComboBox();
 			this.btnTVRemove = new System.Windows.Forms.Button();
 			this.btnTVModify = new System.Windows.Forms.Button();
 			this.btnTVAdd = new System.Windows.Forms.Button();
@@ -135,6 +137,8 @@ namespace MagicRemoteService {
 			// tabTV
 			// 
 			resources.ApplyResources(this.tabTV, "tabTV");
+			this.tabTV.Controls.Add(this.labDisplay);
+			this.tabTV.Controls.Add(this.cmbboxDisplay);
 			this.tabTV.Controls.Add(this.btnTVRemove);
 			this.tabTV.Controls.Add(this.btnTVModify);
 			this.tabTV.Controls.Add(this.btnTVAdd);
@@ -159,6 +163,22 @@ namespace MagicRemoteService {
 			this.tabTV.Name = "tabTV";
 			this.ttFormating.SetToolTip(this.tabTV, resources.GetString("tabTV.ToolTip"));
 			this.tabTV.UseVisualStyleBackColor = true;
+			// 
+			// labDisplay
+			// 
+			resources.ApplyResources(this.labDisplay, "labDisplay");
+			this.labDisplay.Name = "labDisplay";
+			this.ttFormating.SetToolTip(this.labDisplay, resources.GetString("labDisplay.ToolTip"));
+			// 
+			// cmbboxDisplay
+			// 
+			resources.ApplyResources(this.cmbboxDisplay, "cmbboxDisplay");
+			this.cmbboxDisplay.DisplayMember = "UserFriendlyName";
+			this.cmbboxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbboxDisplay.FormattingEnabled = true;
+			this.cmbboxDisplay.Name = "cmbboxDisplay";
+			this.ttFormating.SetToolTip(this.cmbboxDisplay, resources.GetString("cmbboxDisplay.ToolTip"));
+			this.cmbboxDisplay.ValueMember = "InstanceName";
 			// 
 			// btnTVRemove
 			// 
@@ -838,5 +858,7 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnTVAdd;
 		private System.Windows.Forms.Button btnTVRemove;
 		private System.Windows.Forms.Button btnTVModify;
+		private System.Windows.Forms.Label labDisplay;
+		private System.Windows.Forms.ComboBox cmbboxDisplay;
 	}
 }
