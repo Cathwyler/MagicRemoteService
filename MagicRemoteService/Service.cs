@@ -938,13 +938,17 @@ namespace MagicRemoteService {
 				MagicRemoteService.WebOSCLIDevice wocdClient = System.Array.Find<MagicRemoteService.WebOSCLIDevice>(MagicRemoteService.WebOSCLI.SetupDeviceList(), delegate (MagicRemoteService.WebOSCLIDevice wocd) {
 					return wocd.DeviceInfo.IP.Equals(((System.Net.IPEndPoint)socClient.RemoteEndPoint).Address);
 				});
-				string sDisplay;
+				uint uiDisplay;
 				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
 				if(rkMagicRemoteServiceDevice == null) {
-					sDisplay = "";
+					uiDisplay = 0;
 				} else {
-					sDisplay = (string)rkMagicRemoteServiceDevice.GetValue("Display", 0); ;
+					uiDisplay = (uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", 0);
 				}
+
+				MagicRemoteService.Screen scr;
+				WinApi.Input[] arrInput;
+				byte[] arrByte;
 
 				System.Func<ulong> fClient = delegate () {
 					return (ulong)socClient.Receive(tabData);
@@ -1045,8 +1049,7 @@ namespace MagicRemoteService {
 											if(ulLenData != 0) {
 												switch(tabData[ulOffsetData + 0]) {
 													case (byte)MagicRemoteService.MessageType.Position:
-														if(MagicRemoteService.Screen.AllScreenByName.ContainsKey(sDisplay)) {
-															MagicRemoteService.Screen scr = MagicRemoteService.Screen.AllScreenByName[sDisplay];
+														if(uiDisplay != 0 && MagicRemoteService.Screen.AllScreen.TryGetValue(uiDisplay, out scr) && scr.Active && scr != MagicRemoteService.Screen.PrimaryScreen) {
 															piPosition[0].u.mi.dx = ((scr.Bounds.X + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * scr.Bounds.Width) / 1920)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Width;
 															piPosition[0].u.mi.dy = ((scr.Bounds.Y + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * scr.Bounds.Height) / 1080)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Height;
 														} else {
@@ -1072,18 +1075,18 @@ namespace MagicRemoteService {
 													case (byte)MagicRemoteService.MessageType.Key:
 														ushort usCode = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														if((tabData[ulOffsetData + 3] & 0x01) == 0x01) {
-															if(dKeyBindDown.ContainsKey(usCode)) {
-																Service.SendInputAdmin(dKeyBindDown[usCode]);
+															if(dKeyBindDown.TryGetValue(usCode, out arrInput)) {
+																Service.SendInputAdmin(arrInput);
 																this.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-															} else if(dKeyBindActionDown.ContainsKey(usCode)) {
-																socClient.Send(dKeyBindActionDown[usCode]);
+															} else if(dKeyBindActionDown.TryGetValue(usCode, out arrByte)) {
+																socClient.Send(arrByte);
 																this.LogIfDebug("Processed binary message send/key action [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else {
 																this.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															}
 														} else {
-															if(dKeyBindUp.ContainsKey(usCode)) {
-																Service.SendInputAdmin(dKeyBindUp[usCode]);
+															if(dKeyBindUp.TryGetValue(usCode, out arrInput)) {
+																Service.SendInputAdmin(arrInput);
 																this.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else {
 																this.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());

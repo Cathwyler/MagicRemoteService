@@ -274,4 +274,10 @@
   <data name="SettingTVRemoveErrorTitle" xml:space="preserve">
     <value>Error while removing TV</value>
   </data>
+  <data name="Screen" xml:space="preserve">
+    <value>Screen</value>
+  </data>
+  <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
+    <value>Default primary screen</value>
+  </data>
 </root>

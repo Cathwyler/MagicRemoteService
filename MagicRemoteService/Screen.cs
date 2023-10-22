@@ -1,34 +1,45 @@
 ﻿
 namespace MagicRemoteService {
 	class Screen {
-		private static Screen[] arrAllScreen = new Screen[0];
-		public static Screen[] AllScreen {
-			get {
-				return Screen.arrAllScreen;
-			}
-		}
-		private static System.Collections.Generic.Dictionary<string, Screen> dAllScreenByName = new System.Collections.Generic.Dictionary<string, Screen>();
-		public static System.Collections.Generic.Dictionary<string, Screen> AllScreenByName {
-			get {
-				return Screen.dAllScreenByName;
-			}
-		}
+		private static readonly object oAllScreenLock = new object();
 		private static Screen scrPrimaryScreen;
 		public static Screen PrimaryScreen {
 			get {
-				return Screen.scrPrimaryScreen;
+				lock(Screen.oAllScreenLock) {
+					return Screen.scrPrimaryScreen;
+				}
 			}
 		}
-		private string strUserFriendlyName;
-		public string UserFriendlyName {
+		private static System.Collections.Generic.Dictionary<uint, Screen> dAllScreen;
+		public static System.Collections.Generic.Dictionary<uint, Screen> AllScreen {
 			get {
-				return this.strUserFriendlyName;
+				lock(Screen.oAllScreenLock) {
+					return Screen.dAllScreen;
+				}
 			}
 		}
-		private string strInstanceName;
-		public string InstanceName {
+		private static Screen scrPrimaryDefaut = new Screen() {
+			ucNumber = 0,
+			bActive = false,
+			bPrimary = false,
+			uiId = 0,
+			strUserFriendlyName = MagicRemoteService.Properties.Resources.ScreenPrimaryDefaultUserFriendlyName,
+			rBounds = new System.Drawing.Rectangle {
+				X = 0,
+				Y = 0,
+				Width = 0,
+				Height = 0
+			},
+		};
+		public static Screen PrimaryDefaut {
 			get {
-				return this.strInstanceName;
+				return Screen.scrPrimaryDefaut;
+			}
+		}
+		private uint uiId;
+		public uint Id {
+			get {
+				return this.uiId;
 			}
 		}
 		private byte ucNumber;
@@ -37,16 +48,33 @@ namespace MagicRemoteService {
 				return this.ucNumber;
 			}
 		}
-		private string strGdiDeviceName;
-		public string Path {
+		private bool bActive;
+		public bool Active {
 			get {
-				return this.strGdiDeviceName;
+				return this.bActive;
+			}
+		}
+		private bool bPrimary;
+		public bool Primary {
+			get {
+				return this.bPrimary;
+			}
+		}
+		private string strUserFriendlyName;
+		public string UserFriendlyName {
+			get {
+				return this.strUserFriendlyName;
 			}
 		}
 		private System.Drawing.Rectangle rBounds;
 		public System.Drawing.Rectangle Bounds {
 			get {
 				return this.rBounds;
+			}
+		}
+		public string NumberUserFriendlyName {
+			get {
+				return this.Number == 0 ? "<" + this.strUserFriendlyName + ">" : (MagicRemoteService.Properties.Resources.Screen + " " + this.Number.ToString() + " : " + this.strUserFriendlyName);
 			}
 		}
 		static Screen() {
@@ -71,10 +99,10 @@ namespace MagicRemoteService {
 				throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			}
 
-			System.Collections.Generic.Dictionary<uint, Screen> dPathSource = new System.Collections.Generic.Dictionary<uint, Screen>();
+			System.Collections.Generic.Dictionary<uint, Screen> dAllScreen = new System.Collections.Generic.Dictionary<uint, Screen>();
 			foreach(WinApi.DisplayConfigPathInfo p in arrPath) {
 				if (p.targetInfo.targetAvailable) {
-					if(!dPathSource.ContainsKey(p.targetInfo.id)) {
+					if(!dAllScreen.ContainsKey(p.targetInfo.id)) {
 						WinApi.DisplayConfigTargetDeviceName TargetName = new WinApi.DisplayConfigTargetDeviceName() {
 							header = new WinApi.DisplayConfigDeviceInfoHeader {
 								type = WinApi.DisplayConfigDeviceInfoType.DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME,
@@ -86,109 +114,42 @@ namespace MagicRemoteService {
 						if(0 != WinApi.User32.DisplayConfigGetDeviceInfo(ref TargetName)) {
 							throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 						}
-						dPathSource.Add(p.targetInfo.id, new Screen() {
-							ucNumber = (byte)(dPathSource.Count + 1),
-							strInstanceName = TargetName.monitorDevicePath,
+						dAllScreen.Add(p.targetInfo.id, new Screen() {
+							ucNumber = (byte)(dAllScreen.Count + 1),
+							bActive = false,
+							bPrimary = false,
+							uiId = p.targetInfo.id,
 							strUserFriendlyName = TargetName.monitorFriendlyDeviceName,
-							strGdiDeviceName = ""
-						});
+							rBounds = new System.Drawing.Rectangle {
+								X = 0,
+								Y = 0,
+								Width = 0,
+								Height = 0
+							},
+						}); ;
 					}
 					if(p.flags.HasFlag(WinApi.DisplayConfigPathInfoFlags.DISPLAYCONFIG_PATH_ACTIVE)) {
-						WinApi.DisplayConfigSourceDeviceName SourceName = new WinApi.DisplayConfigSourceDeviceName() {
-							header = new WinApi.DisplayConfigDeviceInfoHeader {
-								type = WinApi.DisplayConfigDeviceInfoType.DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME,
-								size = (uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(WinApi.DisplayConfigSourceDeviceName)),
-								adapterId = p.sourceInfo.adapterId,
-								id = p.sourceInfo.id
-							}
-						};
-						if(0 != WinApi.User32.DisplayConfigGetDeviceInfo(ref SourceName)) {
-							throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+						if(!p.sourceInfo.u.modeInfoIdx.HasFlag(WinApi.DisplayConfigPathInfoIdx.DISPLAYCONFIG_PATH_MODE_IDX_INVALID)) {
+							dAllScreen[p.targetInfo.id].bActive = true;
+							dAllScreen[p.targetInfo.id].bPrimary = arrMode[(uint)p.sourceInfo.u.modeInfoIdx].u.sourceMode.position.x == 0 && arrMode[(uint)p.sourceInfo.u.modeInfoIdx].u.sourceMode.position.y == 0;
+							dAllScreen[p.targetInfo.id].rBounds.X = arrMode[(uint)p.sourceInfo.u.modeInfoIdx].u.sourceMode.position.x;
+							dAllScreen[p.targetInfo.id].rBounds.Y = arrMode[(uint)p.sourceInfo.u.modeInfoIdx].u.sourceMode.position.y;
+							dAllScreen[p.targetInfo.id].rBounds.Width = (int)arrMode[(uint)p.sourceInfo.u.modeInfoIdx].u.sourceMode.width;
+							dAllScreen[p.targetInfo.id].rBounds.Height = (int)arrMode[(uint)p.sourceInfo.u.modeInfoIdx].u.sourceMode.height;
 						}
-						dPathSource[p.targetInfo.id].strGdiDeviceName = SourceName.viewGdiDeviceName;
-
-						
-						dPathSource[p.targetInfo.id].rBounds.Location = arrMode[p.sourceInfo.u.modeInfoIdx].u.sourceMode.position;
-						dPathSource[p.targetInfo.id].rBounds.Width = (int)arrMode[p.sourceInfo.u.modeInfoIdx].u.sourceMode.width;
-						dPathSource[p.targetInfo.id].rBounds.Height = (int)arrMode[p.sourceInfo.u.modeInfoIdx].u.sourceMode.height;
-						if(arrMode[p.sourceInfo.u.modeInfoIdx].u.sourceMode.position.X == 0 && arrMode[p.sourceInfo.u.modeInfoIdx].u.sourceMode.position.Y == 0) {
-							Screen.scrPrimaryScreen = dPathSource[p.targetInfo.id];
-						}
-
 					}
 				}
 			}
 
-			Screen.dAllScreenByName = new System.Collections.Generic.Dictionary<string, Screen>(); ;
-			foreach(Screen scr in dPathSource.Values) {
-				Screen.dAllScreenByName.Add(scr.InstanceName, scr);
+			lock(Screen.oAllScreenLock) {
+				Screen.scrPrimaryScreen = null;
+				Screen.dAllScreen = dAllScreen;
+				foreach(Screen scr in dAllScreen.Values) {
+					if(scr.Primary) {
+						Screen.scrPrimaryScreen = scr;
+					}
+				}
 			}
-			Screen.arrAllScreen = new Screen[dPathSource.Count];
-			foreach(Screen s in dPathSource.Values) {
-				Screen.arrAllScreen[s.ucNumber - 1] = s;
-			}
-			//WinApi.DevMode dm = new WinApi.DevMode() {
-			//	dmSize = (short)System.Runtime.InteropServices.Marshal.SizeOf(typeof(WinApi.DevMode))
-			//};
-			//if(WinApi.User32.EnumDisplaySettings(SourceName.viewGdiDeviceName, WinApi.User32.ENUM_CURRENT_SETTINGS, ref dm)) {
-			//	throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
-			//}
-			//if(dd.StateFlags.HasFlag(WinApi.StateFlags.DISPLAY_DEVICE_PRIMARY_DEVICE)) {
-			//	this.scrPrimaryScreen = uc;
-			//}
-
-			//if(0 != WinApi.User32.GetDisplayConfigBufferSizes(WinApi.User32.QUERY_DEVICE_CONFIG_FLAGS.QDC_ALL_PATHS, out uiPathCount, out uiModeCount)) {
-			//	throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
-			//}
-
-			//WinApi.User32.DISPLAYCONFIG_PATH_INFO[] arrPath = new WinApi.User32.DISPLAYCONFIG_PATH_INFO[uiPathCount];
-			//WinApi.User32.DISPLAYCONFIG_MODE_INFO[] arrMode = new WinApi.User32.DISPLAYCONFIG_MODE_INFO[uiModeCount];
-			//if(0 != WinApi.User32.QueryDisplayConfig(WinApi.User32.QUERY_DEVICE_CONFIG_FLAGS.QDC_ALL_PATHS, ref uiPathCount, arrPath, ref uiModeCount, arrMode, System.IntPtr.Zero)) {
-			//	throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
-			//}
-
-			//System.Collections.Generic.Dictionary<string, string> dPathSource = new System.Collections.Generic.Dictionary<string, string>();
-			//foreach(WinApi.User32.DISPLAYCONFIG_PATH_INFO p in arrPath) {
-			//	WinApi.User32.DISPLAYCONFIG_TARGET_DEVICE_NAME TargetName = new WinApi.User32.DISPLAYCONFIG_TARGET_DEVICE_NAME {
-			//		header = new WinApi.User32.DISPLAYCONFIG_DEVICE_INFO_HEADER {
-			//			type = WinApi.User32.DISPLAYCONFIG_DEVICE_INFO_TYPE.DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME,
-			//			size = (uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(WinApi.User32.DISPLAYCONFIG_TARGET_DEVICE_NAME)),
-			//			adapterId = p.targetInfo.adapterId,
-			//			id = p.targetInfo.id
-			//		}
-			//	};
-			//	if(0 != WinApi.User32.DisplayConfigGetDeviceInfo(ref TargetName)) {
-			//		throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
-			//	}
-			//	WinApi.User32.DISPLAYCONFIG_SOURCE_DEVICE_NAME SourceName = new WinApi.User32.DISPLAYCONFIG_SOURCE_DEVICE_NAME {
-			//		header = new WinApi.User32.DISPLAYCONFIG_DEVICE_INFO_HEADER {
-			//			type = WinApi.User32.DISPLAYCONFIG_DEVICE_INFO_TYPE.DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME,
-			//			size = (uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(WinApi.User32.DISPLAYCONFIG_SOURCE_DEVICE_NAME)),
-			//			adapterId = p.sourceInfo.adapterId,
-			//			id = p.sourceInfo.id
-			//		}
-			//	};
-			//	if(0 != WinApi.User32.DisplayConfigGetDeviceInfo(ref SourceName)) {
-			//		throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
-			//	}
-			//	//dPathSource.Add(TargetName.monitorDevicePath, SourceName.viewGdiDeviceName);
-			//}
-
-			//System.Management.ManagementObjectCollection moc = (new System.Management.ManagementObjectSearcher("\\root\\wmi", "SELECT * FROM WMIMonitorID")).Get();
-			//Screen[] arrScreen = new Screen[moc.Count];
-			//byte ucNumber = 0;
-			//foreach(System.Management.ManagementObject mo in moc) {
-			//	byte[] UserFriendlyName = new byte[((ushort[])mo["UserFriendlyName"]).Length * sizeof(ushort)];
-			//	System.Buffer.BlockCopy((ushort[])mo["UserFriendlyName"], 0, UserFriendlyName, 0, UserFriendlyName.Length);
-
-			//	arrScreen[ucNumber].ucNumber = (byte)(ucNumber + 1);
-			//	arrScreen[ucNumber].strInstanceName = (string)mo["InstanceName"];
-			//	arrScreen[ucNumber].strUserFriendlyName = System.Text.Encoding.Unicode.GetString(UserFriendlyName).TrimEnd((char)0);
-			//	arrScreen[ucNumber].strGdiDeviceName = 
-			//	ucNumber++;
-			//}
-
 		}
-
 	}
 }

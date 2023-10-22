@@ -157,6 +157,81 @@ namespace MagicRemoteService.WinApi {
 		DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE = 0x00000010
 	}
 
+	[System.Flags]
+	public enum DisplayConfigPathInfoIdx : uint {
+		DISPLAYCONFIG_PATH_MODE_IDX_INVALID = 0xFFFFFFFF
+	}
+
+	[System.Flags]
+	public enum DisplayConfigPathSourceInfoSourceIdx : uint {
+		DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID = 0xFFFF
+	}
+
+	[System.Flags]
+	public enum DisplayConfigPathSourceInfoCloneGroup : uint {
+		DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID = 0xFFFF
+	}
+
+	[System.Flags]
+	public enum DisplayConfigPathTargetInfoDesktopIdx : uint {
+		DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID = 0xFFFF
+	}
+
+	[System.Flags]
+	public enum DisplayConfigPathTargetInfoTargetIdx : uint {
+		DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID = 0xFFFF
+	}
+
+	[System.Flags]
+	public enum DisplayConfigPathSourceInfoFlags : uint {
+		DISPLAYCONFIG_SOURCE_IN_USE = 0x00000001
+	}
+
+	[System.Flags]
+	public enum DisplayConfigPathTargetInfoFlags : uint {
+		DISPLAYCONFIG_TARGET_IN_USE = 0x00000001,
+		DISPLAYCONFIG_TARGET_FORCIBLE = 0x00000002,
+		DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT = 0x00000004,
+		DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH = 0x00000008,
+		DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM = 0x00000010,
+		DISPLAYCONFIG_TARGET_IS_HMD = 0x00000020
+	}
+	public enum D3DkmdtVideoSignalStandard : uint {
+		D3DKMDT_VSS_UNINITIALIZED,
+		D3DKMDT_VSS_VESA_DMT,
+		D3DKMDT_VSS_VESA_GTF,
+		D3DKMDT_VSS_VESA_CVT,
+		D3DKMDT_VSS_IBM,
+		D3DKMDT_VSS_APPLE,
+		D3DKMDT_VSS_NTSC_M,
+		D3DKMDT_VSS_NTSC_J,
+		D3DKMDT_VSS_NTSC_443,
+		D3DKMDT_VSS_PAL_B,
+		D3DKMDT_VSS_PAL_B1,
+		D3DKMDT_VSS_PAL_G,
+		D3DKMDT_VSS_PAL_H,
+		D3DKMDT_VSS_PAL_I,
+		D3DKMDT_VSS_PAL_D,
+		D3DKMDT_VSS_PAL_N,
+		D3DKMDT_VSS_PAL_NC,
+		D3DKMDT_VSS_SECAM_B,
+		D3DKMDT_VSS_SECAM_D,
+		D3DKMDT_VSS_SECAM_G,
+		D3DKMDT_VSS_SECAM_H,
+		D3DKMDT_VSS_SECAM_K,
+		D3DKMDT_VSS_SECAM_K1,
+		D3DKMDT_VSS_SECAM_L,
+		D3DKMDT_VSS_SECAM_L1,
+		D3DKMDT_VSS_EIA_861,
+		D3DKMDT_VSS_EIA_861A,
+		D3DKMDT_VSS_EIA_861B,
+		D3DKMDT_VSS_PAL_K,
+		D3DKMDT_VSS_PAL_K1,
+		D3DKMDT_VSS_PAL_L,
+		D3DKMDT_VSS_PAL_M,
+		D3DKMDT_VSS_OTHER
+	}
+
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct MouseInput {
 		public int dx;
@@ -201,61 +276,74 @@ namespace MagicRemoteService.WinApi {
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-	public struct LUID {
+	public struct LUid {
 		public uint LowPart;
 		public int HighPart;
 	}
 
+	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+	public struct PointL {
+		public int x;
+		public int y;
+	}
+
+	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+	public struct RectL {
+		public int left;
+		public int top;
+		public int right;
+		public int bottom;
+	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathSourceInfoDummyStructName {
 		private readonly uint ui;
-		public uint cloneGroupId { get { return (uint)((ui & 0x0000FFFF) >> 0); } }
-		public uint sourceModeInfoIdx { get { return (uint)((ui & 0xFFFF0000) >> 16); } }
+		public DisplayConfigPathSourceInfoCloneGroup cloneGroupId { get { return (DisplayConfigPathSourceInfoCloneGroup)((ui & 0x0000FFFF) >> 0); } }
+		public DisplayConfigPathSourceInfoSourceIdx sourceModeInfoIdx { get { return (DisplayConfigPathSourceInfoSourceIdx)((ui & 0xFFFF0000) >> 16); } }
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigPathSourceInfoDummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)]
-		public uint modeInfoIdx;
+		public DisplayConfigPathInfoIdx modeInfoIdx;
 		[System.Runtime.InteropServices.FieldOffset(0)]
 		public DisplayConfigPathSourceInfoDummyStructName s;
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathSourceInfo {
-		public LUID adapterId;
+		public LUid adapterId;
 		public uint id;
 		public DisplayConfigPathSourceInfoDummyUnionName u;
-		public uint statusFlags;
+		public DisplayConfigPathSourceInfoFlags statusFlags;
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathTargetInfoDummyStructName {
 		private readonly uint ui;
-		public uint desktopModeInfoIdx { get { return (uint)((ui & 0x0000FFFF) >> 0); } }
-		public uint targetModeInfoIdx { get { return (uint)((ui & 0xFFFF0000) >> 16); } }
+		public DisplayConfigPathTargetInfoDesktopIdx desktopModeInfoIdx { get { return (DisplayConfigPathTargetInfoDesktopIdx)((ui & 0x0000FFFF) >> 0); } }
+		public DisplayConfigPathTargetInfoTargetIdx targetModeInfoIdx { get { return (DisplayConfigPathTargetInfoTargetIdx)((ui & 0xFFFF0000) >> 16); } }
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigPathTargetInfoDummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)]
-		public uint modeInfoIdx;
+		public DisplayConfigPathInfoIdx modeInfoIdx;
 		[System.Runtime.InteropServices.FieldOffset(0)]
 		public DisplayConfigPathTargetInfoDummyStructName s;
 	}
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathTargetInfo {
-		public LUID adapterId;
+		public LUid adapterId;
 		public uint id;
-		public uint modeInfoIdx;
-		private DisplayConfigOutputTechnology outputTechnology;
-		private DisplayConfigRotation rotation;
-		private DisplayConfigScaling scaling;
-		private DisplayConfigRational refreshRate;
-		private DisplayConfigScanlineOrdering scanLineOrdering;
+		public DisplayConfigPathTargetInfoDummyUnionName u;
+		public DisplayConfigOutputTechnology outputTechnology;
+		public DisplayConfigRotation rotation;
+		public DisplayConfigScaling scaling;
+		public DisplayConfigRational refreshRate;
+		public DisplayConfigScanlineOrdering scanLineOrdering;
 		public bool targetAvailable;
-		public uint statusFlags;
+		public DisplayConfigPathTargetInfoFlags statusFlags;
 	}
 
 
@@ -281,7 +369,7 @@ namespace MagicRemoteService.WinApi {
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigVideoSignalInfoStructName {
 		private readonly uint ui;
-		public uint videoStandard { get { return (uint)((ui & 0x0000FFFF) >> 0); } }
+		public D3DkmdtVideoSignalStandard videoStandard { get { return (D3DkmdtVideoSignalStandard)((ui & 0x0000FFFF) >> 0); } }
 		public uint vSyncFreqDivider { get { return (uint)((ui & 0x0003F0000) >> 16); } }
 		public uint reserved { get { return (uint)((ui & 0xFFFC0000) >> 22); } }
 	}
@@ -291,7 +379,7 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.FieldOffset(0)]
 		public DisplayConfigVideoSignalInfoStructName s;
 		[System.Runtime.InteropServices.FieldOffset(0)]
-		public uint videoStandard;
+		public D3DkmdtVideoSignalStandard videoStandard;
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -315,14 +403,14 @@ namespace MagicRemoteService.WinApi {
 		public uint width;
 		public uint height;
 		public DisplayConfigPixelFormat pixelFormat;
-		public System.Drawing.Point position;
+		public PointL position;
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigDesktopImageInfo {
-		public System.Drawing.Point PathSourceSize;
-		public System.Drawing.Rectangle DesktopImageRegion;
-		public System.Drawing.Rectangle DesktopImageClip;
+		public PointL PathSourceSize;
+		public RectL DesktopImageRegion;
+		public RectL DesktopImageClip;
 	}
 
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
@@ -339,7 +427,7 @@ namespace MagicRemoteService.WinApi {
 	public struct DisplayConfigModeInfo {
 		public DisplayConfigModeInfoType infoType;
 		public uint id;
-		public LUID adapterId;
+		public LUid adapterId;
 		public DisplayConfigModeInfoDummyUnionName u;
 	}
 
@@ -369,7 +457,7 @@ namespace MagicRemoteService.WinApi {
 	public struct DisplayConfigDeviceInfoHeader {
 		public DisplayConfigDeviceInfoType type;
 		public uint size;
-		public LUID adapterId;
+		public LUid adapterId;
 		public uint id;
 	}
 

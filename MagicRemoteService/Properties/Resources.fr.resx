@@ -165,6 +165,12 @@
   <data name="PhysicalAddressBoxErrorPasteTitle" xml:space="preserve">
     <value>Adresse physique mal formatée</value>
   </data>
+  <data name="Screen" xml:space="preserve">
+    <value>Écran</value>
+  </data>
+  <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
+    <value>Écran principal par défaut</value>
+  </data>
   <data name="SettingInputRefreshlErrorTitle" xml:space="preserve">
     <value>Erreur lors du rafraichissement des entrées de la TV</value>
   </data>

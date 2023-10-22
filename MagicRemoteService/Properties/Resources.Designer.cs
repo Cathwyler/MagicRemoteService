@@ -288,14 +288,14 @@ namespace MagicRemoteService.Properties {
         ///}
         ///
         ///function Toast(sTitre, sMessage){
-        ///	CancelToast();
         ///	var deScreen = document.createElement(&quot;div&quot;);
         ///	deScreen.className = &quot;screen flex justify-center align-flex-end&quot;;
-        ///	var deLog = document.createElement(&quot;div&quot;);
-        ///	deLog.className = &quot;window&quot;;
-        ///	deLog.id = &quot;toast&quot;
-        ///	deLog.addEventListener(&quot;click&quot;, CancelToast);
-        ///	var dePopupTitre [le reste de la chaîne a été tronqué]&quot;;.
+        ///	var deToast = document.createElement(&quot;div&quot;);
+        ///	deToast.className = &quot;window toast&quot;;
+        ///	deToast.addEventListener(&quot;click&quot;, function() {
+        ///		ScreenCancel(deScreen);
+        ///	});
+        ///	var dePopu [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {
@@ -388,6 +388,24 @@ namespace MagicRemoteService.Properties {
         internal static string ressource {
             get {
                 return ResourceManager.GetString("ressource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Screen.
+        /// </summary>
+        internal static string Screen {
+            get {
+                return ResourceManager.GetString("Screen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Default primary screen.
+        /// </summary>
+        internal static string ScreenPrimaryDefaultUserFriendlyName {
+            get {
+                return ResourceManager.GetString("ScreenPrimaryDefaultUserFriendlyName", resourceCulture);
             }
         }
         
