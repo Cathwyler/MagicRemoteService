@@ -17,7 +17,7 @@ namespace MagicRemoteService {
 			this.niIcon.DoubleClick += this.Setting;
 			this.niIcon.Visible = true;
 
-			Microsoft.Win32.SystemEvents.SessionEnding += SessionEndingEvent;
+			Microsoft.Win32.SystemEvents.SessionEnded += SessionEndedEvent;
 			Microsoft.Win32.SystemEvents.SessionSwitch += SessionSwitchEvent;
 
 			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
@@ -25,14 +25,14 @@ namespace MagicRemoteService {
 				this.Setting(this, new System.EventArgs());
 			}
 		}
+		public void SessionEndedEvent(object sender, Microsoft.Win32.SessionEndedEventArgs e) {
+			System.Windows.Forms.Application.Exit();
+		}
 		public void SessionSwitchEvent(object sender, Microsoft.Win32.SessionSwitchEventArgs e) {
 			System.Windows.Forms.Application.Exit();
 		}
-		public void SessionEndingEvent(object sender, Microsoft.Win32.SessionEndingEventArgs e) {
-			this.mrsService.ServiceStop();
-		}
 		protected override void Dispose(bool disposing) {
-			Microsoft.Win32.SystemEvents.SessionEnding -= SessionEndingEvent;
+			Microsoft.Win32.SystemEvents.SessionEnded -= SessionEndedEvent;
 			Microsoft.Win32.SystemEvents.SessionSwitch -= SessionSwitchEvent;
 			this.mrsService.ServiceStop();
 			if(disposing) {

@@ -190,68 +190,71 @@ var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
 var iTimeoutSourceStatus = 0;
 var pbInputSourceStatus = null;
-webOS.service.request("luna://com.webos.service.eim", {
-	method: "getAllInputStatus",
-	parameters: {
-		subscribe: true
-	},
-	onSuccess: function(inResponse){
-		if(typeof(inResponse.subscribed) === "boolean") {
-			LogIfDebug(oString.strGetAllInputStatusSubscribe);
-		} else {
-			var pbLastInputSourceStatus = pbInputSourceStatus;
-			inResponse.devices.forEach(function(dDevice) {
-				if(sInputId === dDevice.id){
-					pbInputSourceStatus = dDevice.activate;
-				}
-			});
-			if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
-				if(pbInputSourceStatus) {
-					if(iIntervalWakeOnLan) {
-						clearInterval(iIntervalWakeOnLan);
-						iIntervalWakeOnLan = 0;
+var iIntervalSubscriptionGetAllInputStatus = setInterval(function() {
+	webOS.service.request("luna://com.webos.service.eim", {
+		method: "getAllInputStatus",
+		parameters: {
+			subscribe: true
+		},
+		onSuccess: function(inResponse){
+			if(typeof(inResponse.subscribed) === "boolean") {
+				clearInterval(iIntervalSubscriptionGetAllInputStatus);
+				LogIfDebug(oString.strGetAllInputStatusSubscribe);
+			} else {
+				var pbLastInputSourceStatus = pbInputSourceStatus;
+				inResponse.devices.forEach(function(dDevice) {
+					if(sInputId === dDevice.id){
+						pbInputSourceStatus = dDevice.activate;
 					}
-					if(iTimeoutSourceStatus) {
-						clearTimeout(iTimeoutSourceStatus);
-						iTimeoutSourceStatus = 0;
-					}
-					if(ScreenExist(deScreenInput)) {
-						ScreenCancel(deScreenInput);
-					}
-					if(AppVisible()) {
-						Connect();
-					}
-				} else {
-					if(AppVisible()) {
-						Close();
-					}
-					deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
-						{
-							sName: oString.strInputDisconectStart,
-							fAction: function() {
-								SendWol({
-									tabMac: tabMac
-								}, sBroadcast);
-								iIntervalWakeOnLan = setInterval(function() {
+				});
+				if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
+					if(pbInputSourceStatus) {
+						if(iIntervalWakeOnLan) {
+							clearInterval(iIntervalWakeOnLan);
+							iIntervalWakeOnLan = 0;
+						}
+						if(iTimeoutSourceStatus) {
+							clearTimeout(iTimeoutSourceStatus);
+							iTimeoutSourceStatus = 0;
+						}
+						if(ScreenExist(deScreenInput)) {
+							ScreenCancel(deScreenInput);
+						}
+						if(AppVisible()) {
+							Connect();
+						}
+					} else {
+						if(AppVisible()) {
+							Close();
+						}
+						deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
+							{
+								sName: oString.strInputDisconectStart,
+								fAction: function() {
 									SendWol({
 										tabMac: tabMac
 									}, sBroadcast);
-								}, 5000);
-								iTimeoutSourceStatus = setTimeout(function() {
-									iTimeoutSourceStatus = 0;
-									deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
-								}, 5000);
+									iIntervalWakeOnLan = setInterval(function() {
+										SendWol({
+											tabMac: tabMac
+										}, sBroadcast);
+									}, 5000);
+									iTimeoutSourceStatus = setTimeout(function() {
+										iTimeoutSourceStatus = 0;
+										deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
+									}, 5000);
+								}
 							}
-						}
-					]);
+						]);
+					}
 				}
 			}
+		},
+		onFailure: function(inError){
+			//Warn(oString.strGetAllInputStatusFailure + " [", inError.errorText, "]");
 		}
-	},
-	onFailure: function(inError){
-		Warn(oString.strGetAllInputStatusFailure + " [", inError.errorText, "]");
-	}
-});
+	});
+}, 1000);
 
 var deScreenConnect = null;
 var deScreenShutdown = null;
@@ -497,7 +500,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 		label: oString.strAppTittle + " " + sInputName, 
 		description: oString.strAppDescription, 
 	}, 
-	onSuccess: function(inResponse){ 
+	onSuccess: function(inResponse){
 		LogIfDebug(oString.strAddDeviceSuccess); 
 	}, 
 	onFailure: function(inError){ 
@@ -513,8 +516,8 @@ var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
 			subscribe: true
 		}, 
 		onSuccess: function(inResponse){
-			clearInterval(iIntervalSubscriptionRegisterScreenSaverRequest);
 			if(typeof(inResponse.subscribed) === "boolean") {
+				clearInterval(iIntervalSubscriptionRegisterScreenSaverRequest);
 				LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
 			} else {
 				if((AppVisible() && AppFocus())){
@@ -536,7 +539,7 @@ var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
 			} 
 		}, 
 		onFailure: function(inError){ 
-			Warn(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+			//Warn(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
 		} 
 	});
 }, 1000);
@@ -559,8 +562,8 @@ var iIntervalSubscriptionGetSensorData = setInterval(function() {
 			subscribe: true
 		},
 		onSuccess: function(inResponse) {
-			clearInterval(iIntervalSubscriptionGetSensorData);
 			if(typeof(inResponse.subscribed) === "boolean") {
+				clearInterval(iIntervalSubscriptionGetSensorData);
 				LogIfDebug(oString.strGetSensorDataSubscribe);
 	 		} else {
 				if((AppVisible() && AppFocus())){
