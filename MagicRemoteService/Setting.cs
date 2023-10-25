@@ -134,8 +134,6 @@ namespace MagicRemoteService {
 				}
 			}
 			this.bStartup = this.chkboxStartup.Checked;
-
-
 		}
 		public void PCDataSave() {
 			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService");
@@ -153,6 +151,7 @@ namespace MagicRemoteService {
 						scService.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped);
 					}
 				}
+				//Find a way to set exception handling
 				System.Configuration.Install.AssemblyInstaller ai = new System.Configuration.Install.AssemblyInstaller(System.Reflection.Assembly.GetExecutingAssembly(), this.chkboxStartup.Checked ? new string[] {"enable"} : new string[] { });
 				System.Collections.Hashtable h = new System.Collections.Hashtable();
 				ai.UseNewContext = true;

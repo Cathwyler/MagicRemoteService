@@ -53,6 +53,7 @@ namespace MagicRemoteService {
 		private static readonly uint SessionId = WinApi.Kernel32.WTSGetActiveConsoleSessionId();
 
 		private static System.Threading.ManualResetEvent mreStop = new System.Threading.ManualResetEvent(true);
+		private static System.Threading.EventWaitHandle ewhSessionReady;
 		private static System.Threading.Semaphore mServer;
 		private static System.Threading.Semaphore mClient;
 		private static System.Threading.EventWaitHandle ewhServiceStarted;
@@ -78,13 +79,18 @@ namespace MagicRemoteService {
 
 		public Service() {
 			this.InitializeComponent();
+			Microsoft.Win32.SystemEvents.SessionEnding += this.SessionEndingEvent;
 			if(!System.Diagnostics.EventLog.SourceExists(this.ServiceName)) {
 				System.Diagnostics.EventLog.CreateEventSource(this.ServiceName, "Application");
 			}
 			this.elEventLog.Source = this.ServiceName;
 			this.elEventLog.Log = "Application";
 		}
+		public void SessionEndingEvent(object sender, Microsoft.Win32.SessionEndingEventArgs e) {
+			Service.ewhSessionReady.Reset();
+		}
 		public void ServiceStart() {
+			Service.ewhSessionReady = new System.Threading.EventWaitHandle(true, System.Threading.EventResetMode.ManualReset, "Global\\{A3B6433E-4916-4C54-88EE-C12694CABDE5}", out _, Program.ewhsAll);
 			Service.ewhServiceStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, "Global\\{FFB31601-E362-48A5-B9A2-5DF29A3B06C1}", out _, Program.ewhsAll);
 			Service.ewhServiceStoped = new System.Threading.EventWaitHandle(true, System.Threading.EventResetMode.ManualReset, "Global\\{A99BF327-CEF0-4B97-979B-A7BC9FC007C0}", out _, Program.ewhsAll);
 			Service.ewhClientStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, "Global\\{9878BC83-46A0-412B-86B6-10F1C43FC0D9}", out _, Program.ewhsAll);
@@ -344,6 +350,8 @@ namespace MagicRemoteService {
 					Service.mClient.Dispose();
 					break;
 			}
+			Service.ewhSessionReady.Close();
+			Service.ewhSessionReady.Dispose();
 			Service.ewhServiceStarted.Close();
 			Service.ewhServiceStarted.Dispose();
 			Service.ewhServiceStoped.Close();
@@ -362,6 +370,22 @@ namespace MagicRemoteService {
 		}
 		protected override void OnStop() {
 			this.ServiceStop();
+		}
+		protected override void OnSessionChange(System.ServiceProcess.SessionChangeDescription changeDescription) {
+			switch(changeDescription.Reason) {
+				case System.ServiceProcess.SessionChangeReason.SessionLogoff:
+				case System.ServiceProcess.SessionChangeReason.ConsoleDisconnect:
+				case System.ServiceProcess.SessionChangeReason.RemoteDisconnect:
+					Service.ewhSessionReady.Reset();
+					break;
+				case System.ServiceProcess.SessionChangeReason.SessionLogon:
+				case System.ServiceProcess.SessionChangeReason.ConsoleConnect:
+				case System.ServiceProcess.SessionChangeReason.RemoteConnect:
+					Service.ewhSessionReady.Set();
+					break;
+				default:
+					break;
+			}
 		}
 		public void Log(string sLog) {
 			this.elEventLog.WriteEntry(sLog, System.Diagnostics.EventLogEntryType.Information);
@@ -523,14 +547,10 @@ namespace MagicRemoteService {
 									break;
 								case 3:
 									if(!Service.ewhClientStarted.WaitOne(System.TimeSpan.Zero, true)) {
-										Service.mClient = new System.Threading.Semaphore(1, 1, "Global\\{C4CCA362-510C-4E66-A316-29F9ADE7F664}", out _, MagicRemoteService.Program.ssAll);
-										Service.mClient.WaitOne(-1, true);
-										Service.mClient.Release();
-										Service.mClient.Close();
-										Service.mClient.Dispose();
 										if(piProcess.hProcess != System.IntPtr.Zero && !WaitProcess(piProcess, 0)) {
 											WaitProcess(piProcess);
 										}
+										Service.ewhSessionReady.WaitOne();
 										OpenUserInteractiveProcess(System.Reflection.Assembly.GetExecutingAssembly().Location, "-c", out piProcess);
 									}
 									if(!psServer.IsConnected) {
@@ -935,15 +955,20 @@ namespace MagicRemoteService {
 					}
 				};
 
+				//Find a better way for this
+				uint uiDisplay;
 				MagicRemoteService.WebOSCLIDevice wocdClient = System.Array.Find<MagicRemoteService.WebOSCLIDevice>(MagicRemoteService.WebOSCLI.SetupDeviceList(), delegate (MagicRemoteService.WebOSCLIDevice wocd) {
 					return wocd.DeviceInfo.IP.Equals(((System.Net.IPEndPoint)socClient.RemoteEndPoint).Address);
 				});
-				uint uiDisplay;
-				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
-				if(rkMagicRemoteServiceDevice == null) {
+				if(wocdClient == null) {
 					uiDisplay = 0;
 				} else {
-					uiDisplay = (uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", 0);
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
+					if(rkMagicRemoteServiceDevice == null) {
+						uiDisplay = 0;
+					} else {
+						uiDisplay = (uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", 0);
+					}
 				}
 
 				MagicRemoteService.Screen scr;

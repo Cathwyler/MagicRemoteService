@@ -549,5 +549,8 @@ namespace MagicRemoteService.WinApi {
 
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int DisplayConfigGetDeviceInfo(ref DisplayConfigTargetDeviceName requestPacket);
+
+		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+		public static extern uint RegisterWindowMessage(string lpString);
 	}
 }
