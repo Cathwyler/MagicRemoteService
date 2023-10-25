@@ -1,5 +1,4 @@
 ﻿namespace MagicRemoteService {
-
 	static public class Program {
 
 		public static readonly System.Security.AccessControl.MutexSecurity msAll;
@@ -35,8 +34,6 @@
 					System.Windows.Forms.Application.EnableVisualStyles();
 					System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 					MagicRemoteService.Application aApplication = new MagicRemoteService.Application();
-					System.Windows.Forms.Control cInvoker = new System.Windows.Forms.Control();
-					cInvoker.CreateControl();
 					System.Threading.ManualResetEvent mreStop = new System.Threading.ManualResetEvent(false);
 					System.Threading.Thread tEvent = new System.Threading.Thread(delegate () {
 						System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] { mreStop, ewhShow };
@@ -47,7 +44,7 @@
 									bAlive = false;
 									break;
 								case 1:
-									cInvoker.BeginInvoke((System.Action)delegate () {
+									aApplication.BeginInvoke((System.Action)delegate () {
 										aApplication.Setting(ewhShow, new System.EventArgs());
 									});
 									break;
@@ -60,7 +57,6 @@
 
 					mreStop.Set();
 					tEvent.Join();
-					cInvoker.Dispose();
 				} else {
 					ewhShow.Set();
 				}

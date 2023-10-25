@@ -1,54 +1,64 @@
 ﻿
 namespace MagicRemoteService {
 
-	class MessageFilter : System.Windows.Forms.IMessageFilter {
+	public delegate void WndProcEventHandler(ref System.Windows.Forms.Message m);
+	public class Message : System.Windows.Forms.IMessageFilter {
+		public static event WndProcEventHandler WndProcEvent;
 
-		public delegate void WndProc(ref System.Windows.Forms.Message m);
-		private WndProc wp;
-		public MessageFilter(WndProc wp) {
-			this.wp = wp;
+		public Message() {
+			System.Windows.Forms.Application.AddMessageFilter(this);
 		}
 		public bool PreFilterMessage(ref System.Windows.Forms.Message m) {
-			this.wp(ref m);
-			return true;
+			Message.WndProcEvent(ref m);
+			return false;
 		}
 	}
+	public class Invoker : System.Windows.Forms.Control {
+		public Invoker() {
+			this.CreateControl();
+		}
+	}
+
 	class Application : System.Windows.Forms.ApplicationContext {
-		private static readonly string strDirectorySeparatorChar = System.IO.Path.DirectorySeparatorChar.ToString();
-		private static readonly string strAltDirectorySeparatorChar = System.IO.Path.DirectorySeparatorChar.ToString();
+
+		private static readonly uint uiTaskbarCreated = WinApi.User32.RegisterWindowMessage("TaskbarCreated");
+		private static readonly MagicRemoteService.Message mMessage = new MagicRemoteService.Message();
+		private static readonly MagicRemoteService.Invoker cInvoker = new MagicRemoteService.Invoker();
+
 		private MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
-		private System.Windows.Forms.NotifyIcon niIcon = new System.Windows.Forms.NotifyIcon();
+		private System.Windows.Forms.NotifyIcon niIcon = null;
 		private MagicRemoteService.Setting sSetting = null;
-		private uint uiTaskbarCreated;
 		public Application() {
 			Microsoft.Win32.SystemEvents.SessionEnded += this.SessionEndedEvent;
 			Microsoft.Win32.SystemEvents.SessionSwitch += this.SessionSwitchEvent;
-			this.niIcon.Icon = MagicRemoteService.Properties.Resources.MagicRemoteService;
-			this.niIcon.ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] {
-				new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationSetting, this.Setting),
-				new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationExit, this.Exit)
-			});
-			this.niIcon.DoubleClick += this.Setting;
-			this.niIcon.Visible = true;
-			System.Windows.Forms.Application.AddMessageFilter(new MessageFilter(this.WndProc));
-			this.uiTaskbarCreated = WinApi.User32.RegisterWindowMessage("TaskbarCreated");
+			MagicRemoteService.Message.WndProcEvent += this.WndProc;
 
 			this.mrsService.ServiceStart();
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
-			if(rkMagicRemoteService == null) {
+
+			this.Icon(this, new System.EventArgs());
+			if((MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService") == null) {
 				this.Setting(this, new System.EventArgs());
 			}
 		}
+		public void BeginInvoke(System.Delegate methode) {
+			MagicRemoteService.Application.cInvoker.BeginInvoke(methode);
+		}
+
 		void WndProc(ref System.Windows.Forms.Message m) {
+			System.Console.WriteLine(m.ToString());
 			switch(m.Msg) {
+				case 0x0001:
+					
+					break;
 				default:
-					if(m.Msg == this.uiTaskbarCreated) {
-						this.niIcon.Visible = false;
-						this.niIcon.Visible = true;
+					if(m.Msg == MagicRemoteService.Application.uiTaskbarCreated) {
+						this.niIcon.Dispose();
+						this.Icon(this, new System.EventArgs());
 					}
 					break;
 			}
 		}
+
 		public void SessionEndedEvent(object sender, Microsoft.Win32.SessionEndedEventArgs e) {
 			this.Dispose();
 		}
@@ -60,10 +70,24 @@ namespace MagicRemoteService {
 			if(disposing) {
 				this.mrsService.Dispose();
 				this.niIcon.Dispose();
+				if(this.sSetting == null || this.sSetting.IsDisposed) {
+					this.sSetting.Dispose();
+				}
 				Microsoft.Win32.SystemEvents.SessionEnded -= this.SessionEndedEvent;
 				Microsoft.Win32.SystemEvents.SessionSwitch -= this.SessionSwitchEvent;
+				MagicRemoteService.Message.WndProcEvent -= this.WndProc;
 			}
 			base.Dispose(disposing);
+		}
+		public void Icon(object sender, System.EventArgs e) {
+			this.niIcon = new System.Windows.Forms.NotifyIcon();
+			this.niIcon.Icon = MagicRemoteService.Properties.Resources.MagicRemoteService;
+			this.niIcon.ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] {
+				new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationSetting, this.Setting),
+				new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationExit, this.Exit)
+			});
+			this.niIcon.DoubleClick += this.Setting;
+			this.niIcon.Visible = true;
 		}
 		public void Setting(object sender, System.EventArgs e) {
 			if(this.sSetting == null || this.sSetting.IsDisposed) {
