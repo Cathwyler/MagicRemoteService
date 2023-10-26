@@ -17,18 +17,27 @@ namespace MagicRemoteService {
 			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			InitializeComponent();
 			this._wcdTV = new MagicRemoteService.WebOSCLIDevice() {
-				DeviceInfo = new WebOSCLIDeviceInfo(),
-				DeviceDetail = new WebOSCLIDeviceDetail()
+				Name = "",
+				DeviceInfo = new WebOSCLIDeviceInfo() {
+					IP = null,
+					Port = 9922,
+					User = "prisoner"
+				},
+				DeviceDetail = new WebOSCLIDeviceDetail() {
+					Description = "",
+					PrivateKey = "",
+					Passphrase = ""
+				}
 			};
 			if(wcdTV == null) {
 				this.cbAdvanced.Checked = false;
-				this.tbName.Text = "";
-				this.tbDescription.Text = "";
-				this.ipadrboxIP.Value = null;
-				this.numboxSendPort.Value = 9922;
-				this.tbUser.Text = "prisoner";
-				this.tbPrivateKey.Text = "";
-				this.tbPassphrase.Text = "";
+				this.tbName.Text = this._wcdTV.Name;
+				this.tbDescription.Text = this._wcdTV.DeviceDetail.Description;
+				this.ipadrboxIP.Value = this._wcdTV.DeviceInfo.IP;
+				this.numboxSendPort.Value = this._wcdTV.DeviceInfo.Port;
+				this.tbUser.Text = this._wcdTV.DeviceInfo.User;
+				this.tbPrivateKey.Text = this._wcdTV.DeviceDetail.PrivateKey;
+				this.tbPassphrase.Text = this._wcdTV.DeviceDetail.Passphrase;
 			} else {
 				this.cbAdvanced.Checked = true;
 				this.tbName.Text = wcdTV.Name;

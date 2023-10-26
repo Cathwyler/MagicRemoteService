@@ -184,7 +184,7 @@ deSource.setAttribute("src", sInputSource);
 deSource.setAttribute("type", "service/webos-external;mediaOption=" + encodeURI(JSON.stringify(options)));
 
 var deVideo = document.getElementById("video");
-video.appendChild(deSource);
+deVideo.appendChild(deSource);
 
 var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
@@ -224,7 +224,7 @@ var iIntervalSubscriptionGetAllInputStatus = setInterval(function() {
 							Connect();
 						}
 					} else {
-						if(AppVisible()) {
+						if(pbLastInputSourceStatus !== null && AppVisible()) {
 							Close();
 						}
 						deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [

@@ -1,37 +1,26 @@
 ﻿
 namespace MagicRemoteService {
-
-	public delegate void WndProcEventHandler(ref System.Windows.Forms.Message m);
-	public class Message : System.Windows.Forms.IMessageFilter {
-		public static event WndProcEventHandler WndProcEvent;
-
-		public Message() {
-			System.Windows.Forms.Application.AddMessageFilter(this);
-		}
-		public bool PreFilterMessage(ref System.Windows.Forms.Message m) {
-			Message.WndProcEvent(ref m);
-			return false;
-		}
-	}
 	public class Invoker : System.Windows.Forms.Control {
 		public Invoker() {
 			this.CreateControl();
 		}
 	}
+	public class Watcher : System.Management.ManagementEventWatcher {
+		public Watcher(string strQuery) : base(strQuery) {
+			this.Start();
+		}
+	}
 
 	class Application : System.Windows.Forms.ApplicationContext {
-
-		private static readonly uint uiTaskbarCreated = WinApi.User32.RegisterWindowMessage("TaskbarCreated");
-		private static readonly MagicRemoteService.Message mMessage = new MagicRemoteService.Message();
-		private static readonly MagicRemoteService.Invoker cInvoker = new MagicRemoteService.Invoker();
-
+		private static readonly MagicRemoteService.Invoker iInvoker = new MagicRemoteService.Invoker();
+		private static readonly MagicRemoteService.Watcher wExplorer = new MagicRemoteService.Watcher("SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = \"explorer.exe\"");
 		private MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
-		private System.Windows.Forms.NotifyIcon niIcon = null;
-		private MagicRemoteService.Setting sSetting = null;
+		private System.Windows.Forms.NotifyIcon niIcon;
+		private MagicRemoteService.Setting sSetting;
 		public Application() {
+			MagicRemoteService.Application.wExplorer.EventArrived += this.ExplorerStartEvent;
 			Microsoft.Win32.SystemEvents.SessionEnded += this.SessionEndedEvent;
 			Microsoft.Win32.SystemEvents.SessionSwitch += this.SessionSwitchEvent;
-			MagicRemoteService.Message.WndProcEvent += this.WndProc;
 
 			this.mrsService.ServiceStart();
 
@@ -41,24 +30,12 @@ namespace MagicRemoteService {
 			}
 		}
 		public void BeginInvoke(System.Delegate methode) {
-			MagicRemoteService.Application.cInvoker.BeginInvoke(methode);
+			MagicRemoteService.Application.iInvoker.BeginInvoke(methode);
 		}
-
-		void WndProc(ref System.Windows.Forms.Message m) {
-			System.Console.WriteLine(m.ToString());
-			switch(m.Msg) {
-				case 0x0001:
-					
-					break;
-				default:
-					if(m.Msg == MagicRemoteService.Application.uiTaskbarCreated) {
-						this.niIcon.Dispose();
-						this.Icon(this, new System.EventArgs());
-					}
-					break;
-			}
+		public void ExplorerStartEvent(object sender, System.Management.EventArrivedEventArgs e) {
+			this.niIcon.Dispose();
+			this.Icon(this, new System.EventArgs());
 		}
-
 		public void SessionEndedEvent(object sender, Microsoft.Win32.SessionEndedEventArgs e) {
 			this.Dispose();
 		}
@@ -70,12 +47,13 @@ namespace MagicRemoteService {
 			if(disposing) {
 				this.mrsService.Dispose();
 				this.niIcon.Dispose();
-				if(this.sSetting == null || this.sSetting.IsDisposed) {
+				if(!this.sSetting.IsDisposed) {
 					this.sSetting.Dispose();
 				}
-				Microsoft.Win32.SystemEvents.SessionEnded -= this.SessionEndedEvent;
+
 				Microsoft.Win32.SystemEvents.SessionSwitch -= this.SessionSwitchEvent;
-				MagicRemoteService.Message.WndProcEvent -= this.WndProc;
+				Microsoft.Win32.SystemEvents.SessionSwitch -= this.SessionSwitchEvent;
+				MagicRemoteService.Application.wExplorer.EventArrived -= this.ExplorerStartEvent;
 			}
 			base.Dispose(disposing);
 		}
@@ -92,8 +70,8 @@ namespace MagicRemoteService {
 		public void Setting(object sender, System.EventArgs e) {
 			if(this.sSetting == null || this.sSetting.IsDisposed) {
 				this.sSetting = new MagicRemoteService.Setting(this.mrsService);
-				this.sSetting.Show();
 			}
+			this.sSetting.Show();
 			this.sSetting.Activate();
 			this.sSetting.WindowState = System.Windows.Forms.FormWindowState.Normal;
 		}

@@ -252,7 +252,7 @@ namespace MagicRemoteService {
 					} else {
 						this.cmbboxInput.SelectedValue = sInputId;
 					}
-					this.cmbboxDisplay.SelectedValue = (uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", (int)(uint)this.cmbboxDisplay.SelectedValue);
+					this.cmbboxDisplay.SelectedValue = (uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", 0);
 					string sIp = (string)rkMagicRemoteServiceDevice.GetValue("SendIp");
 					if(sIp == null) {
 						this.ipadrboxSendIP.Value = MagicRemoteService.Setting.ipaSendIPDefaut;
@@ -691,8 +691,8 @@ namespace MagicRemoteService {
 						System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 					} else {
 						this.Enabled = true;
-						this.btnTVRefresh_Click(this, new System.EventArgs());
 					}
+					this.btnTVRefresh_Click(this, new System.EventArgs());
 					break;
 				default:
 					break;
@@ -729,8 +729,8 @@ namespace MagicRemoteService {
 							System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 						} else {
 							this.Enabled = true;
-							this.btnTVRefresh_Click(this, new System.EventArgs());
 						}
+						this.btnTVRefresh_Click(this, new System.EventArgs());
 						break;
 					default:
 						break;
