@@ -47,14 +47,6 @@ namespace MagicRemoteService.WinApi {
 		MOUSEEVENTF_VIRTUALDESK = 0x4000,
 		MOUSEEVENTF_ABSOLUTE = 0x8000
 	}
-	public enum MapTypeFlags : uint {
-		MAPVK_VK_TO_VSC = 0,
-		MAPVK_VSC_TO_VK = 1,
-		MAPVK_VK_TO_CHAR = 2,
-		MAPVK_VSC_TO_VK_EX = 3,
-		MAPVK_VK_TO_VSC_EX = 04
-	}
-	[System.Flags]
 	public enum QueryDisplayConfigFlags : uint {
 		QDC_ALL_PATHS = 0x00000001,
 		QDC_ONLY_ACTIVE_PATHS = 0x00000002,
@@ -90,7 +82,6 @@ namespace MagicRemoteService.WinApi {
 		DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL = 0x80000000,
 		DISPLAYCONFIG_OUTPUT_TECHNOLOGY_FORCE_UINT32 = 0xFFFFFFFF
 	}
-
 	public enum DisplayConfigScanlineOrdering : uint {
 		DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED = 0,
 		DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE = 1,
@@ -99,7 +90,6 @@ namespace MagicRemoteService.WinApi {
 		DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST = 3,
 		DISPLAYCONFIG_SCANLINE_ORDERING_FORCE_UINT32 = 0xFFFFFFFF
 	}
-
 	public enum DisplayConfigRotation : uint {
 		DISPLAYCONFIG_ROTATION_IDENTITY = 1,
 		DISPLAYCONFIG_ROTATION_ROTATE90 = 2,
@@ -107,7 +97,6 @@ namespace MagicRemoteService.WinApi {
 		DISPLAYCONFIG_ROTATION_ROTATE270 = 4,
 		DISPLAYCONFIG_ROTATION_FORCE_UINT32 = 0xFFFFFFFF
 	}
-
 	public enum DisplayConfigScaling : uint {
 		DISPLAYCONFIG_SCALING_IDENTITY = 1,
 		DISPLAYCONFIG_SCALING_CENTERED = 2,
@@ -117,7 +106,6 @@ namespace MagicRemoteService.WinApi {
 		DISPLAYCONFIG_SCALING_PREFERRED = 128,
 		DISPLAYCONFIG_SCALING_FORCE_UINT32 = 0xFFFFFFFF
 	}
-
 	public enum DisplayConfigPixelFormat : uint {
 		DISPLAYCONFIG_PIXELFORMAT_8BPP = 1,
 		DISPLAYCONFIG_PIXELFORMAT_16BPP = 2,
@@ -126,14 +114,12 @@ namespace MagicRemoteService.WinApi {
 		DISPLAYCONFIG_PIXELFORMAT_NONGDI = 5,
 		DISPLAYCONFIG_PIXELFORMAT_FORCE_UINT32 = 0xFFFFFFFF
 	}
-
 	public enum DisplayConfigModeInfoType : uint {
 		DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE = 1,
 		DISPLAYCONFIG_MODE_INFO_TYPE_TARGET = 2,
 		DISPLAYCONFIG_MODE_INFO_TYPE_DESKTOP_IMAGE = 3,
 		DISPLAYCONFIG_MODE_INFO_TYPE_FORCE_UINT32 = 0xFFFFFFFF
 	}
-
 	public enum DisplayConfigDeviceInfoType : uint {
 		DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME = 1,
 		DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME = 2,
@@ -156,37 +142,30 @@ namespace MagicRemoteService.WinApi {
 		DISPLAYCONFIG_PATH_BOOST_REFRESH_RATE = 0x00000008,
 		DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE = 0x00000010
 	}
-
 	[System.Flags]
 	public enum DisplayConfigPathInfoIdx : uint {
 		DISPLAYCONFIG_PATH_MODE_IDX_INVALID = 0xFFFFFFFF
 	}
-
 	[System.Flags]
 	public enum DisplayConfigPathSourceInfoSourceIdx : uint {
 		DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID = 0xFFFF
 	}
-
 	[System.Flags]
 	public enum DisplayConfigPathSourceInfoCloneGroup : uint {
 		DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID = 0xFFFF
 	}
-
 	[System.Flags]
 	public enum DisplayConfigPathTargetInfoDesktopIdx : uint {
 		DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID = 0xFFFF
 	}
-
 	[System.Flags]
 	public enum DisplayConfigPathTargetInfoTargetIdx : uint {
 		DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID = 0xFFFF
 	}
-
 	[System.Flags]
 	public enum DisplayConfigPathSourceInfoFlags : uint {
 		DISPLAYCONFIG_SOURCE_IN_USE = 0x00000001
 	}
-
 	[System.Flags]
 	public enum DisplayConfigPathTargetInfoFlags : uint {
 		DISPLAYCONFIG_TARGET_IN_USE = 0x00000001,
@@ -231,7 +210,6 @@ namespace MagicRemoteService.WinApi {
 		D3DKMDT_VSS_PAL_M,
 		D3DKMDT_VSS_OTHER
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct MouseInput {
 		public int dx;
@@ -294,14 +272,12 @@ namespace MagicRemoteService.WinApi {
 		public int right;
 		public int bottom;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathSourceInfoDummyStructName {
 		private readonly uint ui;
 		public DisplayConfigPathSourceInfoCloneGroup cloneGroupId { get { return (DisplayConfigPathSourceInfoCloneGroup)((ui & 0x0000FFFF) >> 0); } }
 		public DisplayConfigPathSourceInfoSourceIdx sourceModeInfoIdx { get { return (DisplayConfigPathSourceInfoSourceIdx)((ui & 0xFFFF0000) >> 16); } }
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigPathSourceInfoDummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)]
@@ -309,7 +285,6 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.FieldOffset(0)]
 		public DisplayConfigPathSourceInfoDummyStructName s;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathSourceInfo {
 		public LUid adapterId;
@@ -317,14 +292,12 @@ namespace MagicRemoteService.WinApi {
 		public DisplayConfigPathSourceInfoDummyUnionName u;
 		public DisplayConfigPathSourceInfoFlags statusFlags;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathTargetInfoDummyStructName {
 		private readonly uint ui;
 		public DisplayConfigPathTargetInfoDesktopIdx desktopModeInfoIdx { get { return (DisplayConfigPathTargetInfoDesktopIdx)((ui & 0x0000FFFF) >> 0); } }
 		public DisplayConfigPathTargetInfoTargetIdx targetModeInfoIdx { get { return (DisplayConfigPathTargetInfoTargetIdx)((ui & 0xFFFF0000) >> 16); } }
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigPathTargetInfoDummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)]
@@ -345,27 +318,22 @@ namespace MagicRemoteService.WinApi {
 		public bool targetAvailable;
 		public DisplayConfigPathTargetInfoFlags statusFlags;
 	}
-
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathInfo {
 		public DisplayConfigPathSourceInfo sourceInfo;
 		public DisplayConfigPathTargetInfo targetInfo;
 		public DisplayConfigPathInfoFlags flags;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigRational {
 		public uint Numerator;
 		public uint Denominator;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfig2DRegion {
 		public uint cx;
 		public uint cy;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigVideoSignalInfoStructName {
 		private readonly uint ui;
@@ -373,7 +341,6 @@ namespace MagicRemoteService.WinApi {
 		public uint vSyncFreqDivider { get { return (uint)((ui & 0x0003F0000) >> 16); } }
 		public uint reserved { get { return (uint)((ui & 0xFFFC0000) >> 22); } }
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigVideoSignalInfoDummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)]
@@ -381,7 +348,6 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.FieldOffset(0)]
 		public D3DkmdtVideoSignalStandard videoStandard;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigVideoSignalInfo {
 		public ulong pixelRate;
@@ -392,12 +358,10 @@ namespace MagicRemoteService.WinApi {
 		public DisplayConfigVideoSignalInfoDummyUnionName u;
 		public DisplayConfigScanlineOrdering scanLineOrdering;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigTargetMode {
 		public DisplayConfigVideoSignalInfo targetVideoSignalInfo;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigSourceMode {
 		public uint width;
@@ -405,14 +369,12 @@ namespace MagicRemoteService.WinApi {
 		public DisplayConfigPixelFormat pixelFormat;
 		public PointL position;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigDesktopImageInfo {
 		public PointL PathSourceSize;
 		public RectL DesktopImageRegion;
 		public RectL DesktopImageClip;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigModeInfoDummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)]
@@ -422,7 +384,6 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.FieldOffset(0)]
 		public DisplayConfigDesktopImageInfo desktopImageInfo;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigModeInfo {
 		public DisplayConfigModeInfoType infoType;
@@ -430,7 +391,6 @@ namespace MagicRemoteService.WinApi {
 		public LUid adapterId;
 		public DisplayConfigModeInfoDummyUnionName u;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigTargetDeviceNameFlagsStructName {
 		private readonly uint ui;
@@ -439,7 +399,6 @@ namespace MagicRemoteService.WinApi {
 		public uint edidIdsValid { get { return (uint)((ui & 0x00000004) >> 2); } }
 		public uint reserved { get { return (uint)((ui & 0xFFFFFFF8) >> 3); } }
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigTargetDeviceNameFlagsDummyUnionName {
 		[System.Runtime.InteropServices.FieldOffset(0)]
@@ -447,12 +406,10 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.FieldOffset(0)]
 		public uint value;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigTargetDeviceNameFlags {
 		public DisplayConfigTargetDeviceNameFlagsDummyUnionName u;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigDeviceInfoHeader {
 		public DisplayConfigDeviceInfoType type;
@@ -460,14 +417,12 @@ namespace MagicRemoteService.WinApi {
 		public LUid adapterId;
 		public uint id;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Unicode)]
 	public struct DisplayConfigSourceDeviceName {
 		public DisplayConfigDeviceInfoHeader header;
 		[System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 32)]
 		public string viewGdiDeviceName;
 	}
-
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Unicode)]
 	public struct DisplayConfigTargetDeviceName {
 		public DisplayConfigDeviceInfoHeader header;
@@ -481,76 +436,40 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 128)]
 		public string monitorDevicePath;
 	}
-
 	static class User32 {
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int GetKeyNameText(int lParam, System.Text.StringBuilder lpString, int cchSize);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SetSystemCursor(System.IntPtr hcur, uint id);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern System.IntPtr LoadCursor(System.IntPtr hInstance, int lpCursorName);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern System.IntPtr CreateCursor(System.IntPtr hInst, int xHotSpot, int yHotSpot, int nWidth, int nHeight, byte[] pvANDPlane, byte[] pvXORPlane);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern System.IntPtr CopyIcon(System.IntPtr pcur);
-
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern System.IntPtr GetProcessWindowStation();
-
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern System.IntPtr OpenWindowStation(string lpszWinSta, bool fInherit, uint dwDesiredAccess);
-
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern bool CloseWindowStation(System.IntPtr hWinsta);
-
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern bool SetProcessWindowStation(System.IntPtr hWinSta);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern System.IntPtr OpenInputDesktop(uint dwFlags, bool fInherit, uint dwDesiredAccess);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool CloseDesktop(System.IntPtr hDesktop);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern System.IntPtr GetThreadDesktop(uint dwThreadId);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SetThreadDesktop(System.IntPtr hDesktop);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);
-
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern uint MapVirtualKey(uint uCode, MapTypeFlags uMapType);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern System.IntPtr GetMessageExtraInfo();
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool GetLastInputInfo(ref LastInputInfo plii);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int GetDisplayConfigBufferSizes(QueryDisplayConfigFlags flags, out uint numPathArrayElements, out uint numModeInfoArrayElements);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int QueryDisplayConfig(QueryDisplayConfigFlags flags, ref uint numPathArrayElements, [System.Runtime.InteropServices.Out] DisplayConfigPathInfo[] pathArray, ref uint numModeInfoArrayElements, [System.Runtime.InteropServices.Out] DisplayConfigModeInfo[] modeInfoArray, out DisplayConfigTopology currentTopologyId);
-		
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int QueryDisplayConfig(QueryDisplayConfigFlags flags, ref uint numPathArrayElements, [System.Runtime.InteropServices.Out] DisplayConfigPathInfo[] pathArray, ref uint numModeInfoArrayElements, [System.Runtime.InteropServices.Out] DisplayConfigModeInfo[] modeInfoArray, System.IntPtr currentTopologyId);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int DisplayConfigGetDeviceInfo(ref DisplayConfigSourceDeviceName requestPacket);
-
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int DisplayConfigGetDeviceInfo(ref DisplayConfigTargetDeviceName requestPacket);
-
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern uint RegisterWindowMessage(string lpString);
 	}
 }

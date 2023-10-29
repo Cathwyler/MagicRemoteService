@@ -10,7 +10,6 @@ namespace MagicRemoteService {
 			this.Start();
 		}
 	}
-
 	class Application : System.Windows.Forms.ApplicationContext {
 		private static readonly MagicRemoteService.Invoker iInvoker = new MagicRemoteService.Invoker();
 		private static readonly MagicRemoteService.Watcher wExplorer = new MagicRemoteService.Watcher("SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = \"explorer.exe\"");
@@ -19,40 +18,29 @@ namespace MagicRemoteService {
 		private MagicRemoteService.Setting sSetting;
 		public Application() {
 			MagicRemoteService.Application.wExplorer.EventArrived += this.ExplorerStartEvent;
-			Microsoft.Win32.SystemEvents.SessionEnded += this.SessionEndedEvent;
-			Microsoft.Win32.SystemEvents.SessionSwitch += this.SessionSwitchEvent;
 
 			this.mrsService.ServiceStart();
 
-			this.Icon(this, new System.EventArgs());
+			this.Icon(this, System.EventArgs.Empty);
 			if((MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService") == null) {
-				this.Setting(this, new System.EventArgs());
+				this.Setting(this, System.EventArgs.Empty);
 			}
 		}
-		public void BeginInvoke(System.Delegate methode) {
-			MagicRemoteService.Application.iInvoker.BeginInvoke(methode);
+		public void Invoke(System.Delegate methode) {
+			MagicRemoteService.Application.iInvoker.Invoke(methode);
 		}
 		public void ExplorerStartEvent(object sender, System.Management.EventArrivedEventArgs e) {
 			this.niIcon.Dispose();
-			this.Icon(this, new System.EventArgs());
-		}
-		public void SessionEndedEvent(object sender, Microsoft.Win32.SessionEndedEventArgs e) {
-			this.Dispose();
-		}
-		public void SessionSwitchEvent(object sender, Microsoft.Win32.SessionSwitchEventArgs e) {
-			System.Windows.Forms.Application.Exit();
+			this.Icon(this, System.EventArgs.Empty);
 		}
 		protected override void Dispose(bool disposing) {
-			this.mrsService.ServiceStop();
 			if(disposing) {
+				this.mrsService.ServiceStop();
 				this.mrsService.Dispose();
 				this.niIcon.Dispose();
 				if(!this.sSetting.IsDisposed) {
 					this.sSetting.Dispose();
 				}
-
-				Microsoft.Win32.SystemEvents.SessionSwitch -= this.SessionSwitchEvent;
-				Microsoft.Win32.SystemEvents.SessionSwitch -= this.SessionSwitchEvent;
 				MagicRemoteService.Application.wExplorer.EventArrived -= this.ExplorerStartEvent;
 			}
 			base.Dispose(disposing);

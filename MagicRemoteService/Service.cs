@@ -18,7 +18,7 @@ namespace MagicRemoteService {
 		Wheel = 0x01,
 		Visible = 0x02,
 		Key = 0x03,
-		Unicode= 0x04,
+		Unicode = 0x04,
 		Shutdown = 0x05
 	}
 	public partial class Service : System.ServiceProcess.ServiceBase {
@@ -53,15 +53,9 @@ namespace MagicRemoteService {
 		private static readonly uint SessionId = WinApi.Kernel32.WTSGetActiveConsoleSessionId();
 
 		private static System.Threading.ManualResetEvent mreStop = new System.Threading.ManualResetEvent(true);
-		private static System.Threading.EventWaitHandle ewhSessionReady;
-		private static System.Threading.Semaphore mServer;
-		private static System.Threading.Semaphore mClient;
+		private static System.Threading.AutoResetEvent areSession = new System.Threading.AutoResetEvent(false);
 		private static System.Threading.EventWaitHandle ewhServiceStarted;
-		private static System.Threading.EventWaitHandle ewhServiceStoped;
 		private static System.Threading.EventWaitHandle ewhClientStarted;
-		private static System.Threading.EventWaitHandle ewhClientStoped;
-		private static System.Threading.EventWaitHandle ewhClientOnStart;
-		private static System.Threading.EventWaitHandle ewhClientOnStop;
 
 		public WinApi.ServiceCurrentState State {
 			get {
@@ -79,43 +73,22 @@ namespace MagicRemoteService {
 
 		public Service() {
 			this.InitializeComponent();
-			Microsoft.Win32.SystemEvents.SessionEnding += this.SessionEndingEvent;
 			if(!System.Diagnostics.EventLog.SourceExists(this.ServiceName)) {
 				System.Diagnostics.EventLog.CreateEventSource(this.ServiceName, "Application");
 			}
 			this.elEventLog.Source = this.ServiceName;
 			this.elEventLog.Log = "Application";
 		}
-		public void SessionEndingEvent(object sender, Microsoft.Win32.SessionEndingEventArgs e) {
-			Service.ewhSessionReady.Reset();
-		}
 		public void ServiceStart() {
-			Service.ewhSessionReady = new System.Threading.EventWaitHandle(true, System.Threading.EventResetMode.ManualReset, "Global\\{A3B6433E-4916-4C54-88EE-C12694CABDE5}", out _, Program.ewhsAll);
 			Service.ewhServiceStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, "Global\\{FFB31601-E362-48A5-B9A2-5DF29A3B06C1}", out _, Program.ewhsAll);
-			Service.ewhServiceStoped = new System.Threading.EventWaitHandle(true, System.Threading.EventResetMode.ManualReset, "Global\\{A99BF327-CEF0-4B97-979B-A7BC9FC007C0}", out _, Program.ewhsAll);
 			Service.ewhClientStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, "Global\\{9878BC83-46A0-412B-86B6-10F1C43FC0D9}", out _, Program.ewhsAll);
-			Service.ewhClientStoped = new System.Threading.EventWaitHandle(true, System.Threading.EventResetMode.ManualReset, "Global\\{D68680EE-C0DC-4E48-8BED-4142DDD32B51}", out _, Program.ewhsAll);
-			Service.ewhClientOnStart = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, "Global\\{DE5E5FB8-970A-4305-869E-5AD3BC1CD7B7}", out _, Program.ewhsAll);
-			Service.ewhClientOnStop = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, "Global\\{2D55D3E0-9951-49D5-A578-41D27CE72EE5}", out _, Program.ewhsAll);
 
 			if(!System.Environment.UserInteractive) {
-				Service.mServer = new System.Threading.Semaphore(1, 1, "Global\\{4D2D4202-C4FC-41B5-BE9D-547D98A8140C}", out _, MagicRemoteService.Program.ssAll);
-				if(!Service.mServer.WaitOne(System.TimeSpan.Zero, true)) {
-					throw new System.Exception("Server already running");
-				}
 				this.stType = ServiceType.Server;
+			} else if(!Service.ewhServiceStarted.WaitOne(System.TimeSpan.Zero)) {
+				this.stType = ServiceType.Both;
 			} else {
-				Service.mClient = new System.Threading.Semaphore(1, 1, "Global\\{C4CCA362-510C-4E66-A316-29F9ADE7F664}", out _, MagicRemoteService.Program.ssAll);
-				if(!Service.mClient.WaitOne(System.TimeSpan.Zero, true)) {
-					throw new System.Exception("Client already running");
-				}
-				if(!(System.Array.IndexOf<string>(System.Environment.GetCommandLineArgs(), "-c") < 0) && System.Windows.Forms.Application.OpenForms.Count == 0) {
-					this.stType = ServiceType.Client;
-				} else  if(!Service.ewhServiceStoped.WaitOne(System.TimeSpan.Zero, true)) {
-					this.stType = ServiceType.Client;
-				} else {
-					this.stType = ServiceType.Both;
-				}
+				this.stType = ServiceType.Client;
 			}
 
 			WinApi.ServiceStatus ssServiceStatus = new WinApi.ServiceStatus();
@@ -168,11 +141,11 @@ namespace MagicRemoteService {
 				this.dKeyBind[0x0195] = new BindMouse(BindMouseValue.Right);      //Yellow -> Right click
 				this.dKeyBind[0x0196] = new BindAction(BindActionValue.Keyboard); //Blue -> Show keyboard
 				this.dKeyBind[0x01CD] = new BindKeyboard(0x0001);           //Back -> Keyboard Escape
-				this.dKeyBind[0x019F] = null;								//Play -> Play/Pause
-				this.dKeyBind[0x0013] = null;								//Pause -> Play/Pause
-				this.dKeyBind[0x01A1] = null;								//Fast-forward -> Scan Next Track
-				this.dKeyBind[0x019C] = null;								//Rewind -> Scan Previous Track
-				this.dKeyBind[0x019D] = null;								//Stop -> Stop
+				this.dKeyBind[0x019F] = null;                               //Play -> Play/Pause
+				this.dKeyBind[0x0013] = null;                               //Pause -> Play/Pause
+				this.dKeyBind[0x01A1] = null;                               //Fast-forward -> Scan Next Track
+				this.dKeyBind[0x019C] = null;                               //Rewind -> Scan Previous Track
+				this.dKeyBind[0x019D] = null;                               //Stop -> Stop
 			} else {
 				this.dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>();
 				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
@@ -226,14 +199,11 @@ namespace MagicRemoteService {
 			switch(this.stType) {
 				case ServiceType.Server:
 					Service.ewhServiceStarted.Set();
-					Service.ewhServiceStoped.Reset();
 					break;
 				case ServiceType.Both:
+					break;
 				case ServiceType.Client:
 					Service.ewhClientStarted.Set();
-					Service.ewhClientStoped.Reset();
-					Service.ewhClientOnStart.Set();
-					Service.ewhClientOnStop.Reset();
 					break;
 			}
 			Service.mreStop.Reset();
@@ -303,14 +273,11 @@ namespace MagicRemoteService {
 			switch(this.stType) {
 				case ServiceType.Server:
 					Service.ewhServiceStarted.Reset();
-					Service.ewhServiceStoped.Set();
 					break;
 				case ServiceType.Both:
+					break;
 				case ServiceType.Client:
 					Service.ewhClientStarted.Reset();
-					Service.ewhClientStoped.Set();
-					Service.ewhClientOnStart.Reset();
-					Service.ewhClientOnStop.Set();
 					break;
 			}
 			Service.mreStop.Set();
@@ -339,31 +306,15 @@ namespace MagicRemoteService {
 			}
 			switch(this.stType) {
 				case ServiceType.Server:
-					Service.mServer.Release();
-					Service.mServer.Close();
-					Service.mServer.Dispose();
 					break;
 				case ServiceType.Both:
 				case ServiceType.Client:
-					Service.mClient.Release();
-					Service.mClient.Close();
-					Service.mClient.Dispose();
 					break;
 			}
-			Service.ewhSessionReady.Close();
-			Service.ewhSessionReady.Dispose();
 			Service.ewhServiceStarted.Close();
 			Service.ewhServiceStarted.Dispose();
-			Service.ewhServiceStoped.Close();
-			Service.ewhServiceStoped.Dispose();
 			Service.ewhClientStarted.Close();
 			Service.ewhClientStarted.Dispose();
-			Service.ewhClientStoped.Close();
-			Service.ewhClientStoped.Dispose();
-			Service.ewhClientOnStart.Close();
-			Service.ewhClientOnStart.Dispose();
-			Service.ewhClientOnStop.Close();
-			Service.ewhClientOnStop.Dispose();
 		}
 		protected override void OnStart(string[] args) {
 			this.ServiceStart();
@@ -371,17 +322,18 @@ namespace MagicRemoteService {
 		protected override void OnStop() {
 			this.ServiceStop();
 		}
-		protected override void OnSessionChange(System.ServiceProcess.SessionChangeDescription changeDescription) {
-			switch(changeDescription.Reason) {
+		protected override void OnSessionChange(System.ServiceProcess.SessionChangeDescription scd) {
+			switch(scd.Reason) {
+				case System.ServiceProcess.SessionChangeReason.SessionLock:
 				case System.ServiceProcess.SessionChangeReason.SessionLogoff:
 				case System.ServiceProcess.SessionChangeReason.ConsoleDisconnect:
 				case System.ServiceProcess.SessionChangeReason.RemoteDisconnect:
-					Service.ewhSessionReady.Reset();
 					break;
+				case System.ServiceProcess.SessionChangeReason.SessionUnlock:
 				case System.ServiceProcess.SessionChangeReason.SessionLogon:
 				case System.ServiceProcess.SessionChangeReason.ConsoleConnect:
 				case System.ServiceProcess.SessionChangeReason.RemoteConnect:
-					Service.ewhSessionReady.Set();
+					Service.areSession.Set();
 					break;
 				default:
 					break;
@@ -426,7 +378,7 @@ namespace MagicRemoteService {
 				return 0;
 			}
 		}
-		private static void OpenUserInteractiveProcess(string strApplication, string strArgument, out WinApi.ProcessInformation piProcess) {
+		private static System.Diagnostics.Process OpenUserInteractiveProcess(string strApplication, string strArgument) {
 
 			uint uiSessionId = WinApi.Kernel32.WTSGetActiveConsoleSessionId();
 			if(uiSessionId == 0xFFFFFFFF) {
@@ -475,6 +427,7 @@ namespace MagicRemoteService {
 			}
 
 			WinApi.StartupInfo si = new WinApi.StartupInfo();
+			WinApi.ProcessInformation piProcess;
 			si.cb = System.Runtime.InteropServices.Marshal.SizeOf(si);
 			si.lpDesktop = "winsta0\\default";
 			if(!WinApi.Advapi32.CreateProcessAsUser(hProcessTokenDupplicate, strApplication, strArgument, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(strApplication), ref si, out piProcess)) {
@@ -485,223 +438,254 @@ namespace MagicRemoteService {
 				throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 			}
 
+
 			WinApi.Kernel32.CloseHandle(hProcessTokenDupplicate);
 			if(lpEnvironmentBlock != System.IntPtr.Zero) {
 				WinApi.Userenv.DestroyEnvironmentBlock(lpEnvironmentBlock);
 			}
-		}
-		private static bool WaitProcess(WinApi.ProcessInformation piProcess, uint dwMilliseconds = 0xFFFFFFFF) {
-			switch((WinApi.ObjectSate)WinApi.Kernel32.WaitForSingleObject(piProcess.hProcess, dwMilliseconds)) {
-				case WinApi.ObjectSate.WAIT_TIMEOUT:
-					return false;
-				case WinApi.ObjectSate.WAIT_OBJECT_0:
-					return true;
-				default:
-					throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
-			}
-		}
 
+			return System.Diagnostics.Process.GetProcessById((int)piProcess.dwProcessId);
+		}
 		private void ThreadServeur() {
 			System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
 			try {
 				switch(this.stType) {
 					case ServiceType.Server:
-						
+
 						System.Net.Sockets.Socket socServer = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
 						socServer.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, this.iPort));
 						socServer.Listen(10);
-						System.Func<System.Net.Sockets.Socket> fServer = delegate () {
-							try {
-								return socServer.Accept();
-							} catch(System.Net.Sockets.SocketException ex) {
-								switch(ex.ErrorCode) {
-									case 10004:
-										return null;
-									default:
-										throw;
-								}
-							}
-						};
-						System.Threading.Tasks.Task<System.Net.Sockets.Socket> tServer = System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(fServer);
-
+						System.Threading.CancellationTokenSource ctsServerSocketAccept = new System.Threading.CancellationTokenSource();
+						System.Threading.Tasks.Task<System.Net.Sockets.Socket> tServerSocketAccept = socServer.AcceptAsync(ctsServerSocketAccept.Token);
+						
 						System.IO.Pipes.NamedPipeServerStream psServer = new System.IO.Pipes.NamedPipeServerStream("{2DCF2389-4969-483D-AA13-58FD8DDDD2D5}", System.IO.Pipes.PipeDirection.Out, 1, System.IO.Pipes.PipeTransmissionMode.Message, System.IO.Pipes.PipeOptions.Asynchronous);
-						WinApi.ProcessInformation piProcess = new WinApi.ProcessInformation() { hProcess = System.IntPtr.Zero };
+						
+						System.Diagnostics.Process pClient = null;
 
-						System.Threading.WaitHandle[] tabEventServer = new System.Threading.WaitHandle[] { Service.mreStop, Service.ewhClientOnStart, Service.ewhClientOnStop, ((System.IAsyncResult)tServer).AsyncWaitHandle };
-						bool bAliveServer = true;
+						System.Threading.WaitHandle[] tabEventServer = new System.Threading.WaitHandle[] {
+							Service.mreStop,
+							Service.areSession,
+							((System.IAsyncResult)tServerSocketAccept).AsyncWaitHandle
+						};
 						do {
-							switch(System.Threading.WaitHandle.WaitAny(tabEventServer, -1, true)) {
+							switch(System.Threading.WaitHandle.WaitAny(tabEventServer, -1)) {
 								case 0:
-									bAliveServer = false;
 									break;
 								case 1:
-									if(!psServer.IsConnected) {
-										psServer.WaitForConnection();
-									}
-									break;
-								case 2:
 									if(psServer.IsConnected) {
 										psServer.Disconnect();
 									}
 									break;
-								case 3:
-									if(!Service.ewhClientStarted.WaitOne(System.TimeSpan.Zero, true)) {
-										if(piProcess.hProcess != System.IntPtr.Zero && !WaitProcess(piProcess, 0)) {
-											WaitProcess(piProcess);
+								case 2:
+									System.Net.Sockets.Socket socClient = tServerSocketAccept.Result;
+
+									if(pClient != null && !pClient.HasExited) {
+									} else {
+										pClient = System.Array.Find<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcessesByName("MagicRemoteService"), delegate (System.Diagnostics.Process p) {
+											return p.Id != System.Diagnostics.Process.GetCurrentProcess().Id;
+										});
+									}
+									if(pClient != null && !pClient.HasExited) {
+										System.Threading.CancellationTokenSource ctsClientProcessExited = new System.Threading.CancellationTokenSource();
+										System.Threading.Tasks.Task tClientProcessExited = pClient.WaitForExitAsync(ctsClientProcessExited.Token);
+
+										System.Threading.WaitHandle.WaitAny(new System.Threading.WaitHandle[] {
+											Service.mreStop,
+											Service.ewhClientStarted,
+											((System.IAsyncResult)tClientProcessExited).AsyncWaitHandle
+										}, -1);
+
+										ctsClientProcessExited.Cancel();
+										try { tClientProcessExited.GetAwaiter().GetResult(); } catch(System.OperationCanceledException) { };
+										ctsClientProcessExited.Dispose();
+									}
+									if(pClient != null && !pClient.HasExited) {
+									} else {
+										if(psServer.IsConnected) {
+											psServer.Disconnect();
 										}
-										Service.ewhSessionReady.WaitOne();
-										OpenUserInteractiveProcess(System.Reflection.Assembly.GetExecutingAssembly().Location, "-c", out piProcess);
+										while(WinApi.Kernel32.WTSGetActiveConsoleSessionId() == 0xFFFFFFFF) {
+											System.Threading.Thread.Sleep(10);
+										}
+										pClient = OpenUserInteractiveProcess(System.Reflection.Assembly.GetExecutingAssembly().Location, "-c");
 									}
 									if(!psServer.IsConnected) {
-										psServer.WaitForConnection();
+										System.Threading.CancellationTokenSource ctsServerPipeWaitForConnection = new System.Threading.CancellationTokenSource();
+										System.Threading.Tasks.Task tServerPipeWaitForConnection = psServer.WaitForConnectionAsync(ctsServerPipeWaitForConnection.Token);
+										
+										System.Threading.CancellationTokenSource ctsClientProcessExited = new System.Threading.CancellationTokenSource();
+										System.Threading.Tasks.Task tClientProcessExited = pClient.WaitForExitAsync(ctsClientProcessExited.Token);
+
+										System.Threading.WaitHandle.WaitAny(new System.Threading.WaitHandle[] {
+											Service.mreStop,
+											((System.IAsyncResult)tServerPipeWaitForConnection).AsyncWaitHandle,
+											((System.IAsyncResult)tClientProcessExited).AsyncWaitHandle,
+										}, -1);
+
+										ctsServerPipeWaitForConnection.Cancel();
+										try { tServerPipeWaitForConnection.GetAwaiter().GetResult(); } catch(System.OperationCanceledException) { };
+										ctsServerPipeWaitForConnection.Dispose();
+
+										ctsClientProcessExited.Cancel();
+										try { tClientProcessExited.GetAwaiter().GetResult(); } catch(System.OperationCanceledException) { };
+										ctsClientProcessExited.Dispose();
 									}
-									bf.Serialize(psServer, tServer.Result.DuplicateAndClose(System.Array.Find<System.Diagnostics.Process>(System.Diagnostics.Process.GetProcessesByName("MagicRemoteService"), delegate (System.Diagnostics.Process p) {
-										return p.Id != System.Diagnostics.Process.GetCurrentProcess().Id;
-									}).Id));
-									tServer = System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(fServer);
-									tabEventServer[3] = ((System.IAsyncResult)tServer).AsyncWaitHandle;
+									if(!psServer.IsConnected) {
+										socClient.Close();
+										socClient.Dispose();
+									} else {
+										bf.Serialize(psServer, socClient.DuplicateAndClose(pClient.Id));
+										socClient.Dispose();
+									}
+
+									tServerSocketAccept = socServer.AcceptAsync(ctsServerSocketAccept.Token);
+									tabEventServer[2] = ((System.IAsyncResult)tServerSocketAccept).AsyncWaitHandle;
 									break;
+								default:
+									throw new System.Exception("Unmanaged handle error");
 							}
-						} while(bAliveServer);
+						} while(!mreStop.WaitOne(System.TimeSpan.Zero));
+
 						if(psServer.IsConnected) {
 							psServer.Disconnect();
 						}
 						psServer.Close();
 						psServer.Dispose();
 
-						WinApi.Kernel32.CloseHandle(piProcess.hProcess);
+						ctsServerSocketAccept.Cancel();
 						socServer.Close();
+						try { tServerSocketAccept.GetAwaiter().GetResult(); } catch(System.OperationCanceledException) { };
+						ctsServerSocketAccept.Dispose();
 						socServer.Dispose();
-						//tServer.Wait();
-						//tServer.Dispose();
-
 						break;
 					case ServiceType.Both:
 
 						System.Net.Sockets.Socket socBoth = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
 						socBoth.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, this.iPort));
 						socBoth.Listen(10);
-						System.Func<System.Net.Sockets.Socket> fBoth = delegate () {
-							try {
-								return socBoth.Accept();
-							} catch(System.Net.Sockets.SocketException ex) {
-								switch(ex.ErrorCode) {
-									case 10004:
-										return null;
-									default:
-										throw;
-								}
-							}
-						};
-						System.Threading.Tasks.Task<System.Net.Sockets.Socket> tBoth = System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(fBoth);
+						System.Threading.CancellationTokenSource ctsBothSocketAccept = new System.Threading.CancellationTokenSource();
+						System.Threading.Tasks.Task<System.Net.Sockets.Socket> tBothSocketAccept = socBoth.AcceptAsync(ctsBothSocketAccept.Token);
 
 						System.Collections.Generic.List<System.Threading.Thread> liClientBoth = new System.Collections.Generic.List<System.Threading.Thread>();
 
-						System.Threading.WaitHandle[] tabEventBoth = new System.Threading.WaitHandle[] { Service.mreStop, Service.ewhServiceStarted, ((System.IAsyncResult)tBoth).AsyncWaitHandle };
-						bool bAliveBoth = true;
+						System.Threading.WaitHandle[] tabEventBoth = new System.Threading.WaitHandle[] {
+							Service.mreStop,
+							Service.ewhServiceStarted,
+							((System.IAsyncResult)tBothSocketAccept).AsyncWaitHandle
+						};
 						do {
-							switch(System.Threading.WaitHandle.WaitAny(tabEventBoth, -1, true)) {
+							switch(System.Threading.WaitHandle.WaitAny(tabEventBoth, -1)) {
 								case 0:
-									bAliveBoth = false;
 									break;
 								case 1:
 									System.Threading.Tasks.Task.Run(delegate () {
 										this.ServiceStop();
 										this.ServiceStart();
 									});
-									bAliveBoth = false;
+									Service.mreStop.Set();
 									break;
 								case 2:
-									System.Net.Sockets.Socket socClient = tBoth.Result;
+									System.Net.Sockets.Socket socClient = tBothSocketAccept.Result;
+
 									System.Threading.Thread thrClient = new System.Threading.Thread(delegate () {
 										this.ThreadClient(socClient);
 									});
 									thrClient.Start();
 									liClientBoth.Add(thrClient);
-									tBoth = System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(fBoth);
-									tabEventBoth[2] = ((System.IAsyncResult)tBoth).AsyncWaitHandle;
+
+									tBothSocketAccept = socBoth.AcceptAsync(ctsBothSocketAccept.Token);
+									tabEventBoth[2] = ((System.IAsyncResult)tBothSocketAccept).AsyncWaitHandle;
 									break;
+								default:
+									throw new System.Exception("Unmanaged handle error");
 							}
-						} while(bAliveBoth);
+						} while(!mreStop.WaitOne(System.TimeSpan.Zero));
 
 						liClientBoth.RemoveAll(delegate (System.Threading.Thread thr) {
 							thr.Join();
 							return true;
 						});
+
+						ctsBothSocketAccept.Cancel();
 						socBoth.Close();
+						try { tBothSocketAccept.GetAwaiter().GetResult(); } catch(System.OperationCanceledException) { };
+						ctsBothSocketAccept.Dispose();
 						socBoth.Dispose();
-						//tBoth.Wait();
-						//tBoth.Dispose();
 						break;
 					case ServiceType.Client:
-						System.Collections.Generic.List<System.Threading.Thread> liClient = new System.Collections.Generic.List<System.Threading.Thread>();
 
 						System.IO.Pipes.NamedPipeClientStream psClient = new System.IO.Pipes.NamedPipeClientStream(".", "{2DCF2389-4969-483D-AA13-58FD8DDDD2D5}", System.IO.Pipes.PipeDirection.In, System.IO.Pipes.PipeOptions.Asynchronous);
-
 						psClient.Connect();
+						byte[] tabData = new byte[4096];
+						int iData = 0;
+						System.Threading.CancellationTokenSource ctsClientPipeRead = new System.Threading.CancellationTokenSource();
+						System.Threading.Tasks.Task<int> tClientPipeRead = psClient.ReadAsync(tabData, iData, tabData.Length - iData, ctsClientPipeRead.Token);
 
-						System.Func<object> fClient = new System.Func<object>(delegate() {
-							byte[] tabData = new byte[4096];
-							int iData = 0;
-							int iRead;
-							object o = null;
-							do {
-								iRead = psClient.Read(tabData, iData, 4096 - iData);
-								if(iRead != 0) {
-									iData += iRead;
-									try {
-										o = bf.Deserialize(new System.IO.MemoryStream(tabData, 0, iData));
-									} catch(System.Runtime.Serialization.SerializationException ex) {
-										switch(ex.HResult & 0x0000FFFF) {
-											case 5388:
-												break;
-											default:
-												throw;
-										}
-									}
-								}
-							} while(iRead != 0 && o == null);
-							return o;
-						});
-						System.Threading.Tasks.Task<object> tClient = System.Threading.Tasks.Task<object>.Run(fClient);
+						System.Collections.Generic.List<System.Threading.Thread> liClient = new System.Collections.Generic.List<System.Threading.Thread>();
 
-						System.Threading.WaitHandle[] tabEventClient = new System.Threading.WaitHandle[] { Service.mreStop, ((System.IAsyncResult)tClient).AsyncWaitHandle };
-						bool bAliveClient = true;
+						System.Threading.WaitHandle[] tabEventClient = new System.Threading.WaitHandle[] {
+							Service.mreStop,
+							((System.IAsyncResult)tClientPipeRead).AsyncWaitHandle
+						};
 						do {
-							switch(System.Threading.WaitHandle.WaitAny(tabEventClient, -1, true)) {
+							switch(System.Threading.WaitHandle.WaitAny(tabEventClient, -1)) {
 								case 0:
-									bAliveClient = false;
 									break;
 								case 1:
-									if(tClient.Result == null) {
+									int iRead = tClientPipeRead.Result;
+									if(iRead == 0) {
 										if(!(System.Array.IndexOf<string>(System.Environment.GetCommandLineArgs(), "-c") < 0) && System.Windows.Forms.Application.OpenForms.Count == 0) {
 											System.Windows.Forms.Application.Exit();
 										} else {
+											;
 											System.Threading.Tasks.Task.Run(delegate () {
 												this.ServiceStop();
 												this.ServiceStart();
 											});
-											bAliveClient = false;
 										}
-									} else if(tClient.Result is System.Net.Sockets.SocketInformation) {
-										System.Net.Sockets.Socket socClient = new System.Net.Sockets.Socket((System.Net.Sockets.SocketInformation)tClient.Result);
-										System.Threading.Thread thrClient = new System.Threading.Thread(delegate () {
-											this.ThreadClient(socClient);
-										});
-										thrClient.Start();
-										liClient.Add(thrClient);
-										tClient = System.Threading.Tasks.Task<object>.Run(fClient);
-										tabEventClient[1] = ((System.IAsyncResult)tClient).AsyncWaitHandle;
 									} else {
-										throw new System.Exception("erreur de communication");
+										iData += iRead;
+										object ClientPipeDeserialize() {
+											try {
+												return bf.Deserialize(new System.IO.MemoryStream(tabData, 0, iData));
+											} catch(System.Runtime.Serialization.SerializationException ex) {
+												switch(ex.HResult & 0x0000FFFF) {
+													case 5388:
+														return null;
+													default:
+														throw;
+												}
+											}
+										}
+										switch(ClientPipeDeserialize()) {
+											case null:
+												break;
+											case System.Net.Sockets.SocketInformation si:
+												iData = 0;
+												System.Net.Sockets.Socket socClient = new System.Net.Sockets.Socket(si);
+												System.Threading.Thread thrClient = new System.Threading.Thread(delegate () {
+													this.ThreadClient(socClient);
+												});
+												thrClient.Start();
+												liClient.Add(thrClient);
+												break;
+											default:
+												throw new System.Exception("Communication error");
+										}
 									}
+									tClientPipeRead = psClient.ReadAsync(tabData, iData, tabData.Length - iData, ctsClientPipeRead.Token);
+									tabEventClient[1] = ((System.IAsyncResult)tClientPipeRead).AsyncWaitHandle;
 									break;
+								default:
+									throw new System.Exception("Unmanaged handle error");
 							}
-						} while(bAliveClient);
-						tClient.Wait();
-						tClient.Dispose();
+						} while(!mreStop.WaitOne(System.TimeSpan.Zero));
+
+						ctsClientPipeRead.Cancel();
 						psClient.Close();
+						try { tClientPipeRead.GetAwaiter().GetResult(); } catch(System.OperationCanceledException) { };
+						ctsClientPipeRead.Dispose();
 						psClient.Dispose();
 
 						liClient.RemoveAll(delegate (System.Threading.Thread thr) {
@@ -712,12 +696,19 @@ namespace MagicRemoteService {
 				}
 			} catch(System.Exception eException) {
 				this.Error(eException.ToString());
+				System.Threading.Tasks.Task.Run(delegate () {
+					this.ServiceStop();
+					this.ServiceStart();
+				});
 			}
 		}
 		private void ThreadClient(System.Net.Sockets.Socket socClient) {
 			try {
 				this.Log("Socket accepted [" + socClient.GetHashCode() + "]");
 				byte[] tabData = new byte[4096];
+				System.Threading.CancellationTokenSource ctsClientSocketReceive = new System.Threading.CancellationTokenSource();
+				System.Threading.Tasks.Task<int> tClientSocketReceive = socClient.ReceiveAsync(tabData, ctsClientSocketReceive.Token);
+
 				System.Threading.ManualResetEvent mreClientStop = new System.Threading.ManualResetEvent(false);
 				System.Timers.Timer tUserInput = new System.Timers.Timer();
 				tUserInput.Interval = 10;
@@ -975,20 +966,17 @@ namespace MagicRemoteService {
 				WinApi.Input[] arrInput;
 				byte[] arrByte;
 
-				System.Func<ulong> fClient = delegate () {
-					return (ulong)socClient.Receive(tabData);
+				System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] {
+					Service.mreStop,
+					mreClientStop,
+					((System.IAsyncResult)tClientSocketReceive).AsyncWaitHandle
 				};
-				System.Threading.Tasks.Task<ulong> tClient = System.Threading.Tasks.Task<ulong>.Run(fClient);
-
-				System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] { Service.mreStop, mreClientStop, ((System.IAsyncResult)tClient).AsyncWaitHandle };
-				bool bAlive = true;
 				switch(System.Threading.WaitHandle.WaitAny(tabEvent, -1, true)) {
 					case 0:
 					case 1:
-						bAlive = false;
 						break;
 					case 2:
-						ulong ulLenMessage = tClient.Result;
+						ulong ulLenMessage = (ulong)tClientSocketReceive.Result;
 						if(tabData[0] == 'G' && tabData[1] == 'E' && tabData[2] == 'T') {
 							socClient.Send(System.Text.Encoding.UTF8.GetBytes(
 								"HTTP/1.1 101 Switching Protocols\r\n" +
@@ -1003,24 +991,24 @@ namespace MagicRemoteService {
 								tInactivity.Start();
 							}
 						} else {
-							bAlive = false;
+							mreClientStop.Set();
 							this.Warn("Connexion refused on socket [" + socClient.GetHashCode() + "]");
 						}
+						tClientSocketReceive = socClient.ReceiveAsync(tabData, ctsClientSocketReceive.Token);
+						tabEvent[2] = ((System.IAsyncResult)tClientSocketReceive).AsyncWaitHandle;
+
 						break;
+					default:
+						throw new System.Exception("Unmanaged handle error");
 				}
-				while(bAlive) {
-					tClient = System.Threading.Tasks.Task<ulong>.Run(fClient);
-					tabEvent[2] = ((System.IAsyncResult)tClient).AsyncWaitHandle;
+				while(!mreStop.WaitOne(System.TimeSpan.Zero) && !mreClientStop.WaitOne(System.TimeSpan.Zero)) {
 					switch(System.Threading.WaitHandle.WaitAny(tabEvent, -1, true)) {
 						case 0:
-							socClient.Send(Service.tabClose);
-							bAlive = false;
-							break;
 						case 1:
-							bAlive = false;
+							socClient.Send(Service.tabClose);
 							break;
 						case 2:
-							ulong ulLenMessage = tClient.Result;
+							ulong ulLenMessage = (ulong)tClientSocketReceive.Result;
 							ulong ulOffsetFrame = 0;
 							while(!(ulOffsetFrame == ulLenMessage)) {
 								bool bFin = (tabData[ulOffsetFrame] & 0b10000000) == 0b10000000;
@@ -1189,7 +1177,11 @@ namespace MagicRemoteService {
 								}
 								ulOffsetFrame = ulOffsetData + ulLenData;
 							}
+							tClientSocketReceive = socClient.ReceiveAsync(tabData, ctsClientSocketReceive.Token);
+							tabEvent[2] = ((System.IAsyncResult)tClientSocketReceive).AsyncWaitHandle;
 							break;
+						default:
+							throw new System.Exception("Unmanaged handle error");
 					}
 				}
 				SystemCursor.ShowSytemCursor();
@@ -1199,13 +1191,129 @@ namespace MagicRemoteService {
 					tInactivity.Stop();
 					tPongInactivity.Stop();
 				}
+				ctsClientSocketReceive.Cancel();
 				socClient.Close();
+				try { tClientSocketReceive.GetAwaiter().GetResult(); } catch(System.OperationCanceledException) { };
+				ctsClientSocketReceive.Dispose();
 				socClient.Dispose();
 				this.Log("Socket closed [" + socClient.GetHashCode() + "]");
 			} catch(System.Exception eException) {
 				SystemCursor.ShowSytemCursor();
 				this.Error(eException.ToString());
 			}
+		}
+	}
+	public static class SocketExtension {
+		public static System.Threading.Tasks.Task<System.Net.Sockets.Socket> AcceptAsync(this System.Net.Sockets.Socket s, System.Threading.CancellationToken ct) {
+			return System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(delegate () {
+				System.Net.Sockets.Socket sAccept;
+
+				System.Threading.ManualResetEvent mreAcceptAsyncCompleted = new System.Threading.ManualResetEvent(false);
+				void AcceptAsyncCompleted(object o, System.Net.Sockets.SocketAsyncEventArgs e) {
+					mreAcceptAsyncCompleted.Set();
+				};
+
+				System.Net.Sockets.SocketAsyncEventArgs eaAcceptAsync = new System.Net.Sockets.SocketAsyncEventArgs();
+				eaAcceptAsync.Completed += AcceptAsyncCompleted;
+
+				if(!s.AcceptAsync(eaAcceptAsync)) {
+					AcceptAsyncCompleted(s, eaAcceptAsync);
+				}
+
+				switch(System.Threading.WaitHandle.WaitAny(new System.Threading.WaitHandle[] {
+					ct.WaitHandle,
+					mreAcceptAsyncCompleted
+				}, -1)) {
+					case 0:
+						throw new System.OperationCanceledException(ct);
+					case 1:
+						sAccept = eaAcceptAsync.AcceptSocket;
+						break;
+					default:
+						throw new System.Exception("Unmanaged handle error");
+
+				}
+
+				eaAcceptAsync.Completed -= AcceptAsyncCompleted;
+				eaAcceptAsync.Dispose();
+
+				mreAcceptAsyncCompleted.Close();
+				mreAcceptAsyncCompleted.Dispose();
+
+				return sAccept;
+			});
+		}
+		public static System.Threading.Tasks.Task<int> ReceiveAsync(this System.Net.Sockets.Socket s, byte[] tabData, System.Threading.CancellationToken ct) {
+			return System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(delegate () {
+				int iReceive;
+
+				System.Threading.ManualResetEvent mreReceiveAsyncCompleted = new System.Threading.ManualResetEvent(false);
+				void ReceiveAsyncCompleted(object o, System.Net.Sockets.SocketAsyncEventArgs e) {
+					mreReceiveAsyncCompleted.Set();
+				};
+
+				System.Net.Sockets.SocketAsyncEventArgs eaReceiveAsync = new System.Net.Sockets.SocketAsyncEventArgs();
+				eaReceiveAsync.SetBuffer(tabData, 0, tabData.Length);
+				eaReceiveAsync.Completed += ReceiveAsyncCompleted;
+
+				if(!s.ReceiveAsync(eaReceiveAsync)) {
+					ReceiveAsyncCompleted(s, eaReceiveAsync);
+				}
+
+				switch(System.Threading.WaitHandle.WaitAny(new System.Threading.WaitHandle[] {
+					ct.WaitHandle,
+					mreReceiveAsyncCompleted
+				}, -1)) {
+					case 0:
+						throw new System.OperationCanceledException(ct);
+					case 1:
+						iReceive = eaReceiveAsync.BytesTransferred;
+						break;
+					default:
+						throw new System.Exception("Unmanaged handle error");
+
+				}
+
+				eaReceiveAsync.Completed -= ReceiveAsyncCompleted;
+				eaReceiveAsync.Dispose();
+
+				mreReceiveAsyncCompleted.Close();
+				mreReceiveAsyncCompleted.Dispose();
+
+				return iReceive;
+			});
+		}
+	}
+	public static class ProcessExtension {
+		public static System.Threading.Tasks.Task WaitForExitAsync(this System.Diagnostics.Process p, System.Threading.CancellationToken ct) {
+			return System.Threading.Tasks.Task<System.Net.Sockets.Socket>.Run(delegate () {
+				System.Threading.ManualResetEvent mreWaitForExitExited = new System.Threading.ManualResetEvent(false);
+				void WaitForExitExited(object sender, System.EventArgs e) {
+					mreWaitForExitExited.Set();
+				};
+
+				p.Exited += WaitForExitExited;
+				p.EnableRaisingEvents = true;
+
+				switch(System.Threading.WaitHandle.WaitAny(new System.Threading.WaitHandle[] {
+					ct.WaitHandle,
+					mreWaitForExitExited
+				}, -1)) {
+					case 0:
+						throw new System.OperationCanceledException(ct);
+					case 1:
+						break;
+					default:
+						throw new System.Exception("Unmanaged handle error");
+
+				}
+
+				p.EnableRaisingEvents = false;
+				p.Exited -= WaitForExitExited;
+
+				mreWaitForExitExited.Close();
+				mreWaitForExitExited.Dispose();
+			});
 		}
 	}
 }
