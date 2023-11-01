@@ -29,19 +29,14 @@ namespace MagicRemoteService
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.elEventLog = new System.Diagnostics.EventLog();
-			((System.ComponentModel.ISupportInitialize)(this.elEventLog)).BeginInit();
 			// 
 			// Service
 			// 
 			this.CanHandleSessionChangeEvent = true;
 			this.ServiceName = "MagicRemoteService";
-			((System.ComponentModel.ISupportInitialize)(this.elEventLog)).EndInit();
 
 		}
 
 		#endregion
-
-		private System.Diagnostics.EventLog elEventLog;
 	}
 }

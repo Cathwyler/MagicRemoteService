@@ -4,10 +4,11 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
 		public static extern uint WTSGetActiveConsoleSessionId();
 		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		public static extern uint GetCurrentThreadId();
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-		public static extern System.IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
-		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
 		public static extern bool CloseHandle(System.IntPtr hObject);
+		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
+		public static extern bool GetNamedPipeServerProcessId(System.IntPtr Pipe, out uint ServerProcessId);
+		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
+		public static extern bool GetNamedPipeClientProcessId(System.IntPtr Pipe, out uint ClientProcessId);
+
 	}
 }

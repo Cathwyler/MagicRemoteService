@@ -452,8 +452,6 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool CloseDesktop(System.IntPtr hDesktop);
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern System.IntPtr GetThreadDesktop(uint dwThreadId);
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SetThreadDesktop(System.IntPtr hDesktop);
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);

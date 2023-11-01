@@ -21,31 +21,6 @@ namespace MagicRemoteService {
 
 			this.mrsService.ServiceStart();
 
-			this.Icon(this, System.EventArgs.Empty);
-			if((MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService") == null) {
-				this.Setting(this, System.EventArgs.Empty);
-			}
-		}
-		public void Invoke(System.Delegate methode) {
-			MagicRemoteService.Application.iInvoker.Invoke(methode);
-		}
-		public void ExplorerStartEvent(object sender, System.Management.EventArrivedEventArgs e) {
-			this.niIcon.Dispose();
-			this.Icon(this, System.EventArgs.Empty);
-		}
-		protected override void Dispose(bool disposing) {
-			if(disposing) {
-				this.mrsService.ServiceStop();
-				this.mrsService.Dispose();
-				this.niIcon.Dispose();
-				if(!this.sSetting.IsDisposed) {
-					this.sSetting.Dispose();
-				}
-				MagicRemoteService.Application.wExplorer.EventArrived -= this.ExplorerStartEvent;
-			}
-			base.Dispose(disposing);
-		}
-		public void Icon(object sender, System.EventArgs e) {
 			this.niIcon = new System.Windows.Forms.NotifyIcon();
 			this.niIcon.Icon = MagicRemoteService.Properties.Resources.MagicRemoteService;
 			this.niIcon.ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] {
@@ -54,6 +29,28 @@ namespace MagicRemoteService {
 			});
 			this.niIcon.DoubleClick += this.Setting;
 			this.niIcon.Visible = true;
+
+			if((MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService") == null) {
+				this.Setting(this, System.EventArgs.Empty);
+			}
+		}
+		public void Invoke(System.Delegate methode) {
+			MagicRemoteService.Application.iInvoker.Invoke(methode);
+		}
+		public void ExplorerStartEvent(object sender, System.Management.EventArrivedEventArgs e) {
+			this.niIcon.Visible = false;
+			this.niIcon.Visible = true;
+		}
+		protected override void Dispose(bool disposing) {
+			if(disposing) {
+				this.mrsService.Dispose();
+				this.niIcon.Dispose();
+				if(this.sSetting != null && !this.sSetting.IsDisposed) {
+					this.sSetting.Dispose();
+				}
+				MagicRemoteService.Application.wExplorer.EventArrived -= this.ExplorerStartEvent;
+			}
+			base.Dispose(disposing);
 		}
 		public void Setting(object sender, System.EventArgs e) {
 			if(this.sSetting == null || this.sSetting.IsDisposed) {
@@ -64,6 +61,7 @@ namespace MagicRemoteService {
 			this.sSetting.WindowState = System.Windows.Forms.FormWindowState.Normal;
 		}
 		public void Exit(object sender, System.EventArgs e) {
+			this.mrsService.ServiceStop();
 			System.Windows.Forms.Application.Exit();
 		}
 		public static string CompleteDir(string strPath) {
