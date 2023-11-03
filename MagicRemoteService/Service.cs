@@ -54,7 +54,7 @@ namespace MagicRemoteService {
 		private ServiceType stType;
 
 		private static System.Threading.ManualResetEvent mreStop = new System.Threading.ManualResetEvent(true);
-		private static System.Threading.AutoResetEvent mreSessionChanged = new System.Threading.AutoResetEvent(false);
+		private static System.Threading.AutoResetEvent areSessionChanged = new System.Threading.AutoResetEvent(false);
 		private static System.Threading.EventWaitHandle ewhServerStarted;
 		private static System.Threading.EventWaitHandle ewhClientStarted;
 		private static System.Threading.EventWaitHandle ewhSessionChanged;
@@ -340,9 +340,8 @@ namespace MagicRemoteService {
 		}
 		protected override void OnSessionChange(System.ServiceProcess.SessionChangeDescription scd) {
 			switch(scd.Reason) {
-				case System.ServiceProcess.SessionChangeReason.SessionLogon:
 				case System.ServiceProcess.SessionChangeReason.ConsoleConnect:
-					Service.mreSessionChanged.Set();
+					Service.areSessionChanged.Set();
 					break;
 				default:
 					break;
@@ -472,7 +471,7 @@ namespace MagicRemoteService {
 
 						System.Threading.WaitHandle[] tabEventServer = new System.Threading.WaitHandle[] {
 							Service.mreStop,
-							Service.mreSessionChanged,
+							Service.areSessionChanged,
 							Service.ewhClientConnecting,
 							areServerAcceptAsyncCompleted,
 							areWaitForExitExited
@@ -1020,6 +1019,7 @@ namespace MagicRemoteService {
 				while(!mreStop.WaitOne(System.TimeSpan.Zero) && !mreClientStop.WaitOne(System.TimeSpan.Zero)) {
 					switch(System.Threading.WaitHandle.WaitAny(tabEvent, -1, true)) {
 						case 0:
+							socClient.Send(Service.tabClose);
 							break;
 						case 1:
 							break;
@@ -1214,7 +1214,6 @@ namespace MagicRemoteService {
 				eaClientReceiveAsync.Dispose();
 				areClientReceiveAsyncCompleted.Close();
 				areClientReceiveAsyncCompleted.Dispose();
-				socClient.Send(Service.tabClose);
 				socClient.Close();
 				socClient.Dispose();
 				Service.Log("Socket closed [" + socClient.GetHashCode() + "]");
