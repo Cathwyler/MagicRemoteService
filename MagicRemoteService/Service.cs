@@ -48,7 +48,7 @@ namespace MagicRemoteService {
 
 		private static System.Diagnostics.EventLog elEventLog = new System.Diagnostics.EventLog("Application", ".", "MagicRemoteService");
 
-		private System.Threading.Thread thrServeur;
+		private System.Threading.Thread thrServer;
 		private System.Timers.Timer[] tabExtend;
 		private WinApi.ServiceCurrentState scsState;
 		private ServiceType stType;
@@ -215,10 +215,10 @@ namespace MagicRemoteService {
 					break;
 			}
 			Service.mreStop.Reset();
-			this.thrServeur = new System.Threading.Thread(delegate () {
-				this.ThreadServeur();
+			this.thrServer = new System.Threading.Thread(delegate () {
+				this.ThreadServer();
 			});
-			this.thrServeur.Start();
+			this.thrServer.Start();
 			switch(this.stType) {
 				case ServiceType.Server:
 					Service.Log("Service server started");
@@ -289,8 +289,8 @@ namespace MagicRemoteService {
 					break;
 			}
 			Service.mreStop.Set();
-			this.thrServeur.Join();
-			this.thrServeur = null;
+			this.thrServer.Join();
+			this.thrServer = null;
 			switch(this.stType) {
 				case ServiceType.Server:
 					Service.Log("Service server stoped");
@@ -440,9 +440,9 @@ namespace MagicRemoteService {
 				return piProcess.dwProcessId;
 			}
 		}
-		private void ThreadServeur() {
+		private void ThreadServer() {
 			System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
+			
 			try {
 				switch(this.stType) {
 					case ServiceType.Server:
@@ -541,7 +541,7 @@ namespace MagicRemoteService {
 								default:
 									throw new System.Exception("Unmanaged handle error");
 							}
-						} while(!mreStop.WaitOne(System.TimeSpan.Zero));
+						} while(!Service.mreStop.WaitOne(System.TimeSpan.Zero));
 
 						Service.ewhServerDisconnecting.Set();
 
@@ -599,7 +599,6 @@ namespace MagicRemoteService {
 										this.ServiceStop();
 										this.ServiceStart();
 									});
-									Service.mreStop.Set();
 									break;
 								case 2:
 									System.Net.Sockets.Socket socClient = eaBothAcceptAsync.AcceptSocket;
@@ -618,7 +617,7 @@ namespace MagicRemoteService {
 								default:
 									throw new System.Exception("Unmanaged handle error");
 							}
-						} while(!mreStop.WaitOne(System.TimeSpan.Zero));
+						} while(!Service.mreStop.WaitOne(System.TimeSpan.Zero));
 
 						liClientBoth.RemoveAll(delegate (System.Threading.Thread thr) {
 							thr.Join();
@@ -687,7 +686,7 @@ namespace MagicRemoteService {
 								default:
 									throw new System.Exception("Unmanaged handle error");
 							}
-						} while(!mreStop.WaitOne(System.TimeSpan.Zero));
+						} while(!Service.mreStop.WaitOne(System.TimeSpan.Zero));
 
 						psClient.Close();
 						psClient.Dispose();
@@ -959,21 +958,23 @@ namespace MagicRemoteService {
 				};
 
 				//Find a better way for this
-				uint uiDisplay;
-				System.Net.IPAddress ipClient = ((System.Net.IPEndPoint)socClient.RemoteEndPoint).Address;
-				MagicRemoteService.WebOSCLIDevice wocdClient = System.Array.Find<MagicRemoteService.WebOSCLIDevice>(MagicRemoteService.WebOSCLI.SetupDeviceList(), delegate (MagicRemoteService.WebOSCLIDevice wocd) {
-					return wocd.DeviceInfo.IP.Equals(ipClient);
-				});
-				if(wocdClient == null) {
-					uiDisplay = 0;
-				} else {
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
-					if(rkMagicRemoteServiceDevice == null) {
+				uint uiDisplay = 0;
+				System.Threading.Tasks.Task.Run(delegate () {
+					System.Net.IPAddress ipClient = ((System.Net.IPEndPoint)socClient.RemoteEndPoint).Address;
+					MagicRemoteService.WebOSCLIDevice wocdClient = System.Array.Find<MagicRemoteService.WebOSCLIDevice>(MagicRemoteService.WebOSCLI.SetupDeviceList(), delegate (MagicRemoteService.WebOSCLIDevice wocd) {
+						return wocd.DeviceInfo.IP.Equals(ipClient);
+					});
+					if(wocdClient == null) {
 						uiDisplay = 0;
 					} else {
-						uiDisplay = (uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", 0);
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
+						if(rkMagicRemoteServiceDevice == null) {
+							uiDisplay = 0;
+						} else {
+							uiDisplay = (uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", 0);
+						}
 					}
-				}
+				});
 
 				MagicRemoteService.Screen scr;
 				WinApi.Input[] arrInput;
@@ -1016,7 +1017,7 @@ namespace MagicRemoteService {
 					default:
 						throw new System.Exception("Unmanaged handle error");
 				}
-				while(!mreStop.WaitOne(System.TimeSpan.Zero) && !mreClientStop.WaitOne(System.TimeSpan.Zero)) {
+				while(!Service.mreStop.WaitOne(System.TimeSpan.Zero) && !mreClientStop.WaitOne(System.TimeSpan.Zero)) {
 					switch(System.Threading.WaitHandle.WaitAny(tabEvent, -1, true)) {
 						case 0:
 							socClient.Send(Service.tabClose);

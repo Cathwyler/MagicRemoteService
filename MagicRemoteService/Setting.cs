@@ -441,11 +441,15 @@ namespace MagicRemoteService {
 					return false;
 				}
 			})) {
-				this.PCDataRefresh();
+				if(!this.IsDisposed) {
+					this.PCDataRefresh();
+				}
 				this.Enabled = true;
 				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 			} else {
-				this.PCDataRefresh();
+				if(!this.IsDisposed) {
+					this.PCDataRefresh();
+				}
 				this.Enabled = true;
 			}
 		}
@@ -471,12 +475,14 @@ namespace MagicRemoteService {
 				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 				this.Enabled = true;
 			} else {
-				this.cmbboxTV.DataSource = tabDevice;
-				if(sName != null) {
-					this.cmbboxTV.SelectedValue = sName;
-				}
-				if(this.cmbboxTV.SelectedItem == null) {
-					this.cmbboxTV.SelectedIndex = 0;
+				if(!this.IsDisposed) {
+					this.cmbboxTV.DataSource = tabDevice;
+					if(sName != null) {
+						this.cmbboxTV.SelectedValue = sName;
+					}
+					if(this.cmbboxTV.SelectedItem == null) {
+						this.cmbboxTV.SelectedIndex = 0;
+					}
 				}
 				this.Enabled = true;
 			}
@@ -532,8 +538,10 @@ namespace MagicRemoteService {
 					this.Enabled = true;
 					System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 				} else {
-					this.TVDataSave();
-					this.TVDataRefresh();
+					if(!this.IsDisposed) {
+						this.TVDataSave();
+						this.TVDataRefresh();
+					}
 					this.Enabled = true;
 				}
 			}
@@ -556,15 +564,17 @@ namespace MagicRemoteService {
 			})) {
 				this.Enabled = true;
 				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-			} else {
-				this.cmbboxInput.DataSource = tabDeviceInput;
-				if(sId != null) {
-					this.cmbboxInput.SelectedValue = sId;
+			} else if(!this.IsDisposed) {
+				if(!this.IsDisposed) {
+					this.cmbboxInput.DataSource = tabDeviceInput;
+					if(sId != null) {
+						this.cmbboxInput.SelectedValue = sId;
+					}
+					if(this.cmbboxInput.SelectedItem == null) {
+						this.cmbboxInput.SelectedIndex = 0;
+					}
+					this.TVDataRefresh();
 				}
-				if(this.cmbboxInput.SelectedItem == null) {
-					this.cmbboxInput.SelectedIndex = 0;
-				}
-				this.TVDataRefresh();
 				this.Enabled = true;
 			}
 		}
@@ -658,11 +668,15 @@ namespace MagicRemoteService {
 					return false;
 				}
 			})) {
-				this.RemoteDataRefresh();
+				if(!this.IsDisposed) {
+					this.RemoteDataRefresh();
+				}
 				this.Enabled = true;
 				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 			} else {
-				this.RemoteDataRefresh();
+				if(!this.IsDisposed) {
+					this.RemoteDataRefresh();
+				}
 				this.Enabled = true;
 			}
 		}
@@ -687,12 +701,17 @@ namespace MagicRemoteService {
 							return false;
 						}
 					})) {
+						if(!this.IsDisposed) {
+							this.btnTVRefresh_Click(this, new System.EventArgs());
+						}
 						this.Enabled = true;
 						System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 					} else {
+						if(!this.IsDisposed) {
+							this.btnTVRefresh_Click(this, new System.EventArgs());
+						}
 						this.Enabled = true;
 					}
-					this.btnTVRefresh_Click(this, new System.EventArgs());
 					break;
 				default:
 					break;
@@ -725,12 +744,17 @@ namespace MagicRemoteService {
 								return false;
 							}
 						})) {
+							if(!this.IsDisposed) {
+								this.btnTVRefresh_Click(this, new System.EventArgs());
+							}
 							this.Enabled = true;
 							System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 						} else {
+							if(!this.IsDisposed) {
+								this.btnTVRefresh_Click(this, new System.EventArgs());
+							}
 							this.Enabled = true;
 						}
-						this.btnTVRefresh_Click(this, new System.EventArgs());
 						break;
 					default:
 						break;
@@ -758,11 +782,16 @@ namespace MagicRemoteService {
 						return false;
 					}
 				})) {
+					if(!this.IsDisposed) {
+						this.btnTVRefresh_Click(this, new System.EventArgs());
+					}
 					this.Enabled = true;
 					System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 				} else {
+					if(!this.IsDisposed) {
+						this.btnTVRefresh_Click(this, new System.EventArgs());
+					}
 					this.Enabled = true;
-					this.btnTVRefresh_Click(this, new System.EventArgs());
 				}
 			}
 		}
