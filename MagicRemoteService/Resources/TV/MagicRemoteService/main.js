@@ -652,9 +652,11 @@ document.addEventListener("keyup", function(inEvent) {
 });
 
 document.getElementById("keyboard").addEventListener("input", function(inEvent) {
-	SendUnicode({
-		usC: inEvent.data.charCodeAt()
-	});
+	if(typeof(inEvent.data) === "string") {
+		SendUnicode({
+			usC: inEvent.data.charCodeAt()
+		});
+	}
 });
 
 document.addEventListener("visibilitychange", function() {
