@@ -71,6 +71,10 @@
 			font-size: 1.5rem;
 		}
 
+		div#uncaught {
+			color: #E6E6E6;
+			white-space: pre-wrap;
+		}
 		video#video {
 			pointer-events: auto;
 		}
@@ -85,10 +89,6 @@
 	</style>
 </head>
 
-<script src="webOSTVjs-1.2.4/webOSTV.js" charset="utf-8"></script>
-<script src="webOSTVjs-1.2.4/webOSTV-dev.js" charset="utf-8"></script>
-<script src="ressource.js" charset="utf-8"></script>
-
 <body>
 	<div class="screen">
 		<input id="keyboard" type="text" />
@@ -96,7 +96,19 @@
 	<div class="screen">
 		<video id="video" autoplay loop />
 	</div>
+	<div class="screen">
+		<div id="uncaught"></div>
+	</div>
 </body>
 
+<script type="text/javascript">
+	window.addEventListener("error", function(oEvent) {
+		document.getElementById("uncaught").innerText += "\n" + oEvent.message + "\nSource : " + oEvent.filename + "\nLine : " + oEvent.lineno + "\nColumn : " + oEvent.colno + "\nError  : " + oEvent.error;
+	});
+</script>
+<script src="webOSTVjs-1.2.4/webOSTV.js" charset="utf-8"></script>
+<script src="webOSTVjs-1.2.4/webOSTV-dev.js" charset="utf-8"></script>
+<script src="ressource.js" charset="utf-8"></script>
 <script src="main.js" charset="utf-8"></script>
+
 </html>
