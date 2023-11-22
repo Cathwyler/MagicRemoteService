@@ -69,7 +69,7 @@ function ScreenExist(deScreen) {
 }
 
 function ScreenCancel(deScreen) {
-	deScreen.remove();
+	document.body.removeChild(deScreen);
 }
 
 function ObjectToString(o){
@@ -504,7 +504,7 @@ webOS.service.request("luna://com.webos.service.eim", {
 		LogIfDebug(oString.strAddDeviceSuccess); 
 	}, 
 	onFailure: function(inError){ 
-		Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
+		//Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
 	} 
 });
 
@@ -559,7 +559,9 @@ var iIntervalSubscriptionGetSensorData = setInterval(function() {
 		method: "sensor/getSensorData",
 		parameters: {
 			callbackInterval: 1,
-			subscribe: true
+			subscribe: true,
+			sleep: true,
+			autoAlign: false
 		},
 		onSuccess: function(inResponse) {
 			if(typeof(inResponse.subscribed) === "boolean") {
