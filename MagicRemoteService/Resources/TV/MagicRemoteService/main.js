@@ -162,7 +162,10 @@ const tabMac = sMac.split(":").map(function(x) {
 });
 const sAppID = webOS.fetchAppId();
 
-const oString = GetString();
+var oString;
+webOS.fetchAppInfo(function(oInfo) {
+	oString = oInfo;
+}, webOS.fetchAppRootPath() + "appstring.json");
 
 var options = {
 	mediaTransportType: "URI",
@@ -489,24 +492,26 @@ function SendShutdown() {
 	}
 }
 
-webOS.service.request("luna://com.webos.service.eim", { 
-	method: "addDevice", 
-	parameters: { 
-		appId: sAppID, 
-		pigImage: "", 
-		mvpdIcon: "", 
-		type: "MVPD_IP", 
-		showPopup: true, 
-		label: oString.strAppTittle + " " + sInputName, 
-		description: oString.strAppDescription, 
-	}, 
-	onSuccess: function(inResponse){
-		LogIfDebug(oString.strAddDeviceSuccess); 
-	}, 
-	onFailure: function(inError){ 
-		//Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
-	} 
-});
+setTimeout(function() {
+	webOS.service.request("luna://com.webos.service.eim", { 
+		method: "addDevice", 
+		parameters: { 
+			appId: sAppID, 
+			pigImage: "", 
+			mvpdIcon: "", 
+			type: "MVPD_IP", 
+			showPopup: true, 
+			label: oString.strAppTittle + " " + sInputName, 
+			description: oString.strAppDescription, 
+		}, 
+		onSuccess: function(inResponse){
+			LogIfDebug(oString.strAddDeviceSuccess); 
+		}, 
+		onFailure: function(inError){ 
+			//Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
+		} 
+	});
+}, 1000);
 
 var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
 	webOS.service.request("luna://com.webos.service.tvpower", { 

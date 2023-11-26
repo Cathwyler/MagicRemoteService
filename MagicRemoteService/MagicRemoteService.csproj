@@ -183,8 +183,10 @@
     <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="Resources\TV\MagicRemoteService\appinfo.json" />
+    <None Include="Resources\TV\MagicRemoteService\appstring.json" />
     <None Include="Resources\TV\MagicRemoteService\MuseoSans-Medium.ttf" />
-    <None Include="Resources\TV\MagicRemoteService\ressources\fr\appinfo.json" />
+    <None Include="Resources\TV\MagicRemoteService\resources\fr\appinfo.json" />
+    <None Include="Resources\TV\MagicRemoteService\resources\fr\appstring.json" />
     <None Include="Resources\TV\Send\package.json" />
     <None Include="Resources\TV\Send\services.json" />
   </ItemGroup>
@@ -289,7 +291,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\TV\MagicRemoteService\ressource.js" />
     <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV-dev.js" />
     <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV.js" />
   </ItemGroup>

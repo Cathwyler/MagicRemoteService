@@ -211,6 +211,7 @@ namespace MagicRemoteService {
 		static public void Package(string strOutDirectory, string strApplication, string strService = null, string strPackage = null) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
 			tabArgument.Add("\"" + strApplication + "\"");
+			tabArgument.Add("-n");
 			if(!string.IsNullOrEmpty(strService)) {
 				tabArgument.Add("-o \"" + strOutDirectory + "\"");
 			}

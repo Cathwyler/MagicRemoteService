@@ -72,12 +72,14 @@ namespace MagicRemoteService.Properties {
         ///	&quot;vendor&quot;: &quot;Cathwyler&quot;,
         ///	&quot;version&quot;: &quot;1.0.0&quot;,
         ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///	&quot;label&quot;: &quot;HDMI1&quot;,
+        ///	&quot;displayName&quot;: &quot;HDMI2&quot;,
+        ///	&quot;appmenu&quot;: &quot;HDMI3&quot;,
         ///	&quot;bgColor&quot;: &quot;#575E66&quot;,
         ///	&quot;supportTouchMode&quot;: &quot;none&quot;,
         ///	&quot;disableBackHistoryAPI&quot;: true,
         ///	&quot;transparent&quot;: true,
-        ///	&quot;supportGIP&quot;: true
-        ///}.
+        ///	 [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string appinfo {
             get {
@@ -100,6 +102,27 @@ namespace MagicRemoteService.Properties {
         internal static string ApplicationSetting {
             get {
                 return ResourceManager.GetString("ApplicationSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {
+        ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
+        ///	&quot;strAppDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
+        ///
+        ///	&quot;strLogTitle&quot;: &quot;Evenement&quot;,
+        ///	&quot;strWarnTitle&quot;: &quot;Attention&quot;,
+        ///	&quot;strErrorTitle&quot;: &quot;Erreur&quot;,
+        ///
+        ///	&quot;strLaunchAppSuccess&quot;: &quot;Succès du lancement de {1}&quot;,
+        ///	&quot;strLaunchAppFailure&quot;: &quot;Echec du lancement de {1}&quot;,
+        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Début de la récupération l&apos;état des entrées&quot;,
+        ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Echec de la récupération l&apos;état des entrées&quot;,
+        ///	&quot;str [le reste de la chaîne a été tronqué]&quot;;.
+        /// </summary>
+        internal static string appstring {
+            get {
+                return ResourceManager.GetString("appstring", resourceCulture);
             }
         }
         
@@ -159,15 +182,35 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
-        ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice&quot;,
         ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
         ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
-        ///	&quot;version&quot;: &quot;1.0.0&quot;
         ///}.
         /// </summary>
         internal static string frappinfo {
             get {
                 return ResourceManager.GetString("frappinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {
+        ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
+        ///	&quot;strAppDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///
+        ///	&quot;strLogTitle&quot;: &quot;Log&quot;,
+        ///	&quot;strWarnTitle&quot;: &quot;Warn&quot;,
+        ///	&quot;strErrorTitle&quot;: &quot;Error&quot;,
+        ///
+        ///	&quot;strLaunchAppSuccess&quot;: &quot;Success to launch {1}&quot;,
+        ///	&quot;strLaunchAppFailure&quot;: &quot;Failed to launch {1}&quot;,
+        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Start to get all input status&quot;,
+        ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Failed to get all input status&quot;,
+        ///	&quot;strSendWolSuccess&quot;: &quot;Success to send WoL&quot;,
+        ///	&quot;strSendWolFailure [le reste de la chaîne a été tronqué]&quot;;.
+        /// </summary>
+        internal static string frappstring {
+            get {
+                return ResourceManager.GetString("frappstring", resourceCulture);
             }
         }
         
@@ -194,6 +237,7 @@ namespace MagicRemoteService.Properties {
         ///		}
         ///		* {
         ///			font-family: Sandstone;
+        ///			-o-text-overflow: ellipsis;
         ///			text-overflow: ellipsis;
         ///		}
         ///
@@ -211,11 +255,9 @@ namespace MagicRemoteService.Properties {
         ///		}
         ///
         ///		div.flex {
-        ///			display: flex;
-        ///			flex-flow: row wrap;
-        ///			/*gap: 1rem; chrome &lt; 84*/
-        ///		}
-        ///		div.just [le reste de la chaîne a été tronqué]&quot;;.
+        ///			display: -webkit-box;
+        ///			display: -ms-flexbox;
+        ///			dis [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string index {
             get {
@@ -316,14 +358,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///    &quot;name&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;,
-        ///    &quot;version&quot;: &quot;1.0.0&quot;,
         ///    &quot;description&quot;: &quot;Send service&quot;,
-        ///    &quot;main&quot;: &quot;send.js&quot;,
-        ///    &quot;scripts&quot;: {
-        ///        &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-        ///    },
-        ///    &quot;author&quot;: &quot;&quot;,
-        ///    &quot;license&quot;: &quot;BSD&quot;
         ///}.
         /// </summary>
         internal static string package {
@@ -365,29 +400,6 @@ namespace MagicRemoteService.Properties {
         internal static string PhysicalAddressBoxErrorPasteTitle {
             get {
                 return ResourceManager.GetString("PhysicalAddressBoxErrorPasteTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à 
-        ///const oStringDefault = {
-        ///	strAppTittle: &quot;MagicRemoteService&quot;,
-        ///	strAppDescription: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
-        ///
-        ///	strLogTitle: &quot;Log&quot;,
-        ///	strWarnTitle: &quot;Warn&quot;,
-        ///	strErrorTitle: &quot;Error&quot;,
-        ///
-        ///	strLaunchAppSuccess: &quot;Success to launch {1}&quot;,
-        ///	strLaunchAppFailure: &quot;Failed to launch {1}&quot;,
-        ///	strGetAllInputStatusSubscribe: &quot;Start to get all input status&quot;,
-        ///	strGetAllInputStatusFailure: &quot;Failed to get all input status&quot;,
-        ///	strSendWolSuccess: &quot;Success to send WoL&quot;,
-        ///	strSendWolFai [le reste de la chaîne a été tronqué]&quot;;.
-        /// </summary>
-        internal static string ressource {
-            get {
-                return ResourceManager.GetString("ressource", resourceCulture);
             }
         }
         
@@ -442,7 +454,8 @@ namespace MagicRemoteService.Properties {
         ///    &quot;description&quot;: &quot;Send Service&quot;,
         ///    &quot;services&quot;: [
         ///        {
-        ///            &quot;name&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;
+        ///            &quot;name&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;,
+        ///			&quot;description&quot;: &quot;Send Service&quot;
         ///        }
         ///    ]
         ///}.
