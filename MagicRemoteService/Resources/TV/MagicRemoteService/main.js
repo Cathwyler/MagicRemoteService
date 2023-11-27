@@ -133,7 +133,7 @@ function CursorVisible() {
 	return window.PalmSystem.cursor.visibility === true;
 }
 
-const bDebug = true;
+const bDebug = false;
 
 const MessageType = {
 	Position: 0x00,
