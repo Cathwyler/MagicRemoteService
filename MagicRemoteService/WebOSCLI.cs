@@ -136,6 +136,9 @@ namespace MagicRemoteService {
 			};
 			pProcess.OutputDataReceived += delegate(object sender, System.Diagnostics.DataReceivedEventArgs e) {
 				if(e.Data != null) {
+#if DEBUG
+					System.Console.WriteLine(e.Data);
+#endif
 					strOutput += e.Data;
 					usOutputLine++;
 					if(dInput != null && dInput.ContainsKey(usOutputLine)) {
@@ -246,6 +249,13 @@ namespace MagicRemoteService {
 			tabArgument.Add("-d \"" + strDevice + "\"");
 			tabArgument.Add("\"" + strApplicationId + "\"");
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-launch", string.Join(" ", tabArgument));
+		}
+		static public void Inspect(string strDevice, string strApplicationId) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
+			tabArgument.Add("-d \"" + strDevice + "\"");
+			tabArgument.Add("-a \"" + strApplicationId + "\"");
+			tabArgument.Add("-o");
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-inspect", string.Join(" ", tabArgument));
 		}
 		static public void Extend(string strDevice) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();

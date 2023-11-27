@@ -99,20 +99,24 @@
 		private static System.Collections.Generic.IDictionary<WinApi.CursorName, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<WinApi.CursorName, System.IntPtr>();
 
 		public static void HideSytemCursor() {
+#if !DEBUG
 			foreach(WinApi.CursorName cnCursorName in MagicRemoteService.SystemCursor.arrCursor) {
 				if(!MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
 					MagicRemoteService.SystemCursor.dSystemCursor.Add(cnCursorName, WinApi.User32.CopyIcon(WinApi.User32.LoadCursor(System.IntPtr.Zero, (int)cnCursorName)));
 				}
 				WinApi.User32.SetSystemCursor(WinApi.User32.CopyIcon(MagicRemoteService.SystemCursor.hInvisibleCursor), (uint)cnCursorName);
 			}
+#endif
 		}
 		public static void ShowSytemCursor() {
+#if !DEBUG
 			foreach(WinApi.CursorName cnCursorName in MagicRemoteService.SystemCursor.arrCursor) {
 				if(MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
 					WinApi.User32.SetSystemCursor(MagicRemoteService.SystemCursor.dSystemCursor[cnCursorName], (uint)cnCursorName);
 					MagicRemoteService.SystemCursor.dSystemCursor.Remove(cnCursorName);
 				}
 			}
+#endif
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+	
 <head>
 	<title>MagicRemoteService</title>
 	<style type="text/css">
@@ -91,6 +91,8 @@
 		}
 		video#video {
 			pointer-events: auto;
+			height: 100%;
+			width: 100%;
 		}
 		div.dialog {
 			min-width: 30%;
@@ -108,10 +110,10 @@
 		<input id="keyboard" type="text" />
 	</div>
 	<div class="screen">
-		<video id="video" autoplay loop />
+		<video id="video" autoplay></video>
 	</div>
 	<div class="screen">
-		<div id="uncaught" />
+		<div id="uncaught"></div>
 	</div>
 </body>
 
@@ -120,8 +122,8 @@
 		document.getElementById("uncaught").innerText += "\n" + oEvent.message + "\nSource : " + oEvent.filename + "\nLine : " + oEvent.lineno + "\nColumn : " + oEvent.colno + "\nError  : " + oEvent.error;
 	});
 </script>
-<script src="webOSTVjs-1.2.4/webOSTV.js" charset="utf-8"></script>
-<script src="webOSTVjs-1.2.4/webOSTV-dev.js" charset="utf-8"></script>
+<script src="webOSTVjs-1.2.8/webOSTV.js" charset="utf-8"></script>
+<script src="webOSTVjs-1.2.8/webOSTV-dev.js" charset="utf-8"></script>
 <script src="main.js" charset="utf-8"></script>
 
 </html>

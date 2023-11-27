@@ -1,4 +1,5 @@
 {
     "name": "com.cathwyler.magicremoteservice.send",
     "description": "Send service",
+    "main": "send.js"
 }

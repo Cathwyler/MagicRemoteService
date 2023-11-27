@@ -120,6 +120,9 @@
   <data name="btnClose.Text" xml:space="preserve">
     <value>Fermer</value>
   </data>
+  <data name="btnInspect.Text" xml:space="preserve">
+    <value>Inspecter</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labDisplay.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 13</value>
@@ -214,6 +217,9 @@
   <data name="labTimeoutIncativity.Text" xml:space="preserve">
     <value>Délai</value>
   </data>
+  <data name="tabRemote.Text" xml:space="preserve">
+    <value>Télécommande</value>
+  </data>
   <data name="libRemoteBackspace.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 13</value>
   </data>
@@ -301,9 +307,6 @@
   </data>
   <data name="btnRemoteSave.Text" xml:space="preserve">
     <value>Enregistrer</value>
-  </data>
-  <data name="tabRemote.Text" xml:space="preserve">
-    <value>Télécommande</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2387,9 +2390,6 @@
         vVuIXb7n44DjYW0M4uNe+JP8IYWvARxedEMF9uHDhw8fPnz48OHDhw8fPnz48OHDhw8fPnz48HEo8f8D
         WJRNgX0CE2QAAAAASUVORK5CYII=
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Paramètres</value>

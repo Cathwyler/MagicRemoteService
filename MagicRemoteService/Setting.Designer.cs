@@ -30,6 +30,7 @@ namespace MagicRemoteService {
 			this.ttFormating = new System.Windows.Forms.ToolTip(this.components);
 			this.tabSetting = new System.Windows.Forms.TabControl();
 			this.tabTV = new System.Windows.Forms.TabPage();
+			this.btnInspect = new System.Windows.Forms.Button();
 			this.labDisplay = new System.Windows.Forms.Label();
 			this.cmbboxDisplay = new System.Windows.Forms.ComboBox();
 			this.btnTVRemove = new System.Windows.Forms.Button();
@@ -37,8 +38,11 @@ namespace MagicRemoteService {
 			this.btnTVAdd = new System.Windows.Forms.Button();
 			this.chkboxExtend = new System.Windows.Forms.CheckBox();
 			this.labTV = new System.Windows.Forms.Label();
+			this.ipadrboxSendIP = new MagicRemoteService.IPAddressBox();
 			this.numboxSendPort = new System.Windows.Forms.NumericUpDown();
+			this.phyadrboxPCMac = new MagicRemoteService.PhysicalAddressBox();
 			this.labTVPort = new System.Windows.Forms.Label();
+			this.ipadrboxSubnetMask = new MagicRemoteService.IPAddressBox();
 			this.btnTVInstall = new System.Windows.Forms.Button();
 			this.labSendIP = new System.Windows.Forms.Label();
 			this.btnTVRefresh = new System.Windows.Forms.Button();
@@ -60,6 +64,24 @@ namespace MagicRemoteService {
 			this.labTimeoutIncativity = new System.Windows.Forms.Label();
 			this.labTimeoutIncativityUnit = new System.Windows.Forms.Label();
 			this.tabRemote = new System.Windows.Forms.TabPage();
+			this.bcRemoteRewind = new MagicRemoteService.BindControl();
+			this.bcRemoteFastForward = new MagicRemoteService.BindControl();
+			this.bcRemotePause = new MagicRemoteService.BindControl();
+			this.bcRemotePlay = new MagicRemoteService.BindControl();
+			this.bcRemoteBackspace = new MagicRemoteService.BindControl();
+			this.bcRemoteLongClick = new MagicRemoteService.BindControl();
+			this.bcRemoteClick = new MagicRemoteService.BindControl();
+			this.bcRemoteStop = new MagicRemoteService.BindControl();
+			this.bcRemoteBlue = new MagicRemoteService.BindControl();
+			this.bcRemoteYellow = new MagicRemoteService.BindControl();
+			this.bcRemoteGreen = new MagicRemoteService.BindControl();
+			this.bcRemoteRed = new MagicRemoteService.BindControl();
+			this.bcRemoteBack = new MagicRemoteService.BindControl();
+			this.bcRemoteOk = new MagicRemoteService.BindControl();
+			this.bcRemoteDown = new MagicRemoteService.BindControl();
+			this.bcRemoteRight = new MagicRemoteService.BindControl();
+			this.bcRemoteLeft = new MagicRemoteService.BindControl();
+			this.bcRemoteUp = new MagicRemoteService.BindControl();
 			this.libRemoteBackspace = new System.Windows.Forms.Label();
 			this.libRemoteStop = new System.Windows.Forms.Label();
 			this.libRemoteRewind = new System.Windows.Forms.Label();
@@ -79,27 +101,6 @@ namespace MagicRemoteService {
 			this.libRemoteLongClick = new System.Windows.Forms.Label();
 			this.libRemoteClick = new System.Windows.Forms.Label();
 			this.btnRemoteSave = new System.Windows.Forms.Button();
-			this.ipadrboxSendIP = new MagicRemoteService.IPAddressBox();
-			this.phyadrboxPCMac = new MagicRemoteService.PhysicalAddressBox();
-			this.ipadrboxSubnetMask = new MagicRemoteService.IPAddressBox();
-			this.bcRemoteRewind = new MagicRemoteService.BindControl();
-			this.bcRemoteFastForward = new MagicRemoteService.BindControl();
-			this.bcRemotePause = new MagicRemoteService.BindControl();
-			this.bcRemotePlay = new MagicRemoteService.BindControl();
-			this.bcRemoteBackspace = new MagicRemoteService.BindControl();
-			this.bcRemoteLongClick = new MagicRemoteService.BindControl();
-			this.bcRemoteClick = new MagicRemoteService.BindControl();
-			this.bcRemoteStop = new MagicRemoteService.BindControl();
-			this.bcRemoteBlue = new MagicRemoteService.BindControl();
-			this.bcRemoteYellow = new MagicRemoteService.BindControl();
-			this.bcRemoteGreen = new MagicRemoteService.BindControl();
-			this.bcRemoteRed = new MagicRemoteService.BindControl();
-			this.bcRemoteBack = new MagicRemoteService.BindControl();
-			this.bcRemoteOk = new MagicRemoteService.BindControl();
-			this.bcRemoteDown = new MagicRemoteService.BindControl();
-			this.bcRemoteRight = new MagicRemoteService.BindControl();
-			this.bcRemoteLeft = new MagicRemoteService.BindControl();
-			this.bcRemoteUp = new MagicRemoteService.BindControl();
 			this.tabSetting.SuspendLayout();
 			this.tabTV.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
@@ -137,6 +138,7 @@ namespace MagicRemoteService {
 			// tabTV
 			// 
 			resources.ApplyResources(this.tabTV, "tabTV");
+			this.tabTV.Controls.Add(this.btnInspect);
 			this.tabTV.Controls.Add(this.labDisplay);
 			this.tabTV.Controls.Add(this.cmbboxDisplay);
 			this.tabTV.Controls.Add(this.btnTVRemove);
@@ -163,6 +165,14 @@ namespace MagicRemoteService {
 			this.tabTV.Name = "tabTV";
 			this.ttFormating.SetToolTip(this.tabTV, resources.GetString("tabTV.ToolTip"));
 			this.tabTV.UseVisualStyleBackColor = true;
+			// 
+			// btnInspect
+			// 
+			resources.ApplyResources(this.btnInspect, "btnInspect");
+			this.btnInspect.Name = "btnInspect";
+			this.ttFormating.SetToolTip(this.btnInspect, resources.GetString("btnInspect.ToolTip"));
+			this.btnInspect.UseVisualStyleBackColor = true;
+			this.btnInspect.Click += new System.EventHandler(this.btnInspect_Click);
 			// 
 			// labDisplay
 			// 
@@ -217,6 +227,16 @@ namespace MagicRemoteService {
 			this.labTV.Name = "labTV";
 			this.ttFormating.SetToolTip(this.labTV, resources.GetString("labTV.ToolTip"));
 			// 
+			// ipadrboxSendIP
+			// 
+			resources.ApplyResources(this.ipadrboxSendIP, "ipadrboxSendIP");
+			this.ipadrboxSendIP.BackColor = System.Drawing.SystemColors.Window;
+			this.ipadrboxSendIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.ipadrboxSendIP.ForeColor = System.Drawing.SystemColors.WindowText;
+			this.ipadrboxSendIP.Name = "ipadrboxSendIP";
+			this.ttFormating.SetToolTip(this.ipadrboxSendIP, resources.GetString("ipadrboxSendIP.ToolTip"));
+			this.ipadrboxSendIP.Value = null;
+			// 
 			// numboxSendPort
 			// 
 			resources.ApplyResources(this.numboxSendPort, "numboxSendPort");
@@ -228,11 +248,31 @@ namespace MagicRemoteService {
 			this.numboxSendPort.Name = "numboxSendPort";
 			this.ttFormating.SetToolTip(this.numboxSendPort, resources.GetString("numboxSendPort.ToolTip"));
 			// 
+			// phyadrboxPCMac
+			// 
+			resources.ApplyResources(this.phyadrboxPCMac, "phyadrboxPCMac");
+			this.phyadrboxPCMac.BackColor = System.Drawing.SystemColors.Window;
+			this.phyadrboxPCMac.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.phyadrboxPCMac.ForeColor = System.Drawing.SystemColors.WindowText;
+			this.phyadrboxPCMac.Name = "phyadrboxPCMac";
+			this.ttFormating.SetToolTip(this.phyadrboxPCMac, resources.GetString("phyadrboxPCMac.ToolTip"));
+			this.phyadrboxPCMac.Value = null;
+			// 
 			// labTVPort
 			// 
 			resources.ApplyResources(this.labTVPort, "labTVPort");
 			this.labTVPort.Name = "labTVPort";
 			this.ttFormating.SetToolTip(this.labTVPort, resources.GetString("labTVPort.ToolTip"));
+			// 
+			// ipadrboxSubnetMask
+			// 
+			resources.ApplyResources(this.ipadrboxSubnetMask, "ipadrboxSubnetMask");
+			this.ipadrboxSubnetMask.BackColor = System.Drawing.SystemColors.Window;
+			this.ipadrboxSubnetMask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.ipadrboxSubnetMask.ForeColor = System.Drawing.SystemColors.WindowText;
+			this.ipadrboxSubnetMask.Name = "ipadrboxSubnetMask";
+			this.ttFormating.SetToolTip(this.ipadrboxSubnetMask, resources.GetString("ipadrboxSubnetMask.ToolTip"));
+			this.ipadrboxSubnetMask.Value = null;
 			// 
 			// btnTVInstall
 			// 
@@ -449,152 +489,6 @@ namespace MagicRemoteService {
 			this.ttFormating.SetToolTip(this.tabRemote, resources.GetString("tabRemote.ToolTip"));
 			this.tabRemote.UseVisualStyleBackColor = true;
 			// 
-			// libRemoteBackspace
-			// 
-			resources.ApplyResources(this.libRemoteBackspace, "libRemoteBackspace");
-			this.libRemoteBackspace.Name = "libRemoteBackspace";
-			this.ttFormating.SetToolTip(this.libRemoteBackspace, resources.GetString("libRemoteBackspace.ToolTip"));
-			// 
-			// libRemoteStop
-			// 
-			resources.ApplyResources(this.libRemoteStop, "libRemoteStop");
-			this.libRemoteStop.Name = "libRemoteStop";
-			this.ttFormating.SetToolTip(this.libRemoteStop, resources.GetString("libRemoteStop.ToolTip"));
-			// 
-			// libRemoteRewind
-			// 
-			resources.ApplyResources(this.libRemoteRewind, "libRemoteRewind");
-			this.libRemoteRewind.Name = "libRemoteRewind";
-			this.ttFormating.SetToolTip(this.libRemoteRewind, resources.GetString("libRemoteRewind.ToolTip"));
-			// 
-			// libRemoteFastForward
-			// 
-			resources.ApplyResources(this.libRemoteFastForward, "libRemoteFastForward");
-			this.libRemoteFastForward.Name = "libRemoteFastForward";
-			this.ttFormating.SetToolTip(this.libRemoteFastForward, resources.GetString("libRemoteFastForward.ToolTip"));
-			// 
-			// libRemotePause
-			// 
-			resources.ApplyResources(this.libRemotePause, "libRemotePause");
-			this.libRemotePause.Name = "libRemotePause";
-			this.ttFormating.SetToolTip(this.libRemotePause, resources.GetString("libRemotePause.ToolTip"));
-			// 
-			// libRemotePlay
-			// 
-			resources.ApplyResources(this.libRemotePlay, "libRemotePlay");
-			this.libRemotePlay.Name = "libRemotePlay";
-			this.ttFormating.SetToolTip(this.libRemotePlay, resources.GetString("libRemotePlay.ToolTip"));
-			// 
-			// libRemoteBlue
-			// 
-			resources.ApplyResources(this.libRemoteBlue, "libRemoteBlue");
-			this.libRemoteBlue.Name = "libRemoteBlue";
-			this.ttFormating.SetToolTip(this.libRemoteBlue, resources.GetString("libRemoteBlue.ToolTip"));
-			// 
-			// libRemoteYellow
-			// 
-			resources.ApplyResources(this.libRemoteYellow, "libRemoteYellow");
-			this.libRemoteYellow.Name = "libRemoteYellow";
-			this.ttFormating.SetToolTip(this.libRemoteYellow, resources.GetString("libRemoteYellow.ToolTip"));
-			// 
-			// libRemoteGreen
-			// 
-			resources.ApplyResources(this.libRemoteGreen, "libRemoteGreen");
-			this.libRemoteGreen.Name = "libRemoteGreen";
-			this.ttFormating.SetToolTip(this.libRemoteGreen, resources.GetString("libRemoteGreen.ToolTip"));
-			// 
-			// libRemoteRed
-			// 
-			resources.ApplyResources(this.libRemoteRed, "libRemoteRed");
-			this.libRemoteRed.Name = "libRemoteRed";
-			this.ttFormating.SetToolTip(this.libRemoteRed, resources.GetString("libRemoteRed.ToolTip"));
-			// 
-			// libRemoteBack
-			// 
-			resources.ApplyResources(this.libRemoteBack, "libRemoteBack");
-			this.libRemoteBack.Name = "libRemoteBack";
-			this.ttFormating.SetToolTip(this.libRemoteBack, resources.GetString("libRemoteBack.ToolTip"));
-			// 
-			// libRemoteOk
-			// 
-			resources.ApplyResources(this.libRemoteOk, "libRemoteOk");
-			this.libRemoteOk.Name = "libRemoteOk";
-			this.ttFormating.SetToolTip(this.libRemoteOk, resources.GetString("libRemoteOk.ToolTip"));
-			// 
-			// libRemoteDown
-			// 
-			resources.ApplyResources(this.libRemoteDown, "libRemoteDown");
-			this.libRemoteDown.Name = "libRemoteDown";
-			this.ttFormating.SetToolTip(this.libRemoteDown, resources.GetString("libRemoteDown.ToolTip"));
-			// 
-			// libRemoteRight
-			// 
-			resources.ApplyResources(this.libRemoteRight, "libRemoteRight");
-			this.libRemoteRight.Name = "libRemoteRight";
-			this.ttFormating.SetToolTip(this.libRemoteRight, resources.GetString("libRemoteRight.ToolTip"));
-			// 
-			// libRemoteUp
-			// 
-			resources.ApplyResources(this.libRemoteUp, "libRemoteUp");
-			this.libRemoteUp.Name = "libRemoteUp";
-			this.ttFormating.SetToolTip(this.libRemoteUp, resources.GetString("libRemoteUp.ToolTip"));
-			// 
-			// libRemoteLeft
-			// 
-			resources.ApplyResources(this.libRemoteLeft, "libRemoteLeft");
-			this.libRemoteLeft.Name = "libRemoteLeft";
-			this.ttFormating.SetToolTip(this.libRemoteLeft, resources.GetString("libRemoteLeft.ToolTip"));
-			// 
-			// libRemoteLongClick
-			// 
-			resources.ApplyResources(this.libRemoteLongClick, "libRemoteLongClick");
-			this.libRemoteLongClick.Name = "libRemoteLongClick";
-			this.ttFormating.SetToolTip(this.libRemoteLongClick, resources.GetString("libRemoteLongClick.ToolTip"));
-			// 
-			// libRemoteClick
-			// 
-			resources.ApplyResources(this.libRemoteClick, "libRemoteClick");
-			this.libRemoteClick.Name = "libRemoteClick";
-			this.ttFormating.SetToolTip(this.libRemoteClick, resources.GetString("libRemoteClick.ToolTip"));
-			// 
-			// btnRemoteSave
-			// 
-			resources.ApplyResources(this.btnRemoteSave, "btnRemoteSave");
-			this.btnRemoteSave.Name = "btnRemoteSave";
-			this.ttFormating.SetToolTip(this.btnRemoteSave, resources.GetString("btnRemoteSave.ToolTip"));
-			this.btnRemoteSave.UseVisualStyleBackColor = true;
-			this.btnRemoteSave.Click += new System.EventHandler(this.btnRemoteSave_Click);
-			// 
-			// ipadrboxSendIP
-			// 
-			resources.ApplyResources(this.ipadrboxSendIP, "ipadrboxSendIP");
-			this.ipadrboxSendIP.BackColor = System.Drawing.SystemColors.Window;
-			this.ipadrboxSendIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ipadrboxSendIP.ForeColor = System.Drawing.SystemColors.WindowText;
-			this.ipadrboxSendIP.Name = "ipadrboxSendIP";
-			this.ttFormating.SetToolTip(this.ipadrboxSendIP, resources.GetString("ipadrboxSendIP.ToolTip"));
-			this.ipadrboxSendIP.Value = null;
-			// 
-			// phyadrboxPCMac
-			// 
-			resources.ApplyResources(this.phyadrboxPCMac, "phyadrboxPCMac");
-			this.phyadrboxPCMac.BackColor = System.Drawing.SystemColors.Window;
-			this.phyadrboxPCMac.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.phyadrboxPCMac.ForeColor = System.Drawing.SystemColors.WindowText;
-			this.phyadrboxPCMac.Name = "phyadrboxPCMac";
-			this.ttFormating.SetToolTip(this.phyadrboxPCMac, resources.GetString("phyadrboxPCMac.ToolTip"));
-			this.phyadrboxPCMac.Value = null;
-			// 
-			// ipadrboxSubnetMask
-			// 
-			resources.ApplyResources(this.ipadrboxSubnetMask, "ipadrboxSubnetMask");
-			this.ipadrboxSubnetMask.BackColor = System.Drawing.SystemColors.Window;
-			this.ipadrboxSubnetMask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ipadrboxSubnetMask.ForeColor = System.Drawing.SystemColors.WindowText;
-			this.ipadrboxSubnetMask.Name = "ipadrboxSubnetMask";
-			this.ttFormating.SetToolTip(this.ipadrboxSubnetMask, resources.GetString("ipadrboxSubnetMask.ToolTip"));
-			this.ipadrboxSubnetMask.Value = null;
-			// 
 			// bcRemoteRewind
 			// 
 			resources.ApplyResources(this.bcRemoteRewind, "bcRemoteRewind");
@@ -757,6 +651,122 @@ namespace MagicRemoteService {
 			this.ttFormating.SetToolTip(this.bcRemoteUp, resources.GetString("bcRemoteUp.ToolTip"));
 			this.bcRemoteUp.Value = null;
 			// 
+			// libRemoteBackspace
+			// 
+			resources.ApplyResources(this.libRemoteBackspace, "libRemoteBackspace");
+			this.libRemoteBackspace.Name = "libRemoteBackspace";
+			this.ttFormating.SetToolTip(this.libRemoteBackspace, resources.GetString("libRemoteBackspace.ToolTip"));
+			// 
+			// libRemoteStop
+			// 
+			resources.ApplyResources(this.libRemoteStop, "libRemoteStop");
+			this.libRemoteStop.Name = "libRemoteStop";
+			this.ttFormating.SetToolTip(this.libRemoteStop, resources.GetString("libRemoteStop.ToolTip"));
+			// 
+			// libRemoteRewind
+			// 
+			resources.ApplyResources(this.libRemoteRewind, "libRemoteRewind");
+			this.libRemoteRewind.Name = "libRemoteRewind";
+			this.ttFormating.SetToolTip(this.libRemoteRewind, resources.GetString("libRemoteRewind.ToolTip"));
+			// 
+			// libRemoteFastForward
+			// 
+			resources.ApplyResources(this.libRemoteFastForward, "libRemoteFastForward");
+			this.libRemoteFastForward.Name = "libRemoteFastForward";
+			this.ttFormating.SetToolTip(this.libRemoteFastForward, resources.GetString("libRemoteFastForward.ToolTip"));
+			// 
+			// libRemotePause
+			// 
+			resources.ApplyResources(this.libRemotePause, "libRemotePause");
+			this.libRemotePause.Name = "libRemotePause";
+			this.ttFormating.SetToolTip(this.libRemotePause, resources.GetString("libRemotePause.ToolTip"));
+			// 
+			// libRemotePlay
+			// 
+			resources.ApplyResources(this.libRemotePlay, "libRemotePlay");
+			this.libRemotePlay.Name = "libRemotePlay";
+			this.ttFormating.SetToolTip(this.libRemotePlay, resources.GetString("libRemotePlay.ToolTip"));
+			// 
+			// libRemoteBlue
+			// 
+			resources.ApplyResources(this.libRemoteBlue, "libRemoteBlue");
+			this.libRemoteBlue.Name = "libRemoteBlue";
+			this.ttFormating.SetToolTip(this.libRemoteBlue, resources.GetString("libRemoteBlue.ToolTip"));
+			// 
+			// libRemoteYellow
+			// 
+			resources.ApplyResources(this.libRemoteYellow, "libRemoteYellow");
+			this.libRemoteYellow.Name = "libRemoteYellow";
+			this.ttFormating.SetToolTip(this.libRemoteYellow, resources.GetString("libRemoteYellow.ToolTip"));
+			// 
+			// libRemoteGreen
+			// 
+			resources.ApplyResources(this.libRemoteGreen, "libRemoteGreen");
+			this.libRemoteGreen.Name = "libRemoteGreen";
+			this.ttFormating.SetToolTip(this.libRemoteGreen, resources.GetString("libRemoteGreen.ToolTip"));
+			// 
+			// libRemoteRed
+			// 
+			resources.ApplyResources(this.libRemoteRed, "libRemoteRed");
+			this.libRemoteRed.Name = "libRemoteRed";
+			this.ttFormating.SetToolTip(this.libRemoteRed, resources.GetString("libRemoteRed.ToolTip"));
+			// 
+			// libRemoteBack
+			// 
+			resources.ApplyResources(this.libRemoteBack, "libRemoteBack");
+			this.libRemoteBack.Name = "libRemoteBack";
+			this.ttFormating.SetToolTip(this.libRemoteBack, resources.GetString("libRemoteBack.ToolTip"));
+			// 
+			// libRemoteOk
+			// 
+			resources.ApplyResources(this.libRemoteOk, "libRemoteOk");
+			this.libRemoteOk.Name = "libRemoteOk";
+			this.ttFormating.SetToolTip(this.libRemoteOk, resources.GetString("libRemoteOk.ToolTip"));
+			// 
+			// libRemoteDown
+			// 
+			resources.ApplyResources(this.libRemoteDown, "libRemoteDown");
+			this.libRemoteDown.Name = "libRemoteDown";
+			this.ttFormating.SetToolTip(this.libRemoteDown, resources.GetString("libRemoteDown.ToolTip"));
+			// 
+			// libRemoteRight
+			// 
+			resources.ApplyResources(this.libRemoteRight, "libRemoteRight");
+			this.libRemoteRight.Name = "libRemoteRight";
+			this.ttFormating.SetToolTip(this.libRemoteRight, resources.GetString("libRemoteRight.ToolTip"));
+			// 
+			// libRemoteUp
+			// 
+			resources.ApplyResources(this.libRemoteUp, "libRemoteUp");
+			this.libRemoteUp.Name = "libRemoteUp";
+			this.ttFormating.SetToolTip(this.libRemoteUp, resources.GetString("libRemoteUp.ToolTip"));
+			// 
+			// libRemoteLeft
+			// 
+			resources.ApplyResources(this.libRemoteLeft, "libRemoteLeft");
+			this.libRemoteLeft.Name = "libRemoteLeft";
+			this.ttFormating.SetToolTip(this.libRemoteLeft, resources.GetString("libRemoteLeft.ToolTip"));
+			// 
+			// libRemoteLongClick
+			// 
+			resources.ApplyResources(this.libRemoteLongClick, "libRemoteLongClick");
+			this.libRemoteLongClick.Name = "libRemoteLongClick";
+			this.ttFormating.SetToolTip(this.libRemoteLongClick, resources.GetString("libRemoteLongClick.ToolTip"));
+			// 
+			// libRemoteClick
+			// 
+			resources.ApplyResources(this.libRemoteClick, "libRemoteClick");
+			this.libRemoteClick.Name = "libRemoteClick";
+			this.ttFormating.SetToolTip(this.libRemoteClick, resources.GetString("libRemoteClick.ToolTip"));
+			// 
+			// btnRemoteSave
+			// 
+			resources.ApplyResources(this.btnRemoteSave, "btnRemoteSave");
+			this.btnRemoteSave.Name = "btnRemoteSave";
+			this.ttFormating.SetToolTip(this.btnRemoteSave, resources.GetString("btnRemoteSave.ToolTip"));
+			this.btnRemoteSave.UseVisualStyleBackColor = true;
+			this.btnRemoteSave.Click += new System.EventHandler(this.btnRemoteSave_Click);
+			// 
 			// Setting
 			// 
 			resources.ApplyResources(this, "$this");
@@ -860,5 +870,6 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnTVModify;
 		private System.Windows.Forms.Label labDisplay;
 		private System.Windows.Forms.ComboBox cmbboxDisplay;
+		private System.Windows.Forms.Button btnInspect;
 	}
 }

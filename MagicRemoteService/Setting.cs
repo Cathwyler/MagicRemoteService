@@ -382,7 +382,7 @@ namespace MagicRemoteService {
 			}
 			System.IO.Directory.CreateDirectory(".\\TV");
 			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService");
-			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.4");
+			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8");
 			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources");
 			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources\\fr");
 			System.IO.Directory.CreateDirectory(".\\TV\\Send");
@@ -406,8 +406,8 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\icon.png", MagicRemoteService.Properties.Resources.icon);
 			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
 			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.4\\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.4\\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8\\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8\\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\fr\\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo);
 			System.IO.File.WriteAllText(".\\TV/MagicRemoteService\\resources\\fr\\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
 			System.IO.File.WriteAllText(".\\TV\\Send\\package.json", MagicRemoteService.Properties.Resources.package
@@ -790,6 +790,58 @@ namespace MagicRemoteService {
 					}
 					this.Enabled = true;
 				}
+			}
+		}
+
+		private void btnInspect_Click(object sender, System.EventArgs e) {
+			async void Inspect() {
+				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
+				MagicRemoteService.WebOSCLIDeviceInput wcdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
+				string strError = null;
+				string strErrorInfo = null;
+				if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
+					try {
+						MagicRemoteService.WebOSCLI.Inspect(wcdDevice.Name, "com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort);
+						return true;
+					} catch(System.Exception ex) {
+						strError = MagicRemoteService.Properties.Resources.SettingTVInstallErrorTitle;
+						strErrorInfo = ex.Message;
+						return false;
+					}
+				})) {
+					System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+				}
+			}
+			if(
+				this.wcdiInput?.Id != ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id
+				||
+				this.scrDisplay?.Id != ((MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem)?.Id
+				||
+				this.iaSendIP?.ToString() != this.ipadrboxSendIP.Value?.ToString()
+				||
+				this.dSendPort != this.numboxSendPort.Value
+				||
+				this.iaSubnetMask?.ToString() != this.ipadrboxSubnetMask.Value?.ToString()
+				||
+				this.paPCMac?.ToString() != this.phyadrboxPCMac.Value?.ToString()
+				||
+				this.dTimeoutRightClick != this.numboxTimeoutRightClick.Value
+				||
+				this.bExtend != this.chkboxExtend.Checked
+			) {
+				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingTVSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
+					case System.Windows.Forms.DialogResult.Yes:
+						this.btnTVInstall_Click(this, new System.EventArgs());
+						Inspect();
+						break;
+					case System.Windows.Forms.DialogResult.No:
+						Inspect();
+						break;
+					case System.Windows.Forms.DialogResult.Cancel:
+						break;
+				}
+			} else {
+				Inspect();
 			}
 		}
 	}

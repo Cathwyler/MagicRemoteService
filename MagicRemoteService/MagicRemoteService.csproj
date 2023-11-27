@@ -104,7 +104,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application.cs" />
+    <Compile Include="Application.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="BindCreator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,11 +292,11 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV-dev.js" />
-    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.4\webOSTV.js" />
-  </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV-dev.js" />
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

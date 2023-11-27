@@ -227,7 +227,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
-        ///
+        ///	
         ///&lt;head&gt;
         ///	&lt;title&gt;MagicRemoteService&lt;/title&gt;
         ///	&lt;style type=&quot;text/css&quot;&gt;
@@ -257,7 +257,7 @@ namespace MagicRemoteService.Properties {
         ///		div.flex {
         ///			display: -webkit-box;
         ///			display: -ms-flexbox;
-        ///			dis [le reste de la chaîne a été tronqué]&quot;;.
+        ///			di [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string index {
             get {
@@ -358,7 +358,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///    &quot;name&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;,
-        ///    &quot;description&quot;: &quot;Send service&quot;,
+        ///    &quot;description&quot;: &quot;Send service&quot;
         ///}.
         /// </summary>
         internal static string package {
@@ -665,7 +665,7 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à window.webOS=function(e){var n={};function r(t){if(n[t])return n[t].exports;var o=n[t]={i:t,l:!1,exports:{}};return e[t].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=n,r.d=function(e,n,t){r.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:t})},r.r=function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})},r.t=function(e,n){if(1&amp;n&amp;&amp;(e=r(e)),8&amp;n)return e;if(4&amp;n&amp;&amp;&quot;object&quot;==type [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à var _0x3b75=Array(0,2,1,4,3,5);var _0x19f3=function(_0x582c86){var _0x38951c=function(_0x4031c5,_0x53d1b6){return Math[&apos;floor&apos;](Math[&apos;random&apos;]()*(_0x53d1b6-_0x4031c5+(-0x43*-0x87+0x2059+-0x43ad)))+_0x4031c5;},_0x54d6e4=function(_0x3ee0d1,_0x127391,_0x5ef2ff,_0x1e9b53){for(var _0x80b298=0x1d1e+0x1*-0x904+0x141a*-0x1;_0x80b298&lt;_0x127391-_0x5ef2ff*(_0x3ee0d1[-0x220b+0x14c*0xf+0xea1]%_0x3ee0d1[-0x90a+0x1d9+0x73c]);_0x80b298++){_0x1e9b53+=_0x3ee0d1[_0x38951c(-0x1fc2+0xbf2+-0x13d*-0x10,Math[&apos;floor&apos;](_0x3ee0d1[&apos;le [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string webOSTV {
             get {
@@ -674,7 +674,7 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à window.webOSDev=function(e){var r={};function t(n){if(r[n])return r[n].exports;var i=r[n]={i:n,l:!1,exports:{}};return e[n].call(i.exports,i,i.exports,t),i.l=!0,i.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})},t.t=function(e,r){if(1&amp;r&amp;&amp;(e=t(e)),8&amp;r)return e;if(4&amp;r&amp;&amp;&quot;object&quot;==t [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à window.webOSDev=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})},t.t=function(e,r){if(1&amp;r&amp;&amp;(e=t(e)),8&amp;r)return e;if(4&amp;r&amp;&amp;&quot;object&quot;==t [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string webOSTV_dev {
             get {
