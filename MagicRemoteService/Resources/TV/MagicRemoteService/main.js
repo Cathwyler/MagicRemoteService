@@ -452,6 +452,7 @@ function SubscriptionDomEvent(){
 				bV: CursorVisible()
 			});
 		});
+	} else {
 		window.PalmSystem.cursor = {
 			visibility: false
 		};
