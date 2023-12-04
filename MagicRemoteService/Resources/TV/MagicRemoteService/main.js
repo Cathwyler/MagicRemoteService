@@ -174,109 +174,103 @@ var iIntervalWakeOnLan = 0;
 var iTimeoutSourceStatus = 0;
 var pbInputSourceStatus = null;
 function SubscriptionInputStatus(){
-	var iIntervalSubscriptionGetAllInputStatus = setInterval(function() {
-		webOS.service.request("luna://com.webos.service.eim", {
-			method: "getAllInputStatus",
-			parameters: {
-				subscribe: true
-			},
-			onSuccess: function(inResponse){
-				if(typeof(inResponse.subscribed) === "boolean") {
-					clearInterval(iIntervalSubscriptionGetAllInputStatus);
-					LogIfDebug(oString.strGetAllInputStatusSubscribe);
-				} else {
-					var pbLastInputSourceStatus = pbInputSourceStatus;
-					inResponse.devices.forEach(function(dDevice) {
-						if(sInputId === dDevice.id){
-							pbInputSourceStatus = dDevice.activate;
+	webOS.service.request("luna://com.webos.service.eim", {
+		method: "getAllInputStatus",
+		parameters: {
+			subscribe: true
+		},
+		onSuccess: function(inResponse){
+			if(typeof(inResponse.subscribed) === "boolean") {
+				LogIfDebug(oString.strGetAllInputStatusSubscribe);
+			} else {
+				var pbLastInputSourceStatus = pbInputSourceStatus;
+				inResponse.devices.forEach(function(dDevice) {
+					if(sInputId === dDevice.id){
+						pbInputSourceStatus = dDevice.activate;
+					}
+				});
+				if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
+					if(pbInputSourceStatus) {
+						if(iIntervalWakeOnLan) {
+							clearInterval(iIntervalWakeOnLan);
+							iIntervalWakeOnLan = 0;
 						}
-					});
-					if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
-						if(pbInputSourceStatus) {
-							if(iIntervalWakeOnLan) {
-								clearInterval(iIntervalWakeOnLan);
-								iIntervalWakeOnLan = 0;
-							}
-							if(iTimeoutSourceStatus) {
-								clearTimeout(iTimeoutSourceStatus);
-								iTimeoutSourceStatus = 0;
-							}
-							if(ScreenExist(deScreenInput)) {
-								ScreenCancel(deScreenInput);
-							}
-							if(AppVisible()) {
-								Connect();
-							}
-						} else {
-							if(pbLastInputSourceStatus !== null && AppVisible()) {
-								Close();
-							}
-							deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
-								{
-									sName: oString.strInputDisconectStart,
-									fAction: function() {
+						if(iTimeoutSourceStatus) {
+							clearTimeout(iTimeoutSourceStatus);
+							iTimeoutSourceStatus = 0;
+						}
+						if(ScreenExist(deScreenInput)) {
+							ScreenCancel(deScreenInput);
+						}
+						if(AppVisible()) {
+							Connect();
+						}
+					} else {
+						if(pbLastInputSourceStatus !== null && AppVisible()) {
+							Close();
+						}
+						deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
+							{
+								sName: oString.strInputDisconectStart,
+								fAction: function() {
+									SendWol({
+										tabMac: tabMac
+									}, sBroadcast);
+									iIntervalWakeOnLan = setInterval(function() {
 										SendWol({
 											tabMac: tabMac
 										}, sBroadcast);
-										iIntervalWakeOnLan = setInterval(function() {
-											SendWol({
-												tabMac: tabMac
-											}, sBroadcast);
-										}, 5000);
-										iTimeoutSourceStatus = setTimeout(function() {
-											iTimeoutSourceStatus = 0;
-											deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
-										}, 5000);
-									}
+									}, 5000);
+									iTimeoutSourceStatus = setTimeout(function() {
+										iTimeoutSourceStatus = 0;
+										deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
+									}, 5000);
 								}
-							]);
-						}
+							}
+						]);
 					}
 				}
-			},
-			onFailure: function(inError){
-				//Warn(oString.strGetAllInputStatusFailure + " [", inError.errorText, "]");
 			}
-		});
-	}, 1000);
+		},
+		onFailure: function(inError){
+			Error(oString.strGetAllInputStatusFailure + " [", inError.errorText, "]");
+		}
+	});
 }
 
 function SubscriptionScreenSaverRequest(){
-	var iIntervalSubscriptionRegisterScreenSaverRequest = setInterval(function() {
-		webOS.service.request("luna://com.webos.service.tvpower", { 
-			method: "power/registerScreenSaverRequest", 
-			parameters: {
-				clientName: sAppID,
-				subscribe: true
-			}, 
-			onSuccess: function(inResponse){
-				if(typeof(inResponse.subscribed) === "boolean") {
-					clearInterval(iIntervalSubscriptionRegisterScreenSaverRequest);
-					LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
-				} else {
-					if((AppVisible() && AppFocus())){
-						webOS.service.request("luna://com.webos.service.tvpower", { 
-							method: "power/responseScreenSaverRequest", 
-							parameters: {
-								clientName: sAppID,
-								ack: socClient === null || socClient.readyState !== WebSocket.OPEN,
-								timestamp: inResponse.timestamp
-							}, 
-							onSuccess: function(inResponse){ 
-								LogIfDebug(oString.strResponseScreenSaverRequestSuccess); 
-							}, 
-							onFailure: function(inError){ 
-								Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]"); 
-							} 
-						});
-					}
-				} 
-			}, 
-			onFailure: function(inError){ 
-				//Warn(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+	webOS.service.request("luna://com.webos.service.tvpower", { 
+		method: "power/registerScreenSaverRequest", 
+		parameters: {
+			clientName: sAppID,
+			subscribe: true
+		}, 
+		onSuccess: function(inResponse){
+			if(typeof(inResponse.subscribed) === "boolean") {
+				LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
+			} else {
+				if((AppVisible() && AppFocus())){
+					webOS.service.request("luna://com.webos.service.tvpower", { 
+						method: "power/responseScreenSaverRequest", 
+						parameters: {
+							clientName: sAppID,
+							ack: socClient === null || socClient.readyState !== WebSocket.OPEN,
+							timestamp: inResponse.timestamp
+						}, 
+						onSuccess: function(inResponse){ 
+							LogIfDebug(oString.strResponseScreenSaverRequestSuccess); 
+						}, 
+						onFailure: function(inError){ 
+							Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+						} 
+					});
+				}
 			} 
-		});
-	}, 1000);
+		}, 
+		onFailure: function(inError){ 
+			Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+		} 
+	});
 }
 
 var pCurrent = {
@@ -347,8 +341,11 @@ function AddDevice(){
 		onSuccess: function(inResponse){
 			LogIfDebug(oString.strAddDeviceSuccess); 
 		}, 
-		onFailure: function(inError){ 
-			//Error(oString.strAddDeviceFailure + " [", inError.errorText, "]"); 
+		onFailure: function(inError){
+			//TODO find a way to detect if already added
+			if(oDevice.versionMajor > 2) {
+				Error(oString.strAddDeviceFailure + " [", inError.errorText, "]");
+			}
 		} 
 	});
 }
