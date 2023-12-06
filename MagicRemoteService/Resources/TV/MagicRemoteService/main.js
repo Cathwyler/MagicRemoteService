@@ -5,6 +5,16 @@ ArrayBuffer.prototype.toString = function(base) {
 	}).join("");
 }
 
+function ObjectSpread(o1, o2){
+	var o = o1;
+	for (var strProperty in o) {
+		if(strProperty in o2) {
+			o[strProperty] = o2[strProperty];
+		}
+	}
+	return o;
+}
+
 function Toast(sTitre, sMessage){
 	var deScreenToast = document.createElement("div");
 	deScreenToast.className = "screen flex justify-center align-flex-end";
@@ -180,55 +190,54 @@ function SubscriptionInputStatus(){
 			subscribe: true
 		},
 		onSuccess: function(inResponse){
-			if(typeof(inResponse.subscribed) === "boolean") {
-				LogIfDebug(oString.strGetAllInputStatusSubscribe);
-			} else {
-				var pbLastInputSourceStatus = pbInputSourceStatus;
-				inResponse.devices.forEach(function(dDevice) {
-					if(sInputId === dDevice.id){
-						pbInputSourceStatus = dDevice.activate;
+			LogIfDebug(oString.strGetAllInputStatusSuccess);
+			var pbLastInputSourceStatus = pbInputSourceStatus;
+			inResponse.devices.forEach(function(dDevice) {
+				if(sInputId === dDevice.id){
+					pbInputSourceStatus = dDevice.activate;
+				}
+			});
+			if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
+				if(pbInputSourceStatus) {
+					LogIfDebug(oString.strInputConnected);
+					if(iIntervalWakeOnLan) {
+						clearInterval(iIntervalWakeOnLan);
+						iIntervalWakeOnLan = 0;
 					}
-				});
-				if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
-					if(pbInputSourceStatus) {
-						if(iIntervalWakeOnLan) {
-							clearInterval(iIntervalWakeOnLan);
-							iIntervalWakeOnLan = 0;
-						}
-						if(iTimeoutSourceStatus) {
-							clearTimeout(iTimeoutSourceStatus);
-							iTimeoutSourceStatus = 0;
-						}
-						if(ScreenExist(deScreenInput)) {
-							ScreenCancel(deScreenInput);
-						}
-						if(AppVisible()) {
-							Connect();
-						}
-					} else {
-						if(pbLastInputSourceStatus !== null && AppVisible()) {
-							Close();
-						}
-						deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
-							{
-								sName: oString.strInputDisconectStart,
-								fAction: function() {
+					if(iTimeoutSourceStatus) {
+						clearTimeout(iTimeoutSourceStatus);
+						iTimeoutSourceStatus = 0;
+					}
+					if(ScreenExist(deScreenInput)) {
+						ScreenCancel(deScreenInput);
+					}
+					if(AppVisible()) {
+						Connect();
+					}
+				} else {
+					LogIfDebug(oString.strInputDisconnected);
+					if(pbLastInputSourceStatus !== null && AppVisible()) {
+						Close();
+					}
+					deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
+						{
+							sName: oString.strInputDisconectStart,
+							fAction: function() {
+								SendWol({
+									tabMac: tabMac
+								}, sBroadcast);
+								iIntervalWakeOnLan = setInterval(function() {
 									SendWol({
 										tabMac: tabMac
 									}, sBroadcast);
-									iIntervalWakeOnLan = setInterval(function() {
-										SendWol({
-											tabMac: tabMac
-										}, sBroadcast);
-									}, 5000);
-									iTimeoutSourceStatus = setTimeout(function() {
-										iTimeoutSourceStatus = 0;
-										deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
-									}, 5000);
-								}
+								}, 5000);
+								iTimeoutSourceStatus = setTimeout(function() {
+									iTimeoutSourceStatus = 0;
+									deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
+								}, 5000);
 							}
-						]);
-					}
+						}
+					]);
 				}
 			}
 		},
@@ -246,7 +255,7 @@ function SubscriptionScreenSaverRequest(){
 			subscribe: true
 		}, 
 		onSuccess: function(inResponse){
-			if(typeof(inResponse.subscribed) === "boolean") {
+			if(inResponse.subscribed !== undefined) {
 				LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
 			} else {
 				if((AppVisible() && AppFocus())){
@@ -257,15 +266,15 @@ function SubscriptionScreenSaverRequest(){
 							ack: socClient === null || socClient.readyState !== WebSocket.OPEN,
 							timestamp: inResponse.timestamp
 						}, 
-						onSuccess: function(inResponse){ 
-							LogIfDebug(oString.strResponseScreenSaverRequestSuccess); 
+						onSuccess: function(inResponse){
+							LogIfDebug(oString.strResponseScreenSaverRequestSuccess);
 						}, 
 						onFailure: function(inError){ 
 							Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]"); 
 						} 
 					});
 				}
-			} 
+			}
 		}, 
 		onFailure: function(inError){ 
 			Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
@@ -284,46 +293,46 @@ var pDown = {
 var bPositionDownSent = false;
 var iTimeoutLongDown = 0;
 function SubscriptionGetSensorData(){
-	var iIntervalSubscriptionGetSensorData = setInterval(function() {
-		webOS.service.request("luna://com.webos.service.mrcu", {
-			method: "sensor/getSensorData",
-			parameters: {
-				callbackInterval: 1,
-				subscribe: true,
-				sleep: true,
-				autoAlign: false
-			},
-			onSuccess: function(inResponse) {
-				if(typeof(inResponse.subscribed) === "boolean") {
-					clearInterval(iIntervalSubscriptionGetSensorData);
-					LogIfDebug(oString.strGetSensorDataSubscribe);
-				} else {
-					if((AppVisible() && AppFocus())){
-						if(iTimeoutLongDown && ((pDown.usX - inResponse.coordinate.x) > 3 || (pDown.usX - inResponse.coordinate.x) < -3 || (pDown.usY - inResponse.coordinate.y) > 3 || (pDown.usY - inResponse.coordinate.y) < -3)) {
-							clearTimeout(iTimeoutLongDown);
-							iTimeoutLongDown = 0;
-							SendKey({
-								usC: 0x01,
-								bS: true
-							});
-							bPositionDownSent = true;
-						}
-						pCurrent.usX = inResponse.coordinate.x;
-						pCurrent.usY = inResponse.coordinate.y;
-						SendPosition({
-							usX: inResponse.coordinate.x,
-							usY: inResponse.coordinate.y
+	webOS.service.request("luna://com.webos.service.mrcu", {
+		method: "sensor/getSensorData",
+		parameters: oDevice.versionMajor > 1 ? {
+			callbackInterval: 1,
+			subscribe: true,
+		} : {
+			callbackInterval: 1,
+			subscribe: true,
+			sleep: true,
+			autoAlign: false
+		},
+		onSuccess: function(inResponse) {
+			if(inResponse.subscribed !== undefined) {
+				LogIfDebug(oString.strGetSensorDataSubscribe);
+			} else {
+				if((AppVisible() && AppFocus())){
+					if(iTimeoutLongDown && ((pDown.usX - inResponse.coordinate.x) > 3 || (pDown.usX - inResponse.coordinate.x) < -3 || (pDown.usY - inResponse.coordinate.y) > 3 || (pDown.usY - inResponse.coordinate.y) < -3)) {
+						clearTimeout(iTimeoutLongDown);
+						iTimeoutLongDown = 0;
+						SendKey({
+							usC: 0x01,
+							bS: true
 						});
+						bPositionDownSent = true;
 					}
+					pCurrent.usX = inResponse.coordinate.x;
+					pCurrent.usY = inResponse.coordinate.y;
+					SendPosition({
+						usX: inResponse.coordinate.x,
+						usY: inResponse.coordinate.y
+					});
 				}
 				return true;
-			},
-			onFailure: function(inError) {
-				//Warn(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
-				return;
 			}
-		});
-	}, 1000);
+		},
+		onFailure: function(inError) {
+			Error(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
+			return;
+		}
+	});
 }
 
 function AddDevice(){
@@ -339,7 +348,7 @@ function AddDevice(){
 			description: oString.strAppDescription, 
 		}, 
 		onSuccess: function(inResponse){
-			LogIfDebug(oString.strAddDeviceSuccess); 
+			LogIfDebug(oString.strAddDeviceSuccess);
 		}, 
 		onFailure: function(inError){
 			//TODO find a way to detect if already added
@@ -720,23 +729,39 @@ function SendShutdown() {
 	}
 }
 
+const strPath = webOS.fetchAppRootPath();
 var bLoaded = false;
 var oString = null;
 var oDevice = null;
-var iTimeoutFetch = 0;
-webOS.fetchAppInfo(function(oInfo) {
-	oString = oInfo;
-	if(oDevice !== null && oString !== null && bLoaded === false){
-		if(iTimeoutFetch){
-			clearTimeout(iTimeoutFetch);
-		}
-		iTimeoutFetch = setTimeout(function(){
-			bLoaded = true;
-			Load();
-		}, 1000);
-	}
-}, webOS.fetchAppRootPath() + "appstring.json");
+webOS.service.request('luna://com.webos.settingsservice', {
+	method: 'getSystemSettings',
+	parameters: {
+		keys: ['localeInfo'],
+		subscribe: true
+	},
+	onSuccess: function (inResponse) {
+		webOS.fetchAppInfo(function(oInfo) {
+			oString = oInfo;
+			LogIfDebug(oString.strGetSystemSettingsSuccess);
+		}, strPath + "appstring.json");
+		inResponse.settings.localeInfo.locales.UI.split("-").forEach(function(x, i, arr) {
+			webOS.fetchAppInfo(function(oInfo) {
+				if(oInfo !== undefined){
+					oString = ObjectSpread(oString, oInfo);
+					LogIfDebug(oString.strGetSystemSettingsSuccess);
+				}
+			}, strPath + "resources/" + arr.slice(0, i + 1).join("/") + "/appstring.json");
+		});
+	},
+	onFailure: function (inError) {
+		webOS.fetchAppInfo(function(oInfo) {
+			oString = oInfo;
+			Error(oString.strGetSystemSettingsFailure + " [", inError.errorText, "]");
+		}, strPath + "appstring.json");
+	},
+});
 
+var iTimeoutFetch = 0;
 webOS.deviceInfo(function(oInfo) {
 	oDevice = oInfo;
 	if(oDevice !== null && oString !== null && bLoaded === false){
@@ -752,8 +777,15 @@ webOS.deviceInfo(function(oInfo) {
 
 function Load(){
 	SubscriptionInputStatus();
-	SubscriptionScreenSaverRequest();
-	SubscriptionGetSensorData();
+	if(oDevice.versionMajor > 2) {
+		SubscriptionScreenSaverRequest();
+	}
+	var iIntervalSubscriptionGetSensorData = setInterval(function() {
+		if(CursorVisible()){
+			clearInterval(iIntervalSubscriptionGetSensorData);
+			SubscriptionGetSensorData();
+		}
+	}, 1000);
 	AddDevice();
 	SubscriptionDomEvent();
 }

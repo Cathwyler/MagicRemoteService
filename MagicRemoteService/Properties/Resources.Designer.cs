@@ -108,17 +108,18 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;strAppDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
+        ///	&quot;strAppDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
         ///
-        ///	&quot;strLogTitle&quot;: &quot;Evenement&quot;,
-        ///	&quot;strWarnTitle&quot;: &quot;Attention&quot;,
-        ///	&quot;strErrorTitle&quot;: &quot;Erreur&quot;,
+        ///	&quot;strLogTitle&quot;: &quot;Log&quot;,
+        ///	&quot;strWarnTitle&quot;: &quot;Warn&quot;,
+        ///	&quot;strErrorTitle&quot;: &quot;Error&quot;,
         ///
-        ///	&quot;strLaunchAppSuccess&quot;: &quot;Succès du lancement de {1}&quot;,
-        ///	&quot;strLaunchAppFailure&quot;: &quot;Echec du lancement de {1}&quot;,
-        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Début de la récupération l&apos;état des entrées&quot;,
-        ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Echec de la récupération l&apos;état des entrées&quot;,
-        ///	&quot;str [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strLaunchAppSuccess&quot;: &quot;Success to launch {1}&quot;,
+        ///	&quot;strLaunchAppFailure&quot;: &quot;Failed to launch {1}&quot;,
+        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Start to get all input status&quot;,
+        ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Failed to get all input status&quot;,
+        ///	&quot;strSendWolSuccess&quot;: &quot;Success to send WoL&quot;,
+        ///	&quot;strSendWolFailure [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string appstring {
             get {
@@ -183,7 +184,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
+        ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;
         ///}.
         /// </summary>
         internal static string frappinfo {
@@ -195,18 +196,17 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;strAppDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///	&quot;strAppDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
         ///
-        ///	&quot;strLogTitle&quot;: &quot;Log&quot;,
-        ///	&quot;strWarnTitle&quot;: &quot;Warn&quot;,
-        ///	&quot;strErrorTitle&quot;: &quot;Error&quot;,
+        ///	&quot;strLogTitle&quot;: &quot;Evenement&quot;,
+        ///	&quot;strWarnTitle&quot;: &quot;Attention&quot;,
+        ///	&quot;strErrorTitle&quot;: &quot;Erreur&quot;,
         ///
-        ///	&quot;strLaunchAppSuccess&quot;: &quot;Success to launch {1}&quot;,
-        ///	&quot;strLaunchAppFailure&quot;: &quot;Failed to launch {1}&quot;,
-        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Start to get all input status&quot;,
-        ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Failed to get all input status&quot;,
-        ///	&quot;strSendWolSuccess&quot;: &quot;Success to send WoL&quot;,
-        ///	&quot;strSendWolFailure [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strLaunchAppSuccess&quot;: &quot;Succès du lancement de {1}&quot;,
+        ///	&quot;strLaunchAppFailure&quot;: &quot;Echec du lancement de {1}&quot;,
+        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Début de la récupération l&apos;état des entrées&quot;,
+        ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Echec de la récupération l&apos;état des entrées&quot;,
+        ///	&quot;str [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string frappstring {
             get {
@@ -330,14 +330,13 @@ namespace MagicRemoteService.Properties {
         ///}
         ///
         ///function Toast(sTitre, sMessage){
-        ///	var deScreen = document.createElement(&quot;div&quot;);
-        ///	deScreen.className = &quot;screen flex justify-center align-flex-end&quot;;
+        ///	var deScreenToast = document.createElement(&quot;div&quot;);
+        ///	deScreenToast.className = &quot;screen flex justify-center align-flex-end&quot;;
         ///	var deToast = document.createElement(&quot;div&quot;);
         ///	deToast.className = &quot;window toast&quot;;
         ///	deToast.addEventListener(&quot;click&quot;, function() {
-        ///		ScreenCancel(deScreen);
-        ///	});
-        ///	var dePopu [le reste de la chaîne a été tronqué]&quot;;.
+        ///		ScreenCancel(deScreenToast);
+        ///	} [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {
@@ -358,7 +357,8 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///    &quot;name&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;,
-        ///    &quot;description&quot;: &quot;Send service&quot;
+        ///    &quot;description&quot;: &quot;Send service&quot;,
+        ///    &quot;main&quot;: &quot;send.js&quot;
         ///}.
         /// </summary>
         internal static string package {

@@ -397,19 +397,19 @@ namespace MagicRemoteService {
 				.Replace("const sMask = \"255.255.255.0\";", "const sMask = \"" + ipaMask.ToString() + "\";")
 				.Replace("const sMac = \"AA:AA:AA:AA:AA:AA\";", "const sMac = \"" + paPCMac.ToString() + "\";")
 			);
-			System.IO.File.WriteAllText(".\\TV/MagicRemoteService\\index.html", MagicRemoteService.Properties.Resources.index);
-			System.IO.File.WriteAllText(".\\TV/MagicRemoteService\\appinfo.json", MagicRemoteService.Properties.Resources.appinfo
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\index.html", MagicRemoteService.Properties.Resources.index);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appinfo.json", MagicRemoteService.Properties.Resources.appinfo
 				.Replace("\"id\": \"com.cathwyler.magicremoteservice\"", "\"id\": \"com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + "\"")
 				.Replace("\"version\": \"1.0.0\"", "\"version\": \"" + strVersion + "\"")
 			);
-			System.IO.File.WriteAllText(".\\TV/MagicRemoteService\\appstring.json", MagicRemoteService.Properties.Resources.appstring);
-			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\icon.png", MagicRemoteService.Properties.Resources.icon);
-			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
-			System.IO.File.WriteAllBytes(".\\TV/MagicRemoteService\\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appstring.json", MagicRemoteService.Properties.Resources.appstring);
+			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\icon.png", MagicRemoteService.Properties.Resources.icon);
+			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
+			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8\\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8\\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\fr\\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo);
-			System.IO.File.WriteAllText(".\\TV/MagicRemoteService\\resources\\fr\\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\fr\\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
 			System.IO.File.WriteAllText(".\\TV\\Send\\package.json", MagicRemoteService.Properties.Resources.package
 				.Replace("\"name\": \"com.cathwyler.magicremoteservice.send\"", "\"name\": \"com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + ".send\"")
 			);
