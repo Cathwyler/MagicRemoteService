@@ -1,18 +1,30 @@
 
 ArrayBuffer.prototype.toString = function(base) {
-	return [].slice.call(new Uint8Array(this)).map(function(x) {
+	return Array.prototype.slice.call(new Uint8Array(this)).map(function(x) {
 		return ("00" + x.toString(base)).slice(-2);
 	}).join("");
 }
 
-function ObjectSpread(o1, o2){
-	var o = o1;
-	for (var strProperty in o) {
-		if(strProperty in o2) {
-			o[strProperty] = o2[strProperty];
+Node.prototype.oneEventListener = function(strType, fListener) {
+    function Handler(inEvent) {
+        this.removeEventListener(strType, Handler);
+        if(fListener(inEvent) === false){
+			this.addEventListener(strType, Handler);
+		}
+    }
+    this.addEventListener(strType, Handler);
+}
+
+Object.prototype.spread = function(o){
+	for (var strProperty in this) {
+		if(strProperty in o) {
+			this[strProperty] = o[strProperty];
 		}
 	}
-	return o;
+}
+
+Object.prototype.toString = function(){
+	return JSON.stringify(this);
 }
 
 function Toast(sTitre, sMessage){
@@ -82,26 +94,14 @@ function ScreenCancel(deScreen) {
 	document.body.removeChild(deScreen);
 }
 
-function ObjectToString(o){
-	var arr = [];
-	for (var strProperty in o) {
-		arr.push(o[strProperty])
-	}
-	return arr.map(function(x) {
-		if(typeof x === "object") {
-			return JSON.stringify(x);
-		} else {
-			return x.toString();
-		}
-	}).join("");
-}
-
 var deScreenToast = null;
 function Log() {
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
-	deScreenToast = Toast(oString.strLogTitle, ObjectToString(arguments));
+	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
+		return x.toString();
+	}).join(""));
 	console.log.apply(console, arguments);
 }
 
@@ -115,7 +115,9 @@ function Warn() {
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
-	deScreenToast = Toast(oString.strWarnTitle, ObjectToString(arguments));
+	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
+		return x.toString();
+	}).join(""));
 	console.warn.apply(console, arguments);
 }
 
@@ -123,7 +125,9 @@ function Error() {
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
-	deScreenToast = Toast(oString.strErrorTitle, ObjectToString(arguments));
+	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
+		return x.toString();
+	}).join(""));
 	console.error.apply(console, arguments);
 }
 
@@ -255,7 +259,7 @@ function SubscriptionScreenSaverRequest(){
 			subscribe: true
 		}, 
 		onSuccess: function(inResponse){
-			if(inResponse.subscribed !== undefined) {
+			if(inResponse.subscribed === true) {
 				LogIfDebug(oString.strRegisterScreenSaverRequestSubscribe);
 			} else {
 				if((AppVisible() && AppFocus())){
@@ -305,7 +309,7 @@ function SubscriptionGetSensorData(){
 			autoAlign: false
 		},
 		onSuccess: function(inResponse) {
-			if(inResponse.subscribed !== undefined) {
+			if(inResponse.subscribed === true) {
 				LogIfDebug(oString.strGetSensorDataSubscribe);
 			} else {
 				if((AppVisible() && AppFocus())){
@@ -398,11 +402,19 @@ function SubscriptionDomEvent(){
 		}
 	});
 
-	deVideo.addEventListener("wheel", function(inEvent) {
-		SendWheel({
-			sY: inEvent.deltaY
+	if(oDevice.versionMajor > 1) {
+		deVideo.addEventListener("wheel", function(inEvent) {
+			SendWheel({
+				sY: inEvent.deltaY
+			});
 		});
-	});
+	} else {
+		deVideo.addEventListener("mousewheel", function(inEvent) {
+			SendWheel({
+				sY: inEvent.wheelDeltaY
+			});
+		});
+	}
 
 	document.addEventListener("keydown", function(inEvent) {
 		SendKey({
@@ -647,7 +659,7 @@ function SendPosition(pPosition) {
 			dwPosition.setUint16(1, pPosition.usX, true);
 			dwPosition.setUint16(3, pPosition.usY, true);
 			socClient.send(bufPosition);
-			//LogIfDebug(oString.strSendPositionSuccess + " [0x" + bufPosition.toString(16) + "]@" + sIP + ":" + uiPort + " ", pPosition);
+			LogIfDebug(oString.strSendPositionSuccess + " [0x" + bufPosition.toString(16) + "]@" + sIP + ":" + uiPort + " ", pPosition);
 		} catch(eError) {
 			Error(oString.strSendPositionFailure + " [", eError, "]@" + sIP + ":" + uiPort + " ", pPosition);
 		}
@@ -747,7 +759,7 @@ webOS.service.request('luna://com.webos.settingsservice', {
 		inResponse.settings.localeInfo.locales.UI.split("-").forEach(function(x, i, arr) {
 			webOS.fetchAppInfo(function(oInfo) {
 				if(oInfo !== undefined){
-					oString = ObjectSpread(oString, oInfo);
+					oString.spread(oInfo);
 					LogIfDebug(oString.strGetSystemSettingsSuccess);
 				}
 			}, strPath + "resources/" + arr.slice(0, i + 1).join("/") + "/appstring.json");
@@ -780,12 +792,26 @@ function Load(){
 	if(oDevice.versionMajor > 2) {
 		SubscriptionScreenSaverRequest();
 	}
-	var iIntervalSubscriptionGetSensorData = setInterval(function() {
-		if(CursorVisible()){
-			clearInterval(iIntervalSubscriptionGetSensorData);
-			SubscriptionGetSensorData();
-		}
-	}, 1000);
+	if(oDevice.versionMajor > 2) {
+		document.oneEventListener("cursorStateChange", function(inEvent) {
+			if(CursorVisible()){
+				SubscriptionGetSensorData();
+				return true;
+			} else {
+				return false;
+			}
+		});
+	} else {
+		document.oneEventListener("keydown", function(inEvent) {
+			switch(inEvent.keyCode){
+				case 0x600:
+					SubscriptionGetSensorData();
+					return true;
+				default:
+					return false;
+			}
+		});
+	}
 	AddDevice();
 	SubscriptionDomEvent();
 }
