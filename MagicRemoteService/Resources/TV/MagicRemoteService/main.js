@@ -280,8 +280,12 @@ function SubscriptionScreenSaverRequest(){
 				}
 			}
 		}, 
-		onFailure: function(inError){ 
-			Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]"); 
+		onFailure: function(inError){
+			if(oDevice.versionMajor > 2) {
+				Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]");
+			} else {
+				console.error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]");
+			}
 		} 
 	});
 }
@@ -333,7 +337,31 @@ function SubscriptionGetSensorData(){
 			}
 		},
 		onFailure: function(inError) {
-			Error(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
+			if(CursorVisible()) {
+				Error(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
+			} else {
+				console.error(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
+			}
+			if(oDevice.versionMajor > 2) {
+				document.oneEventListener("cursorStateChange", function(inEvent) {
+					if(CursorVisible()){
+						SubscriptionGetSensorData();
+						return true;
+					} else {
+						return false;
+					}
+				});
+			} else {
+				document.oneEventListener("keydown", function(inEvent) {
+					switch(inEvent.keyCode){
+						case 0x600:
+							SubscriptionGetSensorData();
+							return true;
+						default:
+							return false;
+					}
+				});
+			}
 			return;
 		}
 	});
@@ -355,9 +383,10 @@ function AddDevice(){
 			LogIfDebug(oString.strAddDeviceSuccess);
 		}, 
 		onFailure: function(inError){
-			//TODO find a way to detect if already added
 			if(oDevice.versionMajor > 2) {
 				Error(oString.strAddDeviceFailure + " [", inError.errorText, "]");
+			} else {
+				console.error(oString.strAddDeviceFailure + " [", inError.errorText, "]");
 			}
 		} 
 	});
@@ -471,9 +500,6 @@ function SubscriptionDomEvent(){
 			});
 		});
 	} else {
-		window.PalmSystem.cursor = {
-			visibility: false
-		};
 		document.addEventListener("keydown", function(inEvent) {
 			switch(inEvent.keyCode){
 				case 0x600:
@@ -494,7 +520,6 @@ function SubscriptionDomEvent(){
 
 	if(oDevice.versionMajor > 2) {
 	} else {
-		window.PalmSystem.isKeyboardVisible = false;
 		deKeyboard.addEventListener("focus", function(inEvent) {
 			window.PalmSystem.isKeyboardVisible = true;
 		});
@@ -788,30 +813,18 @@ webOS.deviceInfo(function(oInfo) {
 });
 
 function Load(){
-	SubscriptionInputStatus();
+	
 	if(oDevice.versionMajor > 2) {
-		SubscriptionScreenSaverRequest();
-	}
-	if(oDevice.versionMajor > 2) {
-		document.oneEventListener("cursorStateChange", function(inEvent) {
-			if(CursorVisible()){
-				SubscriptionGetSensorData();
-				return true;
-			} else {
-				return false;
-			}
-		});
 	} else {
-		document.oneEventListener("keydown", function(inEvent) {
-			switch(inEvent.keyCode){
-				case 0x600:
-					SubscriptionGetSensorData();
-					return true;
-				default:
-					return false;
-			}
-		});
+		window.PalmSystem.cursor = {
+			visibility: null
+		};
+		window.PalmSystem.isKeyboardVisible = null;
 	}
+
+	SubscriptionInputStatus();
+	SubscriptionScreenSaverRequest();
+	SubscriptionGetSensorData();
 	AddDevice();
 	SubscriptionDomEvent();
 }
