@@ -420,6 +420,7 @@ function AddDevice(){
 		onFailure: function(inError){
 			switch(inError.errorCode){
 				case -1:
+				case "EIM.105":
 					console.error(oString.strAddDeviceFailure + " [", inError.errorText, "]");
 					break;
 				default:
