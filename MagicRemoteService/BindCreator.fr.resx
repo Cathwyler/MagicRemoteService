@@ -117,45 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="selBindMouse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 17</value>
-  </data>
   <data name="selBindMouse.Text" xml:space="preserve">
     <value>Souris</value>
-  </data>
-  <data name="selBindKeyboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 17</value>
   </data>
   <data name="selBindKeyboard.Text" xml:space="preserve">
     <value>Clavier</value>
   </data>
-  <data name="selMouseRight.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 17</value>
+  <data name="libKeyboard.Text" xml:space="preserve">
+    <value>Appuyez sur une touche</value>
   </data>
   <data name="selMouseRight.Text" xml:space="preserve">
     <value>Droit</value>
   </data>
-  <data name="selMouseMiddle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 17</value>
-  </data>
   <data name="selMouseMiddle.Text" xml:space="preserve">
     <value>Milieu</value>
-  </data>
-  <data name="selMouseLeft.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 17</value>
   </data>
   <data name="selMouseLeft.Text" xml:space="preserve">
     <value>Gauche</value>
   </data>
-  <data name="selActionKeyboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 17</value>
-  </data>
   <data name="selActionKeyboard.Text" xml:space="preserve">
     <value>Clavier</value>
-  </data>
-  <data name="selActionShutdown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
   </data>
   <data name="selActionShutdown.Text" xml:space="preserve">
     <value>Éteindre</value>

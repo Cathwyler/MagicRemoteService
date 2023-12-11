@@ -117,34 +117,127 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnConfirm.Text" xml:space="preserve">
-    <value>Valider</value>
+  <data name="btnClose.Text" xml:space="preserve">
+    <value>Cerrar</value>
   </data>
-  <data name="btnCancel.Text" xml:space="preserve">
-    <value>Annuler</value>
+  <data name="btnInspect.Text" xml:space="preserve">
+    <value>Inspeccionar</value>
   </data>
-  <data name="labIP.Text" xml:space="preserve">
-    <value>Adresse IP</value>
+  <data name="labDisplay.Text" xml:space="preserve">
+    <value>Pantalla TV</value>
   </data>
-  <data name="labUser.Text" xml:space="preserve">
-    <value>Utilisateur</value>
+  <data name="btnTVRemove.Text" xml:space="preserve">
+    <value>Eliminar TV</value>
   </data>
-  <data name="labPassword.Text" xml:space="preserve">
-    <value>Mot de passe</value>
+  <data name="btnTVModify.Text" xml:space="preserve">
+    <value>Modificar TV</value>
   </data>
-  <data name="labPassphrase.Text" xml:space="preserve">
-    <value>Phrase secrète</value>
+  <data name="btnTVAdd.Text" xml:space="preserve">
+    <value>Añadir TV</value>
   </data>
-  <data name="labPrivateKey.Text" xml:space="preserve">
-    <value>Fichier de clé privée</value>
+  <data name="chkboxExtend.Text" xml:space="preserve">
+    <value>Extender el modo desarrollador automáticamente cada dia</value>
   </data>
-  <data name="labName.Text" xml:space="preserve">
-    <value>Nom</value>
+  <data name="labTV.Text" xml:space="preserve">
+    <value>Nombre TV</value>
   </data>
-  <data name="cbAdvanced.Text" xml:space="preserve">
-    <value>Avancé</value>
+  <data name="labTVPort.Text" xml:space="preserve">
+    <value>Puerto de envío</value>
   </data>
-  <data name="labKeyServer.Text" xml:space="preserve">
-    <value>Vous devez activez l'option "Key Server" dans l'application "Developer mode" sur la TV avant de valider.</value>
+  <data name="btnTVInstall.Text" xml:space="preserve">
+    <value>Instalar en TV</value>
+  </data>
+  <data name="labSendIP.Text" xml:space="preserve">
+    <value>Dirección IP del ordenador</value>
+  </data>
+  <data name="btnTVRefresh.Text" xml:space="preserve">
+    <value>Refrescar TVs</value>
+  </data>
+  <data name="labSubnetMask.Text" xml:space="preserve">
+    <value>Mascara de subred</value>
+  </data>
+  <data name="labPCMac.Text" xml:space="preserve">
+    <value>Dirección MAC del ordenador</value>
+  </data>
+  <data name="labInput.Text" xml:space="preserve">
+    <value>Entrada de TV</value>
+  </data>
+  <data name="labTimeoutRightClick.Text" xml:space="preserve">
+    <value>Tiempo espera click derecho</value>
+  </data>
+  <data name="chkboxStartup.Text" xml:space="preserve">
+    <value>Lanzar automáticamente al iniciar</value>
+  </data>
+  <data name="labPCPort.Text" xml:space="preserve">
+    <value>Puerto de escucha</value>
+  </data>
+  <data name="btnPCSave.Text" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="chkboxInactivity.Text" xml:space="preserve">
+    <value>Apagar el ordenador automáticamente cuando se enciende la TV</value>
+  </data>
+  <data name="labTimeoutIncativity.Text" xml:space="preserve">
+    <value>Se agotó el tiempo de espera</value>
+  </data>
+  <data name="libRemoteBackspace.Text" xml:space="preserve">
+    <value>Retroceso</value>
+  </data>
+  <data name="libRemoteStop.Text" xml:space="preserve">
+    <value>Parar</value>
+  </data>
+  <data name="libRemoteRewind.Text" xml:space="preserve">
+    <value>Rebobinar</value>
+  </data>
+  <data name="libRemoteFastForward.Text" xml:space="preserve">
+    <value>Avanzar</value>
+  </data>
+  <data name="libRemotePause.Text" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="libRemotePlay.Text" xml:space="preserve">
+    <value>Reproducir</value>
+  </data>
+  <data name="libRemoteBlue.Text" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="libRemoteYellow.Text" xml:space="preserve">
+    <value>Amarillo</value>
+  </data>
+  <data name="libRemoteGreen.Text" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="libRemoteRed.Text" xml:space="preserve">
+    <value>Rojo</value>
+  </data>
+  <data name="libRemoteBack.Text" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="libRemoteOk.Text" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="libRemoteDown.Text" xml:space="preserve">
+    <value>Abajo</value>
+  </data>
+  <data name="libRemoteRight.Text" xml:space="preserve">
+    <value>Derecha</value>
+  </data>
+  <data name="libRemoteUp.Text" xml:space="preserve">
+    <value>Arriba</value>
+  </data>
+  <data name="libRemoteLeft.Text" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
+  <data name="libRemoteLongClick.Text" xml:space="preserve">
+    <value>Click largo</value>
+  </data>
+  <data name="btnRemoteSave.Text" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="tabRemote.Text" xml:space="preserve">
+    <value>Remoto</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Ajustes</value>
   </data>
 </root>

@@ -120,6 +120,11 @@
       <DependentUpon>BindControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Bind.cs" />
+    <Compile Include="Properties\Resources.es.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.es.resx</DependentUpon>
+    </Compile>
     <Compile Include="Screen.cs" />
     <Compile Include="TV.cs">
       <SubType>Form</SubType>
@@ -187,6 +192,8 @@
     <None Include="Resources\TV\MagicRemoteService\appinfo.json" />
     <None Include="Resources\TV\MagicRemoteService\appstring.json" />
     <None Include="Resources\TV\MagicRemoteService\MuseoSans-Medium.ttf" />
+    <None Include="Resources\TV\MagicRemoteService\resources\es\appinfo.json" />
+    <None Include="Resources\TV\MagicRemoteService\resources\es\appstring.json" />
     <None Include="Resources\TV\MagicRemoteService\resources\fr\appinfo.json" />
     <None Include="Resources\TV\MagicRemoteService\resources\fr\appstring.json" />
     <None Include="Resources\TV\Send\package.json" />
@@ -195,6 +202,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BindControl.resx">
       <DependentUpon>BindControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindCreator.es.resx">
+      <DependentUpon>BindCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BindCreator.fr.resx">
       <DependentUpon>BindCreator.cs</DependentUpon>
@@ -206,6 +216,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IPAddressBox.resx">
       <DependentUpon>IPAddressBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -223,6 +237,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Setting.es.resx">
+      <DependentUpon>Setting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Setting.fr.resx">
       <DependentUpon>Setting.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -233,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PhysicalAdressBox.resx">
       <DependentUpon>PhysicalAdressBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TV.es.resx">
+      <DependentUpon>TV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TV.fr.resx">
       <DependentUpon>TV.cs</DependentUpon>

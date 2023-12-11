@@ -117,34 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnConfirm.Text" xml:space="preserve">
-    <value>Valider</value>
+  <data name="selBindMouse.Text" xml:space="preserve">
+    <value>Ratón</value>
+  </data>
+  <data name="selBindKeyboard.Text" xml:space="preserve">
+    <value>Teclado</value>
+  </data>
+  <data name="selBindAction.Text" xml:space="preserve">
+    <value>Acción</value>
+  </data>
+  <data name="selMouseRight.Text" xml:space="preserve">
+    <value>Derecho</value>
+  </data>
+  <data name="selMouseMiddle.Text" xml:space="preserve">
+    <value>Central</value>
+  </data>
+  <data name="selMouseLeft.Text" xml:space="preserve">
+    <value>Izquierdo</value>
+  </data>
+  <data name="libKeyboard.Text" xml:space="preserve">
+    <value>Pulse una tecla</value>
+  </data>
+  <data name="selActionKeyboard.Text" xml:space="preserve">
+    <value>Teclado</value>
+  </data>
+  <data name="selActionShutdown.Text" xml:space="preserve">
+    <value>Apagar</value>
   </data>
   <data name="btnCancel.Text" xml:space="preserve">
-    <value>Annuler</value>
+    <value>Cancelar</value>
   </data>
-  <data name="labIP.Text" xml:space="preserve">
-    <value>Adresse IP</value>
+  <data name="btnConfirm.Text" xml:space="preserve">
+    <value>Confirmar</value>
   </data>
-  <data name="labUser.Text" xml:space="preserve">
-    <value>Utilisateur</value>
-  </data>
-  <data name="labPassword.Text" xml:space="preserve">
-    <value>Mot de passe</value>
-  </data>
-  <data name="labPassphrase.Text" xml:space="preserve">
-    <value>Phrase secrète</value>
-  </data>
-  <data name="labPrivateKey.Text" xml:space="preserve">
-    <value>Fichier de clé privée</value>
-  </data>
-  <data name="labName.Text" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="cbAdvanced.Text" xml:space="preserve">
-    <value>Avancé</value>
-  </data>
-  <data name="labKeyServer.Text" xml:space="preserve">
-    <value>Vous devez activez l'option "Key Server" dans l'application "Developer mode" sur la TV avant de valider.</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Asociar</value>
   </data>
 </root>

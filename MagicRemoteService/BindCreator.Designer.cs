@@ -69,18 +69,18 @@ namespace MagicRemoteService {
 			// 
 			// pnlBind
 			// 
+			resources.ApplyResources(this.pnlBind, "pnlBind");
 			this.pnlBind.Controls.Add(this.selBindMouse);
 			this.pnlBind.Controls.Add(this.selBindAction);
 			this.pnlBind.Controls.Add(this.selBindKeyboard);
-			resources.ApplyResources(this.pnlBind, "pnlBind");
 			this.pnlBind.Name = "pnlBind";
 			// 
 			// pnlMouse
 			// 
+			resources.ApplyResources(this.pnlMouse, "pnlMouse");
 			this.pnlMouse.Controls.Add(this.selMouseRight);
 			this.pnlMouse.Controls.Add(this.selMouseMiddle);
 			this.pnlMouse.Controls.Add(this.selMouseLeft);
-			resources.ApplyResources(this.pnlMouse, "pnlMouse");
 			this.pnlMouse.Name = "pnlMouse";
 			// 
 			// selMouseRight
@@ -114,9 +114,9 @@ namespace MagicRemoteService {
 			// 
 			// pnlAction
 			// 
+			resources.ApplyResources(this.pnlAction, "pnlAction");
 			this.pnlAction.Controls.Add(this.selActionKeyboard);
 			this.pnlAction.Controls.Add(this.selActionShutdown);
-			resources.ApplyResources(this.pnlAction, "pnlAction");
 			this.pnlAction.Name = "pnlAction";
 			// 
 			// selActionKeyboard
@@ -137,8 +137,8 @@ namespace MagicRemoteService {
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			resources.ApplyResources(this.btnCancel, "btnCancel");
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);

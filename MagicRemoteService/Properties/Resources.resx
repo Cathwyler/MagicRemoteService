@@ -124,6 +124,9 @@
   <data name="frappinfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\resources\fr\appinfo.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="esappinfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TV\MagicRemoteService\resources\es\appinfo.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="ApplicationExit" xml:space="preserve">
     <value>Exit</value>
   </data>
@@ -277,10 +280,13 @@
   <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
     <value>Default primary screen</value>
   </data>
+  <data name="appstring" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TV\MagicRemoteService\appstring.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="frappstring" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\resources\fr\appstring.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="appstring" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TV\MagicRemoteService\appstring.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="esappstring" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TV\MagicRemoteService\resources\es\appstring.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

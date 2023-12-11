@@ -114,12 +114,11 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strWarnTitle&quot;: &quot;Warn&quot;,
         ///	&quot;strErrorTitle&quot;: &quot;Error&quot;,
         ///
-        ///	&quot;strLaunchAppSuccess&quot;: &quot;Success to launch {1}&quot;,
-        ///	&quot;strLaunchAppFailure&quot;: &quot;Failed to launch {1}&quot;,
-        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Start to get all input status&quot;,
+        ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Sucess to get all input status&quot;,
         ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Failed to get all input status&quot;,
-        ///	&quot;strSendWolSuccess&quot;: &quot;Success to send WoL&quot;,
-        ///	&quot;strSendWolFailure [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strAddDeviceSuccess&quot;: &quot;Sucess to add device&quot;,
+        ///	&quot;strAddDeviceFailure&quot;: &quot;Failed to add device&quot;,
+        ///	&quot;strRegisterScreenSaverRequestSubscribe&quot;: &quot;Start to register scree [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string appstring {
             get {
@@ -184,6 +183,38 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
+        ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;
+        ///}.
+        /// </summary>
+        internal static string esappinfo {
+            get {
+                return ResourceManager.GetString("esappinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {
+        ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
+        ///	&quot;strAppDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///
+        ///	&quot;strLogTitle&quot;: &quot;Registro&quot;,
+        ///	&quot;strWarnTitle&quot;: &quot;Aviso&quot;,
+        ///	&quot;strErrorTitle&quot;: &quot;Error&quot;,
+        ///
+        ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Se ha obtenido correctamente el estado de todas las entradas&quot;,
+        ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Fallo al obtener el estado de todas las entradas&quot;,
+        ///	&quot;strAddDeviceSuccess&quot;: &quot;Se ha añadido el dispositivo correctamente&quot;,
+        ///	&quot;strAddDeviceFailure&quot;: &quot;Fallo al añadir dispositiv [le reste de la chaîne a été tronqué]&quot;;.
+        /// </summary>
+        internal static string esappstring {
+            get {
+                return ResourceManager.GetString("esappstring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {
+        ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
         ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;
         ///}.
         /// </summary>
@@ -202,11 +233,10 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strWarnTitle&quot;: &quot;Attention&quot;,
         ///	&quot;strErrorTitle&quot;: &quot;Erreur&quot;,
         ///
-        ///	&quot;strLaunchAppSuccess&quot;: &quot;Succès du lancement de {1}&quot;,
-        ///	&quot;strLaunchAppFailure&quot;: &quot;Echec du lancement de {1}&quot;,
-        ///	&quot;strGetAllInputStatusSubscribe&quot;: &quot;Début de la récupération l&apos;état des entrées&quot;,
+        ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Succès de la récupération l&apos;état des entrées&quot;,
         ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Echec de la récupération l&apos;état des entrées&quot;,
-        ///	&quot;str [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strAddDeviceSuccess&quot;: &quot;Succès de l&apos;ajout de l&apos;appareil&quot;,
+        ///	&quot;strAddDeviceFailure&quot;: &quot;Echec de l&apos;ajout de l&apos;appareil [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string frappstring {
             get {
@@ -324,19 +354,21 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
         ///ArrayBuffer.prototype.toString = function(base) {
-        ///	return [].slice.call(new Uint8Array(this)).map(function(x) {
+        ///	return Array.prototype.slice.call(new Uint8Array(this)).map(function(x) {
         ///		return (&quot;00&quot; + x.toString(base)).slice(-2);
         ///	}).join(&quot;&quot;);
-        ///}
+        ///};
         ///
-        ///function Toast(sTitre, sMessage){
-        ///	var deScreenToast = document.createElement(&quot;div&quot;);
-        ///	deScreenToast.className = &quot;screen flex justify-center align-flex-end&quot;;
-        ///	var deToast = document.createElement(&quot;div&quot;);
-        ///	deToast.className = &quot;window toast&quot;;
-        ///	deToast.addEventListener(&quot;click&quot;, function() {
-        ///		ScreenCancel(deScreenToast);
-        ///	} [le reste de la chaîne a été tronqué]&quot;;.
+        ///Window.prototype.oneEventListener = function(strType, fListener) {
+        ///	function Handler(inEvent) {
+        ///		this.removeEventListener(strType, Handler);
+        ///			if(fListener(inEvent) === false){
+        ///			this.addEventListener(strType, Handler);
+        ///		}
+        ///	}
+        ///	this.addEventListener(strType, Handler);
+        ///};
+        ///Element.prototype.oneEventListe [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {

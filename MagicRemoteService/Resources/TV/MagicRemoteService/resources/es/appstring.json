@@ -1,0 +1,53 @@
+{
+	"strAppTittle": "MagicRemoteService",
+	"strAppDescription": "Service providing computer remote control using a LG WebOS TV",
+
+	"strLogTitle": "Registro",
+	"strWarnTitle": "Aviso",
+	"strErrorTitle": "Error",
+
+	"strGetAllInputStatusSuccess": "Se ha obtenido correctamente el estado de todas las entradas",
+	"strGetAllInputStatusFailure": "Fallo al obtener el estado de todas las entradas",
+	"strAddDeviceSuccess": "Se ha añadido el dispositivo correctamente",
+	"strAddDeviceFailure": "Fallo al añadir dispositivo",
+	"strRegisterScreenSaverRequestSubscribe": "Se ha iniciado la solicitud de registro del protector de pantalla",
+	"strRegisterScreenSaverRequestFailure": "Fallo al registrar la solicitud del protector de pantalla",
+	"strResponseScreenSaverRequestSuccess": "Respuesta correcta de la solicitud del protector de pantalla",
+	"strResponseScreenSaverRequestFailure": "Ha fallado la respuesta de la solicitud del protector de pantalla",
+	"strGetSensorDataSubscribe": "Se ha iniciado la obtención de datos del sensor",
+	"strGetSensorDataFailure": "Fallo al obtener los datos del sensor",
+	"strGetSystemSettingsSuccess": "Se han obtenido los ajustes del sistema correctamente",
+	"strGetSystemSettingsFailure": "Fallo al obtener los ajustes del sistema",
+	
+	"strSendWolSuccess": "Envío de WoL correcto",
+	"strSendWolFailure": "Fallo al enviar WoL",
+	"strSendPositionSuccess": "Envío posición correcto",
+	"strSendPositionFailure": "Fallo al enviar posición",
+	"strSendWheelSuccess": "Envío de rueda correcto",
+	"strSendWheelFailure": "Fallo al enviar rueda",
+	"strSendVisibleSuccess": "Envío de visible correcto",
+	"strSendVisibleFailure": "Fallo al enviar visible",
+	"strSendKeySuccess": "Envío de tecla correcto",
+	"strSendKeyFailure": "Fallo al enviar tecla",
+	"strSendUnicodeSuccess": "Envío de unicode correcto",
+	"strSendUnicodeFailure": "Fallo al enviar unicode",
+	"strSendShutdownSuccess": "Envío de apagado correcto",
+	"strSendShutdownFailure": "Fallo al enviar apagado",
+
+	"strActionUnprocessed": "Mensaje de acción sin procesar",
+	
+	"strInputConnected": "Entrada conectada",
+	"strInputDisconnected": "Entrada desconectada",
+
+	"strInputDisconect": "El ordenador remoto parece estar apagado. Desea iniciarlo?",
+	"strInputDisconectStart": "Iniciar",
+	"strInputDisconectWakeOnLanFailure": "El ordenador remoto parece estar apagado y no responde al Wake on Lan o parece estar desconectado. Por favor compruebe el correcto funcionamiento de Wake on Lan así como la conexión de video",
+	"strSocketConnecting": "Conexión al servidor",
+	"strSocketConnectingTimeout": "El ordenador remoto parece estar encendido pero el servicio no se ha iniciado o no es posible usarlo. Por favor, compruebe el correcto funcionamiento del servicio en el ordenador remoto asi como su configuración de red",
+	"strSocketErrorOpen": "El zócalo sigue abierto",
+	"strSocketErrorClosed": "Se ha cerrado el zócalo",
+	"strSocketDisconnecting": "Desconectar del servidor",
+	"strShutdownMessage": "Desea apagar el ordenador remoto?",
+	"strShutdownShutdown": "Apagar",
+	"strShutdownAbort": "No hacer nada"
+}

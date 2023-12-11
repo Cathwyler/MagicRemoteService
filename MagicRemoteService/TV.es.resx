@@ -118,33 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btnConfirm.Text" xml:space="preserve">
-    <value>Valider</value>
+    <value>Confirmar</value>
   </data>
   <data name="btnCancel.Text" xml:space="preserve">
-    <value>Annuler</value>
+    <value>Cancelar</value>
   </data>
   <data name="labIP.Text" xml:space="preserve">
-    <value>Adresse IP</value>
+    <value>Dirección IP</value>
+  </data>
+  <data name="labTVPort.Text" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="labDescription.Text" xml:space="preserve">
+    <value>Descripción</value>
   </data>
   <data name="labUser.Text" xml:space="preserve">
-    <value>Utilisateur</value>
+    <value>Usuario</value>
   </data>
   <data name="labPassword.Text" xml:space="preserve">
-    <value>Mot de passe</value>
+    <value>Contraseña</value>
   </data>
   <data name="labPassphrase.Text" xml:space="preserve">
-    <value>Phrase secrète</value>
+    <value>Frase de contraseña</value>
   </data>
   <data name="labPrivateKey.Text" xml:space="preserve">
-    <value>Fichier de clé privée</value>
-  </data>
-  <data name="labName.Text" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="cbAdvanced.Text" xml:space="preserve">
-    <value>Avancé</value>
+    <value>Archivo de clave privada</value>
   </data>
   <data name="labKeyServer.Text" xml:space="preserve">
-    <value>Vous devez activez l'option "Key Server" dans l'application "Developer mode" sur la TV avant de valider.</value>
+    <value>Necesita activar la opción "Key Server" en la app developer mode en su TV antes de confirmar.</value>
+  </data>
+  <data name="labName.Text" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="cbAdvanced.Text" xml:space="preserve">
+    <value>Avanzado</value>
   </data>
 </root>

@@ -410,6 +410,8 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8\\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\fr\\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\fr\\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\es\\appinfo.json", MagicRemoteService.Properties.Resources.esappinfo);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\es\\appstring.json", MagicRemoteService.Properties.Resources.esappstring);
 			System.IO.File.WriteAllText(".\\TV\\Send\\package.json", MagicRemoteService.Properties.Resources.package
 				.Replace("\"name\": \"com.cathwyler.magicremoteservice.send\"", "\"name\": \"com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + ".send\"")
 			);
