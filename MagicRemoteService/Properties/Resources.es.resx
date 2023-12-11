@@ -117,7 +117,124 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="String1" xml:space="preserve">
-    <value>fgbngfb</value>
+  <data name="ApplicationExit" xml:space="preserve">
+    <value>Dejar</value>
+  </data>
+  <data name="ApplicationSetting" xml:space="preserve">
+    <value>Configuraciones</value>
+  </data>
+  <data name="IPAddressBoxErrorByteEntryMessage" xml:space="preserve">
+    <value>{0} no es una entrada valida. Especifique un valor entre 1 y 255.</value>
+  </data>
+  <data name="IPAddressBoxErrorByteEntryTitle" xml:space="preserve">
+    <value>Entrada invalida</value>
+  </data>
+  <data name="IPAddressBoxErrorPasteMessage" xml:space="preserve">
+    <value>Está intentando copiar en este campo una dirección IP formateada incorrectamente.</value>
+  </data>
+  <data name="IPAddressBoxErrorPasteTitle" xml:space="preserve">
+    <value>Dirección IP formateada incorrectamente</value>
+  </data>
+  <data name="PhysicalAddressBoxErrorByteEntryMessage" xml:space="preserve">
+    <value>{0} no es una entrada valida. Especifique un valor entre 0x00 y 0xFF.</value>
+  </data>
+  <data name="PhysicalAddressBoxErrorByteEntryTitle" xml:space="preserve">
+    <value>Entrada invalida</value>
+  </data>
+  <data name="PhysicalAddressBoxErrorPasteMessage" xml:space="preserve">
+    <value>Está intentando copiar en este campo una dirección física formateada incorrectamente.</value>
+  </data>
+  <data name="PhysicalAddressBoxErrorPasteTitle" xml:space="preserve">
+    <value>Dirección fisica formateada incorrectamente</value>
+  </data>
+  <data name="SettingInputRefreshlErrorTitle" xml:space="preserve">
+    <value>Error al refrescar las entradas de TV</value>
+  </data>
+  <data name="SettingInputSelectErrorMessage" xml:space="preserve">
+    <value>Seleccione una entrada de TV.</value>
+  </data>
+  <data name="SettingInputSelectErrorTitle" xml:space="preserve">
+    <value>La entrada de TV no ha sido seleccionada</value>
+  </data>
+  <data name="SettingPCMacErrorMessage" xml:space="preserve">
+    <value>{0} no es una dirección física válida. Especifique una dirección fisica válida.</value>
+  </data>
+  <data name="SettingPCMacErrorTitle" xml:space="preserve">
+    <value>Dirección física invalida</value>
+  </data>
+  <data name="SettingPCSaveMessage" xml:space="preserve">
+    <value>Desea guardar los cambios efectuados al servicio de PC?</value>
+  </data>
+  <data name="SettingSendIPErrorMessage" xml:space="preserve">
+    <value>{0} no es una dirección IP valida. Especifique una dirección IP valida.</value>
+  </data>
+  <data name="SettingSendIPErrorTitle" xml:space="preserve">
+    <value>Dirección IP invalida</value>
+  </data>
+  <data name="SettingSubnetMaskErrorMessage" xml:space="preserve">
+    <value>{0} no es una mascara de subred valida. Especifique una mascara de subred valida.</value>
+  </data>
+  <data name="SettingSubnetMaskErrorTitle" xml:space="preserve">
+    <value>Mascara de subred invalida</value>
+  </data>
+  <data name="SettingTVInstallErrorTitle" xml:space="preserve">
+    <value>Error al instalar la APP en la TV</value>
+  </data>
+  <data name="SettingTVRefreshlErrorTitle" xml:space="preserve">
+    <value>Error al refrescar las TVs</value>
+  </data>
+  <data name="SettingTVSaveMessage" xml:space="preserve">
+    <value>Desea instalar los cambios realizados en la APP de la TV?</value>
+  </data>
+  <data name="SettingTVSelectErrorMessage" xml:space="preserve">
+    <value>Seleccione una TV</value>
+  </data>
+  <data name="SettingTVSelectErrorTitle" xml:space="preserve">
+    <value>La TV no ha sido seleccionada</value>
+  </data>
+  <data name="WebOSCLINotFoundExceptionMessage" xml:space="preserve">
+    <value>Se debe instalar el WebOS TV CLI.</value>
+  </data>
+  <data name="SettingPCSaveErrorTittle" xml:space="preserve">
+    <value>Error al guardar la configuración de PC</value>
+  </data>
+  <data name="SettingRemoteSaveErrorTittle" xml:space="preserve">
+    <value>Error al guardar la configuración remota</value>
+  </data>
+  <data name="BindActionValueKeyboard" xml:space="preserve">
+    <value>Teclado</value>
+  </data>
+  <data name="BindActionValueShutdown" xml:space="preserve">
+    <value>Apagar</value>
+  </data>
+  <data name="BindKeyboardErreur" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="BindMouseValueLeft" xml:space="preserve">
+    <value>Botón izquierdo</value>
+  </data>
+  <data name="BindMouseValueMiddle" xml:space="preserve">
+    <value>Botón central</value>
+  </data>
+  <data name="BindMouseValueRight" xml:space="preserve">
+    <value>Botón derecho</value>
+  </data>
+  <data name="SettingRemoteSaveMessage" xml:space="preserve">
+    <value>Desea guardar los cambios realizados a la asignación de teclas del mando?</value>
+  </data>
+  <data name="SettingTVAddErrorTitle" xml:space="preserve">
+    <value>Error al añadir TV</value>
+  </data>
+  <data name="SettingTVModifyErrorTitle" xml:space="preserve">
+    <value>Error al modificar TV</value>
+  </data>
+  <data name="SettingTVRemoveErrorTitle" xml:space="preserve">
+    <value>Error al eliminar TV</value>
+  </data>
+  <data name="Screen" xml:space="preserve">
+    <value>Pantalla</value>
+  </data>
+  <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
+    <value>Pantalla primaria por defecto</value>
   </data>
 </root>

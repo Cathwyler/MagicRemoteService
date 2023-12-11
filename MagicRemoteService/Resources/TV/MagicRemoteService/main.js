@@ -133,21 +133,10 @@ function Error() {
 	console.error.apply(console, arguments);
 }
 
-function AppVisible() {
-	return document.visibilityState === "visible";
-}
-
-function AppFocus() {
-	return document.hasFocus() === true;
-}
-
-function KeyboardVisible() {
-	return window.PalmSystem.isKeyboardVisible === true;
-}
-
-function CursorVisible() {
-	return window.PalmSystem.cursor.visibility === true;
-}
+function AppVisible() {};
+function AppFocus() {};
+function CursorVisible() {};
+function KeyboardVisible() {};
 
 const bDebug = false;
 
@@ -357,7 +346,9 @@ function SubscriptionGetSensorData(){
 					LogIfDebug(oString.strGetSensorDataSubscribe);
 					if(oDevice.versionMajor > 2) {
 					} else {
-						window.PalmSystem.cursor.visibility = true;
+						CursorVisible = function() {
+							return true;
+						};
 					}
 					break;
 				default:
@@ -371,7 +362,9 @@ function SubscriptionGetSensorData(){
 					LogIfDebug(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
 					if(oDevice.versionMajor > 2) {
 					} else {
-						window.PalmSystem.cursor.visibility = false;
+						CursorVisible = function() {
+							return false;
+						};
 					}
 					if(oDevice.versionMajor > 2) {
 						document.oneEventListener("cursorStateChange", function(inEvent) {
@@ -518,7 +511,6 @@ function SubscriptionDomEvent(){
 		});
 	} else {
 		document.addEventListener("webkitvisibilitychange", function(inEvent) {
-			document.visibilityState = document.webkitVisibilityState;
 			if(pbInputSourceStatus === null || !pbInputSourceStatus) {
 			} else {
 				if(AppVisible()) {
@@ -556,13 +548,17 @@ function SubscriptionDomEvent(){
 		document.addEventListener("keydown", function(inEvent) {
 			switch(inEvent.keyCode){
 				case 0x600:
-					window.PalmSystem.cursor.visibility = true;
+					CursorVisible = function() {
+						return true;
+					};
 					SendVisible({
 						bV: CursorVisible()
 					});
 					break;
 				case 0x601:
-					window.PalmSystem.cursor.visibility = false;
+					CursorVisible = function() {
+						return false;
+					};
 					SendVisible({
 						bV: CursorVisible()
 					});
@@ -574,10 +570,14 @@ function SubscriptionDomEvent(){
 	if(oDevice.versionMajor > 2) {
 	} else {
 		deKeyboard.addEventListener("focus", function(inEvent) {
-			window.PalmSystem.isKeyboardVisible = true;
+			CursorVisible = function() {
+				return true;
+			};
 		});
 		deKeyboard.addEventListener("blur", function(inEvent) {
-			window.PalmSystem.isKeyboardVisible = false;
+			CursorVisible = function() {
+				return false;
+			};
 		});
 	}
 }
@@ -869,12 +869,31 @@ function Load(){
 			bLoaded = true;
 			
 			if(oDevice.versionMajor > 2) {
-			} else {
-				document.visibilityState = document.webkitVisibilityState;
-				window.PalmSystem.cursor = {
-					visibility: null
+				AppVisible = function(){
+					return document.hidden === false;
 				};
-				window.PalmSystem.isKeyboardVisible = false;
+				AppFocus = function(){
+					return document.hasFocus() === true;
+				};
+				CursorVisible = function(){
+					return window.PalmSystem.cursor.visibility === true;
+				};
+				KeyboardVisible = function(){
+					return window.PalmSystem.isKeyboardVisible === true;
+				};
+			} else {
+				AppVisible = function(){
+					return document.webkitHidden === false;
+				};
+				AppFocus = function(){
+					return document.hasFocus() === true;
+				};
+				CursorVisible = function() {
+					return false;
+				};
+				KeyboardVisible = function() {
+					return false;
+				};
 			}
 
 			SubscriptionInputStatus();

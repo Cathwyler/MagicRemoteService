@@ -385,6 +385,7 @@ namespace MagicRemoteService {
 			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8");
 			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources");
 			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources\\fr");
+			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources\\es");
 			System.IO.Directory.CreateDirectory(".\\TV\\Send");
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\main.js", MagicRemoteService.Properties.Resources.main
 				.Replace("const uiRightClick = 1500;", "const uiRightClick = " + dTimeoutRightClick.ToString() + ";")
