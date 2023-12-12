@@ -19,41 +19,6 @@ namespace MagicRemoteService {
 				return this.bAdvanced;
 			}
 		}
-		public TVAdder(MagicRemoteService.WebOSCLIDevice wcdDevice = null) {
-			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.InitializeComponent();
-			this.wcdDevice = new MagicRemoteService.WebOSCLIDevice() {
-				strName = "",
-				wcdiDeviceInfo = new WebOSCLIDeviceInfo() {
-					iaIP = null,
-					usPort = 9922,
-					strUser = "prisoner"
-				},
-				wcddDeviceDetail = new WebOSCLIDeviceDetail() {
-					strDescription = "",
-					strPrivateKey = "",
-					strPassphrase = ""
-				}
-			};
-			if(wcdDevice == null) {
-				this.cbAdvanced.Checked = false;
-				this.tbName.Text = this.wcdDevice.strName;
-				this.tbDescription.Text = this.wcdDevice.wcddDeviceDetail.strDescription;
-				this.ipadrboxIP.Value = this.wcdDevice.wcdiDeviceInfo.iaIP;
-				this.numboxSendPort.Value = this.wcdDevice.wcdiDeviceInfo.usPort;
-				this.tbUser.Text = this.wcdDevice.wcdiDeviceInfo.strUser;
-				this.tbPrivateKey.Text = this.wcdDevice.wcddDeviceDetail.strPrivateKey;
-				this.tbPassphrase.Text = this.wcdDevice.wcddDeviceDetail.strPassphrase;
-			} else {
-				this.cbAdvanced.Checked = true;
-				this.tbName.Text = wcdDevice.strName;
-				this.tbDescription.Text = wcdDevice.wcddDeviceDetail.strDescription;
-				this.ipadrboxIP.Value = wcdDevice.wcdiDeviceInfo.iaIP;
-				this.numboxSendPort.Value = wcdDevice.wcdiDeviceInfo.usPort;
-				this.tbUser.Text = wcdDevice.wcdiDeviceInfo.strUser;
-				this.tbPrivateKey.Text = wcdDevice.wcddDeviceDetail.strPrivateKey;
-				this.tbPassphrase.Text = wcdDevice.wcddDeviceDetail.strPassphrase;
-=========
 		public TVAdder(MagicRemoteService.WebOSCLIDevice wocdDevice = null) {
 			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.InitializeComponent();
