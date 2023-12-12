@@ -16,7 +16,7 @@
 			this.bmvValue = _bmvValue;
 		}
 		public override string ToString() {
-			switch(bmvValue) {
+			switch(this.bmvValue) {
 				case BindMouseValue.Left:
 					return MagicRemoteService.Properties.Resources.BindMouseValueLeft;
 				case BindMouseValue.Right:

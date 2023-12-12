@@ -1,5 +1,5 @@
 ﻿namespace MagicRemoteService {
-	static public class Program {
+	public static class Program {
 
 		public static readonly System.Security.AccessControl.MutexSecurity msAll;
 		public static readonly System.Security.AccessControl.EventWaitHandleSecurity ewhsAll;
@@ -15,7 +15,7 @@
 			MagicRemoteService.Program.bElevated = new System.Security.Principal.WindowsPrincipal(System.Security.Principal.WindowsIdentity.GetCurrent()).IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
 		}
 		[System.STAThread]
-		static void Main() {
+		private static void Main() {
 			if(!System.Environment.UserInteractive) {
 				System.Threading.Mutex mServer = new System.Threading.Mutex(false, "Global\\{40169E2A-C106-44BC-84FF-18AD489DB914}", out _, Program.msAll);
 				if(mServer.WaitOne(System.TimeSpan.Zero)) {
@@ -44,7 +44,7 @@
 								case 0:
 									break;
 								case 1:
-									aApplication.Invoke((System.Action)delegate() {
+									aApplication.Invoke((System.Action)delegate () {
 										aApplication.Setting(null, System.EventArgs.Empty);
 									});
 									break;

@@ -1,6 +1,5 @@
 ﻿namespace MagicRemoteService {
-
-	static class SystemCursor {
+	internal static class SystemCursor {
 
 		private static readonly System.IntPtr hInvisibleCursor = WinApi.User32.CreateCursor(System.IntPtr.Zero, 0, 0, 32, 32, new byte[]
 		{

@@ -126,11 +126,11 @@
       <DependentUpon>Resources.es.resx</DependentUpon>
     </Compile>
     <Compile Include="Screen.cs" />
-    <Compile Include="TV.cs">
+    <Compile Include="TVAdder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TV.Designer.cs">
-      <DependentUpon>TV.cs</DependentUpon>
+    <Compile Include="TVAdder.Designer.cs">
+      <DependentUpon>TVAdder.cs</DependentUpon>
     </Compile>
     <Compile Include="WinApi\Advapi32.cs" />
     <Compile Include="WinApi\Userenv.cs" />
@@ -251,14 +251,14 @@
     <EmbeddedResource Include="PhysicalAdressBox.resx">
       <DependentUpon>PhysicalAdressBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TV.es.resx">
-      <DependentUpon>TV.cs</DependentUpon>
+    <EmbeddedResource Include="TVAdder.es.resx">
+      <DependentUpon>TVAdder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TV.fr.resx">
-      <DependentUpon>TV.cs</DependentUpon>
+    <EmbeddedResource Include="TVAdder.fr.resx">
+      <DependentUpon>TVAdder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TV.resx">
-      <DependentUpon>TV.cs</DependentUpon>
+    <EmbeddedResource Include="TVAdder.resx">
+      <DependentUpon>TVAdder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

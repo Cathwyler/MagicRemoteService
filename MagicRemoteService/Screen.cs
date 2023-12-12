@@ -1,6 +1,6 @@
 ﻿
 namespace MagicRemoteService {
-	class Screen {
+	internal class Screen {
 		private static readonly object oAllScreenLock = new object();
 		private static Screen scrPrimaryScreen;
 		public static Screen PrimaryScreen {
@@ -18,7 +18,7 @@ namespace MagicRemoteService {
 				}
 			}
 		}
-		private static Screen scrPrimaryDefaut = new Screen() {
+		private static readonly Screen scrPrimaryDefaut = new Screen() {
 			ucNumber = 0,
 			bActive = false,
 			bPrimary = false,
@@ -81,7 +81,7 @@ namespace MagicRemoteService {
 			Microsoft.Win32.SystemEvents.DisplaySettingsChanged += Screen.DisplaySettingsChangedEvent;
 			Screen.UpdateScreen();
 		}
-		static public void DisplaySettingsChangedEvent(object sender, System.EventArgs e) {
+		public static void DisplaySettingsChangedEvent(object sender, System.EventArgs e) {
 			Screen.UpdateScreen();
 		}
 
@@ -101,7 +101,7 @@ namespace MagicRemoteService {
 
 			System.Collections.Generic.Dictionary<uint, Screen> dAllScreen = new System.Collections.Generic.Dictionary<uint, Screen>();
 			foreach(WinApi.DisplayConfigPathInfo p in arrPath) {
-				if (p.targetInfo.targetAvailable) {
+				if(p.targetInfo.targetAvailable) {
 					if(!dAllScreen.ContainsKey(p.targetInfo.id)) {
 						WinApi.DisplayConfigTargetDeviceName TargetName = new WinApi.DisplayConfigTargetDeviceName() {
 							header = new WinApi.DisplayConfigDeviceInfoHeader {
@@ -126,7 +126,8 @@ namespace MagicRemoteService {
 								Width = 0,
 								Height = 0
 							},
-						}); ;
+						});
+						;
 					}
 					if(p.flags.HasFlag(WinApi.DisplayConfigPathInfoFlags.DISPLAYCONFIG_PATH_ACTIVE)) {
 						if(!p.sourceInfo.u.modeInfoIdx.HasFlag(WinApi.DisplayConfigPathInfoIdx.DISPLAYCONFIG_PATH_MODE_IDX_INVALID)) {

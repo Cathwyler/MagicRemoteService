@@ -38,7 +38,7 @@ namespace MagicRemoteService {
 			this.btnBind.Size = new System.Drawing.Size(100, 23);
 			this.btnBind.TabIndex = 0;
 			this.btnBind.UseVisualStyleBackColor = true;
-			this.btnBind.Click += new System.EventHandler(this.btnBind_Click);
+			this.btnBind.Click += new System.EventHandler(this.Bind_Click);
 			// 
 			// BindControl
 			// 

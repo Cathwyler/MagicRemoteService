@@ -22,20 +22,19 @@ namespace MagicRemoteService {
 		private MagicRemoteService.Service mrsService;
 
 		private System.Collections.Generic.Dictionary<ushort, BindControl> dKeyBindControl;
-		//private System.Collections.Generic.Dictionary<BindControl, ushort> dBindControlKey;
 
 		private decimal dListenPort;
 		private bool bInactivity;
 		private decimal dTimeoutInactivity;
 		private bool bStartup;
 
-		private MagicRemoteService.WebOSCLIDeviceInput wcdiInput;
+		private MagicRemoteService.WebOSCLIDeviceInput wocdiInput;
 		private MagicRemoteService.Screen scrDisplay;
 		private System.Net.IPAddress iaSendIP;
 		private decimal dSendPort;
 		private System.Net.IPAddress iaSubnetMask;
 		private MagicRemoteService.PhysicalAddress paPCMac;
-		private decimal	dTimeoutRightClick;
+		private decimal dTimeoutRightClick;
 		private bool bExtend;
 
 		private System.Collections.Generic.Dictionary<ushort, Bind> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>() {
@@ -86,7 +85,7 @@ namespace MagicRemoteService {
 			this.PCDataRefresh();
 			this.TVDataRefresh();
 			this.RemoteDataRefresh();
-			this.btnTVRefresh_Click(this, new System.EventArgs());
+			this.TVRefresh_Click(this, new System.EventArgs());
 		}
 		private new bool Enabled {
 			set {
@@ -152,7 +151,7 @@ namespace MagicRemoteService {
 					}
 				}
 				//Find a way to set exception handling
-				System.Configuration.Install.AssemblyInstaller ai = new System.Configuration.Install.AssemblyInstaller(System.Reflection.Assembly.GetExecutingAssembly(), this.chkboxStartup.Checked ? new string[] {"enable"} : new string[] { });
+				System.Configuration.Install.AssemblyInstaller ai = new System.Configuration.Install.AssemblyInstaller(System.Reflection.Assembly.GetExecutingAssembly(), this.chkboxStartup.Checked ? new string[] { "enable" } : new string[] { });
 				System.Collections.Hashtable h = new System.Collections.Hashtable();
 				ai.UseNewContext = true;
 				try {
@@ -276,7 +275,7 @@ namespace MagicRemoteService {
 					this.chkboxExtend.Checked = (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
 				}
 			}
-			this.wcdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
+			this.wocdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
 			this.scrDisplay = (MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem;
 			this.iaSendIP = this.ipadrboxSendIP.Value;
 			this.dSendPort = this.numboxSendPort.Value;
@@ -303,31 +302,31 @@ namespace MagicRemoteService {
 			if(rkMagicRemoteServiceKeyBindMouse == null && rkMagicRemoteServiceKeyBindKeyboard == null && rkMagicRemoteServiceKeyBindAction == null) {
 				this.bcRemoteClick.Value = new BindMouse(BindMouseValue.Left);		//Click -> Left click
 				this.bcRemoteLongClick.Value = new BindMouse(BindMouseValue.Right);	//Long click -> Right click
-				this.bcRemoteBackspace.Value = new BindKeyboard(0x000E);		//BACKSPACE -> Keyboard Delete
-				this.bcRemoteOk.Value = new BindKeyboard(0x001C);				//OK -> Keyboard Return Enter
-				this.bcRemoteLeft.Value = new BindKeyboard(0xE04B);				//Left -> Keyboard LeftArrow
-				this.bcRemoteUp.Value = new BindKeyboard(0xE048);				//Up -> Keyboard UpArrow
-				this.bcRemoteRight.Value = new BindKeyboard(0xE04D);			//Right -> Keyboard RightArrow
-				this.bcRemoteDown.Value = new BindKeyboard(0xE050);				//Down -> Keyboard DownArrow
+				this.bcRemoteBackspace.Value = new BindKeyboard(0x000E);			//BACKSPACE -> Keyboard Delete
+				this.bcRemoteOk.Value = new BindKeyboard(0x001C);					//OK -> Keyboard Return Enter
+				this.bcRemoteLeft.Value = new BindKeyboard(0xE04B);					//Left -> Keyboard LeftArrow
+				this.bcRemoteUp.Value = new BindKeyboard(0xE048);					//Up -> Keyboard UpArrow
+				this.bcRemoteRight.Value = new BindKeyboard(0xE04D);				//Right -> Keyboard RightArrow
+				this.bcRemoteDown.Value = new BindKeyboard(0xE050);					//Down -> Keyboard DownArrow
 				this.bcRemoteRed.Value = new BindAction(BindActionValue.Shutdown);	//Red -> Show shutdown
-				this.bcRemoteGreen.Value = new BindKeyboard(0xE05B);			//Green -> Keyboard Left GUI
-				this.bcRemoteYellow.Value = new BindMouse(BindMouseValue.Right);		//Yellow -> Right click
+				this.bcRemoteGreen.Value = new BindKeyboard(0xE05B);				//Green -> Keyboard Left GUI
+				this.bcRemoteYellow.Value = new BindMouse(BindMouseValue.Right);	//Yellow -> Right click
 				this.bcRemoteBlue.Value = new BindAction(BindActionValue.Keyboard);	//Blue -> Show keyboard
-				this.bcRemoteBack.Value = new BindKeyboard(0x0001);				//Back -> Keyboard Escape
-				this.bcRemotePlay.Value = null;									//Play
-				this.bcRemotePause.Value = null;								//Pause
-				this.bcRemoteFastForward.Value = null;							//Fast-forward
-				this.bcRemoteRewind.Value = null;								//Rewind
-				this.bcRemoteStop.Value = null;									//Stop
+				this.bcRemoteBack.Value = new BindKeyboard(0x0001);					//Back -> Keyboard Escape
+				this.bcRemotePlay.Value = null;										//Play
+				this.bcRemotePause.Value = null;									//Pause
+				this.bcRemoteFastForward.Value = null;								//Fast-forward
+				this.bcRemoteRewind.Value = null;									//Rewind
+				this.bcRemoteStop.Value = null;										//Stop
 			} else {
 				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
-					this.dKeyBindControl[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
+					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-					this.dKeyBindControl[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindKeyboard((ushort)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
+					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindKeyboard((ushort)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
-					this.dKeyBindControl[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
+					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
 				}
 			}
 			foreach(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp in this.dKeyBindControl) {
@@ -339,19 +338,13 @@ namespace MagicRemoteService {
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\KeyBindKeyboard");
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\KeyBindAction");
 			foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
-				//if(!this.dKeyBind.ContainsKey(System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber))) {
-					rkMagicRemoteServiceKeyBindMouse.DeleteValue(sKey);
-				//}
+				rkMagicRemoteServiceKeyBindMouse.DeleteValue(sKey);
 			}
 			foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-				//if(!this.dKeyBind.ContainsKey(System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber))) {
-					rkMagicRemoteServiceKeyBindKeyboard.DeleteValue(sKey);
-				//}
+				rkMagicRemoteServiceKeyBindKeyboard.DeleteValue(sKey);
 			}
 			foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
-				//if(!this.dKeyBind.ContainsKey(System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber))) {
-					rkMagicRemoteServiceKeyBindAction.DeleteValue(sKey);
-				//}
+				rkMagicRemoteServiceKeyBindAction.DeleteValue(sKey);
 			}
 			foreach(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp in this.dKeyBindControl) {
 				switch(kvp.Value.Value) {
@@ -366,11 +359,10 @@ namespace MagicRemoteService {
 						break;
 				}
 			}
-
 		}
 		public static void AppExtract(
 			string strVersion,
-			MagicRemoteService.WebOSCLIDeviceInput wcdiInput,
+			MagicRemoteService.WebOSCLIDeviceInput wocdiInput,
 			System.Net.IPAddress ipaSendIP,
 			decimal dSendPort,
 			System.Net.IPAddress ipaMask,
@@ -389,10 +381,10 @@ namespace MagicRemoteService {
 			System.IO.Directory.CreateDirectory(".\\TV\\Send");
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\main.js", MagicRemoteService.Properties.Resources.main
 				.Replace("const uiRightClick = 1500;", "const uiRightClick = " + dTimeoutRightClick.ToString() + ";")
-				.Replace("const sInputId = \"HDMI_1\";", "const sInputId = \"" + wcdiInput.Id + "\";")
-				.Replace("const sInputName = \"HDMI 1\";", "const sInputName = \"" + wcdiInput.Name + "\";")
-				.Replace("const sInputSource = \"ext://hdmi:1\";", "const sInputSource = \"" + wcdiInput.Source + "\";")
-				.Replace("const sInputAppId = \"com.webos.app.hdmi1\";", "const sInputAppId = \"" + wcdiInput.AppId + "\";")
+				.Replace("const sInputId = \"HDMI_1\";", "const sInputId = \"" + wocdiInput.Id + "\";")
+				.Replace("const sInputName = \"HDMI 1\";", "const sInputName = \"" + wocdiInput.Name + "\";")
+				.Replace("const sInputSource = \"ext://hdmi:1\";", "const sInputSource = \"" + wocdiInput.Source + "\";")
+				.Replace("const sInputAppId = \"com.webos.app.hdmi1\";", "const sInputAppId = \"" + wocdiInput.AppId + "\";")
 				.Replace("const sIP = \"127.0.0.1\";", "const sIP = \"" + ipaSendIP.ToString() + "\";")
 				.Replace("const uiPort = 41230;", "const uiPort = " + dSendPort.ToString() + ";")
 				.Replace("const sMask = \"255.255.255.0\";", "const sMask = \"" + ipaMask.ToString() + "\";")
@@ -400,7 +392,7 @@ namespace MagicRemoteService {
 			);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\index.html", MagicRemoteService.Properties.Resources.index);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appinfo.json", MagicRemoteService.Properties.Resources.appinfo
-				.Replace("\"id\": \"com.cathwyler.magicremoteservice\"", "\"id\": \"com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + "\"")
+				.Replace("\"id\": \"com.cathwyler.magicremoteservice\"", "\"id\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "\"")
 				.Replace("\"version\": \"1.0.0\"", "\"version\": \"" + strVersion + "\"")
 			);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appstring.json", MagicRemoteService.Properties.Resources.appstring);
@@ -414,14 +406,14 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\es\\appinfo.json", MagicRemoteService.Properties.Resources.esappinfo);
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\es\\appstring.json", MagicRemoteService.Properties.Resources.esappstring);
 			System.IO.File.WriteAllText(".\\TV\\Send\\package.json", MagicRemoteService.Properties.Resources.package
-				.Replace("\"name\": \"com.cathwyler.magicremoteservice.send\"", "\"name\": \"com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + ".send\"")
+				.Replace("\"name\": \"com.cathwyler.magicremoteservice.send\"", "\"name\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + ".send\"")
 			);
 			System.IO.File.WriteAllText(".\\TV\\Send\\send.js", MagicRemoteService.Properties.Resources.send);
 			System.IO.File.WriteAllText(".\\TV\\Send\\services.json", MagicRemoteService.Properties.Resources.services
-				.Replace("\"id\": \"com.cathwyler.magicremoteservice.send\"", "\"id\": \"com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + ".send\"")
+				.Replace("\"id\": \"com.cathwyler.magicremoteservice.send\"", "\"id\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + ".send\"")
 			);
 		}
-		private async void btnPCSave_Click(object sender, System.EventArgs e) {
+		private async void PCSave_Click(object sender, System.EventArgs e) {
 			this.Enabled = false;
 			string strError = null;
 			string strErrorInfo = null;
@@ -453,10 +445,10 @@ namespace MagicRemoteService {
 				this.Enabled = true;
 			}
 		}
-		private void btnClose_Click(object sender, System.EventArgs e) {
+		private void Close_Click(object sender, System.EventArgs e) {
 			this.Close();
 		}
-		private async void btnTVRefresh_Click(object sender, System.EventArgs e) {
+		private async void TVRefresh_Click(object sender, System.EventArgs e) {
 			this.Enabled = false;
 			string sName = ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem)?.Name;
 			MagicRemoteService.WebOSCLIDevice[] tabDevice = null;
@@ -487,32 +479,32 @@ namespace MagicRemoteService {
 				this.Enabled = true;
 			}
 		}
-		private async void btnTVInstall_Click(object sender, System.EventArgs e) {
+		private async void TVInstall_Click(object sender, System.EventArgs e) {
 			if(this.cmbboxTV.SelectedItem == null) {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
-				ttFormating.Show("", this.cmbboxTV);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
+				this.ttFormating.Show("", this.cmbboxTV);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
 			} else if(this.cmbboxInput.SelectedItem == null) {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingInputSelectErrorTitle;
-				ttFormating.Show("", this.cmbboxInput);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingInputSelectErrorMessage, this.cmbboxInput);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingInputSelectErrorTitle;
+				this.ttFormating.Show("", this.cmbboxInput);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.SettingInputSelectErrorMessage, this.cmbboxInput);
 			} else if(this.ipadrboxSendIP.Value == null) {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingSendIPErrorTitle;
-				ttFormating.Show("", this.ipadrboxSendIP);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingSendIPErrorMessage, this.ipadrboxSendIP);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingSendIPErrorTitle;
+				this.ttFormating.Show("", this.ipadrboxSendIP);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.SettingSendIPErrorMessage, this.ipadrboxSendIP);
 			} else if(this.ipadrboxSubnetMask.Value == null) {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingSubnetMaskErrorTitle;
-				ttFormating.Show("", this.ipadrboxSubnetMask);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingSubnetMaskErrorMessage, this.ipadrboxSubnetMask);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingSubnetMaskErrorTitle;
+				this.ttFormating.Show("", this.ipadrboxSubnetMask);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.SettingSubnetMaskErrorMessage, this.ipadrboxSubnetMask);
 			} else if(this.phyadrboxPCMac.Value == null) {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingPCMacErrorTitle;
-				ttFormating.Show("", this.phyadrboxPCMac);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingPCMacErrorMessage, this.phyadrboxPCMac);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingPCMacErrorTitle;
+				this.ttFormating.Show("", this.phyadrboxPCMac);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.SettingPCMacErrorMessage, this.phyadrboxPCMac);
 			} else {
 				this.Enabled = false;
-				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
+				MagicRemoteService.WebOSCLIDevice wocdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
 				decimal dTimeoutRightClick = this.numboxTimeoutRightClick.Value;
-				MagicRemoteService.WebOSCLIDeviceInput wcdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
+				MagicRemoteService.WebOSCLIDeviceInput wocdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
 				System.Net.IPAddress ipaSendIP = this.ipadrboxSendIP.Value;
 				decimal dSendPort = this.numboxSendPort.Value;
 				System.Net.IPAddress ipMask = this.ipadrboxSubnetMask.Value;
@@ -523,11 +515,11 @@ namespace MagicRemoteService {
 					try {
 						System.Version vAssembly = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 						string strVersion = vAssembly.Major + "." + vAssembly.Minor + "." + vAssembly.Build;
-						MagicRemoteService.Setting.AppExtract(strVersion, wcdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dTimeoutRightClick);
+						MagicRemoteService.Setting.AppExtract(strVersion, wocdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dTimeoutRightClick);
 						string strTVDir = System.IO.Path.GetFullPath(".\\TV");
 						MagicRemoteService.WebOSCLI.Package(strTVDir, MagicRemoteService.Application.CompleteDir(strTVDir) + "MagicRemoteService", MagicRemoteService.Application.CompleteDir(strTVDir) + "Send");
-						MagicRemoteService.WebOSCLI.Install(wcdDevice.Name, ".\\TV\\com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort + "_" + strVersion + "_all.ipk");
-						MagicRemoteService.WebOSCLI.Launch(wcdDevice.Name, "com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort);
+						MagicRemoteService.WebOSCLI.Install(wocdDevice.Name, ".\\TV\\com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "_" + strVersion + "_all.ipk");
+						MagicRemoteService.WebOSCLI.Launch(wocdDevice.Name, "com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort);
 						return true;
 					} catch(System.Exception ex) {
 						strError = MagicRemoteService.Properties.Resources.SettingTVInstallErrorTitle;
@@ -546,7 +538,7 @@ namespace MagicRemoteService {
 				}
 			}
 		}
-		private async void cmbboxTV_SelectedIndexChanged(object sender, System.EventArgs e) {
+		private async void TV_SelectedIndexChanged(object sender, System.EventArgs e) {
 			this.Enabled = false;
 			string sId = ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id;
 			MagicRemoteService.WebOSCLIDeviceInput[] tabDeviceInput = null;
@@ -595,7 +587,7 @@ namespace MagicRemoteService {
 			)) {
 				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingPCSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
 					case System.Windows.Forms.DialogResult.Yes:
-						this.btnPCSave_Click(this, new System.EventArgs());
+						this.PCSave_Click(this, new System.EventArgs());
 						break;
 					case System.Windows.Forms.DialogResult.No:
 						break;
@@ -605,7 +597,7 @@ namespace MagicRemoteService {
 				}
 			}
 			if(!e.Cancel && (
-				this.wcdiInput?.Id != ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id
+				this.wocdiInput?.Id != ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id
 				||
 				this.scrDisplay?.Id != ((MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem)?.Id
 				||
@@ -623,7 +615,7 @@ namespace MagicRemoteService {
 			)) {
 				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingTVSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
 					case System.Windows.Forms.DialogResult.Yes:
-						this.btnTVInstall_Click(this, new System.EventArgs());
+						this.TVInstall_Click(this, new System.EventArgs());
 						break;
 					case System.Windows.Forms.DialogResult.No:
 						break;
@@ -632,12 +624,12 @@ namespace MagicRemoteService {
 						break;
 				}
 			}
-			if(!e.Cancel && System.Linq.Enumerable.Any<System.Collections.Generic.KeyValuePair<ushort, BindControl>>(this.dKeyBindControl, delegate(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp){
+			if(!e.Cancel && System.Linq.Enumerable.Any<System.Collections.Generic.KeyValuePair<ushort, BindControl>>(this.dKeyBindControl, delegate (System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp) {
 				return this.dKeyBind[kvp.Key] != kvp.Value.Value;
 			})) {
 				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingRemoteSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
 					case System.Windows.Forms.DialogResult.Yes:
-						this.btnRemoteSave_Click(this, new System.EventArgs());
+						this.RemoteSave_Click(this, new System.EventArgs());
 						break;
 					case System.Windows.Forms.DialogResult.No:
 						break;
@@ -648,7 +640,7 @@ namespace MagicRemoteService {
 			}
 		}
 
-		private async void btnRemoteSave_Click(object sender, System.EventArgs e) {
+		private async void RemoteSave_Click(object sender, System.EventArgs e) {
 			this.Enabled = false;
 			string strError = null;
 			string strErrorInfo = null;
@@ -681,18 +673,18 @@ namespace MagicRemoteService {
 			}
 		}
 
-		private async void btnTVAdd_Click(object sender, System.EventArgs e) {
-			MagicRemoteService.TV win = new MagicRemoteService.TV();
-			switch(win.ShowDialog()) {
+		private async void TVAdd_Click(object sender, System.EventArgs e) {
+			MagicRemoteService.TVAdder taDialog = new MagicRemoteService.TVAdder();
+			switch(taDialog.ShowDialog()) {
 				case System.Windows.Forms.DialogResult.OK:
 					this.Enabled = false;
 					string strError = null;
 					string strErrorInfo = null;
 					if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 						try {
-							MagicRemoteService.WebOSCLI.SetupDeviceAdd(win.wcdTV, win.strPassword);
-							if(!win.bAdvanced) {
-								MagicRemoteService.WebOSCLI.NovacomGetKey(win.wcdTV.Name, win.wcdTV.DeviceDetail.Passphrase);
+							MagicRemoteService.WebOSCLI.SetupDeviceAdd(taDialog.Device, taDialog.Password);
+							if(!taDialog.Advanced) {
+								MagicRemoteService.WebOSCLI.NovacomGetKey(taDialog.Device.Name, taDialog.Device.DeviceDetail.Passphrase);
 							}
 							return true;
 						} catch(System.Exception ex) {
@@ -702,13 +694,13 @@ namespace MagicRemoteService {
 						}
 					})) {
 						if(!this.IsDisposed) {
-							this.btnTVRefresh_Click(this, new System.EventArgs());
+							this.TVRefresh_Click(this, new System.EventArgs());
 						}
 						this.Enabled = true;
 						System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 					} else {
 						if(!this.IsDisposed) {
-							this.btnTVRefresh_Click(this, new System.EventArgs());
+							this.TVRefresh_Click(this, new System.EventArgs());
 						}
 						this.Enabled = true;
 					}
@@ -718,24 +710,24 @@ namespace MagicRemoteService {
 			}
 		}
 
-		private async void btnTVModify_Click(object sender, System.EventArgs e) {
+		private async void TVModify_Click(object sender, System.EventArgs e) {
 			if(this.cmbboxTV.SelectedItem == null) {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
-				ttFormating.Show("", this.cmbboxTV);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
+				this.ttFormating.Show("", this.cmbboxTV);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
 			} else {
-				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
-				MagicRemoteService.TV win = new MagicRemoteService.TV(wcdDevice);
-				switch(win.ShowDialog()) {
+				MagicRemoteService.WebOSCLIDevice wocdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
+				MagicRemoteService.TVAdder taDialog = new MagicRemoteService.TVAdder(wocdDevice);
+				switch(taDialog.ShowDialog()) {
 					case System.Windows.Forms.DialogResult.OK:
 						this.Enabled = false;
 						string strError = null;
 						string strErrorInfo = null;
 						if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 							try {
-								MagicRemoteService.WebOSCLI.SetupDeviceModify(wcdDevice.Name, win.wcdTV, win.strPassword);
-								if (!win.bAdvanced) {
-									MagicRemoteService.WebOSCLI.NovacomGetKey(win.wcdTV.Name, win.wcdTV.DeviceDetail.Passphrase);
+								MagicRemoteService.WebOSCLI.SetupDeviceModify(wocdDevice.Name, taDialog.Device, taDialog.Password);
+								if(!taDialog.Advanced) {
+									MagicRemoteService.WebOSCLI.NovacomGetKey(taDialog.Device.Name, taDialog.Device.DeviceDetail.Passphrase);
 								}
 								return true;
 							} catch(System.Exception ex) {
@@ -745,13 +737,13 @@ namespace MagicRemoteService {
 							}
 						})) {
 							if(!this.IsDisposed) {
-								this.btnTVRefresh_Click(this, new System.EventArgs());
+								this.TVRefresh_Click(this, new System.EventArgs());
 							}
 							this.Enabled = true;
 							System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 						} else {
 							if(!this.IsDisposed) {
-								this.btnTVRefresh_Click(this, new System.EventArgs());
+								this.TVRefresh_Click(this, new System.EventArgs());
 							}
 							this.Enabled = true;
 						}
@@ -762,19 +754,19 @@ namespace MagicRemoteService {
 			}
 		}
 
-		private async void btnTVRemove_Click(object sender, System.EventArgs e) {
+		private async void TVRemove_Click(object sender, System.EventArgs e) {
 			if(this.cmbboxTV.SelectedItem == null) {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
-				ttFormating.Show("", this.cmbboxTV);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.SettingTVSelectErrorTitle;
+				this.ttFormating.Show("", this.cmbboxTV);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.SettingTVSelectErrorMessage, this.cmbboxTV);
 			} else {
 				this.Enabled = false;
-				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
+				MagicRemoteService.WebOSCLIDevice wocdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
 				string strError = null;
 				string strErrorInfo = null;
 				if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 					try {
-						MagicRemoteService.WebOSCLI.SetupDeviceRemove(wcdDevice.Name);
+						MagicRemoteService.WebOSCLI.SetupDeviceRemove(wocdDevice.Name);
 						return true;
 					} catch(System.Exception ex) {
 						strError = MagicRemoteService.Properties.Resources.SettingTVRemoveErrorTitle;
@@ -783,28 +775,28 @@ namespace MagicRemoteService {
 					}
 				})) {
 					if(!this.IsDisposed) {
-						this.btnTVRefresh_Click(this, new System.EventArgs());
+						this.TVRefresh_Click(this, new System.EventArgs());
 					}
 					this.Enabled = true;
 					System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 				} else {
 					if(!this.IsDisposed) {
-						this.btnTVRefresh_Click(this, new System.EventArgs());
+						this.TVRefresh_Click(this, new System.EventArgs());
 					}
 					this.Enabled = true;
 				}
 			}
 		}
 
-		private void btnInspect_Click(object sender, System.EventArgs e) {
+		private void Inspect_Click(object sender, System.EventArgs e) {
 			async void Inspect() {
-				MagicRemoteService.WebOSCLIDevice wcdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
-				MagicRemoteService.WebOSCLIDeviceInput wcdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
+				MagicRemoteService.WebOSCLIDevice wocdDevice = (MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem;
+				MagicRemoteService.WebOSCLIDeviceInput wocdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem;
 				string strError = null;
 				string strErrorInfo = null;
 				if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 					try {
-						MagicRemoteService.WebOSCLI.Inspect(wcdDevice.Name, "com.cathwyler.magicremoteservice." + wcdiInput.AppIdShort);
+						MagicRemoteService.WebOSCLI.Inspect(wocdDevice.Name, "com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort);
 						return true;
 					} catch(System.Exception ex) {
 						strError = MagicRemoteService.Properties.Resources.SettingTVInstallErrorTitle;
@@ -816,7 +808,7 @@ namespace MagicRemoteService {
 				}
 			}
 			if(
-				this.wcdiInput?.Id != ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id
+				this.wocdiInput?.Id != ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id
 				||
 				this.scrDisplay?.Id != ((MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem)?.Id
 				||
@@ -834,7 +826,7 @@ namespace MagicRemoteService {
 			) {
 				switch(System.Windows.Forms.MessageBox.Show(MagicRemoteService.Properties.Resources.SettingTVSaveMessage, this.Text, System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1)) {
 					case System.Windows.Forms.DialogResult.Yes:
-						this.btnTVInstall_Click(this, new System.EventArgs());
+						this.TVInstall_Click(this, new System.EventArgs());
 						Inspect();
 						break;
 					case System.Windows.Forms.DialogResult.No:
