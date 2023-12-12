@@ -3,17 +3,16 @@ namespace MagicRemoteService {
 
 	[System.Serializable]
 	public class WebOSCLIException : System.Exception {
-		public WebOSCLIException() { }
-		public WebOSCLIException(string strMessage) :
-			base(strMessage) { }
-		public WebOSCLIException(string strMessage, System.Exception eInner) :
-			base(strMessage, eInner) { }
-
+		public WebOSCLIException() {
+		}
+		public WebOSCLIException(string strMessage) : base(strMessage) {
+		}
+		public WebOSCLIException(string strMessage, System.Exception eInner) : base(strMessage, eInner) {
+		}
 	}
 	[System.Serializable]
 	public class WebOSCLINotFoundException : MagicRemoteService.WebOSCLIException {
-		public WebOSCLINotFoundException() :
-			base(MagicRemoteService.Properties.Resources.WebOSCLINotFoundExceptionMessage) {
+		public WebOSCLINotFoundException() : base(MagicRemoteService.Properties.Resources.WebOSCLINotFoundExceptionMessage) {
 		}
 	}
 	public class IPAddressJsonConverter : System.Text.Json.Serialization.JsonConverter<System.Net.IPAddress> {
@@ -39,81 +38,79 @@ namespace MagicRemoteService {
 		}
 	}
 	public class WebOSCLIDeviceInput {
-		public string Id { get; set; }
-		public string Name { get; set; }
-		public string Source { get; set; }
-		public string AppId { get; set; }
-		public string AppIdShort { get; set; }
+		public string strId;
+		public string strName;
+		public string strSource;
+		public string strAppId;
+		public string strAppIdShort;
 	}
-	//public class WebOSCLIDeviceInstall {
-	//	public string Name { get; set; }
-	//}
 	public class WebOSCLIDeviceInfo {
 		[System.Text.Json.Serialization.JsonConverter(typeof(MagicRemoteService.IPAddressJsonConverter))]
 		[System.Text.Json.Serialization.JsonPropertyName("ip")]
-		public System.Net.IPAddress IP { get; set; }
+		public System.Net.IPAddress iaIP;
 		[System.Text.Json.Serialization.JsonConverter(typeof(MagicRemoteService.ShortJsonConverter))]
 		[System.Text.Json.Serialization.JsonPropertyName("port")]
-		public short Port { get; set; }
+		public ushort usPort;
 		[System.Text.Json.Serialization.JsonPropertyName("user")]
-		public string User { get; set; }
+		public string strUser;
 	}
 	public class WebOSCLIDeviceDetail {
 		[System.Text.Json.Serialization.JsonPropertyName("platform")]
-		public string Platform { get; set; }
+		public string strPlatform;
 		[System.Text.Json.Serialization.JsonPropertyName("privatekey")]
-		public string PrivateKey { get; set; }
+		public string strPrivateKey;
 		[System.Text.Json.Serialization.JsonPropertyName("passphrase")]
-		public string Passphrase { get; set; }
+		public string strPassphrase;
 		[System.Text.Json.Serialization.JsonPropertyName("description")]
-		public string Description { get; set; }
+		public string strDescription;
 	}
 	public class WebOSCLIDevice {
 
 		[System.Text.Json.Serialization.JsonPropertyName("profile")]
-		public string Profile { get; set; }
+		public string strProfile;
 		[System.Text.Json.Serialization.JsonPropertyName("name")]
-		public string Name { get; set; }
+		public string strName;
 		[System.Text.Json.Serialization.JsonPropertyName("default")]
-		public bool Default { get; set; }
+		public bool bDefault;
 		[System.Text.Json.Serialization.JsonPropertyName("deviceinfo")]
-		public MagicRemoteService.WebOSCLIDeviceInfo DeviceInfo { get; set; }
+		public MagicRemoteService.WebOSCLIDeviceInfo wcdiDeviceInfo;
 		[System.Text.Json.Serialization.JsonPropertyName("connection")]
-		public string[] Connection { get; set; }
+		public string[] arrConnection;
 		[System.Text.Json.Serialization.JsonPropertyName("details")]
-		public MagicRemoteService.WebOSCLIDeviceDetail DeviceDetail { get; set; }
-
+		public MagicRemoteService.WebOSCLIDeviceDetail wcddDeviceDetail;
 	}
-	class WebOSCLIDeviceSet {
+
+	internal class WebOSCLIDeviceSet {
 
 		[System.Text.Json.Serialization.JsonPropertyName("name")]
-		public string Name { get; set; }
+		public string strName;
 		[System.Text.Json.Serialization.JsonPropertyName("description")]
-		public string Description { get; set; }
+		public string strDescription;
 		[System.Text.Json.Serialization.JsonConverter(typeof(MagicRemoteService.IPAddressJsonConverter))]
 		[System.Text.Json.Serialization.JsonPropertyName("host")]
-		public System.Net.IPAddress IP { get; set; }
+		public System.Net.IPAddress iaIP;
 		[System.Text.Json.Serialization.JsonConverter(typeof(MagicRemoteService.ShortJsonConverter))]
 		[System.Text.Json.Serialization.JsonPropertyName("port")]
-		public short Port { get; set; }
+		public ushort usPort;
 		[System.Text.Json.Serialization.JsonPropertyName("username")]
-		public string User { get; set; }
+		public string strUser;
 		[System.Text.Json.Serialization.JsonPropertyName("password")]
-		public string Password { get; set; }
+		public string strPassword;
 		[System.Text.Json.Serialization.JsonPropertyName("privatekey")]
-		public string PrivateKey { get; set; }
+		public string strPrivateKey;
 		[System.Text.Json.Serialization.JsonPropertyName("passphrase")]
-		public string Passphrase { get; set; }
+		public string strPassphrase;
 	}
-	static class WebOSCLI {
-		static private string GetWebOSCLIDir() {
+
+	internal static class WebOSCLI {
+		private static string GetWebOSCLIDir() {
 			string strWebOSCliDir = System.Environment.GetEnvironmentVariable("WEBOS_CLI_TV");
 			if(strWebOSCliDir == null) {
 				throw new MagicRemoteService.WebOSCLINotFoundException();
 			}
 			return strWebOSCliDir;
 		}
-		static private string ExecWebOSCLICmd(string strCommand, string strArgument, System.Collections.Generic.Dictionary<ushort, string> dInput = null, string strWorkingDirectory = null) {
+		private static string ExecWebOSCLICmd(string strCommand, string strArgument, System.Collections.Generic.Dictionary<ushort, string> dInput = null, string strWorkingDirectory = null) {
 			System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
 			pProcess.StartInfo.FileName = Application.CompleteDir(WebOSCLI.GetWebOSCLIDir()) + strCommand + ".cmd";
 			if(!string.IsNullOrEmpty(strWorkingDirectory)) {
@@ -129,12 +126,12 @@ namespace MagicRemoteService {
 			string strErr = "";
 			string strOutput = "";
 			ushort usOutputLine = 0;
-			pProcess.ErrorDataReceived += delegate(object sender, System.Diagnostics.DataReceivedEventArgs e) {
+			pProcess.ErrorDataReceived += delegate (object sender, System.Diagnostics.DataReceivedEventArgs e) {
 				if(e.Data != null) {
 					strErr += e.Data;
 				}
 			};
-			pProcess.OutputDataReceived += delegate(object sender, System.Diagnostics.DataReceivedEventArgs e) {
+			pProcess.OutputDataReceived += delegate (object sender, System.Diagnostics.DataReceivedEventArgs e) {
 				if(e.Data != null) {
 #if DEBUG
 					System.Console.WriteLine(e.Data);
@@ -157,64 +154,70 @@ namespace MagicRemoteService {
 			}
 			return strOutput;
 		}
-		static public MagicRemoteService.WebOSCLIDeviceInput[] InputList() {
+		public static MagicRemoteService.WebOSCLIDeviceInput[] InputList() {
 			return new MagicRemoteService.WebOSCLIDeviceInput[] {
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_1", Name = "HDMI 1", Source = "ext://hdmi:1", AppId = "com.webos.app.hdmi1", AppIdShort = "hdmi1" },
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_2", Name = "HDMI 2", Source = "ext://hdmi:2", AppId = "com.webos.app.hdmi2", AppIdShort = "hdmi2" },
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_3", Name = "HDMI 3", Source = "ext://hdmi:3", AppId = "com.webos.app.hdmi3", AppIdShort = "hdmi3" },
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_4", Name = "HDMI 4", Source = "ext://hdmi:4", AppId = "com.webos.app.hdmi4", AppIdShort = "hdmi4" }
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_1", strName = "HDMI 1", strSource = "ext://hdmi:1", strAppId = "com.webos.app.hdmi1", strAppIdShort = "hdmi1" },
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_2", strName = "HDMI 2", strSource = "ext://hdmi:2", strAppId = "com.webos.app.hdmi2", strAppIdShort = "hdmi2" },
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_3", strName = "HDMI 3", strSource = "ext://hdmi:3", strAppId = "com.webos.app.hdmi3", strAppIdShort = "hdmi3" },
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_4", strName = "HDMI 4", strSource = "ext://hdmi:4", strAppId = "com.webos.app.hdmi4", strAppIdShort = "hdmi4" }
 			};
 		}
-		static public MagicRemoteService.WebOSCLIDevice[] SetupDeviceList() {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-F");
+		public static MagicRemoteService.WebOSCLIDevice[] SetupDeviceList() {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-F"
+			};
 			return System.Text.Json.JsonSerializer.Deserialize<MagicRemoteService.WebOSCLIDevice[]>(MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", string.Join(" ", tabArgument)));
 		}
-		static public void SetupDeviceAdd(MagicRemoteService.WebOSCLIDevice wcdDevice, string strPassword) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-a \"" + wcdDevice.Name + "\"");
-			tabArgument.Add("-i \"" + System.Text.Json.JsonSerializer.Serialize<MagicRemoteService.WebOSCLIDeviceSet>(new MagicRemoteService.WebOSCLIDeviceSet {
-				Name = wcdDevice.Name,
-				Description = wcdDevice.DeviceDetail.Description,
-				IP = wcdDevice.DeviceInfo.IP,
-				Port = wcdDevice.DeviceInfo.Port,
-				User = wcdDevice.DeviceInfo.User,
-				Password = strPassword,
-				PrivateKey = wcdDevice.DeviceDetail.PrivateKey,
-				Passphrase = wcdDevice.DeviceDetail.Passphrase
-			}).Replace("\"", "'") + "\"");
+		public static void SetupDeviceAdd(MagicRemoteService.WebOSCLIDevice wcdDevice, string strPassword) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-a \"" + wcdDevice.strName + "\"",
+				"-i \"" + System.Text.Json.JsonSerializer.Serialize<MagicRemoteService.WebOSCLIDeviceSet>(new MagicRemoteService.WebOSCLIDeviceSet {
+					strName = wcdDevice.strName,
+					strDescription = wcdDevice.wcddDeviceDetail.strDescription,
+					iaIP = wcdDevice.wcdiDeviceInfo.iaIP,
+					usPort = wcdDevice.wcdiDeviceInfo.usPort,
+					strUser = wcdDevice.wcdiDeviceInfo.strUser,
+					strPassword = strPassword,
+					strPrivateKey = wcdDevice.wcddDeviceDetail.strPrivateKey,
+					strPassphrase = wcdDevice.wcddDeviceDetail.strPassphrase
+				}).Replace("\"", "'") + "\""
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", string.Join(" ", tabArgument));
 		}
-		static public void SetupDeviceModify(string strDevice, MagicRemoteService.WebOSCLIDevice wcdDevice, string strPassword) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-m \"" + strDevice + "\"");
-			tabArgument.Add("-i \"" + System.Text.Json.JsonSerializer.Serialize<MagicRemoteService.WebOSCLIDeviceSet>(new MagicRemoteService.WebOSCLIDeviceSet {
-				Name = wcdDevice.Name,
-				Description = wcdDevice.DeviceDetail.Description,
-				IP = wcdDevice.DeviceInfo.IP,
-				Port = wcdDevice.DeviceInfo.Port,
-				User = wcdDevice.DeviceInfo.User,
-				Password = strPassword,
-				PrivateKey = wcdDevice.DeviceDetail.PrivateKey,
-				Passphrase = wcdDevice.DeviceDetail.Passphrase
-			}).Replace("\"", "'") + "\"");
+		public static void SetupDeviceModify(string strDevice, MagicRemoteService.WebOSCLIDevice wcdDevice, string strPassword) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-m \"" + strDevice + "\"",
+				"-i \"" + System.Text.Json.JsonSerializer.Serialize<MagicRemoteService.WebOSCLIDeviceSet>(new MagicRemoteService.WebOSCLIDeviceSet {
+					strName = wcdDevice.strName,
+					strDescription = wcdDevice.wcddDeviceDetail.strDescription,
+					iaIP = wcdDevice.wcdiDeviceInfo.iaIP,
+					usPort = wcdDevice.wcdiDeviceInfo.usPort,
+					strUser = wcdDevice.wcdiDeviceInfo.strUser,
+					strPassword = strPassword,
+					strPrivateKey = wcdDevice.wcddDeviceDetail.strPrivateKey,
+					strPassphrase = wcdDevice.wcddDeviceDetail.strPassphrase
+				}).Replace("\"", "'") + "\""
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", string.Join(" ", tabArgument));
 		}
-		static public void SetupDeviceRemove(string strDevice) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-r \"" + strDevice + "\"");
+		public static void SetupDeviceRemove(string strDevice) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-r \"" + strDevice + "\""
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-setup-device", string.Join(" ", tabArgument));
 		}
-		static public void NovacomGetKey(string strDevice, string strPassphrase) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-d \"" + strDevice + "\"");
-			tabArgument.Add("-k");
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-novacom", string.Join(" ", tabArgument), new System.Collections.Generic.Dictionary<ushort, string>(){ { 1, strPassphrase } });
+		public static void NovacomGetKey(string strDevice, string strPassphrase) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\"",
+				"-k"
+			};
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-novacom", string.Join(" ", tabArgument), new System.Collections.Generic.Dictionary<ushort, string>() { { 1, strPassphrase } });
 		}
-		static public void Package(string strOutDirectory, string strApplication, string strService = null, string strPackage = null) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("\"" + strApplication + "\"");
-			tabArgument.Add("-n");
+		public static void Package(string strOutDirectory, string strApplication, string strService = null, string strPackage = null) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"\"" + strApplication + "\"",
+				"-n"
+			};
 			if(!string.IsNullOrEmpty(strService)) {
 				tabArgument.Add("-o \"" + strOutDirectory + "\"");
 			}
@@ -226,40 +229,46 @@ namespace MagicRemoteService {
 			}
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-package", string.Join(" ", tabArgument));
 		}
-		static public void Install(string strDevice, string strPackageFile) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-d \"" + strDevice + "\"");
-			tabArgument.Add("\"" + strPackageFile + "\"");
+		public static void Install(string strDevice, string strPackageFile) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\"",
+				"\"" + strPackageFile + "\""
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArgument));
 		}
-		static public void InstallRemove(string strDevice, string strPackageFile) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-d \"" + strDevice + "\"");
-			tabArgument.Add("--remove \"" + strPackageFile + "\"");
+		public static void InstallRemove(string strDevice, string strPackageFile) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\"",
+				"--remove \"" + strPackageFile + "\""
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArgument));
 		}
-		//static public void InstallList(string strDevice, string strPackageFile) {
-		//	System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-		//	tabArgument.Add("-d \"" + strDevice + "\"");
-		//	tabArgument.Add("-l");
+		//public static void InstallList(string strDevice, string strPackageFile) {
+		//	System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+		//		"-d \"" + strDevice + "\"",
+		//		"-l"
+		//	};
 		//	MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-install", string.Join(" ", tabArgument));
 		//}
-		static public void Launch(string strDevice, string strApplicationId) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-d \"" + strDevice + "\"");
-			tabArgument.Add("\"" + strApplicationId + "\"");
+		public static void Launch(string strDevice, string strApplicationId) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\"",
+				"\"" + strApplicationId + "\""
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-launch", string.Join(" ", tabArgument));
 		}
-		static public void Inspect(string strDevice, string strApplicationId) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-d \"" + strDevice + "\"");
-			tabArgument.Add("-a \"" + strApplicationId + "\"");
-			tabArgument.Add("-o");
+		public static void Inspect(string strDevice, string strApplicationId) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\"",
+				"-a \"" + strApplicationId + "\"",
+				"-o"
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-inspect", string.Join(" ", tabArgument));
 		}
-		static public void Extend(string strDevice) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string>();
-			tabArgument.Add("-d \"" + strDevice + "\"");
+		public static void Extend(string strDevice) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\""
+			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICmd("ares-extend-dev", string.Join(" ", tabArgument));
 		}
 	}

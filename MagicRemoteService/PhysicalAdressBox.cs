@@ -75,13 +75,13 @@ namespace MagicRemoteService {
 				this.dbbByte4.Text = paMac.GetAddressBytes()[4].ToString("X2");
 				this.dbbByte5.Text = paMac.GetAddressBytes()[5].ToString("X2");
 			} else {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorPasteTitle;
-				ttFormating.Show("", (System.Windows.Forms.Control)sender);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorPasteMessage, (System.Windows.Forms.Control)sender);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorPasteTitle;
+				this.ttFormating.Show("", (System.Windows.Forms.Control)sender);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorPasteMessage, (System.Windows.Forms.Control)sender);
 			}
 		}
 		private void dbbByte_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e) {
-			ttFormating.Hide(this);
+			this.ttFormating.Hide(this);
 			MagicRemoteService.DecimalByteBox ddbByte = (MagicRemoteService.DecimalByteBox)sender;
 			if(char.IsControl(e.KeyChar)) {
 				if(e.KeyChar == (char)System.Windows.Forms.Keys.Back) {
@@ -119,9 +119,9 @@ namespace MagicRemoteService {
 					}
 				} else {
 					e.Handled = true;
-					ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorByteEntryTitle;
-					ttFormating.Show("", ddbByte);
-					ttFormating.Show(string.Format(MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorByteEntryMessage, ddbByte.Text + e.KeyChar), ddbByte);
+					this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorByteEntryTitle;
+					this.ttFormating.Show("", ddbByte);
+					this.ttFormating.Show(string.Format(MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorByteEntryMessage, ddbByte.Text + e.KeyChar), ddbByte);
 				}
 			} else if(e.KeyChar == '-' || e.KeyChar == ':') {
 				e.Handled = true;
@@ -139,7 +139,7 @@ namespace MagicRemoteService {
 			}
 		}
 		private void PhysicalAddressBox_Click(object sender, System.EventArgs e) {
-			ttFormating.Hide(this);
+			this.ttFormating.Hide(this);
 		}
 	}
 }

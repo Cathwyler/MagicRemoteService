@@ -157,13 +157,13 @@ namespace MagicRemoteService {
 			} else {
 				this.dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>();
 				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
-					this.dKeyBind[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-					this.dKeyBind[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindKeyboard((ushort)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindKeyboard((ushort)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
-					this.dKeyBind[System.UInt16.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
 				}
 			}
 			switch(this.stType) {
@@ -177,10 +177,11 @@ namespace MagicRemoteService {
 
 							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\" + str);
 
-							System.Timers.Timer tExtend = new System.Timers.Timer();
-							tExtend.AutoReset = false;
-							tExtend.Interval = System.Math.Max(100, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-1).Ticks)).AddHours(-4).Date.AddDays(1).AddHours(4) - System.DateTime.Now).TotalMilliseconds);
-							tExtend.Elapsed += async delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+							System.Timers.Timer tExtend = new System.Timers.Timer {
+								AutoReset = false,
+								Interval = System.Math.Max(100, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-1).Ticks)).AddHours(-4).Date.AddDays(1).AddHours(4) - System.DateTime.Now).TotalMilliseconds)
+							};
+							tExtend.Elapsed += async delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 								if(await System.Threading.Tasks.Task.Run<bool>(delegate () {
 									try {
 										WebOSCLI.Extend(str);
@@ -442,7 +443,7 @@ namespace MagicRemoteService {
 		}
 		private void ThreadServer() {
 			System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-			
+
 			try {
 				switch(this.stType) {
 					case ServiceType.Server:
@@ -721,10 +722,11 @@ namespace MagicRemoteService {
 				}
 
 				System.Threading.ManualResetEvent mreClientStop = new System.Threading.ManualResetEvent(false);
-				System.Timers.Timer tUserInput = new System.Timers.Timer();
-				tUserInput.Interval = 10;
-				tUserInput.AutoReset = true;
-				tUserInput.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+				System.Timers.Timer tUserInput = new System.Timers.Timer {
+					Interval = 10,
+					AutoReset = true
+				};
+				tUserInput.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					WinApi.LastInputInfo lii = new WinApi.LastInputInfo();
 					lii.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lii);
 					if(!WinApi.User32.GetLastInputInfo(ref lii)) {
@@ -738,35 +740,39 @@ namespace MagicRemoteService {
 						Service.Log("Client user input activity on socket [" + socClient.GetHashCode() + "]");
 					}
 				};
-				System.Timers.Timer tPongInactivity = new System.Timers.Timer();
-				tPongInactivity.Interval = 5000;
-				tPongInactivity.AutoReset = false;
-				tPongInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+				System.Timers.Timer tPongInactivity = new System.Timers.Timer {
+					Interval = 5000,
+					AutoReset = false
+				};
+				tPongInactivity.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					socClient.Send(Service.tabClose);
 					mreClientStop.Set();
 					Service.Warn("Client timeout pong inactivity on socket [" + socClient.GetHashCode() + "]");
 				};
-				System.Timers.Timer tInactivity = new System.Timers.Timer();
-				tInactivity.Interval = this.iTimeoutInactivity - 300000;
-				tInactivity.AutoReset = false;
-				tInactivity.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+				System.Timers.Timer tInactivity = new System.Timers.Timer {
+					Interval = this.iTimeoutInactivity - 300000,
+					AutoReset = false
+				};
+				tInactivity.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					socClient.Send(Service.tabPingInactivity);
 					tPongInactivity.Start();
 					Service.Log("Client timeout inactivity on socket [" + socClient.GetHashCode() + "]");
 				};
 
-				System.Timers.Timer tPong = new System.Timers.Timer();
-				tPong.Interval = 5000;
-				tPong.AutoReset = false;
-				tPong.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+				System.Timers.Timer tPong = new System.Timers.Timer {
+					Interval = 5000,
+					AutoReset = false
+				};
+				tPong.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					socClient.Send(Service.tabClose);
 					mreClientStop.Set();
 					Service.Warn("Client timeout pong on socket [" + socClient.GetHashCode() + "]");
 				};
-				System.Timers.Timer tPing = new System.Timers.Timer();
-				tPing.Interval = 30000;
-				tPing.AutoReset = true;
-				tPing.Elapsed += delegate (System.Object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+				System.Timers.Timer tPing = new System.Timers.Timer {
+					Interval = 30000,
+					AutoReset = true
+				};
+				tPing.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					socClient.Send(Service.tabPing);
 					tPong.Start();
 				};
@@ -962,12 +968,12 @@ namespace MagicRemoteService {
 				System.Threading.Tasks.Task.Run(delegate () {
 					System.Net.IPAddress ipClient = ((System.Net.IPEndPoint)socClient.RemoteEndPoint).Address;
 					MagicRemoteService.WebOSCLIDevice wocdClient = System.Array.Find<MagicRemoteService.WebOSCLIDevice>(MagicRemoteService.WebOSCLI.SetupDeviceList(), delegate (MagicRemoteService.WebOSCLIDevice wocd) {
-						return wocd.DeviceInfo.IP.Equals(ipClient);
+						return wocd.wcdiDeviceInfo.iaIP.Equals(ipClient);
 					});
 					if(wocdClient == null) {
 						uiDisplay = 0;
 					} else {
-						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.strName);
 						if(rkMagicRemoteServiceDevice == null) {
 							uiDisplay = 0;
 						} else {
@@ -1092,7 +1098,7 @@ namespace MagicRemoteService {
 													case (byte)MagicRemoteService.MessageType.Wheel:
 														piWheel[0].u.mi.mouseData = (uint)(-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1) * 3);
 														Service.SendInputAdmin(piWheel);
-														Service.LogIfDebug("Processed binary message send/wheel [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], sY: " + (-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1)).ToString());
+														Service.LogIfDebug("Processed binary message send/wheel [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], sY: " + (-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1)).ToString());
 														break;
 													case (byte)MagicRemoteService.MessageType.Visible:
 														if(System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1)) {
@@ -1100,26 +1106,26 @@ namespace MagicRemoteService {
 														} else {
 															MagicRemoteService.SystemCursor.ShowSytemCursor();
 														}
-														Service.LogIfDebug("Processed binary message send/visible [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], bV: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1).ToString());
+														Service.LogIfDebug("Processed binary message send/visible [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], bV: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1).ToString());
 														break;
 													case (byte)MagicRemoteService.MessageType.Key:
 														ushort usCode = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														if((tabData[ulOffsetData + 3] & 0x01) == 0x01) {
 															if(dKeyBindDown.TryGetValue(usCode, out arrInput)) {
 																Service.SendInputAdmin(arrInput);
-																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else if(dKeyBindActionDown.TryGetValue(usCode, out arrByte)) {
 																socClient.Send(arrByte);
-																Service.LogIfDebug("Processed binary message send/key action [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+																Service.LogIfDebug("Processed binary message send/key action [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else {
-																Service.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+																Service.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															}
 														} else {
 															if(dKeyBindUp.TryGetValue(usCode, out arrInput)) {
 																Service.SendInputAdmin(arrInput);
-																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else {
-																Service.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
+																Service.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															}
 														}
 														break;
@@ -1127,7 +1133,7 @@ namespace MagicRemoteService {
 														piUnicode[0].u.ki.wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														piUnicode[1].u.ki.wScan = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														Service.SendInputAdmin(piUnicode);
-														Service.LogIfDebug("Processed binary message send/unicode [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usC: " + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData + 1, 2));
+														Service.LogIfDebug("Processed binary message send/unicode [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.Text.Encoding.UTF8.GetString(tabData, (int)ulOffsetData + 1, 2));
 														break;
 													case (byte)MagicRemoteService.MessageType.Shutdown:
 														System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
@@ -1135,10 +1141,10 @@ namespace MagicRemoteService {
 														pProcess.StartInfo.Arguments = "/s /t 0";
 														pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 														pProcess.Start();
-														Service.LogIfDebug("Processed binary message send/shutdown [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "]");
+														Service.LogIfDebug("Processed binary message send/shutdown [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "]");
 														break;
 													default:
-														Service.Warn("Uprocessed binary message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "]");
+														Service.Warn("Uprocessed binary message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "]");
 														break;
 												}
 											}
@@ -1179,7 +1185,7 @@ namespace MagicRemoteService {
 														Service.LogIfDebug("Pong incativity received on socket [" + socClient.GetHashCode() + "]");
 														break;
 													default:
-														Service.Warn("Uprocessed pong message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "]");
+														Service.Warn("Uprocessed pong message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "]");
 														break;
 												}
 											} else {
@@ -1188,7 +1194,7 @@ namespace MagicRemoteService {
 											}
 											break;
 										default:
-											Service.Warn("Unprocessed message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], " + System.Text.Encoding.Default.GetString(tabData, (int)ulOffsetData, (int)ulLenData));
+											Service.Warn("Unprocessed message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], " + System.Text.Encoding.Default.GetString(tabData, (int)ulOffsetData, (int)ulLenData));
 											break;
 									}
 								}

@@ -51,21 +51,21 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.selBindMouse, "selBindMouse");
 			this.selBindMouse.Name = "selBindMouse";
 			this.selBindMouse.UseVisualStyleBackColor = true;
-			this.selBindMouse.CheckedChanged += new System.EventHandler(this.selBindMouse_CheckedChanged);
+			this.selBindMouse.CheckedChanged += new System.EventHandler(this.BindMouse_CheckedChanged);
 			// 
 			// selBindKeyboard
 			// 
 			resources.ApplyResources(this.selBindKeyboard, "selBindKeyboard");
 			this.selBindKeyboard.Name = "selBindKeyboard";
 			this.selBindKeyboard.UseVisualStyleBackColor = true;
-			this.selBindKeyboard.CheckedChanged += new System.EventHandler(this.selBindKeyboard_CheckedChanged);
+			this.selBindKeyboard.CheckedChanged += new System.EventHandler(this.BindKeyboard_CheckedChanged);
 			// 
 			// selBindAction
 			// 
 			resources.ApplyResources(this.selBindAction, "selBindAction");
 			this.selBindAction.Name = "selBindAction";
 			this.selBindAction.UseVisualStyleBackColor = true;
-			this.selBindAction.CheckedChanged += new System.EventHandler(this.selBindAction_CheckedChanged);
+			this.selBindAction.CheckedChanged += new System.EventHandler(this.BindAction_CheckedChanged);
 			// 
 			// pnlBind
 			// 
@@ -89,7 +89,7 @@ namespace MagicRemoteService {
 			this.selMouseRight.Name = "selMouseRight";
 			this.selMouseRight.TabStop = true;
 			this.selMouseRight.UseVisualStyleBackColor = true;
-			this.selMouseRight.CheckedChanged += new System.EventHandler(this.selMouseRight_CheckedChanged);
+			this.selMouseRight.CheckedChanged += new System.EventHandler(this.MouseRight_CheckedChanged);
 			// 
 			// selMouseMiddle
 			// 
@@ -97,7 +97,7 @@ namespace MagicRemoteService {
 			this.selMouseMiddle.Name = "selMouseMiddle";
 			this.selMouseMiddle.TabStop = true;
 			this.selMouseMiddle.UseVisualStyleBackColor = true;
-			this.selMouseMiddle.CheckedChanged += new System.EventHandler(this.selMouseMiddle_CheckedChanged);
+			this.selMouseMiddle.CheckedChanged += new System.EventHandler(this.MouseMiddle_CheckedChanged);
 			// 
 			// selMouseLeft
 			// 
@@ -105,7 +105,7 @@ namespace MagicRemoteService {
 			this.selMouseLeft.Name = "selMouseLeft";
 			this.selMouseLeft.TabStop = true;
 			this.selMouseLeft.UseVisualStyleBackColor = true;
-			this.selMouseLeft.CheckedChanged += new System.EventHandler(this.selMouseLeft_CheckedChanged);
+			this.selMouseLeft.CheckedChanged += new System.EventHandler(this.MouseLeft_CheckedChanged);
 			// 
 			// libKeyboard
 			// 
@@ -125,7 +125,7 @@ namespace MagicRemoteService {
 			this.selActionKeyboard.Name = "selActionKeyboard";
 			this.selActionKeyboard.TabStop = true;
 			this.selActionKeyboard.UseVisualStyleBackColor = true;
-			this.selActionKeyboard.CheckedChanged += new System.EventHandler(this.selActionKeyboard_CheckedChanged);
+			this.selActionKeyboard.CheckedChanged += new System.EventHandler(this.ActionKeyboard_CheckedChanged);
 			// 
 			// selActionShutdown
 			// 
@@ -133,7 +133,7 @@ namespace MagicRemoteService {
 			this.selActionShutdown.Name = "selActionShutdown";
 			this.selActionShutdown.TabStop = true;
 			this.selActionShutdown.UseVisualStyleBackColor = true;
-			this.selActionShutdown.CheckedChanged += new System.EventHandler(this.selActionShutdown_CheckedChanged);
+			this.selActionShutdown.CheckedChanged += new System.EventHandler(this.ActionShutdown_CheckedChanged);
 			// 
 			// btnCancel
 			// 
@@ -141,14 +141,14 @@ namespace MagicRemoteService {
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
 			// 
 			// btnConfirm
 			// 
 			resources.ApplyResources(this.btnConfirm, "btnConfirm");
 			this.btnConfirm.Name = "btnConfirm";
 			this.btnConfirm.UseVisualStyleBackColor = true;
-			this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+			this.btnConfirm.Click += new System.EventHandler(this.Confirm_Click);
 			// 
 			// tlpBind
 			// 

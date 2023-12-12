@@ -1,4 +1,5 @@
 ﻿
+#pragma warning disable IDE1006
 namespace MagicRemoteService.WinApi {
 	[System.Flags]
 	public enum ServiceCurrentState : uint {
@@ -108,7 +109,8 @@ namespace MagicRemoteService.WinApi {
 		public System.IntPtr hStdOutput;
 		public System.IntPtr hStdError;
 	}
-	static class Advapi32 {
+
+	internal static class Advapi32 {
 		public const uint STANDARD_RIGHTS_ALL = (uint)(AccessMaskStandard.DELETE | AccessMaskStandard.READ_CONTROL | AccessMaskStandard.WRITE_DAC | AccessMaskStandard.WRITE_OWNER | AccessMaskStandard.SYNCHRONIZE);
 		public const uint STANDARD_RIGHTS_READ = (uint)(AccessMaskStandard.READ_CONTROL);
 		public const uint STANDARD_RIGHTS_WRITE = (uint)(AccessMaskStandard.READ_CONTROL);
@@ -147,3 +149,4 @@ namespace MagicRemoteService.WinApi {
 		public static extern bool CreateProcessAsUser(System.IntPtr hToken, string lpApplicationName, string lpCommandLine, ref SecurityAttributes lpProcessAttributes, ref SecurityAttributes lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, System.IntPtr lpEnvironment, string lpCurrentDirectory, ref StartupInfo lpStartupInfo, out ProcessInformation lpProcessInformation);
 	}
 }
+#pragma warning restore IDE1006

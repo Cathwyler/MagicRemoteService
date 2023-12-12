@@ -1,6 +1,6 @@
 ﻿
 namespace MagicRemoteService {
-	partial class TV {
+	partial class TVAdder {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -24,7 +24,7 @@ namespace MagicRemoteService {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TV));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TVAdder));
 			this.btnConfirm = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.labIP = new System.Windows.Forms.Label();
@@ -71,7 +71,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.btnConfirm, "btnConfirm");
 			this.btnConfirm.Name = "btnConfirm";
 			this.btnConfirm.UseVisualStyleBackColor = true;
-			this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+			this.btnConfirm.Click += new System.EventHandler(this.Confirm_Click);
 			// 
 			// btnCancel
 			// 
@@ -79,7 +79,7 @@ namespace MagicRemoteService {
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
 			// 
 			// labIP
 			// 
@@ -100,7 +100,7 @@ namespace MagicRemoteService {
             0,
             0});
 			this.numboxSendPort.Name = "numboxSendPort";
-			this.numboxSendPort.ValueChanged += new System.EventHandler(this.numboxSendPort_ValueChanged);
+			this.numboxSendPort.ValueChanged += new System.EventHandler(this.SendPort_ValueChanged);
 			// 
 			// labDescription
 			// 
@@ -111,7 +111,7 @@ namespace MagicRemoteService {
 			// 
 			resources.ApplyResources(this.tbDescription, "tbDescription");
 			this.tbDescription.Name = "tbDescription";
-			this.tbDescription.TextChanged += new System.EventHandler(this.tbDescription_TextChanged);
+			this.tbDescription.TextChanged += new System.EventHandler(this.Description_TextChanged);
 			// 
 			// labUser
 			// 
@@ -122,7 +122,7 @@ namespace MagicRemoteService {
 			// 
 			resources.ApplyResources(this.tbUser, "tbUser");
 			this.tbUser.Name = "tbUser";
-			this.tbUser.TextChanged += new System.EventHandler(this.tbUser_TextChanged);
+			this.tbUser.TextChanged += new System.EventHandler(this.User_TextChanged);
 			// 
 			// labPassword
 			// 
@@ -133,7 +133,7 @@ namespace MagicRemoteService {
 			// 
 			resources.ApplyResources(this.tbPassword, "tbPassword");
 			this.tbPassword.Name = "tbPassword";
-			this.tbPassword.TextChanged += new System.EventHandler(this.tbPassword_TextChanged);
+			this.tbPassword.TextChanged += new System.EventHandler(this.Password_TextChanged);
 			// 
 			// labPassphrase
 			// 
@@ -144,7 +144,7 @@ namespace MagicRemoteService {
 			// 
 			resources.ApplyResources(this.tbPassphrase, "tbPassphrase");
 			this.tbPassphrase.Name = "tbPassphrase";
-			this.tbPassphrase.TextChanged += new System.EventHandler(this.tbPassphrase_TextChanged);
+			this.tbPassphrase.TextChanged += new System.EventHandler(this.Passphrase_TextChanged);
 			// 
 			// labPrivateKey
 			// 
@@ -155,7 +155,7 @@ namespace MagicRemoteService {
 			// 
 			resources.ApplyResources(this.tbPrivateKey, "tbPrivateKey");
 			this.tbPrivateKey.Name = "tbPrivateKey";
-			this.tbPrivateKey.TextChanged += new System.EventHandler(this.tbPrivateKey_TextChanged);
+			this.tbPrivateKey.TextChanged += new System.EventHandler(this.PrivateKey_TextChanged);
 			// 
 			// tlpTV
 			// 
@@ -207,7 +207,7 @@ namespace MagicRemoteService {
 			// 
 			resources.ApplyResources(this.tbName, "tbName");
 			this.tbName.Name = "tbName";
-			this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
+			this.tbName.TextChanged += new System.EventHandler(this.Name_TextChanged);
 			// 
 			// pnlDescription
 			// 
@@ -231,7 +231,7 @@ namespace MagicRemoteService {
 			this.ipadrboxIP.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.ipadrboxIP.Name = "ipadrboxIP";
 			this.ipadrboxIP.Value = null;
-			this.ipadrboxIP.ValueChanged += new System.EventHandler(this.ipadrboxIP_ValueChanged);
+			this.ipadrboxIP.ValueChanged += new System.EventHandler(this.IP_ValueChanged);
 			// 
 			// pnlPort
 			// 
@@ -259,7 +259,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.cbAdvanced, "cbAdvanced");
 			this.cbAdvanced.Name = "cbAdvanced";
 			this.cbAdvanced.UseVisualStyleBackColor = true;
-			this.cbAdvanced.CheckedChanged += new System.EventHandler(this.cbAdvanced_CheckedChanged);
+			this.cbAdvanced.CheckedChanged += new System.EventHandler(this.Advanced_CheckedChanged);
 			// 
 			// TV
 			// 

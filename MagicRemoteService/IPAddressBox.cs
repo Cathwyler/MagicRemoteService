@@ -62,13 +62,13 @@ namespace MagicRemoteService {
 				this.dbbByte2.Text = ipaIp.GetAddressBytes()[2].ToString();
 				this.dbbByte3.Text = ipaIp.GetAddressBytes()[3].ToString();
 			} else {
-				ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.IPAddressBoxErrorPasteTitle;
-				ttFormating.Show("", (System.Windows.Forms.Control)sender);
-				ttFormating.Show(MagicRemoteService.Properties.Resources.IPAddressBoxErrorPasteMessage, (System.Windows.Forms.Control)sender);
+				this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.IPAddressBoxErrorPasteTitle;
+				this.ttFormating.Show("", (System.Windows.Forms.Control)sender);
+				this.ttFormating.Show(MagicRemoteService.Properties.Resources.IPAddressBoxErrorPasteMessage, (System.Windows.Forms.Control)sender);
 			}
 		}
 		private void dbbByte_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e) {
-			ttFormating.Hide(this);
+			this.ttFormating.Hide(this);
 			MagicRemoteService.DecimalByteBox ddbByte = (MagicRemoteService.DecimalByteBox)sender;
 			if(char.IsControl(e.KeyChar)) {
 				if(e.KeyChar == (char)System.Windows.Forms.Keys.Back) {
@@ -105,9 +105,9 @@ namespace MagicRemoteService {
 					}
 				} else {
 					e.Handled = true;
-					ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.IPAddressBoxErrorByteEntryTitle;
-					ttFormating.Show("", ddbByte);
-					ttFormating.Show(string.Format(MagicRemoteService.Properties.Resources.IPAddressBoxErrorByteEntryMessage, ddbByte.Text + e.KeyChar), ddbByte);
+					this.ttFormating.ToolTipTitle = MagicRemoteService.Properties.Resources.IPAddressBoxErrorByteEntryTitle;
+					this.ttFormating.Show("", ddbByte);
+					this.ttFormating.Show(string.Format(MagicRemoteService.Properties.Resources.IPAddressBoxErrorByteEntryMessage, ddbByte.Text + e.KeyChar), ddbByte);
 				}
 			} else if(e.KeyChar == '.') {
 				e.Handled = true;
@@ -125,7 +125,7 @@ namespace MagicRemoteService {
 			}
 		}
 		private void IPAddressBox_Click(object sender, System.EventArgs e) {
-			ttFormating.Hide(this);
+			this.ttFormating.Hide(this);
 		}
 
 		private void dbbByte0_TextChanged(object sender, System.EventArgs e) {

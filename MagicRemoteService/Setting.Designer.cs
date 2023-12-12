@@ -117,7 +117,7 @@ namespace MagicRemoteService {
 			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnClose.Name = "btnClose";
 			this.btnClose.UseVisualStyleBackColor = true;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			this.btnClose.Click += new System.EventHandler(this.Close_Click);
 			// 
 			// ttFormating
 			// 
@@ -168,7 +168,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.btnInspect, "btnInspect");
 			this.btnInspect.Name = "btnInspect";
 			this.btnInspect.UseVisualStyleBackColor = true;
-			this.btnInspect.Click += new System.EventHandler(this.btnInspect_Click);
+			this.btnInspect.Click += new System.EventHandler(this.Inspect_Click);
 			// 
 			// labDisplay
 			// 
@@ -189,21 +189,21 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.btnTVRemove, "btnTVRemove");
 			this.btnTVRemove.Name = "btnTVRemove";
 			this.btnTVRemove.UseVisualStyleBackColor = true;
-			this.btnTVRemove.Click += new System.EventHandler(this.btnTVRemove_Click);
+			this.btnTVRemove.Click += new System.EventHandler(this.TVRemove_Click);
 			// 
 			// btnTVModify
 			// 
 			resources.ApplyResources(this.btnTVModify, "btnTVModify");
 			this.btnTVModify.Name = "btnTVModify";
 			this.btnTVModify.UseVisualStyleBackColor = true;
-			this.btnTVModify.Click += new System.EventHandler(this.btnTVModify_Click);
+			this.btnTVModify.Click += new System.EventHandler(this.TVModify_Click);
 			// 
 			// btnTVAdd
 			// 
 			resources.ApplyResources(this.btnTVAdd, "btnTVAdd");
 			this.btnTVAdd.Name = "btnTVAdd";
 			this.btnTVAdd.UseVisualStyleBackColor = true;
-			this.btnTVAdd.Click += new System.EventHandler(this.btnTVAdd_Click);
+			this.btnTVAdd.Click += new System.EventHandler(this.TVAdd_Click);
 			// 
 			// chkboxExtend
 			// 
@@ -263,7 +263,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.btnTVInstall, "btnTVInstall");
 			this.btnTVInstall.Name = "btnTVInstall";
 			this.btnTVInstall.UseVisualStyleBackColor = true;
-			this.btnTVInstall.Click += new System.EventHandler(this.btnTVInstall_Click);
+			this.btnTVInstall.Click += new System.EventHandler(this.TVInstall_Click);
 			// 
 			// labSendIP
 			// 
@@ -275,7 +275,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.btnTVRefresh, "btnTVRefresh");
 			this.btnTVRefresh.Name = "btnTVRefresh";
 			this.btnTVRefresh.UseVisualStyleBackColor = true;
-			this.btnTVRefresh.Click += new System.EventHandler(this.btnTVRefresh_Click);
+			this.btnTVRefresh.Click += new System.EventHandler(this.TVRefresh_Click);
 			// 
 			// labSubnetMask
 			// 
@@ -329,7 +329,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.cmbboxTV, "cmbboxTV");
 			this.cmbboxTV.Name = "cmbboxTV";
 			this.cmbboxTV.ValueMember = "Name";
-			this.cmbboxTV.SelectedIndexChanged += new System.EventHandler(this.cmbboxTV_SelectedIndexChanged);
+			this.cmbboxTV.SelectedIndexChanged += new System.EventHandler(this.TV_SelectedIndexChanged);
 			// 
 			// tabPC
 			// 
@@ -361,7 +361,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.btnPCSave, "btnPCSave");
 			this.btnPCSave.Name = "btnPCSave";
 			this.btnPCSave.UseVisualStyleBackColor = true;
-			this.btnPCSave.Click += new System.EventHandler(this.btnPCSave_Click);
+			this.btnPCSave.Click += new System.EventHandler(this.PCSave_Click);
 			// 
 			// numboxListenPort
 			// 
@@ -691,7 +691,7 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.btnRemoteSave, "btnRemoteSave");
 			this.btnRemoteSave.Name = "btnRemoteSave";
 			this.btnRemoteSave.UseVisualStyleBackColor = true;
-			this.btnRemoteSave.Click += new System.EventHandler(this.btnRemoteSave_Click);
+			this.btnRemoteSave.Click += new System.EventHandler(this.RemoteSave_Click);
 			// 
 			// Setting
 			// 

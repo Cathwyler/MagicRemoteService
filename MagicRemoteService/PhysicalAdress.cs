@@ -1,7 +1,7 @@
 ﻿
 namespace MagicRemoteService {
 	public class PhysicalAddress : System.Net.NetworkInformation.PhysicalAddress {
-		public static readonly new MagicRemoteService.PhysicalAddress None;
+		public static new readonly MagicRemoteService.PhysicalAddress None;
 		public PhysicalAddress(byte[] tab) : base(tab) { }
 		public PhysicalAddress(System.Net.NetworkInformation.PhysicalAddress pa) : base(pa.GetAddressBytes()) { }
 		public static new MagicRemoteService.PhysicalAddress Parse(string str) {

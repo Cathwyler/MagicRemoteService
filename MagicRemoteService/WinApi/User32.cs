@@ -1,5 +1,5 @@
 ﻿
-
+#pragma warning disable IDE1006
 namespace MagicRemoteService.WinApi {
 
 	public enum CursorName {
@@ -275,8 +275,16 @@ namespace MagicRemoteService.WinApi {
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathSourceInfoDummyStructName {
 		private readonly uint ui;
-		public DisplayConfigPathSourceInfoCloneGroup cloneGroupId { get { return (DisplayConfigPathSourceInfoCloneGroup)((ui & 0x0000FFFF) >> 0); } }
-		public DisplayConfigPathSourceInfoSourceIdx sourceModeInfoIdx { get { return (DisplayConfigPathSourceInfoSourceIdx)((ui & 0xFFFF0000) >> 16); } }
+		public DisplayConfigPathSourceInfoCloneGroup cloneGroupId {
+			get {
+				return (DisplayConfigPathSourceInfoCloneGroup)((this.ui & 0x0000FFFF) >> 0);
+			}
+		}
+		public DisplayConfigPathSourceInfoSourceIdx sourceModeInfoIdx {
+			get {
+				return (DisplayConfigPathSourceInfoSourceIdx)((this.ui & 0xFFFF0000) >> 16);
+			}
+		}
 	}
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigPathSourceInfoDummyUnionName {
@@ -295,8 +303,16 @@ namespace MagicRemoteService.WinApi {
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigPathTargetInfoDummyStructName {
 		private readonly uint ui;
-		public DisplayConfigPathTargetInfoDesktopIdx desktopModeInfoIdx { get { return (DisplayConfigPathTargetInfoDesktopIdx)((ui & 0x0000FFFF) >> 0); } }
-		public DisplayConfigPathTargetInfoTargetIdx targetModeInfoIdx { get { return (DisplayConfigPathTargetInfoTargetIdx)((ui & 0xFFFF0000) >> 16); } }
+		public DisplayConfigPathTargetInfoDesktopIdx desktopModeInfoIdx {
+			get {
+				return (DisplayConfigPathTargetInfoDesktopIdx)((this.ui & 0x0000FFFF) >> 0);
+			}
+		}
+		public DisplayConfigPathTargetInfoTargetIdx targetModeInfoIdx {
+			get {
+				return (DisplayConfigPathTargetInfoTargetIdx)((this.ui & 0xFFFF0000) >> 16);
+			}
+		}
 	}
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigPathTargetInfoDummyUnionName {
@@ -337,9 +353,21 @@ namespace MagicRemoteService.WinApi {
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigVideoSignalInfoStructName {
 		private readonly uint ui;
-		public D3DkmdtVideoSignalStandard videoStandard { get { return (D3DkmdtVideoSignalStandard)((ui & 0x0000FFFF) >> 0); } }
-		public uint vSyncFreqDivider { get { return (uint)((ui & 0x0003F0000) >> 16); } }
-		public uint reserved { get { return (uint)((ui & 0xFFFC0000) >> 22); } }
+		public D3DkmdtVideoSignalStandard videoStandard {
+			get {
+				return (D3DkmdtVideoSignalStandard)((this.ui & 0x0000FFFF) >> 0);
+			}
+		}
+		public uint vSyncFreqDivider {
+			get {
+				return (uint)((this.ui & 0x0003F0000) >> 16);
+			}
+		}
+		public uint reserved {
+			get {
+				return (uint)((this.ui & 0xFFFC0000) >> 22);
+			}
+		}
 	}
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigVideoSignalInfoDummyUnionName {
@@ -394,10 +422,26 @@ namespace MagicRemoteService.WinApi {
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
 	public struct DisplayConfigTargetDeviceNameFlagsStructName {
 		private readonly uint ui;
-		public uint friendlyNameFromEdid { get { return (uint)((ui & 0x00000001) >> 0); } }
-		public uint friendlyNameForced { get { return (uint)((ui & 0x000000002) >> 1); } }
-		public uint edidIdsValid { get { return (uint)((ui & 0x00000004) >> 2); } }
-		public uint reserved { get { return (uint)((ui & 0xFFFFFFF8) >> 3); } }
+		public uint friendlyNameFromEdid {
+			get {
+				return (uint)((this.ui & 0x00000001) >> 0);
+			}
+		}
+		public uint friendlyNameForced {
+			get {
+				return (uint)((this.ui & 0x000000002) >> 1);
+			}
+		}
+		public uint edidIdsValid {
+			get {
+				return (uint)((this.ui & 0x00000004) >> 2);
+			}
+		}
+		public uint reserved {
+			get {
+				return (uint)((this.ui & 0xFFFFFFF8) >> 3);
+			}
+		}
 	}
 	[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
 	public struct DisplayConfigTargetDeviceNameFlagsDummyUnionName {
@@ -436,7 +480,8 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 128)]
 		public string monitorDevicePath;
 	}
-	static class User32 {
+
+	internal static class User32 {
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int GetKeyNameText(int lParam, System.Text.StringBuilder lpString, int cchSize);
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
@@ -471,3 +516,4 @@ namespace MagicRemoteService.WinApi {
 		public static extern int DisplayConfigGetDeviceInfo(ref DisplayConfigTargetDeviceName requestPacket);
 	}
 }
+#pragma warning restore IDE1006

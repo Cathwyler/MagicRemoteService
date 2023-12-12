@@ -10,7 +10,8 @@ namespace MagicRemoteService {
 			this.Start();
 		}
 	}
-	class Application : System.Windows.Forms.ApplicationContext {
+
+	internal class Application : System.Windows.Forms.ApplicationContext {
 		private static readonly MagicRemoteService.Invoker iInvoker = new MagicRemoteService.Invoker();
 		private static readonly MagicRemoteService.Watcher wExplorer = new MagicRemoteService.Watcher("SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = \"explorer.exe\"");
 		private MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
@@ -21,12 +22,13 @@ namespace MagicRemoteService {
 
 			this.mrsService.ServiceStart();
 
-			this.niIcon = new System.Windows.Forms.NotifyIcon();
-			this.niIcon.Icon = MagicRemoteService.Properties.Resources.MagicRemoteService;
-			this.niIcon.ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] {
-				new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationSetting, this.Setting),
-				new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationExit, this.Exit)
-			});
+			this.niIcon = new System.Windows.Forms.NotifyIcon {
+				Icon = MagicRemoteService.Properties.Resources.MagicRemoteService,
+				ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] {
+					new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationSetting, this.Setting),
+					new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationExit, this.Exit)
+				})
+			};
 			this.niIcon.DoubleClick += this.Setting;
 			this.niIcon.Visible = true;
 

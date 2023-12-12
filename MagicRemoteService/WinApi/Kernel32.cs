@@ -1,6 +1,7 @@
 ﻿
+#pragma warning disable IDE1006
 namespace MagicRemoteService.WinApi {
-	static class Kernel32 {
+	internal static class Kernel32 {
 		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
 		public static extern uint WTSGetActiveConsoleSessionId();
 		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
@@ -12,3 +13,4 @@ namespace MagicRemoteService.WinApi {
 
 	}
 }
+#pragma warning restore IDE1006
