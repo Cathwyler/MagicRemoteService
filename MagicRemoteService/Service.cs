@@ -973,7 +973,7 @@ namespace MagicRemoteService {
 					if(wocdClient == null) {
 						uiDisplay = 0;
 					} else {
-						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.strName);
 						if(rkMagicRemoteServiceDevice == null) {
 							uiDisplay = 0;
 						} else {

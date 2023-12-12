@@ -19,7 +19,6 @@ namespace MagicRemoteService {
 				return this.bAdvanced;
 			}
 		}
-		public TVAdder(MagicRemoteService.WebOSCLIDevice wocdDevice = null) {
 			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.InitializeComponent();
 			this.wocdDevice = new MagicRemoteService.WebOSCLIDevice() {

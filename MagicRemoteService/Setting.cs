@@ -234,7 +234,7 @@ namespace MagicRemoteService {
 				this.numboxTimeoutRightClick.Enabled = true;
 				this.btnTVInstall.Enabled = true;
 				this.chkboxExtend.Enabled = true;
-				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
+				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).strName);
 				if(rkMagicRemoteServiceDevice == null) {
 					this.cmbboxInput.SelectedIndex = 0;
 					this.cmbboxDisplay.SelectedIndex = 0;
@@ -285,8 +285,8 @@ namespace MagicRemoteService {
 			this.bExtend = this.chkboxExtend.Checked;
 		}
 		public void TVDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).Name);
-			rkMagicRemoteServiceDevice.SetValue("Input", ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem).Id, Microsoft.Win32.RegistryValueKind.String);
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\" + ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem).strName);
+			rkMagicRemoteServiceDevice.SetValue("Input", ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem).strId, Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("Display", ((MagicRemoteService.Screen)this.cmbboxDisplay.SelectedItem).Id, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteServiceDevice.SetValue("SendIp", this.ipadrboxSendIP.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("SendPort", this.numboxSendPort.Value, Microsoft.Win32.RegistryValueKind.DWord);
@@ -450,7 +450,7 @@ namespace MagicRemoteService {
 		}
 		private async void TVRefresh_Click(object sender, System.EventArgs e) {
 			this.Enabled = false;
-			string sName = ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem)?.Name;
+			string sName = ((MagicRemoteService.WebOSCLIDevice)this.cmbboxTV.SelectedItem)?.strName;
 			MagicRemoteService.WebOSCLIDevice[] tabDevice = null;
 			string strError = null;
 			string strErrorInfo = null;
@@ -540,7 +540,7 @@ namespace MagicRemoteService {
 		}
 		private async void TV_SelectedIndexChanged(object sender, System.EventArgs e) {
 			this.Enabled = false;
-			string sId = ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.Id;
+			string sId = ((MagicRemoteService.WebOSCLIDeviceInput)this.cmbboxInput.SelectedItem)?.strId;
 			MagicRemoteService.WebOSCLIDeviceInput[] tabDeviceInput = null;
 			string strError = null;
 			string strErrorInfo = null;

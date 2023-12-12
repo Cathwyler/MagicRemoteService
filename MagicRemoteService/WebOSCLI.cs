@@ -208,10 +208,10 @@ namespace MagicRemoteService {
 		}
 		public static MagicRemoteService.WebOSCLIDeviceInput[] InputList() {
 			return new MagicRemoteService.WebOSCLIDeviceInput[] {
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_1", Name = "HDMI 1", Source = "ext://hdmi:1", AppId = "com.webos.app.hdmi1", AppIdShort = "hdmi1" },
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_2", Name = "HDMI 2", Source = "ext://hdmi:2", AppId = "com.webos.app.hdmi2", AppIdShort = "hdmi2" },
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_3", Name = "HDMI 3", Source = "ext://hdmi:3", AppId = "com.webos.app.hdmi3", AppIdShort = "hdmi3" },
-				new MagicRemoteService.WebOSCLIDeviceInput() { Id = "HDMI_4", Name = "HDMI 4", Source = "ext://hdmi:4", AppId = "com.webos.app.hdmi4", AppIdShort = "hdmi4" }
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_1", strName = "HDMI 1", strSource = "ext://hdmi:1", strAppId = "com.webos.app.hdmi1", strAppIdShort = "hdmi1" },
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_2", strName = "HDMI 2", strSource = "ext://hdmi:2", strAppId = "com.webos.app.hdmi2", strAppIdShort = "hdmi2" },
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_3", strName = "HDMI 3", strSource = "ext://hdmi:3", strAppId = "com.webos.app.hdmi3", strAppIdShort = "hdmi3" },
+				new MagicRemoteService.WebOSCLIDeviceInput() { strId = "HDMI_4", strName = "HDMI 4", strSource = "ext://hdmi:4", strAppId = "com.webos.app.hdmi4", strAppIdShort = "hdmi4" }
 			};
 		}
 		public static MagicRemoteService.WebOSCLIDevice[] SetupDeviceList() {
