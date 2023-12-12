@@ -231,7 +231,7 @@ namespace MagicRemoteService {
 			this.ipadrboxIP.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.ipadrboxIP.Name = "ipadrboxIP";
 			this.ipadrboxIP.Value = null;
-			this.ipadrboxIP.ValueChanged += new System.EventHandler(this.IP_ValueChanged);
+			this.ipadrboxIP.ehValueChanged += new System.EventHandler(this.IP_ValueChanged);
 			// 
 			// pnlPort
 			// 

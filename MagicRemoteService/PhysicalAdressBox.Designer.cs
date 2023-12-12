@@ -115,9 +115,9 @@ namespace MagicRemoteService {
 			this.dbbByte5.Size = new System.Drawing.Size(15, 13);
 			this.dbbByte5.TabIndex = 17;
 			this.dbbByte5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte5.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte5.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte5.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
-			this.dbbByte5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte4
 			// 
@@ -130,9 +130,9 @@ namespace MagicRemoteService {
 			this.dbbByte4.Size = new System.Drawing.Size(15, 13);
 			this.dbbByte4.TabIndex = 15;
 			this.dbbByte4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte4.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte4.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte4.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
-			this.dbbByte4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte3
 			// 
@@ -145,9 +145,9 @@ namespace MagicRemoteService {
 			this.dbbByte3.Size = new System.Drawing.Size(15, 13);
 			this.dbbByte3.TabIndex = 13;
 			this.dbbByte3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte3.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte3.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte3.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
-			this.dbbByte3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte2
 			// 
@@ -160,9 +160,9 @@ namespace MagicRemoteService {
 			this.dbbByte2.Size = new System.Drawing.Size(15, 13);
 			this.dbbByte2.TabIndex = 10;
 			this.dbbByte2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte2.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte2.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte2.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
-			this.dbbByte2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte1
 			// 
@@ -175,9 +175,9 @@ namespace MagicRemoteService {
 			this.dbbByte1.Size = new System.Drawing.Size(15, 13);
 			this.dbbByte1.TabIndex = 9;
 			this.dbbByte1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte1.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte1.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte1.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
-			this.dbbByte1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte0
 			// 
@@ -190,9 +190,9 @@ namespace MagicRemoteService {
 			this.dbbByte0.Size = new System.Drawing.Size(15, 13);
 			this.dbbByte0.TabIndex = 7;
 			this.dbbByte0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte0.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte0.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte0.Click += new System.EventHandler(this.PhysicalAddressBox_Click);
-			this.dbbByte0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// PhysicalAddressBox
 			// 

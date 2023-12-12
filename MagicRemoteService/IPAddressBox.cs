@@ -1,7 +1,7 @@
 ﻿
 namespace MagicRemoteService {
 	public partial class IPAddressBox : System.Windows.Forms.UserControl {
-		public event System.EventHandler ValueChanged;
+		public event System.EventHandler ehValueChanged;
 		public System.Net.IPAddress Value {
 			get {
 				byte[] tabByte = new byte[4];
@@ -51,7 +51,7 @@ namespace MagicRemoteService {
 				this.dbbByte3.Text = ipaIp.GetAddressBytes()[3].ToString();
 			}
 		}
-		private void dbbByte_EventPaste(object sender, System.EventArgs e) {
+		private void Byte_EventPaste(object sender, System.EventArgs e) {
 			System.Net.IPAddress ipaIp;
 			byte uc;
 			if(byte.TryParse(System.Windows.Forms.Clipboard.GetText(), System.Globalization.NumberStyles.Integer, null, out uc)) {
@@ -67,7 +67,7 @@ namespace MagicRemoteService {
 				this.ttFormating.Show(MagicRemoteService.Properties.Resources.IPAddressBoxErrorPasteMessage, (System.Windows.Forms.Control)sender);
 			}
 		}
-		private void dbbByte_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e) {
+		private void Byte_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e) {
 			this.ttFormating.Hide(this);
 			MagicRemoteService.DecimalByteBox ddbByte = (MagicRemoteService.DecimalByteBox)sender;
 			if(char.IsControl(e.KeyChar)) {
@@ -128,27 +128,27 @@ namespace MagicRemoteService {
 			this.ttFormating.Hide(this);
 		}
 
-		private void dbbByte0_TextChanged(object sender, System.EventArgs e) {
-			if(this.ValueChanged != null) {
-				this.ValueChanged(this, e);
+		private void Byte0_TextChanged(object sender, System.EventArgs e) {
+			if(this.ehValueChanged != null) {
+				this.ehValueChanged(this, e);
 			}
 		}
 
-		private void dbbByte1_TextChanged(object sender, System.EventArgs e) {
-			if(this.ValueChanged != null) {
-				this.ValueChanged(this, e);
+		private void Byte1_TextChanged(object sender, System.EventArgs e) {
+			if(this.ehValueChanged != null) {
+				this.ehValueChanged(this, e);
 			}
 		}
 
-		private void dbbByte2_TextChanged(object sender, System.EventArgs e) {
-			if(this.ValueChanged != null) {
-				this.ValueChanged(this, e);
+		private void Byte2_TextChanged(object sender, System.EventArgs e) {
+			if(this.ehValueChanged != null) {
+				this.ehValueChanged(this, e);
 			}
 		}
 
-		private void dbbByte3_TextChanged(object sender, System.EventArgs e) {
-			if(this.ValueChanged != null) {
-				this.ValueChanged(this, e);
+		private void Byte3_TextChanged(object sender, System.EventArgs e) {
+			if(this.ehValueChanged != null) {
+				this.ehValueChanged(this, e);
 			}
 		}
 	}

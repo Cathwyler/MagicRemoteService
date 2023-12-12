@@ -62,7 +62,7 @@ namespace MagicRemoteService {
 				this.dbbByte5.Text = paMac.GetAddressBytes()[5].ToString("X2");
 			}
 		}
-		private void dbbByte_EventPaste(object sender, System.EventArgs e) {
+		private void Byte_EventPaste(object sender, System.EventArgs e) {
 			MagicRemoteService.PhysicalAddress paMac;
 			byte uc;
 			if(byte.TryParse(System.Windows.Forms.Clipboard.GetText(), System.Globalization.NumberStyles.HexNumber, null, out uc)) {
@@ -80,7 +80,7 @@ namespace MagicRemoteService {
 				this.ttFormating.Show(MagicRemoteService.Properties.Resources.PhysicalAddressBoxErrorPasteMessage, (System.Windows.Forms.Control)sender);
 			}
 		}
-		private void dbbByte_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e) {
+		private void Byte_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e) {
 			this.ttFormating.Hide(this);
 			MagicRemoteService.DecimalByteBox ddbByte = (MagicRemoteService.DecimalByteBox)sender;
 			if(char.IsControl(e.KeyChar)) {

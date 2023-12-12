@@ -87,10 +87,10 @@ namespace MagicRemoteService {
 			this.dbbByte3.Size = new System.Drawing.Size(25, 13);
 			this.dbbByte3.TabIndex = 6;
 			this.dbbByte3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte3.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte3.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte3.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte3.TextChanged += new System.EventHandler(this.dbbByte3_TextChanged);
-			this.dbbByte3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte3.TextChanged += new System.EventHandler(this.Byte3_TextChanged);
+			this.dbbByte3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte2
 			// 
@@ -103,10 +103,10 @@ namespace MagicRemoteService {
 			this.dbbByte2.Size = new System.Drawing.Size(25, 13);
 			this.dbbByte2.TabIndex = 3;
 			this.dbbByte2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte2.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte2.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte2.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte2.TextChanged += new System.EventHandler(this.dbbByte2_TextChanged);
-			this.dbbByte2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte2.TextChanged += new System.EventHandler(this.Byte2_TextChanged);
+			this.dbbByte2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte1
 			// 
@@ -119,10 +119,10 @@ namespace MagicRemoteService {
 			this.dbbByte1.Size = new System.Drawing.Size(25, 13);
 			this.dbbByte1.TabIndex = 2;
 			this.dbbByte1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte1.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte1.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte1.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte1.TextChanged += new System.EventHandler(this.dbbByte1_TextChanged);
-			this.dbbByte1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte1.TextChanged += new System.EventHandler(this.Byte1_TextChanged);
+			this.dbbByte1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte0
 			// 
@@ -135,10 +135,10 @@ namespace MagicRemoteService {
 			this.dbbByte0.Size = new System.Drawing.Size(25, 13);
 			this.dbbByte0.TabIndex = 0;
 			this.dbbByte0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.dbbByte0.EventPaste += new System.EventHandler(this.dbbByte_EventPaste);
+			this.dbbByte0.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte0.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte0.TextChanged += new System.EventHandler(this.dbbByte0_TextChanged);
-			this.dbbByte0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dbbByte_KeyPress);
+			this.dbbByte0.TextChanged += new System.EventHandler(this.Byte0_TextChanged);
+			this.dbbByte0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// IPAddressBox
 			// 
