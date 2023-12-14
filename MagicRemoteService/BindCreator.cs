@@ -76,15 +76,12 @@ namespace MagicRemoteService {
 				this.bBind = new MagicRemoteService.BindMouse(BindMouseValue.Middle);
 			}
 		}
-		protected override bool ProcessCmdKey(ref System.Windows.Forms.Message m, System.Windows.Forms.Keys keyData) {
+		protected override bool ProcessCmdKey(ref System.Windows.Forms.Message m, System.Windows.Forms.Keys kData) {
 			if(this.selBindKeyboard.Checked) {
 				switch(m.Msg) {
 					case 0x100: {
-						byte[] tabParam = System.BitConverter.GetBytes(m.LParam.ToInt32());
-						if(tabParam[2] != 0x00) {
-							this.bBind = new MagicRemoteService.BindKeyboard(System.BitConverter.ToUInt16(new byte[] { tabParam[2], ((tabParam[3] & 0x01) == 0x01) ? (byte)0xE0 : (byte)0x00 }, 0));
-							this.libKeyboard.Text = this.bBind.ToString();
-						}
+						this.bBind = new MagicRemoteService.BindKeyboard(kData);
+						this.libKeyboard.Text = this.bBind.ToString();
 						break;
 					}
 				}

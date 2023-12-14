@@ -186,6 +186,8 @@ function SubscriptionInputStatus(){
 		},
 		onSuccess: function(inResponse){
 			switch(inResponse.subscribed){
+				case true:
+					LogIfDebug(oString.strGetAllInputStatusSuccess);
 				case undefined:
 					var pbLastInputSourceStatus = pbInputSourceStatus;
 					inResponse.devices.forEach(function(dDevice) {
@@ -236,9 +238,6 @@ function SubscriptionInputStatus(){
 							]);
 						}
 					}
-					break;
-				case true:
-					LogIfDebug(oString.strGetAllInputStatusSuccess);
 					break;
 				default:
 					Error(oString.strGetAllInputStatusFailure);
@@ -570,12 +569,12 @@ function SubscriptionDomEvent(){
 	if(oDevice.versionMajor > 2) {
 	} else {
 		deKeyboard.addEventListener("focus", function(inEvent) {
-			CursorVisible = function() {
+			KeyboardVisible = function() {
 				return true;
 			};
 		});
 		deKeyboard.addEventListener("blur", function(inEvent) {
-			CursorVisible = function() {
+			KeyboardVisible = function() {
 				return false;
 			};
 		});
@@ -872,25 +871,28 @@ function Load(){
 				AppVisible = function(){
 					return document.hidden === false;
 				};
-				AppFocus = function(){
-					return document.hasFocus() === true;
-				};
-				CursorVisible = function(){
-					return window.PalmSystem.cursor.visibility === true;
-				};
-				KeyboardVisible = function(){
-					return window.PalmSystem.isKeyboardVisible === true;
-				};
 			} else {
 				AppVisible = function(){
 					return document.webkitHidden === false;
 				};
-				AppFocus = function(){
-					return document.hasFocus() === true;
+			}
+			AppFocus = function(){
+				return document.hasFocus() === true;
+			};
+			if(oDevice.versionMajor > 2) {
+				CursorVisible = function(){
+					return window.PalmSystem.cursor.visibility === true;
 				};
+			} else {
 				CursorVisible = function() {
 					return false;
 				};
+			}
+			if(oDevice.versionMajor > 2) {
+				KeyboardVisible = function(){
+					return window.PalmSystem.isKeyboardVisible === true;
+				};
+			} else {
 				KeyboardVisible = function() {
 					return false;
 				};

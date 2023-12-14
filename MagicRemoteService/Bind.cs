@@ -29,22 +29,12 @@
 		}
 	}
 	public class BindKeyboard : Bind {
-		public readonly ushort usScanCode;
-		public BindKeyboard(ushort _usScanCode) {
-			this.usScanCode = _usScanCode;
+		public readonly System.Windows.Forms.Keys kValue;
+		public BindKeyboard(System.Windows.Forms.Keys _kValue) {
+			this.kValue = _kValue;
 		}
 		public override string ToString() {
-			if(this.usScanCode == 0x0000) {
-				return MagicRemoteService.Properties.Resources.BindKeyboardErreur;
-			} else {
-				System.Text.StringBuilder sbString = new System.Text.StringBuilder(32);
-				byte[] tabScanCode = System.BitConverter.GetBytes(this.usScanCode);
-				if(WinApi.User32.GetKeyNameText(System.BitConverter.ToInt32(new byte[] { 0x00, 0x00, tabScanCode[0], (tabScanCode[1] == 0xE0) ? (byte)0x01 : (byte)0x00 }, 0), sbString, sbString.Capacity) == 0) {
-					return "";
-				} else {
-					return sbString.ToString();
-				}
-			}
+			return new System.Windows.Forms.KeysConverter().ConvertToString(this.kValue);
 		}
 	}
 	public class BindAction : Bind {

@@ -300,30 +300,30 @@ namespace MagicRemoteService {
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindKeyboard");
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindAction");
 			if(rkMagicRemoteServiceKeyBindMouse == null && rkMagicRemoteServiceKeyBindKeyboard == null && rkMagicRemoteServiceKeyBindAction == null) {
-				this.bcRemoteClick.Value = new BindMouse(BindMouseValue.Left);		//Click -> Left click
-				this.bcRemoteLongClick.Value = new BindMouse(BindMouseValue.Right);	//Long click -> Right click
-				this.bcRemoteBackspace.Value = new BindKeyboard(0x000E);			//BACKSPACE -> Keyboard Delete
-				this.bcRemoteOk.Value = new BindKeyboard(0x001C);					//OK -> Keyboard Return Enter
-				this.bcRemoteLeft.Value = new BindKeyboard(0xE04B);					//Left -> Keyboard LeftArrow
-				this.bcRemoteUp.Value = new BindKeyboard(0xE048);					//Up -> Keyboard UpArrow
-				this.bcRemoteRight.Value = new BindKeyboard(0xE04D);				//Right -> Keyboard RightArrow
-				this.bcRemoteDown.Value = new BindKeyboard(0xE050);					//Down -> Keyboard DownArrow
-				this.bcRemoteRed.Value = new BindAction(BindActionValue.Shutdown);	//Red -> Show shutdown
-				this.bcRemoteGreen.Value = new BindKeyboard(0xE05B);				//Green -> Keyboard Left GUI
-				this.bcRemoteYellow.Value = new BindMouse(BindMouseValue.Right);	//Yellow -> Right click
-				this.bcRemoteBlue.Value = new BindAction(BindActionValue.Keyboard);	//Blue -> Show keyboard
-				this.bcRemoteBack.Value = new BindKeyboard(0x0001);					//Back -> Keyboard Escape
-				this.bcRemotePlay.Value = null;										//Play
-				this.bcRemotePause.Value = null;									//Pause
-				this.bcRemoteFastForward.Value = null;								//Fast-forward
-				this.bcRemoteRewind.Value = null;									//Rewind
-				this.bcRemoteStop.Value = null;										//Stop
+				this.bcRemoteClick.Value = new BindMouse(BindMouseValue.Left);									//Click -> Left click
+				this.bcRemoteLongClick.Value = new BindMouse(BindMouseValue.Right);								//Long click -> Right click
+				this.bcRemoteBackspace.Value = new BindKeyboard(System.Windows.Forms.Keys.Back);				//BACKSPACE -> Keyboard Delete
+				this.bcRemoteOk.Value = new BindKeyboard(System.Windows.Forms.Keys.Enter);						//OK -> Keyboard Return Enter
+				this.bcRemoteLeft.Value = new BindKeyboard(System.Windows.Forms.Keys.Left);						//Left -> Keyboard LeftArrow
+				this.bcRemoteUp.Value = new BindKeyboard(System.Windows.Forms.Keys.Up);							//Up -> Keyboard UpArrow
+				this.bcRemoteRight.Value = new BindKeyboard(System.Windows.Forms.Keys.Right);					//Right -> Keyboard RightArrow
+				this.bcRemoteDown.Value = new BindKeyboard(System.Windows.Forms.Keys.Down);						//Down -> Keyboard DownArrow
+				this.bcRemoteRed.Value = new BindAction(BindActionValue.Shutdown);								//Red -> Show shutdown
+				this.bcRemoteGreen.Value = new BindKeyboard(System.Windows.Forms.Keys.LWin);					//Green -> Keyboard Left GUI
+				this.bcRemoteYellow.Value = new BindMouse(BindMouseValue.Right);								//Yellow -> Right click
+				this.bcRemoteBlue.Value = new BindAction(BindActionValue.Keyboard);								//Blue -> Show keyboard
+				this.bcRemoteBack.Value = new BindKeyboard(System.Windows.Forms.Keys.Escape);					//Back -> Keyboard Escape
+				this.bcRemotePlay.Value = new BindKeyboard(System.Windows.Forms.Keys.Play);						//Play -> Play/Pause
+				this.bcRemotePause.Value = new BindKeyboard(System.Windows.Forms.Keys.Pause);					//Pause -> Play/Pause
+				this.bcRemoteFastForward.Value = new BindKeyboard(System.Windows.Forms.Keys.MediaNextTrack);	//Fast-forward -> Scan Next Track
+				this.bcRemoteRewind.Value = new BindKeyboard(System.Windows.Forms.Keys.MediaPreviousTrack);		//Rewind -> Scan Previous Track
+				this.bcRemoteStop.Value = new BindKeyboard(System.Windows.Forms.Keys.MediaStop);				//Stop -> Stop
 			} else {
 				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
 					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindMouse((BindMouseValue)(int) rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindKeyboard((ushort)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
+					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindKeyboard((System.Windows.Forms.Keys)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
 					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
@@ -352,7 +352,7 @@ namespace MagicRemoteService {
 						rkMagicRemoteServiceKeyBindMouse.SetValue("0x" + kvp.Key.ToString("X4"), bm.bmvValue, Microsoft.Win32.RegistryValueKind.DWord);
 						break;
 					case BindKeyboard bk:
-						rkMagicRemoteServiceKeyBindKeyboard.SetValue("0x" + kvp.Key.ToString("X4"), bk.usScanCode, Microsoft.Win32.RegistryValueKind.DWord);
+						rkMagicRemoteServiceKeyBindKeyboard.SetValue("0x" + kvp.Key.ToString("X4"), bk.kValue, Microsoft.Win32.RegistryValueKind.DWord);
 						break;
 					case BindAction ba:
 						rkMagicRemoteServiceKeyBindAction.SetValue("0x" + kvp.Key.ToString("X4"), ba.bavValue, Microsoft.Win32.RegistryValueKind.DWord);
