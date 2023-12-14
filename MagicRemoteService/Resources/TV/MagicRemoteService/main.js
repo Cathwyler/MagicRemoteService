@@ -8,7 +8,7 @@ ArrayBuffer.prototype.toString = function(base) {
 Window.prototype.oneEventListener = function(strType, fListener) {
 	function Handler(inEvent) {
 		this.removeEventListener(strType, Handler);
-			if(fListener(inEvent) === false){
+			if(fListener(inEvent) === false) {
 			this.addEventListener(strType, Handler);
 		}
 	}
@@ -17,19 +17,19 @@ Window.prototype.oneEventListener = function(strType, fListener) {
 Element.prototype.oneEventListener = Window.prototype.oneEventListener;
 Document.prototype.oneEventListener = Window.prototype.oneEventListener;
 
-Object.prototype.spread = function(o){
-	for (var strProperty in this) {
+Object.prototype.spread = function(o) {
+	for(var strProperty in this) {
 		if(strProperty in o) {
 			this[strProperty] = o[strProperty];
 		}
 	}
 };
 
-Object.prototype.toString = function(){
+Object.prototype.toString = function() {
 	return JSON.stringify(this);
 };
 
-function Toast(sTitre, sMessage){
+function Toast(sTitre, sMessage) {
 	var deScreenToast = document.createElement("div");
 	deScreenToast.className = "screen flex justify-center align-flex-end";
 	var deToast = document.createElement("div");
@@ -178,20 +178,20 @@ var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
 var iTimeoutSourceStatus = 0;
 var pbInputSourceStatus = null;
-function SubscriptionInputStatus(){
+function SubscriptionInputStatus() {
 	webOS.service.request("luna://com.webos.service.eim", {
 		method: "getAllInputStatus",
 		parameters: {
 			subscribe: true
 		},
-		onSuccess: function(inResponse){
-			switch(inResponse.subscribed){
+		onSuccess: function(inResponse) {
+			switch(inResponse.subscribed) {
 				case true:
 					LogIfDebug(oString.strGetAllInputStatusSuccess);
 				case undefined:
 					var pbLastInputSourceStatus = pbInputSourceStatus;
 					inResponse.devices.forEach(function(dDevice) {
-						if(sInputId === dDevice.id){
+						if(sInputId === dDevice.id) {
 							pbInputSourceStatus = dDevice.activate;
 						}
 					});
@@ -244,23 +244,23 @@ function SubscriptionInputStatus(){
 					break;
 				}
 		},
-		onFailure: function(inError){
+		onFailure: function(inError) {
 			Error(oString.strGetAllInputStatusFailure + " [", inError.errorText, "]");
 		}
 	});
 }
 
-function SubscriptionScreenSaverRequest(){
+function SubscriptionScreenSaverRequest() {
 	webOS.service.request("luna://com.webos.service.tvpower", { 
 		method: "power/registerScreenSaverRequest", 
 		parameters: {
 			clientName: sAppID,
 			subscribe: true
 		}, 
-		onSuccess: function(inResponse){
-			switch(inResponse.subscribed){
+		onSuccess: function(inResponse) {
+			switch(inResponse.subscribed) {
 				case undefined:
-					if((AppVisible() && AppFocus())){
+					if((AppVisible() && AppFocus())) {
 						webOS.service.request("luna://com.webos.service.tvpower", { 
 							method: "power/responseScreenSaverRequest", 
 							parameters: {
@@ -268,10 +268,10 @@ function SubscriptionScreenSaverRequest(){
 								ack: socClient === null || socClient.readyState !== WebSocket.OPEN,
 								timestamp: inResponse.timestamp
 							}, 
-							onSuccess: function(inResponse){
+							onSuccess: function(inResponse) {
 								LogIfDebug(oString.strResponseScreenSaverRequestSuccess);
 							}, 
-							onFailure: function(inError){ 
+							onFailure: function(inError) { 
 								Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]"); 
 							} 
 						});
@@ -285,8 +285,8 @@ function SubscriptionScreenSaverRequest(){
 					break;
 			}
 		}, 
-		onFailure: function(inError){
-			switch(inError.errorCode){
+		onFailure: function(inError) {
+			switch(inError.errorCode) {
 				case -1:
 					console.error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]");
 					break;
@@ -308,7 +308,7 @@ var pDown = {
 };
 var bPositionDownSent = false;
 var iTimeoutLongDown = 0;
-function SubscriptionGetSensorData(){
+function SubscriptionGetSensorData() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
 		method: "sensor/getSensorData",
 		parameters: oDevice.versionMajor > 1 ? {
@@ -321,9 +321,9 @@ function SubscriptionGetSensorData(){
 			autoAlign: false
 		},
 		onSuccess: function(inResponse) {
-			switch(inResponse.subscribed){
+			switch(inResponse.subscribed) {
 				case undefined:
-					if((AppVisible() && AppFocus())){
+					if((AppVisible() && AppFocus())) {
 						if(iTimeoutLongDown && ((pDown.usX - inResponse.coordinate.x) > 3 || (pDown.usX - inResponse.coordinate.x) < -3 || (pDown.usY - inResponse.coordinate.y) > 3 || (pDown.usY - inResponse.coordinate.y) < -3)) {
 							clearTimeout(iTimeoutLongDown);
 							iTimeoutLongDown = 0;
@@ -356,7 +356,7 @@ function SubscriptionGetSensorData(){
 				}
 		},
 		onFailure: function(inError) {
-			switch(inError.errorCode){
+			switch(inError.errorCode) {
 				case "1301":
 					LogIfDebug(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
 					if(oDevice.versionMajor > 2) {
@@ -367,7 +367,7 @@ function SubscriptionGetSensorData(){
 					}
 					if(oDevice.versionMajor > 2) {
 						document.oneEventListener("cursorStateChange", function(inEvent) {
-							if(CursorVisible()){
+							if(CursorVisible()) {
 								SubscriptionGetSensorData();
 								return true;
 							} else {
@@ -376,7 +376,7 @@ function SubscriptionGetSensorData(){
 						});
 					} else {
 						window.oneEventListener("keydown", function(inEvent) {
-							switch(inEvent.keyCode){
+							switch(inEvent.keyCode) {
 								case 0x600:
 									SubscriptionGetSensorData();
 									return true;
@@ -394,7 +394,7 @@ function SubscriptionGetSensorData(){
 	});
 }
 
-function AddDevice(){
+function AddDevice() {
 	webOS.service.request("luna://com.webos.service.eim", { 
 		method: "addDevice", 
 		parameters: { 
@@ -406,11 +406,11 @@ function AddDevice(){
 			label: oString.strAppTittle + " " + sInputName, 
 			description: oString.strAppDescription, 
 		}, 
-		onSuccess: function(inResponse){
+		onSuccess: function(inResponse) {
 			LogIfDebug(oString.strAddDeviceSuccess);
 		}, 
-		onFailure: function(inError){
-			switch(inError.errorCode){
+		onFailure: function(inError) {
+			switch(inError.errorCode) {
 				case -1:
 				case "EIM.105":
 					console.error(oString.strAddDeviceFailure + " [", inError.errorText, "]");
@@ -423,7 +423,7 @@ function AddDevice(){
 	});
 }
 
-function SubscriptionDomEvent(){
+function SubscriptionDomEvent() {
 	deVideo.addEventListener("mousedown", function(inEvent) {
 		if(iTimeoutLongDown) {
 		} else {
@@ -545,7 +545,7 @@ function SubscriptionDomEvent(){
 		});
 	} else {
 		document.addEventListener("keydown", function(inEvent) {
-			switch(inEvent.keyCode){
+			switch(inEvent.keyCode) {
 				case 0x600:
 					CursorVisible = function() {
 						return true;
@@ -586,7 +586,7 @@ var deScreenShutdown = null;
 var iIntervalRetryConnect = 0;
 var iTimeoutConnect = 0;
 var socClient = null;
-function SocketConnect(){
+function SocketConnect() {
 	socClient = new WebSocket("ws://" + sIP + ":" + uiPort);
 	socClient.binaryType = "arraybuffer";
 	socClient.onopen = function(e) {
@@ -596,7 +596,7 @@ function SocketConnect(){
 			clearTimeout(iTimeoutConnect);
 			iTimeoutConnect = 0;
 		}
-		if (ScreenExist(deScreenConnect)) {
+		if(ScreenExist(deScreenConnect)) {
 			ScreenCancel(deScreenConnect);
 		}
 		if(CursorVisible() && AppVisible() && AppFocus()) {
@@ -623,17 +623,17 @@ function SocketConnect(){
 		LogIfDebug(oString.strSocketDisconnecting);
 	};
 	socClient.onmessage = function(e) {
-		if (e.data instanceof ArrayBuffer) {
+		if(e.data instanceof ArrayBuffer) {
 			var dwData = new DataView(e.data);
-			switch(dwData.getUint8(0)){
+			switch(dwData.getUint8(0)) {
 				case 0x01:
-					if (ScreenExist(deScreenShutdown)) {
+					if(ScreenExist(deScreenShutdown)) {
 						ScreenCancel(deScreenShutdown);
 					} else {
 						deScreenShutdown = Dialog(oString.strAppTittle, oString.strShutdownMessage, [
 							{
 								sName: oString.strShutdownShutdown,
-								fAction: function(){
+								fAction: function() {
 									SendShutdown();
 								}
 							}, {
@@ -644,7 +644,7 @@ function SocketConnect(){
 					}
 					break;
 				case 0x02:
-					if (KeyboardVisible()) {
+					if(KeyboardVisible()) {
 						deKeyboard.blur();
 					} else {
 						deKeyboard.focus();
@@ -687,7 +687,7 @@ function Close() {
 			clearInterval(iIntervalRetryConnect);
 			iIntervalRetryConnect = 0;
 		}
-		if (ScreenExist(deScreenConnect)) {
+		if(ScreenExist(deScreenConnect)) {
 			ScreenCancel(deScreenConnect);
 		}
 		if(CursorVisible() && AppVisible() && AppFocus()) {
@@ -695,10 +695,10 @@ function Close() {
 				bV: false
 			});
 		}
-		if (ScreenExist(deScreenShutdown)) {
+		if(ScreenExist(deScreenShutdown)) {
 			ScreenCancel(deScreenShutdown);
 		}
-		if (KeyboardVisible()) {
+		if(KeyboardVisible()) {
 			deKeyboard.blur();
 		}
 		var soc = socClient;
@@ -834,7 +834,7 @@ webOS.service.request('luna://com.webos.settingsservice', {
 		}, strPath + "appstring.json");
 		inResponse.settings.localeInfo.locales.UI.split("-").forEach(function(x, i, arr) {
 			webOS.fetchAppInfo(function(oInfo) {
-				if(oInfo !== undefined){
+				if(oInfo !== undefined) {
 					oString.spread(oInfo);
 					LogIfDebug(oString.strGetSystemSettingsSuccess);
 					Load();
@@ -859,28 +859,28 @@ webOS.deviceInfo(function(oInfo) {
 
 var bLoaded = false;
 var iTimeoutLoad = 0;
-function Load(){
-	if(oDevice !== null && oString !== null && bLoaded === false){
-		if(iTimeoutLoad){
+function Load() {
+	if(oDevice !== null && oString !== null && bLoaded === false) {
+		if(iTimeoutLoad) {
 			clearTimeout(iTimeoutLoad);
 		}
-		iTimeoutLoad = setTimeout(function(){
+		iTimeoutLoad = setTimeout(function() {
 			bLoaded = true;
 			
 			if(oDevice.versionMajor > 2) {
-				AppVisible = function(){
+				AppVisible = function() {
 					return document.hidden === false;
 				};
 			} else {
-				AppVisible = function(){
+				AppVisible = function() {
 					return document.webkitHidden === false;
 				};
 			}
-			AppFocus = function(){
+			AppFocus = function() {
 				return document.hasFocus() === true;
 			};
 			if(oDevice.versionMajor > 2) {
-				CursorVisible = function(){
+				CursorVisible = function() {
 					return window.PalmSystem.cursor.visibility === true;
 				};
 			} else {
@@ -889,7 +889,7 @@ function Load(){
 				};
 			}
 			if(oDevice.versionMajor > 2) {
-				KeyboardVisible = function(){
+				KeyboardVisible = function() {
 					return window.PalmSystem.isKeyboardVisible === true;
 				};
 			} else {
