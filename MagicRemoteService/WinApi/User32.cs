@@ -501,8 +501,6 @@ namespace MagicRemoteService.WinApi {
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-		public static extern System.IntPtr GetMessageExtraInfo();
-		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool GetLastInputInfo(ref LastInputInfo plii);
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern int GetDisplayConfigBufferSizes(QueryDisplayConfigFlags flags, out uint numPathArrayElements, out uint numModeInfoArrayElements);

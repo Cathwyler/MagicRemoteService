@@ -29,12 +29,25 @@
 		}
 	}
 	public class BindKeyboard : Bind {
-		public readonly System.Windows.Forms.Keys kValue;
-		public BindKeyboard(System.Windows.Forms.Keys _kValue) {
-			this.kValue = _kValue;
+		public readonly byte ucVirtualKey;
+		public readonly byte ucScanCode;
+		public readonly bool bExtended;
+		public BindKeyboard(byte _ucVirtualKey, byte _ucScanCode, bool _bExtended) {
+			this.ucVirtualKey = _ucVirtualKey;
+			this.ucScanCode = _ucScanCode;
+			this.bExtended = _bExtended;
 		}
 		public override string ToString() {
-			return new System.Windows.Forms.KeysConverter().ConvertToString(this.kValue);
+			if(this.ucScanCode == 0x00) {
+				return new System.Windows.Forms.KeysConverter().ConvertToString((System.Windows.Forms.Keys)this.ucVirtualKey);
+			} else {
+				System.Text.StringBuilder sbString = new System.Text.StringBuilder(32);
+				if(WinApi.User32.GetKeyNameText(System.BitConverter.ToInt32(new byte[] { 0x00, 0x00, this.ucScanCode, this.bExtended ? (byte)0x01 : (byte)0x00 }, 0), sbString, sbString.Capacity) == 0) {
+					return new System.Windows.Forms.KeysConverter().ConvertToString((System.Windows.Forms.Keys)this.ucVirtualKey);
+				} else {
+					return sbString.ToString();
+				}
+			}
 		}
 	}
 	public class BindAction : Bind {

@@ -136,31 +136,32 @@ namespace MagicRemoteService {
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindKeyboard");
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindAction");
 			if(rkMagicRemoteServiceKeyBindMouse == null && rkMagicRemoteServiceKeyBindKeyboard == null && rkMagicRemoteServiceKeyBindAction == null) {
-				this.dKeyBind[0x0001] = new BindMouse(BindMouseValue.Left);								//Click -> Left click
-				this.dKeyBind[0x0002] = new BindMouse(BindMouseValue.Right);							//Long click -> Right click
-				this.dKeyBind[0x0008] = new BindKeyboard(System.Windows.Forms.Keys.Back);				//BACKSPACE -> Keyboard Delete
-				this.dKeyBind[0x000D] = new BindKeyboard(System.Windows.Forms.Keys.Enter);				//OK -> Keyboard Return Enter
-				this.dKeyBind[0x0025] = new BindKeyboard(System.Windows.Forms.Keys.Left);				//Left -> Keyboard LeftArrow
-				this.dKeyBind[0x0026] = new BindKeyboard(System.Windows.Forms.Keys.Up);					//Up -> Keyboard UpArrow
-				this.dKeyBind[0x0027] = new BindKeyboard(System.Windows.Forms.Keys.Right);				//Right -> Keyboard RightArrow
-				this.dKeyBind[0x0028] = new BindKeyboard(System.Windows.Forms.Keys.Down);				//Down -> Keyboard DownArrow
-				this.dKeyBind[0x0193] = new BindAction(BindActionValue.Shutdown);						//Red -> Show shutdown
-				this.dKeyBind[0x0194] = new BindKeyboard(System.Windows.Forms.Keys.LWin);				//Green -> Keyboard Left GUI
-				this.dKeyBind[0x0195] = new BindMouse(BindMouseValue.Right);							//Yellow -> Right click
-				this.dKeyBind[0x0196] = new BindAction(BindActionValue.Keyboard);						//Blue -> Show keyboard
-				this.dKeyBind[0x01CD] = new BindKeyboard(System.Windows.Forms.Keys.Escape);				//Back -> Keyboard Escape
-				this.dKeyBind[0x019F] = new BindKeyboard(System.Windows.Forms.Keys.Play);				//Play -> Play/Pause
-				this.dKeyBind[0x0013] = new BindKeyboard(System.Windows.Forms.Keys.Pause);				//Pause -> Play/Pause
-				this.dKeyBind[0x01A1] = new BindKeyboard(System.Windows.Forms.Keys.MediaNextTrack);		//Fast-forward -> Scan Next Track
-				this.dKeyBind[0x019C] = new BindKeyboard(System.Windows.Forms.Keys.MediaPreviousTrack);	//Rewind -> Scan Previous Track
-				this.dKeyBind[0x019D] = new BindKeyboard(System.Windows.Forms.Keys.MediaStop);			//Stop -> Stop
+				this.dKeyBind[0x0001] = new BindMouse(BindMouseValue.Left);													//Click -> Left click
+				this.dKeyBind[0x0002] = new BindMouse(BindMouseValue.Right);												//Long click -> Right click
+				this.dKeyBind[0x0008] = new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false);				//BACKSPACE -> Keyboard Delete
+				this.dKeyBind[0x000D] = new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false);				//OK -> Keyboard Return Enter
+				this.dKeyBind[0x0025] = new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true);					//Left -> Keyboard LeftArrow
+				this.dKeyBind[0x0026] = new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true);					//Up -> Keyboard UpArrow
+				this.dKeyBind[0x0027] = new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true);				//Right -> Keyboard RightArrow
+				this.dKeyBind[0x0028] = new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true);					//Down -> Keyboard DownArrow
+				this.dKeyBind[0x0193] = new BindAction(BindActionValue.Shutdown);											//Red -> Show shutdown
+				this.dKeyBind[0x0194] = new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true);					//Green -> Keyboard Left GUI
+				this.dKeyBind[0x0195] = new BindMouse(BindMouseValue.Right);												//Yellow -> Right click
+				this.dKeyBind[0x0196] = new BindAction(BindActionValue.Keyboard);											//Blue -> Show keyboard
+				this.dKeyBind[0x01CD] = new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false);				//Back -> Keyboard Escape
+				this.dKeyBind[0x019F] = new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false);				//Play -> Play/Pause
+				this.dKeyBind[0x0013] = new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false);				//Pause -> Play/Pause
+				this.dKeyBind[0x01A1] = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false);		//Fast-forward -> Scan Next Track
+				this.dKeyBind[0x019C] = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false);	//Rewind -> Scan Previous Track
+				this.dKeyBind[0x019D] = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false);			//Stop -> Stop
 			} else {
 				this.dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>();
 				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
 					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindKeyboard((System.Windows.Forms.Keys)(int)rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x0000));
+					byte[] arrBind = (byte[])rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x000000);
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindKeyboard(arrBind[0], arrBind[1], arrBind[2] == 0x01);
 				}
 				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
 					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
@@ -791,7 +792,7 @@ namespace MagicRemoteService {
 											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTDOWN,
-													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+													dwExtraInfo = System.IntPtr.Zero
 												}
 											}
 										}
@@ -802,7 +803,7 @@ namespace MagicRemoteService {
 											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTUP,
-													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+													dwExtraInfo = System.IntPtr.Zero
 												}
 											}
 										}
@@ -815,7 +816,7 @@ namespace MagicRemoteService {
 											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTDOWN,
-													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+													dwExtraInfo = System.IntPtr.Zero
 												}
 											}
 										}
@@ -826,7 +827,7 @@ namespace MagicRemoteService {
 											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTUP,
-													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+													dwExtraInfo = System.IntPtr.Zero
 												}
 											}
 										}
@@ -839,7 +840,7 @@ namespace MagicRemoteService {
 											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEDOWN,
-													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+													dwExtraInfo = System.IntPtr.Zero
 												}
 											}
 										}
@@ -850,7 +851,7 @@ namespace MagicRemoteService {
 											u = new WinApi.InputDummyUnionName {
 												mi = new WinApi.MouseInput {
 													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEUP,
-													dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+													dwExtraInfo = System.IntPtr.Zero
 												}
 											}
 										}
@@ -864,9 +865,10 @@ namespace MagicRemoteService {
 									type = WinApi.InputType.INPUT_KEYBOARD,
 									u = new WinApi.InputDummyUnionName {
 										ki = new WinApi.KeybdInput {
-											wVk = (ushort)bk.kValue,
-											dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN,
-											dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+											wVk = bk.ucVirtualKey,
+											wScan = bk.ucScanCode,
+											dwFlags = bk.bExtended ? (WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN) : WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN,
+											dwExtraInfo = System.IntPtr.Zero
 										}
 									}
 								}
@@ -876,9 +878,10 @@ namespace MagicRemoteService {
 									type = WinApi.InputType.INPUT_KEYBOARD,
 									u = new WinApi.InputDummyUnionName {
 										ki = new WinApi.KeybdInput {
-											wVk = (ushort)bk.kValue,
-											dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_KEYUP,
-											dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+											wVk = bk.ucVirtualKey,
+											wScan = bk.ucScanCode,
+											dwFlags = bk.bExtended ? (WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | WinApi.KeybdInputFlags.KEYEVENTF_KEYUP) : WinApi.KeybdInputFlags.KEYEVENTF_KEYUP,
+											dwExtraInfo = System.IntPtr.Zero
 										}
 									}
 								}
@@ -900,7 +903,7 @@ namespace MagicRemoteService {
 						u = new WinApi.InputDummyUnionName {
 							mi = new WinApi.MouseInput {
 								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_ABSOLUTE | WinApi.MouseInputFlags.MOUSEEVENTF_MOVE,
-								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+								dwExtraInfo = System.IntPtr.Zero
 							}
 						}
 					}
@@ -911,7 +914,7 @@ namespace MagicRemoteService {
 						u = new WinApi.InputDummyUnionName {
 							mi = new WinApi.MouseInput {
 								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_WHEEL,
-								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+								dwExtraInfo = System.IntPtr.Zero
 							}
 						}
 					}
@@ -922,7 +925,7 @@ namespace MagicRemoteService {
 						u = new WinApi.InputDummyUnionName {
 							ki = new WinApi.KeybdInput {
 								dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_UNICODE | WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN,
-								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+								dwExtraInfo = System.IntPtr.Zero
 							}
 						}
 					}, new WinApi.Input {
@@ -930,7 +933,7 @@ namespace MagicRemoteService {
 						u = new WinApi.InputDummyUnionName {
 							ki = new WinApi.KeybdInput {
 								dwFlags = WinApi.KeybdInputFlags.KEYEVENTF_UNICODE | WinApi.KeybdInputFlags.KEYEVENTF_KEYUP,
-								dwExtraInfo = WinApi.User32.GetMessageExtraInfo()
+								dwExtraInfo = System.IntPtr.Zero
 							}
 						}
 					}

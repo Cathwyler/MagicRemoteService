@@ -80,7 +80,7 @@ namespace MagicRemoteService {
 			if(this.selBindKeyboard.Checked) {
 				switch(m.Msg) {
 					case 0x100: {
-						this.bBind = new MagicRemoteService.BindKeyboard(kData);
+						this.bBind = new MagicRemoteService.BindKeyboard(System.BitConverter.GetBytes(m.WParam.ToInt32())[0], System.BitConverter.GetBytes(m.LParam.ToInt32())[2], (System.BitConverter.GetBytes(m.LParam.ToInt32())[3] & 0x01) == 0x01);
 						this.libKeyboard.Text = this.bBind.ToString();
 						break;
 					}
