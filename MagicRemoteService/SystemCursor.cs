@@ -97,9 +97,12 @@
 
 		private static System.Collections.Generic.IDictionary<WinApi.OemCursorRessourceId, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<WinApi.OemCursorRessourceId, System.IntPtr>();
 
+		private static readonly int iMouseNoSpeed = 10;
 		private static readonly System.IntPtr hMouseNoAccel = System.Runtime.InteropServices.GCHandle.Alloc(new int[3] { 0, 0, 0 }, System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
-		private static System.IntPtr hMouse = System.IntPtr.Zero;
-
+		private static int iMouseSpeed = 0;
+		private static readonly System.IntPtr hMouseSpeed = System.Runtime.InteropServices.GCHandle.Alloc(MagicRemoteService.SystemCursor.iMouseSpeed, System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
+		private static System.IntPtr hMouseAccel = System.IntPtr.Zero;
+		
 		public static void HideSytemCursor() {
 #if !DEBUG
 			foreach(WinApi.OemCursorRessourceId ocri in MagicRemoteService.SystemCursor.arrCursor) {
@@ -120,16 +123,22 @@
 			}
 #endif
 		}
-		public static void DisableMouseAccel() {
-			if(MagicRemoteService.SystemCursor.hMouse == System.IntPtr.Zero) {
-				MagicRemoteService.SystemCursor.hMouse = System.Runtime.InteropServices.GCHandle.Alloc(new int[3], System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
+		public static void DisableMouseSpeedAccel() {
+			WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_GETMOUSESPEED, 0, MagicRemoteService.SystemCursor.hMouseSpeed, 0);
+			WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_SETMOUSESPEED, 0, MagicRemoteService.SystemCursor.iMouseNoSpeed, 0);
+		
+			if(MagicRemoteService.SystemCursor.hMouseAccel == System.IntPtr.Zero) {
+				MagicRemoteService.SystemCursor.hMouseAccel = System.Runtime.InteropServices.GCHandle.Alloc(new int[3], System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
 			}
-			WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_GETMOUSE, 0, MagicRemoteService.SystemCursor.hMouse, 0);
+			WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_GETMOUSE, 0, MagicRemoteService.SystemCursor.hMouseAccel, 0);
 			WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hMouseNoAccel, 0);
 		}
-		public static void EnableMouseAccel() {
-			if(MagicRemoteService.SystemCursor.hMouse != System.IntPtr.Zero) {
-				WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hMouse, 0);
+		public static void EnableMouseSpeedAccel() {
+			if(MagicRemoteService.SystemCursor.iMouseSpeed != 0) {
+				WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_SETMOUSESPEED, 0, MagicRemoteService.SystemCursor.iMouseSpeed, 0);
+			}
+			if(MagicRemoteService.SystemCursor.hMouseAccel != System.IntPtr.Zero) {
+				WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hMouseAccel, 0);
 			}
 		}
 	}

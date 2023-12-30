@@ -1089,10 +1089,10 @@ namespace MagicRemoteService {
 													case (byte)MagicRemoteService.MessageType.Visible:
 														if(System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1)) {
 															MagicRemoteService.SystemCursor.HideSytemCursor();
-															MagicRemoteService.SystemCursor.DisableMouseAccel();
+															MagicRemoteService.SystemCursor.DisableMouseSpeedAccel();
 														} else {
 															MagicRemoteService.SystemCursor.ShowSytemCursor();
-															MagicRemoteService.SystemCursor.EnableMouseAccel();
+															MagicRemoteService.SystemCursor.EnableMouseSpeedAccel();
 														}
 														Service.LogIfDebug("Processed binary message send/visible [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], bV: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1).ToString());
 														break;
@@ -1198,7 +1198,7 @@ namespace MagicRemoteService {
 					}
 				}
 				MagicRemoteService.SystemCursor.ShowSytemCursor();
-				MagicRemoteService.SystemCursor.EnableMouseAccel();
+				MagicRemoteService.SystemCursor.EnableMouseSpeedAccel();
 				tPing.Stop();
 				tPong.Stop();
 				if(this.bInactivity) {
@@ -1215,7 +1215,7 @@ namespace MagicRemoteService {
 				Service.Log("Socket closed [" + socClient.GetHashCode() + "]");
 			} catch(System.Exception eException) {
 				MagicRemoteService.SystemCursor.ShowSytemCursor();
-				MagicRemoteService.SystemCursor.EnableMouseAccel();
+				MagicRemoteService.SystemCursor.EnableMouseSpeedAccel();
 				Service.Error(eException.ToString());
 			}
 		}

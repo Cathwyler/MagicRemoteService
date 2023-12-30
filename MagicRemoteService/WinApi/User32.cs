@@ -697,6 +697,8 @@ namespace MagicRemoteService.WinApi {
 		public static extern bool GetClipCursor(out RectL lpRect);
 		[System.Runtime.InteropServices.DllImport("user32.dll")]
 		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, System.IntPtr pvParam, uint fWinIni);
+		[System.Runtime.InteropServices.DllImport("user32.dll")]
+		public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, int pvParam, uint fWinIni);
 	}
 }
 #pragma warning restore IDE1006
