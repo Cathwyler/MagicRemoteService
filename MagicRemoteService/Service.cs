@@ -902,7 +902,7 @@ namespace MagicRemoteService {
 						type = WinApi.InputType.INPUT_MOUSE,
 						u = new WinApi.InputDummyUnionName {
 							mi = new WinApi.MouseInput {
-								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_ABSOLUTE | WinApi.MouseInputFlags.MOUSEEVENTF_MOVE,
+								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MOVE,
 								dwExtraInfo = System.IntPtr.Zero
 							}
 						}
@@ -961,6 +961,7 @@ namespace MagicRemoteService {
 				MagicRemoteService.Screen scr;
 				WinApi.Input[] arrInput;
 				byte[] arrByte;
+				WinApi.PointL pMouse = new WinApi.PointL();
 
 				System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] {
 					Service.mreStop,
@@ -1061,15 +1062,24 @@ namespace MagicRemoteService {
 											if(ulLenData != 0) {
 												switch(tabData[ulOffsetData + 0]) {
 													case (byte)MagicRemoteService.MessageType.Position:
+														WinApi.User32.GetCursorPos(out pMouse);
 														if(uiDisplay != 0 && MagicRemoteService.Screen.AllScreen.TryGetValue(uiDisplay, out scr) && scr.Active && scr != MagicRemoteService.Screen.PrimaryScreen) {
-															piPosition[0].u.mi.dx = ((scr.Bounds.X + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * scr.Bounds.Width) / 1920)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Width;
-															piPosition[0].u.mi.dy = ((scr.Bounds.Y + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * scr.Bounds.Height) / 1080)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Height;
+															piPosition[0].u.mi.dx = scr.Bounds.X + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * scr.Bounds.Width) / 1920) - pMouse.x;
+															piPosition[0].u.mi.dy = scr.Bounds.Y + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * scr.Bounds.Height) / 1080) - pMouse.y;
 														} else {
-															piPosition[0].u.mi.dx = (System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65536) / 1920;
-															piPosition[0].u.mi.dy = (System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65536) / 1080;
+															piPosition[0].u.mi.dx = ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * MagicRemoteService.Screen.PrimaryScreen.Bounds.Width) / 1920) - pMouse.x;
+															piPosition[0].u.mi.dy = ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * MagicRemoteService.Screen.PrimaryScreen.Bounds.Height) / 1080) - pMouse.y;
 														}
 														Service.SendInputAdmin(piPosition);
-														//Service.LogIfDebug("Processed binary message send/position [0x" + System.BitConverter.ToString(tabData, ulOffsetData, (int)ulLenData).Replace("-", System.String.Empty) + "], usX: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 1).ToString() + ", usY: " + System.BitConverter.ToUInt16(tabData, ulOffsetData + 3).ToString());
+
+														//if(uiDisplay != 0 && MagicRemoteService.Screen.AllScreen.TryGetValue(uiDisplay, out scr) && scr.Active && scr != MagicRemoteService.Screen.PrimaryScreen) {
+														//	piPosition[0].u.mi.dx = ((scr.Bounds.X + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * scr.Bounds.Width) / 1920)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Width;
+														//	piPosition[0].u.mi.dy = ((scr.Bounds.Y + ((System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * scr.Bounds.Height) / 1080)) * 65536) / MagicRemoteService.Screen.PrimaryScreen.Bounds.Height;
+														//} else {
+														//	piPosition[0].u.mi.dx = (System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1) * 65536) / 1920;
+														//	piPosition[0].u.mi.dy = (System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3) * 65536) / 1080;
+														//}
+														//Service.SendInputAdmin(piPosition);
 														break;
 													case (byte)MagicRemoteService.MessageType.Wheel:
 														piWheel[0].u.mi.mouseData = (uint)(-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1) * 3);
@@ -1079,8 +1089,10 @@ namespace MagicRemoteService {
 													case (byte)MagicRemoteService.MessageType.Visible:
 														if(System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1)) {
 															MagicRemoteService.SystemCursor.HideSytemCursor();
+															MagicRemoteService.SystemCursor.DisableMouseAccel();
 														} else {
 															MagicRemoteService.SystemCursor.ShowSytemCursor();
+															MagicRemoteService.SystemCursor.EnableMouseAccel();
 														}
 														Service.LogIfDebug("Processed binary message send/visible [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], bV: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1).ToString());
 														break;
@@ -1185,7 +1197,8 @@ namespace MagicRemoteService {
 							throw new System.Exception("Unmanaged handle error");
 					}
 				}
-				SystemCursor.ShowSytemCursor();
+				MagicRemoteService.SystemCursor.ShowSytemCursor();
+				MagicRemoteService.SystemCursor.EnableMouseAccel();
 				tPing.Stop();
 				tPong.Stop();
 				if(this.bInactivity) {
@@ -1201,7 +1214,8 @@ namespace MagicRemoteService {
 				socClient.Dispose();
 				Service.Log("Socket closed [" + socClient.GetHashCode() + "]");
 			} catch(System.Exception eException) {
-				SystemCursor.ShowSytemCursor();
+				MagicRemoteService.SystemCursor.ShowSytemCursor();
+				MagicRemoteService.SystemCursor.EnableMouseAccel();
 				Service.Error(eException.ToString());
 			}
 		}

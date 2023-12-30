@@ -20,6 +20,8 @@ namespace MagicRemoteService {
 		public Application() {
 			MagicRemoteService.Application.wExplorer.EventArrived += this.ExplorerStartEvent;
 
+			this.VersionScript();
+
 			this.mrsService.ServiceStart();
 
 			this.niIcon = new System.Windows.Forms.NotifyIcon {
@@ -34,6 +36,19 @@ namespace MagicRemoteService {
 
 			if((MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService") == null) {
 				this.Setting(this, System.EventArgs.Empty);
+			}
+		}
+		private void VersionScript() {
+			System.Version vCurrent = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService");
+			System.Version vRegistry = new System.Version((string)rkMagicRemoteService.GetValue("Version", "0.0.0.0"));
+			if(vRegistry != vCurrent) {
+				if(vRegistry < new System.Version("1.2.2.10")) {
+					rkMagicRemoteService.DeleteSubKey("KeyBindMouse", false);
+					rkMagicRemoteService.DeleteSubKey("KeyBindKeyboard", false);
+					rkMagicRemoteService.DeleteSubKey("KeyBindAction", false);
+				}
+				rkMagicRemoteService.SetValue("Version", vCurrent.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			}
 		}
 		public void Invoke(System.Delegate methode) {

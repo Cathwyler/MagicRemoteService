@@ -84,38 +84,53 @@
 			0x00, 0x00, 0x00, 0x00,   // line 31 
 			0x00, 0x00, 0x00, 0x00	// line 32 
 		});
-		private static readonly WinApi.CursorName[] arrCursor = new WinApi.CursorName[] {
-			WinApi.CursorName.OCR_NORMAL,
-			WinApi.CursorName.OCR_IBEAM,
-			WinApi.CursorName.OCR_WAIT,
-			WinApi.CursorName.OCR_CROSS,
-			WinApi.CursorName.OCR_UP,
-			WinApi.CursorName.OCR_HAND,
-			WinApi.CursorName.OCR_NO,
-			WinApi.CursorName.OCR_APPSTARTING
+		private static readonly WinApi.OemCursorRessourceId[] arrCursor = new WinApi.OemCursorRessourceId[] {
+			WinApi.OemCursorRessourceId.OCR_NORMAL,
+			WinApi.OemCursorRessourceId.OCR_IBEAM,
+			WinApi.OemCursorRessourceId.OCR_WAIT,
+			WinApi.OemCursorRessourceId.OCR_CROSS,
+			WinApi.OemCursorRessourceId.OCR_UP,
+			WinApi.OemCursorRessourceId.OCR_HAND,
+			WinApi.OemCursorRessourceId.OCR_NO,
+			WinApi.OemCursorRessourceId.OCR_APPSTARTING
 		};
 
-		private static System.Collections.Generic.IDictionary<WinApi.CursorName, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<WinApi.CursorName, System.IntPtr>();
+		private static System.Collections.Generic.IDictionary<WinApi.OemCursorRessourceId, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<WinApi.OemCursorRessourceId, System.IntPtr>();
+
+		private static readonly System.IntPtr hMouseNoAccel = System.Runtime.InteropServices.GCHandle.Alloc(new int[3] { 0, 0, 0 }, System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
+		private static System.IntPtr hMouse = System.IntPtr.Zero;
 
 		public static void HideSytemCursor() {
 #if !DEBUG
-			foreach(WinApi.CursorName cnCursorName in MagicRemoteService.SystemCursor.arrCursor) {
-				if(!MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
-					MagicRemoteService.SystemCursor.dSystemCursor.Add(cnCursorName, WinApi.User32.CopyIcon(WinApi.User32.LoadCursor(System.IntPtr.Zero, (int)cnCursorName)));
+			foreach(WinApi.OemCursorRessourceId ocri in MagicRemoteService.SystemCursor.arrCursor) {
+				if(!MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(ocri)) {
+					MagicRemoteService.SystemCursor.dSystemCursor.Add(ocri, WinApi.User32.CopyIcon(WinApi.User32.LoadCursor(System.IntPtr.Zero, (int)ocri)));
 				}
-				WinApi.User32.SetSystemCursor(WinApi.User32.CopyIcon(MagicRemoteService.SystemCursor.hInvisibleCursor), (uint)cnCursorName);
+				WinApi.User32.SetSystemCursor(WinApi.User32.CopyIcon(MagicRemoteService.SystemCursor.hInvisibleCursor), (uint)ocri);
 			}
 #endif
 		}
 		public static void ShowSytemCursor() {
 #if !DEBUG
-			foreach(WinApi.CursorName cnCursorName in MagicRemoteService.SystemCursor.arrCursor) {
-				if(MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(cnCursorName)) {
-					WinApi.User32.SetSystemCursor(MagicRemoteService.SystemCursor.dSystemCursor[cnCursorName], (uint)cnCursorName);
-					MagicRemoteService.SystemCursor.dSystemCursor.Remove(cnCursorName);
+			foreach(WinApi.OemCursorRessourceId ocri in MagicRemoteService.SystemCursor.arrCursor) {
+				if(MagicRemoteService.SystemCursor.dSystemCursor.ContainsKey(ocri)) {
+					WinApi.User32.SetSystemCursor(MagicRemoteService.SystemCursor.dSystemCursor[ocri], (uint)ocri);
+					MagicRemoteService.SystemCursor.dSystemCursor.Remove(ocri);
 				}
 			}
 #endif
+		}
+		public static void DisableMouseAccel() {
+			if(MagicRemoteService.SystemCursor.hMouse == System.IntPtr.Zero) {
+				MagicRemoteService.SystemCursor.hMouse = System.Runtime.InteropServices.GCHandle.Alloc(new int[3], System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
+			}
+			WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_GETMOUSE, 0, MagicRemoteService.SystemCursor.hMouse, 0);
+			WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hMouseNoAccel, 0);
+		}
+		public static void EnableMouseAccel() {
+			if(MagicRemoteService.SystemCursor.hMouse != System.IntPtr.Zero) {
+				WinApi.User32.SystemParametersInfo((uint)WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hMouse, 0);
+			}
 		}
 	}
 }
