@@ -723,7 +723,7 @@ function SendWol(mMac, sBroadcast) {
 			}
 		});
 	} catch(eError) {
-		Error("sendwol error [", eError, "]@" + sIP + ":" + uiPort + " ", pPosition);
+		Error(oString.strSendWolFailure + " [", eError, "]@" + sBroadcast + ":9 ", mMac);
 	}
 }
 
