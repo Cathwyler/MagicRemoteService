@@ -385,7 +385,6 @@ namespace MagicRemoteService {
 				.Replace("const sInputId = \"HDMI_1\";", "const sInputId = \"" + wocdiInput.Id + "\";")
 				.Replace("const sInputName = \"HDMI 1\";", "const sInputName = \"" + wocdiInput.Name + "\";")
 				.Replace("const sInputSource = \"ext://hdmi:1\";", "const sInputSource = \"" + wocdiInput.Source + "\";")
-				.Replace("const sInputAppId = \"com.webos.app.hdmi1\";", "const sInputAppId = \"" + wocdiInput.AppId + "\";")
 				.Replace("const sIP = \"127.0.0.1\";", "const sIP = \"" + ipaSendIP.ToString() + "\";")
 				.Replace("const uiPort = 41230;", "const uiPort = " + dSendPort.ToString() + ";")
 				.Replace("const sMask = \"255.255.255.0\";", "const sMask = \"" + ipaMask.ToString() + "\";")

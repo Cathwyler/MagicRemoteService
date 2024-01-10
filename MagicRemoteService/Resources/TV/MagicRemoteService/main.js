@@ -153,7 +153,6 @@ const uiLongDown = 1500;
 const sInputId = "HDMI_1";
 const sInputName = "HDMI 1";
 const sInputSource = "ext://hdmi:1";
-const sInputAppId = "com.webos.app.hdmi1";
 const sIP = "127.0.0.1";
 const uiPort = 41230;
 const sMask = "255.255.255.0";
