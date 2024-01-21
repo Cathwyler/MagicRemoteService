@@ -1,17 +1,17 @@
 ﻿
 namespace MagicRemoteService {
 	public partial class BindControl : System.Windows.Forms.UserControl {
-		private MagicRemoteService.Bind bBind = null;
-		public MagicRemoteService.Bind Value {
+		private MagicRemoteService.Bind[] arrBind = null;
+		public MagicRemoteService.Bind[] Value {
 			get {
-				return this.bBind;
+				return this.arrBind;
 			}
 			set {
-				this.bBind = value;
+				this.arrBind = value;
 				if(value == null) {
 					this.btnBind.Text = "";
 				} else {
-					this.btnBind.Text = value.ToString();
+					this.btnBind.Text = string.Join<Bind>(" + ", this.arrBind);
 				}
 			}
 		}

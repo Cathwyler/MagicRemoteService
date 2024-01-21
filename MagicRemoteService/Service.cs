@@ -25,7 +25,7 @@ namespace MagicRemoteService {
 		private volatile int iPort;
 		private volatile bool bInactivity;
 		private volatile int iTimeoutInactivity;
-		private volatile System.Collections.Generic.Dictionary<ushort, Bind> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>() {
+		private volatile System.Collections.Generic.Dictionary<ushort, Bind[]> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind[]>() {
 			{ 0x0001, null },
 			{ 0x0002, null },
 			{ 0x0008, null },
@@ -136,35 +136,49 @@ namespace MagicRemoteService {
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Keyboard");
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Action");
 			if(rkMagicRemoteServiceRemoteMouse == null && rkMagicRemoteServiceRemoteKeyboard == null && rkMagicRemoteServiceRemoteAction == null) {
-				this.dKeyBind[0x0001] = new BindMouse(BindMouseValue.Left);													//Click -> Left click
-				this.dKeyBind[0x0002] = new BindMouse(BindMouseValue.Right);												//Long click -> Right click
-				this.dKeyBind[0x0008] = new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false);				//BACKSPACE -> Keyboard Delete
-				this.dKeyBind[0x000D] = new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false);				//OK -> Keyboard Return Enter
-				this.dKeyBind[0x0025] = new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true);					//Left -> Keyboard LeftArrow
-				this.dKeyBind[0x0026] = new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true);					//Up -> Keyboard UpArrow
-				this.dKeyBind[0x0027] = new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true);				//Right -> Keyboard RightArrow
-				this.dKeyBind[0x0028] = new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true);					//Down -> Keyboard DownArrow
-				this.dKeyBind[0x0193] = new BindAction(BindActionValue.Shutdown);											//Red -> Show shutdown
-				this.dKeyBind[0x0194] = new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true);					//Green -> Keyboard Left GUI
-				this.dKeyBind[0x0195] = new BindMouse(BindMouseValue.Right);												//Yellow -> Right click
-				this.dKeyBind[0x0196] = new BindAction(BindActionValue.Keyboard);											//Blue -> Show keyboard
-				this.dKeyBind[0x01CD] = new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false);				//Back -> Keyboard Escape
-				this.dKeyBind[0x019F] = new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false);				//Play -> Play/Pause
-				this.dKeyBind[0x0013] = new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false);				//Pause -> Play/Pause
-				this.dKeyBind[0x01A1] = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false);		//Fast-forward -> Scan Next Track
-				this.dKeyBind[0x019C] = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false);	//Rewind -> Scan Previous Track
-				this.dKeyBind[0x019D] = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false);			//Stop -> Stop
+				this.dKeyBind[0x0001] = new Bind[] { new BindMouse(BindMouseValue.Left) };													//Click -> Left click
+				this.dKeyBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };													//Long click -> Right click
+				this.dKeyBind[0x0008] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };					//BACKSPACE -> Keyboard Delete
+				this.dKeyBind[0x000D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };				//OK -> Keyboard Return Enter
+				this.dKeyBind[0x0025] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };					//Left -> Keyboard LeftArrow
+				this.dKeyBind[0x0026] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };					//Up -> Keyboard UpArrow
+				this.dKeyBind[0x0027] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };					//Right -> Keyboard RightArrow
+				this.dKeyBind[0x0028] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };					//Down -> Keyboard DownArrow
+				this.dKeyBind[0x0193] = new Bind[] { new BindAction(BindActionValue.Shutdown) };											//Red -> Show shutdown
+				this.dKeyBind[0x0194] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };					//Green -> Keyboard Left GUI
+				this.dKeyBind[0x0195] = new Bind[] { new BindMouse(BindMouseValue.Right) };													//Yellow -> Right click
+				this.dKeyBind[0x0196] = new Bind[] { new BindAction(BindActionValue.Keyboard) };											//Blue -> Show keyboard
+				this.dKeyBind[0x01CD] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };				//Back -> Keyboard Escape
+				this.dKeyBind[0x019F] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };					//Play -> Play/Pause
+				this.dKeyBind[0x0013] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };				//Pause -> Play/Pause
+				this.dKeyBind[0x01A1] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };		//Fast-forward -> Scan Next Track
+				this.dKeyBind[0x019C] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };	//Rewind -> Scan Previous Track
+				this.dKeyBind[0x019D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };			//Stop -> Stop
 			} else {
-				this.dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>();
-				foreach(string sKey in rkMagicRemoteServiceRemoteMouse.GetValueNames()) {
-					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceRemoteMouse.GetValue(sKey, 0x0000));
+				foreach(string sKey in rkMagicRemoteServiceRemoteMouse.GetSubKeyNames()) {
+					Microsoft.Win32.RegistryKey rkSubKey = rkMagicRemoteServiceRemoteMouse.OpenSubKey(sKey);
+					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
+					foreach(string sNumber in rkSubKey.GetValueNames()) {
+						liBind.Add(new BindMouse((BindMouseValue)System.BitConverter.ToUInt16((byte[])rkSubKey.GetValue(sNumber, 0x0000), 0)));
+					}
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = liBind.ToArray();
 				}
-				foreach(string sKey in rkMagicRemoteServiceRemoteKeyboard.GetValueNames()) {
-					byte[] arrBind = (byte[])rkMagicRemoteServiceRemoteKeyboard.GetValue(sKey, 0x000000);
-					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindKeyboard(arrBind[0], arrBind[1], arrBind[2] == 0x01);
+				foreach(string sKey in rkMagicRemoteServiceRemoteKeyboard.GetSubKeyNames()) {
+					Microsoft.Win32.RegistryKey rkSubKey = rkMagicRemoteServiceRemoteKeyboard.OpenSubKey(sKey);
+					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
+					foreach(string sNumber in rkSubKey.GetValueNames()) {
+						byte[] arrBind = (byte[])rkSubKey.GetValue(sNumber, 0x000000);
+						liBind.Add(new BindKeyboard(arrBind[0], arrBind[1], arrBind[2] == 0x01));
+					}
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = liBind.ToArray();
 				}
-				foreach(string sKey in rkMagicRemoteServiceRemoteAction.GetValueNames()) {
-					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindAction((BindActionValue)(int)rkMagicRemoteServiceRemoteAction.GetValue(sKey, 0x0000));
+				foreach(string sKey in rkMagicRemoteServiceRemoteAction.GetSubKeyNames()) {
+					Microsoft.Win32.RegistryKey rkSubKey = rkMagicRemoteServiceRemoteAction.OpenSubKey(sKey);
+					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
+					foreach(string sNumber in rkSubKey.GetValueNames()) {
+						liBind.Add(new BindAction((BindActionValue)((byte[])rkSubKey.GetValue(sNumber, 0x00))[0]));
+					}
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = liBind.ToArray();
 				}
 			}
 			switch(this.stType) {
@@ -781,120 +795,120 @@ namespace MagicRemoteService {
 
 				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dKeyBindDown = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
 				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dKeyBindUp = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
-				System.Collections.Generic.Dictionary<ushort, byte[]> dKeyBindActionDown = new System.Collections.Generic.Dictionary<ushort, byte[]>();
-				foreach(System.Collections.Generic.KeyValuePair<ushort, Bind> kvp in this.dKeyBind) {
-					switch(kvp.Value) {
-						case BindMouse bm:
-							switch(bm.bmvValue) {
-								case BindMouseValue.Left:
-									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
-										new WinApi.Input {
-											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.InputDummyUnionName {
-												mi = new WinApi.MouseInput {
-													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTDOWN,
-													dwExtraInfo = System.IntPtr.Zero
+				System.Collections.Generic.Dictionary<ushort, byte[][]> dKeyBindActionDown = new System.Collections.Generic.Dictionary<ushort, byte[][]>();
+				foreach(System.Collections.Generic.KeyValuePair<ushort, Bind[]> kvp in this.dKeyBind) {
+					if(kvp.Value != null) {
+						System.Collections.Generic.List<WinApi.Input> liKeyBindDown = new System.Collections.Generic.List<WinApi.Input>();
+						System.Collections.Generic.List<WinApi.Input> liKeyBindUp = new System.Collections.Generic.List<WinApi.Input>();
+						System.Collections.Generic.List<byte[]> liKeyBindActionDown = new System.Collections.Generic.List<byte[]>();
+						foreach(Bind b in kvp.Value) {
+							switch(b) {
+								case BindMouse bm:
+									switch(bm.bmvValue) {
+										case BindMouseValue.Left:
+											liKeyBindDown.Add(new WinApi.Input {
+												type = WinApi.InputType.INPUT_MOUSE,
+												u = new WinApi.InputDummyUnionName {
+													mi = new WinApi.MouseInput {
+														dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTDOWN,
+														dwExtraInfo = System.IntPtr.Zero
+													}
 												}
+											});
+											liKeyBindUp.Add(new WinApi.Input {
+												type = WinApi.InputType.INPUT_MOUSE,
+												u = new WinApi.InputDummyUnionName {
+													mi = new WinApi.MouseInput {
+														dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTUP,
+														dwExtraInfo = System.IntPtr.Zero
+													}
+												}
+											});
+											break;
+										case BindMouseValue.Right:
+											liKeyBindDown.Add(new WinApi.Input {
+												type = WinApi.InputType.INPUT_MOUSE,
+												u = new WinApi.InputDummyUnionName {
+													mi = new WinApi.MouseInput {
+														dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTDOWN,
+														dwExtraInfo = System.IntPtr.Zero
+													}
+												}
+											});
+											liKeyBindUp.Add(new WinApi.Input {
+												type = WinApi.InputType.INPUT_MOUSE,
+												u = new WinApi.InputDummyUnionName {
+													mi = new WinApi.MouseInput {
+														dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTUP,
+														dwExtraInfo = System.IntPtr.Zero
+													}
+												}
+											});
+											break;
+										case BindMouseValue.Middle:
+											liKeyBindDown.Add(new WinApi.Input {
+												type = WinApi.InputType.INPUT_MOUSE,
+												u = new WinApi.InputDummyUnionName {
+													mi = new WinApi.MouseInput {
+														dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEDOWN,
+														dwExtraInfo = System.IntPtr.Zero
+													}
+												}
+											});
+											liKeyBindUp.Add(new WinApi.Input {
+												type = WinApi.InputType.INPUT_MOUSE,
+												u = new WinApi.InputDummyUnionName {
+													mi = new WinApi.MouseInput {
+														dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEUP,
+														dwExtraInfo = System.IntPtr.Zero
+													}
+												}
+											});
+											break;
+									}
+									break;
+								case BindKeyboard bk:
+									liKeyBindDown.Add(new WinApi.Input {
+										type = WinApi.InputType.INPUT_KEYBOARD,
+										u = new WinApi.InputDummyUnionName {
+											ki = new WinApi.KeybdInput {
+												wVk = bk.ucVirtualKey,
+												wScan = bk.ucScanCode,
+												dwFlags = bk.bExtended ? (WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN) : WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN,
+												dwExtraInfo = System.IntPtr.Zero
 											}
 										}
 									});
-									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
-										new WinApi.Input {
-											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.InputDummyUnionName {
-												mi = new WinApi.MouseInput {
-													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_LEFTUP,
-													dwExtraInfo = System.IntPtr.Zero
-												}
+									liKeyBindUp.Add(new WinApi.Input {
+										type = WinApi.InputType.INPUT_KEYBOARD,
+										u = new WinApi.InputDummyUnionName {
+											ki = new WinApi.KeybdInput {
+												wVk = bk.ucVirtualKey,
+												wScan = bk.ucScanCode,
+												dwFlags = bk.bExtended ? (WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | WinApi.KeybdInputFlags.KEYEVENTF_KEYUP) : WinApi.KeybdInputFlags.KEYEVENTF_KEYUP,
+												dwExtraInfo = System.IntPtr.Zero
 											}
 										}
 									});
 									break;
-								case BindMouseValue.Right:
-									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
-										new WinApi.Input {
-											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.InputDummyUnionName {
-												mi = new WinApi.MouseInput {
-													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTDOWN,
-													dwExtraInfo = System.IntPtr.Zero
-												}
-											}
-										}
-									});
-									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
-										new WinApi.Input {
-											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.InputDummyUnionName {
-												mi = new WinApi.MouseInput {
-													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_RIGHTUP,
-													dwExtraInfo = System.IntPtr.Zero
-												}
-											}
-										}
-									});
-									break;
-								case BindMouseValue.Middle:
-									dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
-										new WinApi.Input {
-											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.InputDummyUnionName {
-												mi = new WinApi.MouseInput {
-													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEDOWN,
-													dwExtraInfo = System.IntPtr.Zero
-												}
-											}
-										}
-									});
-									dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
-										new WinApi.Input {
-											type = WinApi.InputType.INPUT_MOUSE,
-											u = new WinApi.InputDummyUnionName {
-												mi = new WinApi.MouseInput {
-													dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_MIDDLEUP,
-													dwExtraInfo = System.IntPtr.Zero
-												}
-											}
-										}
+								case BindAction ba:
+									liKeyBindActionDown.Add(new byte[] {
+										(0b1000 << 4) | (0x2 << 0),
+										0x01,
+										(byte)ba.bavValue
 									});
 									break;
 							}
-							break;
-						case BindKeyboard bk:
-							dKeyBindDown.Add(kvp.Key, new WinApi.Input[] {
-								new WinApi.Input {
-									type = WinApi.InputType.INPUT_KEYBOARD,
-									u = new WinApi.InputDummyUnionName {
-										ki = new WinApi.KeybdInput {
-											wVk = bk.ucVirtualKey,
-											wScan = bk.ucScanCode,
-											dwFlags = bk.bExtended ? (WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN) : WinApi.KeybdInputFlags.KEYEVENTF_KEYDOWN,
-											dwExtraInfo = System.IntPtr.Zero
-										}
-									}
-								}
-							});
-							dKeyBindUp.Add(kvp.Key, new WinApi.Input[] {
-								new WinApi.Input {
-									type = WinApi.InputType.INPUT_KEYBOARD,
-									u = new WinApi.InputDummyUnionName {
-										ki = new WinApi.KeybdInput {
-											wVk = bk.ucVirtualKey,
-											wScan = bk.ucScanCode,
-											dwFlags = bk.bExtended ? (WinApi.KeybdInputFlags.KEYEVENTF_EXTENDEDKEY | WinApi.KeybdInputFlags.KEYEVENTF_KEYUP) : WinApi.KeybdInputFlags.KEYEVENTF_KEYUP,
-											dwExtraInfo = System.IntPtr.Zero
-										}
-									}
-								}
-							});
-							break;
-						case BindAction ba:
-							dKeyBindActionDown.Add(kvp.Key, new byte[] {
-								(0b1000 << 4) | (0x2 << 0),
-								0x01,
-								(byte)ba.bavValue
-							});
-							break;
+						}
+						if(liKeyBindDown.Count > 0) {
+							dKeyBindDown.Add(kvp.Key, liKeyBindDown.ToArray());
+						}
+						if(liKeyBindUp.Count > 0) {
+							dKeyBindUp.Add(kvp.Key, liKeyBindUp.ToArray());
+						}
+						if(liKeyBindActionDown.Count > 0) {
+							dKeyBindActionDown.Add(kvp.Key, liKeyBindActionDown.ToArray());
+						}
 					}
 				};
 
@@ -961,7 +975,7 @@ namespace MagicRemoteService {
 
 				MagicRemoteService.Screen scr;
 				WinApi.Input[] arrInput;
-				byte[] arrByte;
+				byte[][] arr2Byte;
 				WinApi.PointL pMouse = new WinApi.PointL();
 
 				System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] {
@@ -1103,8 +1117,10 @@ namespace MagicRemoteService {
 															if(dKeyBindDown.TryGetValue(usCode, out arrInput)) {
 																Service.SendInputAdmin(arrInput);
 																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-															} else if(dKeyBindActionDown.TryGetValue(usCode, out arrByte)) {
-																socClient.Send(arrByte);
+															} else if(dKeyBindActionDown.TryGetValue(usCode, out arr2Byte)) {
+																foreach(byte[] arrByte in arr2Byte) {
+																	socClient.Send(arrByte);
+																}
 																Service.LogIfDebug("Processed binary message send/key action [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else {
 																Service.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());

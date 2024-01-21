@@ -38,7 +38,7 @@ namespace MagicRemoteService {
 		private bool bInputDirect;
 		private bool bExtend;
 
-		private System.Collections.Generic.Dictionary<ushort, Bind> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>() {
+		private System.Collections.Generic.Dictionary<ushort, Bind[]> dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind[]>() {
 			{ 0x0001, null },
 			{ 0x0002, null },
 			{ 0x0008, null },
@@ -306,38 +306,53 @@ namespace MagicRemoteService {
 			rkMagicRemoteServiceDevice.SetValue("Extend", this.chkboxExtend.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 		}
 		public void RemoteDataRefresh() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Mouse");
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Keyboard");
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Action");
-			if(rkMagicRemoteServiceKeyBindMouse == null && rkMagicRemoteServiceKeyBindKeyboard == null && rkMagicRemoteServiceKeyBindAction == null) {
-				this.dKeyBindControl[0x0001].Value = new BindMouse(BindMouseValue.Left);                                                 //Click -> Left click
-				this.dKeyBindControl[0x0002].Value = new BindMouse(BindMouseValue.Right);                                                //Long click -> Right click
-				this.dKeyBindControl[0x0008].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false);                //BACKSPACE -> Keyboard Delete
-				this.dKeyBindControl[0x000D].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false);               //OK -> Keyboard Return Enter
-				this.dKeyBindControl[0x0025].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true);                 //Left -> Keyboard LeftArrow
-				this.dKeyBindControl[0x0026].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true);                   //Up -> Keyboard UpArrow
-				this.dKeyBindControl[0x0027].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true);                //Right -> Keyboard RightArrow
-				this.dKeyBindControl[0x0028].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true);                 //Down -> Keyboard DownArrow
-				this.dKeyBindControl[0x0193].Value = new BindAction(BindActionValue.Shutdown);                                           //Red -> Show shutdown
-				this.dKeyBindControl[0x0194].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true);                 //Green -> Keyboard Left GUI
-				this.dKeyBindControl[0x0195].Value = new BindMouse(BindMouseValue.Right);                                                //Yellow -> Right click
-				this.dKeyBindControl[0x0196].Value = new BindAction(BindActionValue.Keyboard);                                           //Blue -> Show keyboard
-				this.dKeyBindControl[0x01CD].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false);              //Back -> Keyboard Escape
-				this.dKeyBindControl[0x019F].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false);                //Play -> Play/Pause
-				this.dKeyBindControl[0x0013].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false);               //Pause -> Play/Pause
-				this.dKeyBindControl[0x01A1].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false);      //Fast-forward -> Scan Next Track
-				this.dKeyBindControl[0x019C].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false);  //Rewind -> Scan Previous Track
-				this.dKeyBindControl[0x019D].Value = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false);           //Stop -> Stop
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Mouse");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Keyboard");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Action");
+			if(rkMagicRemoteServiceRemoteMouse == null && rkMagicRemoteServiceRemoteKeyboard == null && rkMagicRemoteServiceRemoteAction == null) {
+				this.dKeyBindControl[0x0001].Value = new Bind[] { new BindMouse(BindMouseValue.Left) };													//Click -> Left click
+				this.dKeyBindControl[0x0002].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };												//Long click -> Right click
+				this.dKeyBindControl[0x0008].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };				//BACKSPACE -> Keyboard Delete
+				this.dKeyBindControl[0x000D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };				//OK -> Keyboard Return Enter
+				this.dKeyBindControl[0x0025].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };					//Left -> Keyboard LeftArrow
+				this.dKeyBindControl[0x0026].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };					//Up -> Keyboard UpArrow
+				this.dKeyBindControl[0x0027].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };				//Right -> Keyboard RightArrow
+				this.dKeyBindControl[0x0028].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };					//Down -> Keyboard DownArrow
+				this.dKeyBindControl[0x0193].Value = new Bind[] { new BindAction(BindActionValue.Shutdown) };											//Red -> Show shutdown
+				this.dKeyBindControl[0x0194].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };					//Green -> Keyboard Left GUI
+				this.dKeyBindControl[0x0195].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };												//Yellow -> Right click
+				this.dKeyBindControl[0x0196].Value = new Bind[] { new BindAction(BindActionValue.Keyboard) };											//Blue -> Show keyboard
+				this.dKeyBindControl[0x01CD].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };				//Back -> Keyboard Escape
+				this.dKeyBindControl[0x019F].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };				//Play -> Play/Pause
+				this.dKeyBindControl[0x0013].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };				//Pause -> Play/Pause
+				this.dKeyBindControl[0x01A1].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };		//Fast-forward -> Scan Next Track
+				this.dKeyBindControl[0x019C].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };	//Rewind -> Scan Previous Track
+				this.dKeyBindControl[0x019D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };			//Stop -> Stop
 			} else {
-				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
-					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindMouse((BindMouseValue)(int) rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
+				foreach(string sKey in rkMagicRemoteServiceRemoteMouse.GetSubKeyNames()) {
+					Microsoft.Win32.RegistryKey rkSubKey = rkMagicRemoteServiceRemoteMouse.OpenSubKey(sKey);
+					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
+					foreach(string sNumber in rkSubKey.GetValueNames()) {
+						liBind.Add(new BindMouse((BindMouseValue)System.BitConverter.ToUInt16((byte[])rkSubKey.GetValue(sNumber, 0x0000), 0)));
+					}
+					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = liBind.ToArray();
 				}
-				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-					byte[] arrBind = (byte[])rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x000000);
-					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindKeyboard(arrBind[0], arrBind[1], arrBind[2] == 0x01);
+				foreach(string sKey in rkMagicRemoteServiceRemoteKeyboard.GetSubKeyNames()) {
+					Microsoft.Win32.RegistryKey rkSubKey = rkMagicRemoteServiceRemoteKeyboard.OpenSubKey(sKey);
+					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
+					foreach(string sNumber in rkSubKey.GetValueNames()) {
+						byte[] arrBind = (byte[])rkSubKey.GetValue(sNumber, 0x000000);
+						liBind.Add(new BindKeyboard(arrBind[0], arrBind[1], arrBind[2] == 0x01));
+					}
+					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = liBind.ToArray();
 				}
-				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
-					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
+				foreach(string sKey in rkMagicRemoteServiceRemoteAction.GetSubKeyNames()) {
+					Microsoft.Win32.RegistryKey rkSubKey = rkMagicRemoteServiceRemoteAction.OpenSubKey(sKey);
+					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
+					foreach(string sNumber in rkSubKey.GetValueNames()) {
+						liBind.Add(new BindAction((BindActionValue)((byte[])rkSubKey.GetValue(sNumber, 0x00))[0]));
+					}
+					this.dKeyBindControl[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)].Value = liBind.ToArray();
 				}
 			}
 			foreach(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp in this.dKeyBindControl) {
@@ -345,29 +360,36 @@ namespace MagicRemoteService {
 			}
 		}
 		public void RemoteDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Remote\\Mouse");
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Remote\\Keyboard");
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Remote\\Action");
-			foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
-				rkMagicRemoteServiceKeyBindMouse.DeleteValue(sKey);
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Remote\\Mouse");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Remote\\Keyboard");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Remote\\Action");
+			foreach(string sKey in rkMagicRemoteServiceRemoteMouse.GetSubKeyNames()) {
+				rkMagicRemoteServiceRemoteMouse.DeleteSubKey(sKey);
 			}
-			foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-				rkMagicRemoteServiceKeyBindKeyboard.DeleteValue(sKey);
+			foreach(string sKey in rkMagicRemoteServiceRemoteKeyboard.GetSubKeyNames()) {
+				rkMagicRemoteServiceRemoteKeyboard.DeleteSubKey(sKey);
 			}
-			foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
-				rkMagicRemoteServiceKeyBindAction.DeleteValue(sKey);
+			foreach(string sKey in rkMagicRemoteServiceRemoteAction.GetSubKeyNames()) {
+				rkMagicRemoteServiceRemoteAction.DeleteSubKey(sKey);
 			}
 			foreach(System.Collections.Generic.KeyValuePair<ushort, BindControl> kvp in this.dKeyBindControl) {
-				switch(kvp.Value.Value) {
-					case BindMouse bm:
-						rkMagicRemoteServiceKeyBindMouse.SetValue("0x" + kvp.Key.ToString("X4"), bm.bmvValue, Microsoft.Win32.RegistryValueKind.DWord);
-						break;
-					case BindKeyboard bk:
-						rkMagicRemoteServiceKeyBindKeyboard.SetValue("0x" + kvp.Key.ToString("X4"), new byte[] { bk.ucVirtualKey, bk.ucScanCode, bk.bExtended ? (byte)0x01 : (byte)0x00 }, Microsoft.Win32.RegistryValueKind.Binary);
-						break;
-					case BindAction ba:
-						rkMagicRemoteServiceKeyBindAction.SetValue("0x" + kvp.Key.ToString("X4"), ba.bavValue, Microsoft.Win32.RegistryValueKind.DWord);
-						break;
+				if(kvp.Value.Value != null) {
+					foreach(Bind b in kvp.Value.Value) {
+						switch(b) {
+							case BindMouse bm:
+								Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteMouseKey = rkMagicRemoteServiceRemoteMouse.CreateSubKey("0x" + kvp.Key.ToString("X4"));
+								rkMagicRemoteServiceRemoteMouseKey.SetValue(rkMagicRemoteServiceRemoteMouseKey.ValueCount.ToString(), System.BitConverter.GetBytes((ushort)bm.bmvValue), Microsoft.Win32.RegistryValueKind.Binary);
+								break;
+							case BindKeyboard bk:
+								Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteKeyboardKey = rkMagicRemoteServiceRemoteKeyboard.CreateSubKey("0x" + kvp.Key.ToString("X4"));
+								rkMagicRemoteServiceRemoteKeyboardKey.SetValue(rkMagicRemoteServiceRemoteKeyboardKey.ValueCount.ToString(), new byte[] { bk.ucVirtualKey, bk.ucScanCode, bk.bExtended ? (byte)0x01 : (byte)0x00 }, Microsoft.Win32.RegistryValueKind.Binary);
+								break;
+							case BindAction ba:
+								Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteActionKey = rkMagicRemoteServiceRemoteAction.CreateSubKey("0x" + kvp.Key.ToString("X4"));
+								rkMagicRemoteServiceRemoteActionKey.SetValue(rkMagicRemoteServiceRemoteActionKey.ValueCount.ToString(), new byte[] { (byte)ba.bavValue }, Microsoft.Win32.RegistryValueKind.Binary);
+								break;
+						}
+					}
 				}
 			}
 		}

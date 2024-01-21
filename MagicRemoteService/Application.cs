@@ -88,6 +88,30 @@ namespace MagicRemoteService {
 							}
 						}
 					}
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceMouse = rkMagicRemoteService.OpenSubKey("Remote\\Mouse", true);
+					if(rkMagicRemoteServiceMouse != null) {
+						foreach(string sKey in rkMagicRemoteServiceMouse.GetValueNames()) {
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceMouseKey = rkMagicRemoteServiceMouse.CreateSubKey(sKey);
+							rkMagicRemoteServiceMouseKey.SetValue("1", System.BitConverter.GetBytes((ushort)(int)rkMagicRemoteServiceMouse.GetValue(sKey)), Microsoft.Win32.RegistryValueKind.Binary);
+							rkMagicRemoteServiceMouse.DeleteValue(sKey);
+						}
+					}
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyboard = rkMagicRemoteService.OpenSubKey("Remote\\Keyboard", true);
+					if(rkMagicRemoteServiceKeyboard != null) {
+						foreach(string sKey in rkMagicRemoteServiceKeyboard.GetValueNames()) {
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyboardKey = rkMagicRemoteServiceKeyboard.CreateSubKey(sKey);
+							rkMagicRemoteServiceKeyboardKey.SetValue("1", rkMagicRemoteServiceKeyboard.GetValue(sKey), Microsoft.Win32.RegistryValueKind.Binary);
+							rkMagicRemoteServiceKeyboard.DeleteValue(sKey);
+						}
+					}
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceAction = rkMagicRemoteService.OpenSubKey("Remote\\Action", true);
+					if(rkMagicRemoteServiceAction != null) {
+						foreach(string sKey in rkMagicRemoteServiceAction.GetValueNames()) {
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceActionKey = rkMagicRemoteServiceAction.CreateSubKey(sKey);
+							rkMagicRemoteServiceActionKey.SetValue("1", new byte[] { (byte)(int)rkMagicRemoteServiceAction.GetValue(sKey) }, Microsoft.Win32.RegistryValueKind.Binary);
+							rkMagicRemoteServiceAction.DeleteValue(sKey);
+						}
+					}
 				}
 				rkMagicRemoteService.SetValue("Version", vCurrent.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			}

@@ -2,18 +2,19 @@
 namespace MagicRemoteService {
 
 	public partial class BindCreator : System.Windows.Forms.Form {
-		private MagicRemoteService.Bind bBind;
-		public MagicRemoteService.Bind Bind {
+		private System.Collections.Generic.List<MagicRemoteService.Bind> liBind = new System.Collections.Generic.List<MagicRemoteService.Bind>();
+		private MagicRemoteService.Bind[] arrBind;
+		public MagicRemoteService.Bind[] Bind {
 			get {
-				return this.bBind;
+				return this.arrBind;
 			}
 		}
 
-		public BindCreator(MagicRemoteService.Bind bBind) {
+		public BindCreator(MagicRemoteService.Bind[] arrBind) {
 			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.InitializeComponent();
-			this.bBind = bBind;
-			switch(bBind) {
+			this.arrBind = arrBind;
+			switch(arrBind?[0]) {
 				case MagicRemoteService.BindMouse bm:
 					this.selBindMouse.Checked = true;
 					switch(bm.bmvValue) {
@@ -30,7 +31,7 @@ namespace MagicRemoteService {
 					break;
 				case MagicRemoteService.BindKeyboard bk:
 					this.selBindKeyboard.Checked = true;
-					this.libKeyboard.Text = bk.ToString();
+					this.libKeyboard.Text = string.Join<Bind>(" + ", arrBind);
 					break;
 				case MagicRemoteService.BindAction ba:
 					this.selBindAction.Checked = true;
@@ -63,39 +64,66 @@ namespace MagicRemoteService {
 		}
 		private void MouseLeft_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.bBind = new MagicRemoteService.BindMouse(BindMouseValue.Left);
+				this.arrBind = new Bind[] { new MagicRemoteService.BindMouse(BindMouseValue.Left) };
 			}
 		}
 		private void MouseMiddle_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.bBind = new MagicRemoteService.BindMouse(BindMouseValue.Right);
+				this.arrBind = new Bind[] { new MagicRemoteService.BindMouse(BindMouseValue.Right) };
 			}
 		}
 		private void MouseRight_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.bBind = new MagicRemoteService.BindMouse(BindMouseValue.Middle);
+				this.arrBind = new Bind[] { new MagicRemoteService.BindMouse(BindMouseValue.Middle) };
 			}
 		}
-		protected override bool ProcessCmdKey(ref System.Windows.Forms.Message m, System.Windows.Forms.Keys kData) {
+		protected override bool ProcessCmdKey(ref System.Windows.Forms.Message m, System.Windows.Forms.Keys k) {
 			if(this.selBindKeyboard.Checked) {
 				switch(m.Msg) {
-					case 0x100: {
-						this.bBind = new MagicRemoteService.BindKeyboard(System.BitConverter.GetBytes(m.WParam.ToInt32())[0], System.BitConverter.GetBytes(m.LParam.ToInt32())[2], (System.BitConverter.GetBytes(m.LParam.ToInt32())[3] & 0x01) == 0x01);
-						this.libKeyboard.Text = this.bBind.ToString();
-						break;
-					}
+					case 0x0100:
+					case 0x0104:
+						this.liBind.Add(new MagicRemoteService.BindKeyboard(System.BitConverter.GetBytes(m.WParam.ToInt32())[0], System.BitConverter.GetBytes(m.LParam.ToInt32())[2], (System.BitConverter.GetBytes(m.LParam.ToInt32())[3] & 0x01) == 0x01));
+						this.arrBind = this.liBind.ToArray();
+						this.libKeyboard.Text = string.Join<Bind>(" + ", this.arrBind);
+						return true;
+					default:
+						return base.ProcessCmdKey(ref m, k);
 				}
+			} else {
+				return base.ProcessCmdKey(ref m, k);
 			}
-			return true;//base.ProcessCmdKey(ref m, keyData);
+		}
+		protected override bool ProcessKeyEventArgs(ref System.Windows.Forms.Message m) {
+			if(this.selBindKeyboard.Checked) {
+				switch(m.Msg) {
+					case 0x0101:
+					case 0x0105:
+						BindKeyboard bkUp = new MagicRemoteService.BindKeyboard(System.BitConverter.GetBytes(m.WParam.ToInt32())[0], System.BitConverter.GetBytes(m.LParam.ToInt32())[2], (System.BitConverter.GetBytes(m.LParam.ToInt32())[3] & 0x01) == 0x01);
+
+						this.liBind.RemoveAll(delegate(Bind b) {
+							switch(b) {
+								case MagicRemoteService.BindKeyboard bk:
+									return bk.ucVirtualKey == bkUp.ucVirtualKey && bk.ucScanCode == bkUp.ucScanCode && bk.bExtended == bkUp.bExtended;
+								default:
+									return false;
+							}
+						});
+						return true;
+					default:
+						return base.ProcessKeyEventArgs(ref m);
+				}
+			} else {
+				return base.ProcessKeyEventArgs(ref m);
+			}
 		}
 		private void ActionShutdown_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.bBind = new MagicRemoteService.BindAction(BindActionValue.Shutdown);
+				this.arrBind = new Bind[] { new MagicRemoteService.BindAction(BindActionValue.Shutdown) };
 			}
 		}
 		private void ActionKeyboard_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.bBind = new MagicRemoteService.BindAction(BindActionValue.Keyboard);
+				this.arrBind = new Bind[] { new MagicRemoteService.BindAction(BindActionValue.Keyboard) };
 			}
 		}
 	}
