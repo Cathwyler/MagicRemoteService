@@ -49,11 +49,11 @@ namespace MagicRemoteService {
 			this.tbName = new System.Windows.Forms.TextBox();
 			this.pnlDescription = new System.Windows.Forms.Panel();
 			this.pnlIP = new System.Windows.Forms.Panel();
-			this.ipadrboxIP = new MagicRemoteService.IPAddressBox();
 			this.pnlPort = new System.Windows.Forms.Panel();
 			this.pnlUser = new System.Windows.Forms.Panel();
 			this.pnlPassword = new System.Windows.Forms.Panel();
 			this.cbAdvanced = new System.Windows.Forms.CheckBox();
+			this.ipadrboxIP = new MagicRemoteService.IPAddressBox();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
 			this.tlpTV.SuspendLayout();
 			this.pnlPrivateKey.SuspendLayout();
@@ -75,8 +75,8 @@ namespace MagicRemoteService {
 			// 
 			// btnCancel
 			// 
-			resources.ApplyResources(this.btnCancel, "btnCancel");
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			resources.ApplyResources(this.btnCancel, "btnCancel");
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
@@ -179,23 +179,23 @@ namespace MagicRemoteService {
 			// 
 			// pnlPrivateKey
 			// 
-			resources.ApplyResources(this.pnlPrivateKey, "pnlPrivateKey");
 			this.pnlPrivateKey.Controls.Add(this.tbPrivateKey);
 			this.pnlPrivateKey.Controls.Add(this.labPrivateKey);
+			resources.ApplyResources(this.pnlPrivateKey, "pnlPrivateKey");
 			this.pnlPrivateKey.Name = "pnlPrivateKey";
 			// 
 			// pnlPassphrase
 			// 
-			resources.ApplyResources(this.pnlPassphrase, "pnlPassphrase");
 			this.pnlPassphrase.Controls.Add(this.labPassphrase);
 			this.pnlPassphrase.Controls.Add(this.tbPassphrase);
+			resources.ApplyResources(this.pnlPassphrase, "pnlPassphrase");
 			this.pnlPassphrase.Name = "pnlPassphrase";
 			// 
 			// pnlName
 			// 
-			resources.ApplyResources(this.pnlName, "pnlName");
 			this.pnlName.Controls.Add(this.labName);
 			this.pnlName.Controls.Add(this.tbName);
+			resources.ApplyResources(this.pnlName, "pnlName");
 			this.pnlName.Name = "pnlName";
 			// 
 			// labName
@@ -211,47 +211,37 @@ namespace MagicRemoteService {
 			// 
 			// pnlDescription
 			// 
-			resources.ApplyResources(this.pnlDescription, "pnlDescription");
 			this.pnlDescription.Controls.Add(this.labDescription);
 			this.pnlDescription.Controls.Add(this.tbDescription);
+			resources.ApplyResources(this.pnlDescription, "pnlDescription");
 			this.pnlDescription.Name = "pnlDescription";
 			// 
 			// pnlIP
 			// 
-			resources.ApplyResources(this.pnlIP, "pnlIP");
 			this.pnlIP.Controls.Add(this.labIP);
 			this.pnlIP.Controls.Add(this.ipadrboxIP);
+			resources.ApplyResources(this.pnlIP, "pnlIP");
 			this.pnlIP.Name = "pnlIP";
-			// 
-			// ipadrboxIP
-			// 
-			resources.ApplyResources(this.ipadrboxIP, "ipadrboxIP");
-			this.ipadrboxIP.BackColor = System.Drawing.SystemColors.Window;
-			this.ipadrboxIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ipadrboxIP.ForeColor = System.Drawing.SystemColors.WindowText;
-			this.ipadrboxIP.Name = "ipadrboxIP";
-			this.ipadrboxIP.Value = null;
-			this.ipadrboxIP.ehValueChanged += new System.EventHandler(this.IP_ValueChanged);
 			// 
 			// pnlPort
 			// 
-			resources.ApplyResources(this.pnlPort, "pnlPort");
 			this.pnlPort.Controls.Add(this.labTVPort);
 			this.pnlPort.Controls.Add(this.numboxSendPort);
+			resources.ApplyResources(this.pnlPort, "pnlPort");
 			this.pnlPort.Name = "pnlPort";
 			// 
 			// pnlUser
 			// 
-			resources.ApplyResources(this.pnlUser, "pnlUser");
 			this.pnlUser.Controls.Add(this.labUser);
 			this.pnlUser.Controls.Add(this.tbUser);
+			resources.ApplyResources(this.pnlUser, "pnlUser");
 			this.pnlUser.Name = "pnlUser";
 			// 
 			// pnlPassword
 			// 
-			resources.ApplyResources(this.pnlPassword, "pnlPassword");
 			this.pnlPassword.Controls.Add(this.labPassword);
 			this.pnlPassword.Controls.Add(this.tbPassword);
+			resources.ApplyResources(this.pnlPassword, "pnlPassword");
 			this.pnlPassword.Name = "pnlPassword";
 			// 
 			// cbAdvanced
@@ -261,7 +251,17 @@ namespace MagicRemoteService {
 			this.cbAdvanced.UseVisualStyleBackColor = true;
 			this.cbAdvanced.CheckedChanged += new System.EventHandler(this.Advanced_CheckedChanged);
 			// 
-			// TV
+			// ipadrboxIP
+			// 
+			this.ipadrboxIP.BackColor = System.Drawing.SystemColors.Window;
+			this.ipadrboxIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.ipadrboxIP.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.ipadrboxIP, "ipadrboxIP");
+			this.ipadrboxIP.Name = "ipadrboxIP";
+			this.ipadrboxIP.Value = null;
+			this.ipadrboxIP.ehValueChanged += new System.EventHandler(this.IP_ValueChanged);
+			// 
+			// TVAdder
 			// 
 			this.AcceptButton = this.btnConfirm;
 			resources.ApplyResources(this, "$this");
@@ -274,7 +274,7 @@ namespace MagicRemoteService {
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "TV";
+			this.Name = "TVAdder";
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).EndInit();
 			this.tlpTV.ResumeLayout(false);
 			this.tlpTV.PerformLayout();

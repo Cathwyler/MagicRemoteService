@@ -29,6 +29,35 @@ Object.prototype.toString = function() {
 	return JSON.stringify(this);
 };
 
+const bDebug = false;
+
+const MessageType = {
+	Position: 0x00,
+	Wheel: 0x01,
+	Visible: 0x02,
+	Key: 0x03,
+	Unicode: 0x04,
+	Shutdown: 0x05
+}
+
+const bInputDirect = true;
+const uiLongClick = 1500;
+const sInputId = "HDMI_1";
+const sInputName = "HDMI 1";
+const sInputSource = "ext://hdmi:1";
+const sIP = "127.0.0.1";
+const uiPort = 41230;
+const sMask = "255.255.255.0";
+const sMac = "AA:AA:AA:AA:AA:AA";
+
+const sBroadcast = sIP.split(".").map(function(x, i) {
+	return(x | (parseInt(sMask.split(".")[i], 10) ^ 0xFF)).toString(10);
+}).join(".");
+const tabMac = sMac.split(":").map(function(x) {
+	return parseInt(x, 16);
+});
+const sAppID = webOS.fetchAppId();
+
 function Toast(sTitre, sMessage) {
 	var deScreenToast = document.createElement("div");
 	deScreenToast.className = "screen flex justify-center align-flex-end";
@@ -107,8 +136,9 @@ function Log() {
 	console.log.apply(console, arguments);
 }
 
-function LogIfDebug() {
-	if(bDebug) {
+function LogIfDebug() {};
+if(bDebug) {
+	LogIfDebug = function() {
 		Log.apply(this, arguments);
 	}
 }
@@ -138,34 +168,6 @@ function AppFocus() {};
 function CursorVisible() {};
 function KeyboardVisible() {};
 
-const bDebug = false;
-
-const MessageType = {
-	Position: 0x00,
-	Wheel: 0x01,
-	Visible: 0x02,
-	Key: 0x03,
-	Unicode: 0x04,
-	Shutdown: 0x05
-}
-
-const uiLongDown = 1500;
-const sInputId = "HDMI_1";
-const sInputName = "HDMI 1";
-const sInputSource = "ext://hdmi:1";
-const sIP = "127.0.0.1";
-const uiPort = 41230;
-const sMask = "255.255.255.0";
-const sMac = "AA:AA:AA:AA:AA:AA";
-
-const sBroadcast = sIP.split(".").map(function(x, i) {
-	return(x | (parseInt(sMask.split(".")[i], 10) ^ 0xFF)).toString(10);
-}).join(".");
-const tabMac = sMac.split(":").map(function(x) {
-	return parseInt(x, 16);
-});
-const sAppID = webOS.fetchAppId();
-
 var deSource = document.createElement("source");
 deSource.setAttribute("src", sInputSource);
 deSource.setAttribute("type", "service/webos-external");
@@ -177,6 +179,59 @@ var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
 var iTimeoutSourceStatus = 0;
 var pbInputSourceStatus = null;
+function InputStatus() {
+	return pbInputSourceStatus === true;
+}
+function InputConnected() {};
+if(bInputDirect){
+	InputConnected = function() {
+		if(iIntervalWakeOnLan) {
+			clearInterval(iIntervalWakeOnLan);
+			iIntervalWakeOnLan = 0;
+		}
+		if(iTimeoutSourceStatus) {
+			clearTimeout(iTimeoutSourceStatus);
+			iTimeoutSourceStatus = 0;
+		}
+		if(ScreenExist(deScreenInput)) {
+			ScreenCancel(deScreenInput);
+		}
+	};
+} else {
+	InputConnected = function() {
+		if(ScreenExist(deScreenInput)) {
+			ScreenCancel(deScreenInput);
+		}
+	};
+}
+function InputDisconnected() {};
+if(bInputDirect){
+	InputDisconnected = function() {
+		deScreenInput = Dialog(oString.strAppTittle, oString.strInputDirectDisconnect, [
+			{
+				sName: oString.strInputDirectDisconnectStart,
+				fAction: function() {
+					SendWol({
+						tabMac: tabMac
+					}, sBroadcast);
+					iIntervalWakeOnLan = setInterval(function() {
+						SendWol({
+							tabMac: tabMac
+						}, sBroadcast);
+					}, 5000);
+					iTimeoutSourceStatus = setTimeout(function() {
+						iTimeoutSourceStatus = 0;
+						deScreenInput = Dialog(oString.strAppTittle, oString.strInputDirectDisconnectWakeOnLanFailure, []);
+					}, 5000);
+				}
+			}
+		]);
+	};
+} else {
+	InputDisconnected = function() {
+		deScreenInput = Dialog(oString.strAppTittle, oString.strInputIndirectDisconnect, []);
+	};
+}
 function SubscriptionInputStatus() {
 	webOS.service.request("luna://com.webos.service.eim", {
 		method: "getAllInputStatus",
@@ -197,44 +252,16 @@ function SubscriptionInputStatus() {
 					if(pbLastInputSourceStatus === null || pbLastInputSourceStatus !== pbInputSourceStatus) {
 						if(pbInputSourceStatus) {
 							LogIfDebug(oString.strInputConnected);
-							if(iIntervalWakeOnLan) {
-								clearInterval(iIntervalWakeOnLan);
-								iIntervalWakeOnLan = 0;
-							}
-							if(iTimeoutSourceStatus) {
-								clearTimeout(iTimeoutSourceStatus);
-								iTimeoutSourceStatus = 0;
-							}
-							if(ScreenExist(deScreenInput)) {
-								ScreenCancel(deScreenInput);
-							}
+							InputConnected();
 							if(AppVisible()) {
-								Connect();
+								Open();
 							}
 						} else {
 							LogIfDebug(oString.strInputDisconnected);
 							if(pbLastInputSourceStatus !== null && AppVisible()) {
 								Close();
 							}
-							deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconect, [
-								{
-									sName: oString.strInputDisconectStart,
-									fAction: function() {
-										SendWol({
-											tabMac: tabMac
-										}, sBroadcast);
-										iIntervalWakeOnLan = setInterval(function() {
-											SendWol({
-												tabMac: tabMac
-											}, sBroadcast);
-										}, 5000);
-										iTimeoutSourceStatus = setTimeout(function() {
-											iTimeoutSourceStatus = 0;
-											deScreenInput = Dialog(oString.strAppTittle, oString.strInputDisconectWakeOnLanFailure, []);
-										}, 5000);
-									}
-								}
-							]);
+							InputDisconnected();
 						}
 					}
 					break;
@@ -306,7 +333,7 @@ var pDown = {
 	usY: 0
 };
 var bPositionDownSent = false;
-var iTimeoutLongDown = 0;
+var iTimeoutLongClick = 0;
 function SubscriptionGetSensorData() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
 		method: "sensor/getSensorData",
@@ -323,9 +350,9 @@ function SubscriptionGetSensorData() {
 			switch(inResponse.subscribed) {
 				case undefined:
 					if((AppVisible() && AppFocus())) {
-						if(iTimeoutLongDown && ((pDown.usX - inResponse.coordinate.x) > 3 || (pDown.usX - inResponse.coordinate.x) < -3 || (pDown.usY - inResponse.coordinate.y) > 3 || (pDown.usY - inResponse.coordinate.y) < -3)) {
-							clearTimeout(iTimeoutLongDown);
-							iTimeoutLongDown = 0;
+						if(iTimeoutLongClick && ((pDown.usX - inResponse.coordinate.x) > 3 || (pDown.usX - inResponse.coordinate.x) < -3 || (pDown.usY - inResponse.coordinate.y) > 3 || (pDown.usY - inResponse.coordinate.y) < -3)) {
+							clearTimeout(iTimeoutLongClick);
+							iTimeoutLongClick = 0;
 							SendKey({
 								usC: 0x01,
 								bS: true
@@ -424,10 +451,10 @@ function AddDevice() {
 
 function SubscriptionDomEvent() {
 	deVideo.addEventListener("mousedown", function(inEvent) {
-		if(iTimeoutLongDown) {
+		if(iTimeoutLongClick) {
 		} else {
-			iTimeoutLongDown = setTimeout(function() {
-				iTimeoutLongDown = 0;
+			iTimeoutLongClick = setTimeout(function() {
+				iTimeoutLongClick = 0;
 				SendKey({
 					usC: 0x02,
 					bS: true
@@ -436,16 +463,16 @@ function SubscriptionDomEvent() {
 					usC: 0x02,
 					bS: false
 				});
-			}, uiLongDown);
+			}, uiLongClick);
 			pDown.usX = pCurrent.usX
 			pDown.usY = pCurrent.usY
 		}
 	});
 
 	deVideo.addEventListener("mouseup", function(inEvent) {
-		if(iTimeoutLongDown) {
-			clearTimeout(iTimeoutLongDown);
-			iTimeoutLongDown = 0;
+		if(iTimeoutLongClick) {
+			clearTimeout(iTimeoutLongClick);
+			iTimeoutLongClick = 0;
 			SendKey({
 				usC: 0x01,
 				bS: true
@@ -498,10 +525,9 @@ function SubscriptionDomEvent() {
 
 	if(oDevice.versionMajor > 2) {
 		document.addEventListener("visibilitychange", function(inEvent) {
-			if(pbInputSourceStatus === null || !pbInputSourceStatus) {
-			} else {
+			if(InputStatus()) {
 				if(AppVisible()) {
-					Connect();
+					Open();
 				} else {
 					Close();
 				}
@@ -509,10 +535,9 @@ function SubscriptionDomEvent() {
 		});
 	} else {
 		document.addEventListener("webkitvisibilitychange", function(inEvent) {
-			if(pbInputSourceStatus === null || !pbInputSourceStatus) {
-			} else {
+			if(InputStatus()) {
 				if(AppVisible()) {
-					Connect();
+					Open();
 				} else {
 					Close();
 				}
@@ -580,46 +605,97 @@ function SubscriptionDomEvent() {
 	}
 }
 
-var deScreenConnect = null;
+var deScreenOpen = null;
 var deScreenShutdown = null;
-var iIntervalRetryConnect = 0;
-var iTimeoutConnect = 0;
+var iIntervalRetryOpen = 0;
+var iTimeoutOpen = 0;
 var socClient = null;
-function SocketConnect() {
+function SocketOpened() {};
+if(bInputDirect){
+	SocketOpened = function() {
+		if(iTimeoutOpen) {
+			clearTimeout(iTimeoutOpen);
+			iTimeoutOpen = 0;
+		}
+		if(ScreenExist(deScreenOpen)) {
+			ScreenCancel(deScreenOpen);
+		}
+	}
+} else {
+	SocketOpened = function() {
+		if(iTimeoutOpen) {
+			clearTimeout(iTimeoutOpen);
+			iTimeoutOpen = 0;
+		}
+		if(iIntervalWakeOnLan) {
+			clearInterval(iIntervalWakeOnLan);
+			iIntervalWakeOnLan = 0;
+		}
+		if(ScreenExist(deScreenOpen)) {
+			ScreenCancel(deScreenOpen);
+		}
+	}
+}
+function SocketClosed() {};
+if(bInputDirect){
+	SocketClosed = function() {
+		iTimeoutOpen = setTimeout(function() {
+			iTimeoutOpen = 0;
+			deScreenOpen = Dialog(oString.strAppTittle, oString.strSocketOpenTimeout, []);
+		}, 30000);
+	};
+} else {
+	SocketClosed = function() {
+		deScreenOpen = Dialog(oString.strAppTittle, oString.strSocketOpen, [
+			{
+				sName: oString.strSocketOpenStart,
+				fAction: function() {
+					SendWol({
+						tabMac: tabMac
+					}, sBroadcast);
+					iIntervalWakeOnLan = setInterval(function() {
+						SendWol({
+							tabMac: tabMac
+						}, sBroadcast);
+					}, 5000);
+					iTimeoutOpen = setTimeout(function() {
+						iTimeoutOpen = 0;
+						deScreenOpen = Dialog(oString.strAppTittle, oString.strSocketOpenTimeoutWakeOnLanFailure, []);
+					}, 30000);
+				}
+			}
+		]);
+	};
+}
+function SocketOpen() {
 	socClient = new WebSocket("ws://" + sIP + ":" + uiPort);
 	socClient.binaryType = "arraybuffer";
 	socClient.onopen = function(e) {
-		clearInterval(iIntervalRetryConnect);
-		iIntervalRetryConnect = 0;
-		if(iTimeoutConnect) {
-			clearTimeout(iTimeoutConnect);
-			iTimeoutConnect = 0;
-		}
-		if(ScreenExist(deScreenConnect)) {
-			ScreenCancel(deScreenConnect);
+		LogIfDebug(oString.strSocketOpened);
+		SocketOpened();
+		clearInterval(iIntervalRetryOpen);
+		iIntervalRetryOpen = 0;
+		if(ScreenExist(deScreenOpen)) {
+			ScreenCancel(deScreenOpen);
 		}
 		if(CursorVisible() && AppVisible() && AppFocus()) {
 			SendVisible({
 				bV: true
 			});
 		}
-		LogIfDebug(oString.strSocketConnecting);
 	};
 	socClient.onclose = function(e) {
-		if(socClient !== null && !iIntervalRetryConnect) {
-			iTimeoutConnect = setTimeout(function() {
-				iTimeoutConnect = 0;
-				deScreenConnect = Dialog(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
-			}, 30000);
-			iIntervalRetryConnect = setInterval(function() {
+		LogIfDebug(oString.strSocketClosed);
+		if(socClient !== null && !iIntervalRetryOpen) {
+			SocketClosed();
+			iIntervalRetryOpen = setInterval(function() {
 				if(socClient.readyState === WebSocket.CONNECTING) {
 					socClient.close();
 				}
-				SocketConnect();
+				SocketOpen();
 			}, 5000);
-			SocketConnect();
+			SocketOpen();
 		}
-		LogIfDebug(oString.strSocketDisconnecting);
 	};
 	socClient.onmessage = function(e) {
 		if(e.data instanceof ArrayBuffer) {
@@ -657,37 +733,33 @@ function SocketConnect() {
 		}
 	}
 }
-function Connect() {
+function SocketClose() {
+	var soc = socClient;
+	socClient = null;
+	soc.close();
+}
+function Open() {
 	if(socClient !== null) {
 		Error(oString.strSocketErrorOpen);
 	} else {
-		iTimeoutConnect = setTimeout(function() {
-			iTimeoutConnect = 0;
-			deScreenConnect = Dialog(oString.strAppTittle, oString.strSocketConnectingTimeout, []);
-		}, 30000);
-		iIntervalRetryConnect = setInterval(function() {
+		SocketClosed();
+		iIntervalRetryOpen = setInterval(function() {
 			if(socClient.readyState === WebSocket.CONNECTING) {
 				socClient.close();
 			}
-			SocketConnect();
+			SocketOpen();
 		}, 5000);
-		SocketConnect();
+		SocketOpen();
 	}
 }
 function Close() {
 	if(socClient === null) {
-		Error(oString.strSocketErrorClosed);
+		Error(oString.strSocketErrorClose);
 	} else {
-		if(iTimeoutConnect) {
-			clearTimeout(iTimeoutConnect);
-			iTimeoutConnect = 0;
-		}
-		if(iIntervalRetryConnect) {
-			clearInterval(iIntervalRetryConnect);
-			iIntervalRetryConnect = 0;
-		}
-		if(ScreenExist(deScreenConnect)) {
-			ScreenCancel(deScreenConnect);
+		SocketOpened();
+		if(iIntervalRetryOpen) {
+			clearInterval(iIntervalRetryOpen);
+			iIntervalRetryOpen = 0;
 		}
 		if(CursorVisible() && AppVisible() && AppFocus()) {
 			SendVisible({
@@ -700,9 +772,7 @@ function Close() {
 		if(KeyboardVisible()) {
 			deKeyboard.blur();
 		}
-		var soc = socClient;
-		socClient = null;
-		soc.close();
+		SocketClose();
 	}
 }
 
@@ -896,7 +966,6 @@ function Load() {
 					return false;
 				};
 			}
-
 			SubscriptionInputStatus();
 			SubscriptionScreenSaverRequest();
 			SubscriptionGetSensorData();

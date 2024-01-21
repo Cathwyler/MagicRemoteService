@@ -171,6 +171,12 @@
   <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
     <value>Écran principal par défaut</value>
   </data>
+  <data name="SettingDisplaySelectErrorMessage" xml:space="preserve">
+    <value>Veuillez sélectionner un écran.</value>
+  </data>
+  <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
+    <value>L'écran n'a pas été sélectionné</value>
+  </data>
   <data name="SettingInputRefreshlErrorTitle" xml:space="preserve">
     <value>Erreur lors du rafraichissement des entrées de la TV</value>
   </data>

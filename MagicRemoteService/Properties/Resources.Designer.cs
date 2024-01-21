@@ -183,7 +183,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;
+        ///	&quot;appDescription&quot;: &quot;Servicio que proporciona control remoto de computadora usando un televisor LG WebOS&quot;
         ///}.
         /// </summary>
         internal static string esappinfo {
@@ -195,7 +195,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;strAppDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///	&quot;strAppDescription&quot;: &quot;Servicio que proporciona control remoto de computadora usando un televisor LG WebOS&quot;,
         ///
         ///	&quot;strLogTitle&quot;: &quot;Registro&quot;,
         ///	&quot;strWarnTitle&quot;: &quot;Aviso&quot;,
@@ -204,7 +204,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Se ha obtenido correctamente el estado de todas las entradas&quot;,
         ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Fallo al obtener el estado de todas las entradas&quot;,
         ///	&quot;strAddDeviceSuccess&quot;: &quot;Se ha añadido el dispositivo correctamente&quot;,
-        ///	&quot;strAddDeviceFailure&quot;: &quot;Fallo al añadir dispositiv [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strAddDeviceFailure&quot;: &quot;Fall [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string esappstring {
             get {
@@ -362,13 +362,13 @@ namespace MagicRemoteService.Properties {
         ///Window.prototype.oneEventListener = function(strType, fListener) {
         ///	function Handler(inEvent) {
         ///		this.removeEventListener(strType, Handler);
-        ///			if(fListener(inEvent) === false){
+        ///			if(fListener(inEvent) === false) {
         ///			this.addEventListener(strType, Handler);
         ///		}
         ///	}
         ///	this.addEventListener(strType, Handler);
         ///};
-        ///Element.prototype.oneEventListe [le reste de la chaîne a été tronqué]&quot;;.
+        ///Element.prototype.oneEventList [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string main {
             get {
@@ -495,6 +495,24 @@ namespace MagicRemoteService.Properties {
         internal static string services {
             get {
                 return ResourceManager.GetString("services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please select a display..
+        /// </summary>
+        internal static string SettingDisplaySelectErrorMessage {
+            get {
+                return ResourceManager.GetString("SettingDisplaySelectErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The display has not been selected.
+        /// </summary>
+        internal static string SettingDisplaySelectErrorTitle {
+            get {
+                return ResourceManager.GetString("SettingDisplaySelectErrorTitle", resourceCulture);
             }
         }
         

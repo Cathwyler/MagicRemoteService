@@ -289,4 +289,10 @@
   <data name="esappstring" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\resources\es\appstring.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="SettingDisplaySelectErrorMessage" xml:space="preserve">
+    <value>Please select a display.</value>
+  </data>
+  <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
+    <value>The display has not been selected</value>
+  </data>
 </root>

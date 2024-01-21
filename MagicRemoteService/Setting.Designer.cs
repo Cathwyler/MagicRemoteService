@@ -30,7 +30,8 @@ namespace MagicRemoteService {
 			this.ttFormating = new System.Windows.Forms.ToolTip(this.components);
 			this.tabSetting = new System.Windows.Forms.TabControl();
 			this.tabTV = new System.Windows.Forms.TabPage();
-			this.btnInspect = new System.Windows.Forms.Button();
+			this.chkboxInputDirect = new System.Windows.Forms.CheckBox();
+			this.btnTVInspect = new System.Windows.Forms.Button();
 			this.labDisplay = new System.Windows.Forms.Label();
 			this.cmbboxDisplay = new System.Windows.Forms.ComboBox();
 			this.btnTVRemove = new System.Windows.Forms.Button();
@@ -50,8 +51,8 @@ namespace MagicRemoteService {
 			this.labPCMac = new System.Windows.Forms.Label();
 			this.labTimeoutRightClickUnit = new System.Windows.Forms.Label();
 			this.labInput = new System.Windows.Forms.Label();
-			this.labTimeoutRightClick = new System.Windows.Forms.Label();
-			this.numboxTimeoutRightClick = new System.Windows.Forms.NumericUpDown();
+			this.labLongClick = new System.Windows.Forms.Label();
+			this.numboxLongClick = new System.Windows.Forms.NumericUpDown();
 			this.cmbboxInput = new System.Windows.Forms.ComboBox();
 			this.cmbboxTV = new System.Windows.Forms.ComboBox();
 			this.tabPC = new System.Windows.Forms.TabPage();
@@ -104,7 +105,7 @@ namespace MagicRemoteService {
 			this.tabSetting.SuspendLayout();
 			this.tabTV.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutRightClick)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numboxLongClick)).BeginInit();
 			this.tabPC.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxListenPort)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutInactivity)).BeginInit();
@@ -135,7 +136,8 @@ namespace MagicRemoteService {
 			// 
 			// tabTV
 			// 
-			this.tabTV.Controls.Add(this.btnInspect);
+			this.tabTV.Controls.Add(this.chkboxInputDirect);
+			this.tabTV.Controls.Add(this.btnTVInspect);
 			this.tabTV.Controls.Add(this.labDisplay);
 			this.tabTV.Controls.Add(this.cmbboxDisplay);
 			this.tabTV.Controls.Add(this.btnTVRemove);
@@ -155,20 +157,26 @@ namespace MagicRemoteService {
 			this.tabTV.Controls.Add(this.labPCMac);
 			this.tabTV.Controls.Add(this.labTimeoutRightClickUnit);
 			this.tabTV.Controls.Add(this.labInput);
-			this.tabTV.Controls.Add(this.labTimeoutRightClick);
-			this.tabTV.Controls.Add(this.numboxTimeoutRightClick);
+			this.tabTV.Controls.Add(this.labLongClick);
+			this.tabTV.Controls.Add(this.numboxLongClick);
 			this.tabTV.Controls.Add(this.cmbboxInput);
 			this.tabTV.Controls.Add(this.cmbboxTV);
 			resources.ApplyResources(this.tabTV, "tabTV");
 			this.tabTV.Name = "tabTV";
 			this.tabTV.UseVisualStyleBackColor = true;
 			// 
-			// btnInspect
+			// chkboxInputDirect
 			// 
-			resources.ApplyResources(this.btnInspect, "btnInspect");
-			this.btnInspect.Name = "btnInspect";
-			this.btnInspect.UseVisualStyleBackColor = true;
-			this.btnInspect.Click += new System.EventHandler(this.Inspect_Click);
+			resources.ApplyResources(this.chkboxInputDirect, "chkboxInputDirect");
+			this.chkboxInputDirect.Name = "chkboxInputDirect";
+			this.chkboxInputDirect.UseVisualStyleBackColor = true;
+			// 
+			// btnTVInspect
+			// 
+			resources.ApplyResources(this.btnTVInspect, "btnTVInspect");
+			this.btnTVInspect.Name = "btnTVInspect";
+			this.btnTVInspect.UseVisualStyleBackColor = true;
+			this.btnTVInspect.Click += new System.EventHandler(this.Inspect_Click);
 			// 
 			// labDisplay
 			// 
@@ -297,20 +305,20 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.labInput, "labInput");
 			this.labInput.Name = "labInput";
 			// 
-			// labTimeoutRightClick
+			// labLongClick
 			// 
-			resources.ApplyResources(this.labTimeoutRightClick, "labTimeoutRightClick");
-			this.labTimeoutRightClick.Name = "labTimeoutRightClick";
+			resources.ApplyResources(this.labLongClick, "labLongClick");
+			this.labLongClick.Name = "labLongClick";
 			// 
-			// numboxTimeoutRightClick
+			// numboxLongClick
 			// 
-			resources.ApplyResources(this.numboxTimeoutRightClick, "numboxTimeoutRightClick");
-			this.numboxTimeoutRightClick.Maximum = new decimal(new int[] {
+			resources.ApplyResources(this.numboxLongClick, "numboxLongClick");
+			this.numboxLongClick.Maximum = new decimal(new int[] {
             3000,
             0,
             0,
             0});
-			this.numboxTimeoutRightClick.Name = "numboxTimeoutRightClick";
+			this.numboxLongClick.Name = "numboxLongClick";
 			// 
 			// cmbboxInput
 			// 
@@ -709,7 +717,7 @@ namespace MagicRemoteService {
 			this.tabTV.ResumeLayout(false);
 			this.tabTV.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutRightClick)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numboxLongClick)).EndInit();
 			this.tabPC.ResumeLayout(false);
 			this.tabPC.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numboxListenPort)).EndInit();
@@ -739,8 +747,8 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label labPCMac;
 		private System.Windows.Forms.Label labTimeoutRightClickUnit;
 		private System.Windows.Forms.Label labInput;
-		private System.Windows.Forms.Label labTimeoutRightClick;
-		private System.Windows.Forms.NumericUpDown numboxTimeoutRightClick;
+		private System.Windows.Forms.Label labLongClick;
+		private System.Windows.Forms.NumericUpDown numboxLongClick;
 		private System.Windows.Forms.ComboBox cmbboxInput;
 		private System.Windows.Forms.ComboBox cmbboxTV;
 		private System.Windows.Forms.TabPage tabPC;
@@ -795,6 +803,7 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnTVModify;
 		private System.Windows.Forms.Label labDisplay;
 		private System.Windows.Forms.ComboBox cmbboxDisplay;
-		private System.Windows.Forms.Button btnInspect;
+		private System.Windows.Forms.Button btnTVInspect;
+		private System.Windows.Forms.CheckBox chkboxInputDirect;
 	}
 }

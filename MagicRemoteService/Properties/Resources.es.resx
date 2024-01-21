@@ -237,4 +237,10 @@
   <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
     <value>Pantalla primaria por defecto</value>
   </data>
+  <data name="SettingDisplaySelectErrorMessage" xml:space="preserve">
+    <value>Seleccione una pantalla.</value>
+  </data>
+  <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
+    <value>La pantalla no ha sido seleccionada</value>
+  </data>
 </root>

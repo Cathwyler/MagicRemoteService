@@ -48,6 +48,47 @@ namespace MagicRemoteService {
 					rkMagicRemoteService.DeleteSubKey("KeyBindKeyboard", false);
 					rkMagicRemoteService.DeleteSubKey("KeyBindAction", false);
 				}
+				if(vRegistry < new System.Version("1.2.3.0")) {
+					foreach(string strSubKey in rkMagicRemoteService.GetSubKeyNames()) {
+						string strNewSubKey;
+						switch(strSubKey) {
+							case "KeyBindMouse":
+								strNewSubKey = "Remote\\Mouse";
+								break;
+							case "KeyBindKeyboard":
+								strNewSubKey = "Remote\\Keyboard";
+								break;
+							case "KeyBindAction":
+								strNewSubKey = "Remote\\Action";
+								break;
+							default:
+								strNewSubKey = "Device\\" + strSubKey;
+								break;
+						}
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceSubKey = rkMagicRemoteService.OpenSubKey(strSubKey);
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceNewSubKey = rkMagicRemoteService.CreateSubKey(strNewSubKey);
+
+						foreach(string strValue in rkMagicRemoteServiceSubKey.GetValueNames()) {
+							object oValue = rkMagicRemoteServiceSubKey.GetValue(strValue);
+							rkMagicRemoteServiceNewSubKey.SetValue(strValue, oValue, rkMagicRemoteServiceSubKey.GetValueKind(strValue));
+						}
+						rkMagicRemoteServiceSubKey.Close();
+						rkMagicRemoteService.DeleteSubKey(strSubKey);
+					}
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDeviceList = rkMagicRemoteService.OpenSubKey("Device", true);
+					if(rkMagicRemoteServiceDeviceList != null) {
+						foreach(string sDevice in rkMagicRemoteServiceDeviceList.GetSubKeyNames()) {
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = rkMagicRemoteServiceDeviceList.OpenSubKey(sDevice, true);
+							if(rkMagicRemoteServiceDevice != null) {
+								rkMagicRemoteServiceDevice.SetValue("InputId", rkMagicRemoteServiceDevice.GetValue("Input"), rkMagicRemoteServiceDevice.GetValueKind("Input"));
+								rkMagicRemoteServiceDevice.DeleteValue("Input");
+								rkMagicRemoteServiceDevice.SetValue("LongClick", rkMagicRemoteServiceDevice.GetValue("TimeoutRightClick"), rkMagicRemoteServiceDevice.GetValueKind("TimeoutRightClick"));
+								rkMagicRemoteServiceDevice.DeleteValue("TimeoutRightClick");
+								rkMagicRemoteServiceDevice.DeleteValue("TimeoutScreensaver", false);
+							}
+						}
+					}
+				}
 				rkMagicRemoteService.SetValue("Version", vCurrent.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			}
 		}

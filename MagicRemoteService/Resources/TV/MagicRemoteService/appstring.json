@@ -38,16 +38,20 @@
 	
 	"strInputConnected": "Input connected",
 	"strInputDisconnected": "Input disconnected",
+	"strSocketOpened": "Connection to the server",
+	"strSocketClosed": "Disconnect from the server",
 
-	"strInputDisconect": "The remote computer appears to be turned off. Do you want to start it?",
-	"strInputDisconectStart": "Start",
-	"strInputDisconectWakeOnLanFailure": "The remote computer appears to be off and unresponsive to Wake on Lan or appears to be unplugged. Please check the proper functioning of Wake on Lan as well as the video connection",
-	"strSocketConnecting": "Connection to the server",
-	"strSocketConnectingTimeout": "The remote computer appears to be on but the service is not started or cannot be reached. Please check the proper functioning of the service on the remote computer as well as your network settings",
+	"strInputIndirectDisconnect": "The equipment wired to the video input appears to be off or unplugged. Please check the proper functioning of the wired equipment as well as the video connection.",
+	"strInputDirectDisconnect": "The remote computer appears to be turned off. Do you want to start it ?",
+	"strInputDirectDisconnectStart": "Start",
+	"strInputDirectDisconnectWakeOnLanFailure": "The remote computer appears to be off and unresponsive to Wake on Lan or appears to be unplugged. Please check the proper functioning of Wake on Lan as well as the video connection.",
+	"strSocketOpen": "The service is not started or cannot be reached. Do you want to try to start the remote computer ?",
+	"strSocketOpenStart": "Start",
+	"strSocketOpenTimeout": "The remote computer appears to be on but the service is not started or cannot be reached. Please check the proper functioning of the service on the remote computer as well as your network settings.",
+	"strSocketOpenTimeoutWakeOnLanFailure": "The service is not started or cannot be reached and the remote computer appears unresponsive to Wake on Lan. Please check the proper functioning of the service and Wake on Lan on the remote computer as well as your network settings.",
 	"strSocketErrorOpen": "Socket still open",
-	"strSocketErrorClosed": "Socket already closed",
-	"strSocketDisconnecting": "Disconnect from the server",
-	"strShutdownMessage": "Do you want to shutdown the remote computer?",
+	"strSocketErrorClose": "Socket already closed",
+	"strShutdownMessage": "Do you want to shutdown the remote computer ?",
 	"strShutdownShutdown": "Shutdown",
 	"strShutdownAbort": "Do nothing"
 }

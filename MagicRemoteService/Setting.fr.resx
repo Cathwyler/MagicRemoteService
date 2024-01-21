@@ -120,7 +120,11 @@
   <data name="btnClose.Text" xml:space="preserve">
     <value>Fermer</value>
   </data>
-  <data name="btnInspect.Text" xml:space="preserve">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="chkboxInputDirect.Text" xml:space="preserve">
+    <value>Câblage HDMI direct</value>
+  </data>
+  <data name="btnTVInspect.Text" xml:space="preserve">
     <value>Inspecter</value>
   </data>
   <data name="labDisplay.Text" xml:space="preserve">
@@ -162,8 +166,8 @@
   <data name="labInput.Text" xml:space="preserve">
     <value>Entrée de la TV</value>
   </data>
-  <data name="labTimeoutRightClick.Text" xml:space="preserve">
-    <value>Délai du click droit</value>
+  <data name="labLongClick.Text" xml:space="preserve">
+    <value>Délai du clique long</value>
   </data>
   <data name="chkboxStartup.Text" xml:space="preserve">
     <value>Lancer automatiquement au démarrage</value>

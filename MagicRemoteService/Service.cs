@@ -132,10 +132,10 @@ namespace MagicRemoteService {
 				this.bInactivity = (int)rkMagicRemoteService.GetValue("Inactivity", 1) != 0;
 				this.iTimeoutInactivity = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
 			}
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindMouse");
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindKeyboard");
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyBindAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\KeyBindAction");
-			if(rkMagicRemoteServiceKeyBindMouse == null && rkMagicRemoteServiceKeyBindKeyboard == null && rkMagicRemoteServiceKeyBindAction == null) {
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteMouse = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Mouse");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteKeyboard = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Keyboard");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteAction = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Action");
+			if(rkMagicRemoteServiceRemoteMouse == null && rkMagicRemoteServiceRemoteKeyboard == null && rkMagicRemoteServiceRemoteAction == null) {
 				this.dKeyBind[0x0001] = new BindMouse(BindMouseValue.Left);													//Click -> Left click
 				this.dKeyBind[0x0002] = new BindMouse(BindMouseValue.Right);												//Long click -> Right click
 				this.dKeyBind[0x0008] = new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false);				//BACKSPACE -> Keyboard Delete
@@ -156,27 +156,28 @@ namespace MagicRemoteService {
 				this.dKeyBind[0x019D] = new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false);			//Stop -> Stop
 			} else {
 				this.dKeyBind = new System.Collections.Generic.Dictionary<ushort, Bind>();
-				foreach(string sKey in rkMagicRemoteServiceKeyBindMouse.GetValueNames()) {
-					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceKeyBindMouse.GetValue(sKey, 0x0000));
+				foreach(string sKey in rkMagicRemoteServiceRemoteMouse.GetValueNames()) {
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceRemoteMouse.GetValue(sKey, 0x0000));
 				}
-				foreach(string sKey in rkMagicRemoteServiceKeyBindKeyboard.GetValueNames()) {
-					byte[] arrBind = (byte[])rkMagicRemoteServiceKeyBindKeyboard.GetValue(sKey, 0x000000);
+				foreach(string sKey in rkMagicRemoteServiceRemoteKeyboard.GetValueNames()) {
+					byte[] arrBind = (byte[])rkMagicRemoteServiceRemoteKeyboard.GetValue(sKey, 0x000000);
 					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindKeyboard(arrBind[0], arrBind[1], arrBind[2] == 0x01);
 				}
-				foreach(string sKey in rkMagicRemoteServiceKeyBindAction.GetValueNames()) {
-					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindAction((BindActionValue)(int)rkMagicRemoteServiceKeyBindAction.GetValue(sKey, 0x0000));
+				foreach(string sKey in rkMagicRemoteServiceRemoteAction.GetValueNames()) {
+					this.dKeyBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = new BindAction((BindActionValue)(int)rkMagicRemoteServiceRemoteAction.GetValue(sKey, 0x0000));
 				}
 			}
 			switch(this.stType) {
 				case ServiceType.Server:
 				case ServiceType.Both:
-					if(rkMagicRemoteService != null) {
-						this.tabExtend = System.Array.ConvertAll(System.Array.FindAll(rkMagicRemoteService.GetSubKeyNames(), delegate (string str) {
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + str);
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDeviceList = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Device");
+					if(rkMagicRemoteServiceDeviceList != null) {
+						this.tabExtend = System.Array.ConvertAll(System.Array.FindAll(rkMagicRemoteServiceDeviceList.GetSubKeyNames(), delegate (string str) {
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Device\\" + str);
 							return (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
 						}), new System.Converter<string, System.Timers.Timer>(delegate (string str) {
 
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\" + str);
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Device\\" + str);
 
 							System.Timers.Timer tExtend = new System.Timers.Timer {
 								AutoReset = false,
@@ -949,7 +950,7 @@ namespace MagicRemoteService {
 					if(wocdClient == null) {
 						uiDisplay = 0;
 					} else {
-						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\" + wocdClient.Name);
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Device\\" + wocdClient.Name);
 						if(rkMagicRemoteServiceDevice == null) {
 							uiDisplay = 0;
 						} else {

@@ -38,16 +38,20 @@
 	
 	"strInputConnected": "Entrada conectada",
 	"strInputDisconnected": "Entrada desconectada",
+	"strSocketOpened": "Conexión al servidor",
+	"strSocketClosed": "Desconectar del servidor",
 
-	"strInputDisconect": "El ordenador remoto parece estar apagado. Desea iniciarlo?",
-	"strInputDisconectStart": "Iniciar",
-	"strInputDisconectWakeOnLanFailure": "El ordenador remoto parece estar apagado y no responde al Wake on Lan o parece estar desconectado. Por favor compruebe el correcto funcionamiento de Wake on Lan así como la conexión de video",
-	"strSocketConnecting": "Conexión al servidor",
-	"strSocketConnectingTimeout": "El ordenador remoto parece estar encendido pero el servicio no se ha iniciado o no es posible usarlo. Por favor, compruebe el correcto funcionamiento del servicio en el ordenador remoto asi como su configuración de red",
+	"strInputIndirectDisconnect": "El equipo conectado a la entrada de vídeo parece estar apagado o desconectado. Compruebe el funcionamiento correcto del equipo cableado así como la conexión de vídeo.",
+	"strInputDirectDisconnect": "El ordenador remoto parece estar apagado. Desea iniciarlo ?",
+	"strInputDirectDisconnectStart": "Iniciar",
+	"strInputDirectDisconnectWakeOnLanFailure": "El ordenador remoto parece estar apagado y no responde al Wake on Lan o parece estar desconectado. Por favor, compruebe el correcto funcionamiento de Wake on Lan así como la conexión de vídeo.",
+	"strSocketOpen": "El servicio no se ha iniciado o no es posible usarlo. Desea intentar iniciar el ordenador remoto ?",
+	"strSocketOpenStart": "Iniciar",
+	"strSocketOpenTimeout": "El ordenador remoto parece estar encendido pero el servicio no se ha iniciado o no es posible usarlo. Por favor, compruebe el correcto funcionamiento del servicio en el ordenador remoto asi como su configuración de red.",
+	"strSocketOpenTimeoutWakeOnLanFailure": "El servicio no se ha iniciado o no es posible usarlo y el ordenador remoto parece no responde al Wake on Lan. Por favor, compruebe el correcto funcionamiento del servicio y de Wake on Lan en el ordenador remoto así como su configuración de red.",
 	"strSocketErrorOpen": "El zócalo sigue abierto",
-	"strSocketErrorClosed": "Se ha cerrado el zócalo",
-	"strSocketDisconnecting": "Desconectar del servidor",
-	"strShutdownMessage": "Desea apagar el ordenador remoto?",
+	"strSocketErrorClose": "Se ha cerrado el zócalo",
+	"strShutdownMessage": "Desea apagar el ordenador remoto ?",
 	"strShutdownShutdown": "Apagar",
 	"strShutdownAbort": "No hacer nada"
 }
