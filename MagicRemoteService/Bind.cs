@@ -66,4 +66,13 @@
 			}
 		}
 	}
+	public class BindCommand : Bind {
+		public readonly string strCommand;
+		public BindCommand(string _strCommand) {
+			this.strCommand = _strCommand;
+		}
+		public override string ToString() {
+			return this.strCommand;
+		}
+	}
 }

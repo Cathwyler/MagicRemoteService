@@ -29,7 +29,7 @@ namespace MagicRemoteService {
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.labIP = new System.Windows.Forms.Label();
 			this.labTVPort = new System.Windows.Forms.Label();
-			this.numboxSendPort = new System.Windows.Forms.NumericUpDown();
+			this.nbSendPort = new System.Windows.Forms.NumericUpDown();
 			this.labDescription = new System.Windows.Forms.Label();
 			this.tbDescription = new System.Windows.Forms.TextBox();
 			this.labUser = new System.Windows.Forms.Label();
@@ -53,8 +53,8 @@ namespace MagicRemoteService {
 			this.pnlUser = new System.Windows.Forms.Panel();
 			this.pnlPassword = new System.Windows.Forms.Panel();
 			this.cbAdvanced = new System.Windows.Forms.CheckBox();
-			this.ipadrboxIP = new MagicRemoteService.IPAddressBox();
-			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
+			this.iabIP = new MagicRemoteService.IPAddressBox();
+			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
 			this.tlpTV.SuspendLayout();
 			this.pnlPrivateKey.SuspendLayout();
 			this.pnlPassphrase.SuspendLayout();
@@ -91,16 +91,16 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.labTVPort, "labTVPort");
 			this.labTVPort.Name = "labTVPort";
 			// 
-			// numboxSendPort
+			// nbSendPort
 			// 
-			resources.ApplyResources(this.numboxSendPort, "numboxSendPort");
-			this.numboxSendPort.Maximum = new decimal(new int[] {
+			resources.ApplyResources(this.nbSendPort, "nbSendPort");
+			this.nbSendPort.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
-			this.numboxSendPort.Name = "numboxSendPort";
-			this.numboxSendPort.ValueChanged += new System.EventHandler(this.SendPort_ValueChanged);
+			this.nbSendPort.Name = "nbSendPort";
+			this.nbSendPort.ValueChanged += new System.EventHandler(this.SendPort_ValueChanged);
 			// 
 			// labDescription
 			// 
@@ -219,14 +219,14 @@ namespace MagicRemoteService {
 			// pnlIP
 			// 
 			this.pnlIP.Controls.Add(this.labIP);
-			this.pnlIP.Controls.Add(this.ipadrboxIP);
+			this.pnlIP.Controls.Add(this.iabIP);
 			resources.ApplyResources(this.pnlIP, "pnlIP");
 			this.pnlIP.Name = "pnlIP";
 			// 
 			// pnlPort
 			// 
 			this.pnlPort.Controls.Add(this.labTVPort);
-			this.pnlPort.Controls.Add(this.numboxSendPort);
+			this.pnlPort.Controls.Add(this.nbSendPort);
 			resources.ApplyResources(this.pnlPort, "pnlPort");
 			this.pnlPort.Name = "pnlPort";
 			// 
@@ -251,15 +251,15 @@ namespace MagicRemoteService {
 			this.cbAdvanced.UseVisualStyleBackColor = true;
 			this.cbAdvanced.CheckedChanged += new System.EventHandler(this.Advanced_CheckedChanged);
 			// 
-			// ipadrboxIP
+			// iabIP
 			// 
-			this.ipadrboxIP.BackColor = System.Drawing.SystemColors.Window;
-			this.ipadrboxIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ipadrboxIP.ForeColor = System.Drawing.SystemColors.WindowText;
-			resources.ApplyResources(this.ipadrboxIP, "ipadrboxIP");
-			this.ipadrboxIP.Name = "ipadrboxIP";
-			this.ipadrboxIP.Value = null;
-			this.ipadrboxIP.ehValueChanged += new System.EventHandler(this.IP_ValueChanged);
+			this.iabIP.BackColor = System.Drawing.SystemColors.Window;
+			this.iabIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.iabIP.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.iabIP, "iabIP");
+			this.iabIP.Name = "iabIP";
+			this.iabIP.Value = null;
+			this.iabIP.ehValueChanged += new System.EventHandler(this.IP_ValueChanged);
 			// 
 			// TVAdder
 			// 
@@ -275,7 +275,7 @@ namespace MagicRemoteService {
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "TVAdder";
-			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).EndInit();
 			this.tlpTV.ResumeLayout(false);
 			this.tlpTV.PerformLayout();
 			this.pnlPrivateKey.ResumeLayout(false);
@@ -304,8 +304,8 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Label labIP;
 		private System.Windows.Forms.Label labTVPort;
-		private System.Windows.Forms.NumericUpDown numboxSendPort;
-		private IPAddressBox ipadrboxIP;
+		private System.Windows.Forms.NumericUpDown nbSendPort;
+		private IPAddressBox iabIP;
 		private System.Windows.Forms.Label labDescription;
 		private System.Windows.Forms.TextBox tbDescription;
 		private System.Windows.Forms.Label labUser;

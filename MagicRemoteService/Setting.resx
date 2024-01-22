@@ -156,34 +156,34 @@
   <data name="tabSetting.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="chkboxInputDirect.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cbInputDirect.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkboxInputDirect.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="cbInputDirect.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="chkboxInputDirect.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cbInputDirect.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 218</value>
   </data>
-  <data name="chkboxInputDirect.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cbInputDirect.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 17</value>
   </data>
-  <data name="chkboxInputDirect.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbInputDirect.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
   </data>
-  <data name="chkboxInputDirect.Text" xml:space="preserve">
+  <data name="cbInputDirect.Text" xml:space="preserve">
     <value>Direct HDMI wiring</value>
   </data>
-  <data name="&gt;&gt;chkboxInputDirect.Name" xml:space="preserve">
-    <value>chkboxInputDirect</value>
+  <data name="&gt;&gt;cbInputDirect.Name" xml:space="preserve">
+    <value>cbInputDirect</value>
   </data>
-  <data name="&gt;&gt;chkboxInputDirect.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbInputDirect.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkboxInputDirect.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbInputDirect.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;chkboxInputDirect.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbInputDirect.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="btnTVInspect.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -243,25 +243,25 @@
   <data name="&gt;&gt;labDisplay.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="cmbboxDisplay.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cbbDisplay.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 61</value>
   </data>
-  <data name="cmbboxDisplay.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cbbDisplay.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
   </data>
-  <data name="cmbboxDisplay.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbbDisplay.TabIndex" type="System.Int32, mscorlib">
     <value>56</value>
   </data>
-  <data name="&gt;&gt;cmbboxDisplay.Name" xml:space="preserve">
-    <value>cmbboxDisplay</value>
+  <data name="&gt;&gt;cbbDisplay.Name" xml:space="preserve">
+    <value>cbbDisplay</value>
   </data>
-  <data name="&gt;&gt;cmbboxDisplay.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbbDisplay.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cmbboxDisplay.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbbDisplay.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;cmbboxDisplay.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbbDisplay.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="btnTVRemove.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -345,34 +345,34 @@
   <data name="&gt;&gt;btnTVAdd.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="chkboxExtend.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cbExtend.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkboxExtend.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="cbExtend.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="chkboxExtend.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cbExtend.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 241</value>
   </data>
-  <data name="chkboxExtend.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cbExtend.Size" type="System.Drawing.Size, System.Drawing">
     <value>251, 17</value>
   </data>
-  <data name="chkboxExtend.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbExtend.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
   </data>
-  <data name="chkboxExtend.Text" xml:space="preserve">
+  <data name="cbExtend.Text" xml:space="preserve">
     <value>Automatically extend developer mode every day</value>
   </data>
-  <data name="&gt;&gt;chkboxExtend.Name" xml:space="preserve">
-    <value>chkboxExtend</value>
+  <data name="&gt;&gt;cbExtend.Name" xml:space="preserve">
+    <value>cbExtend</value>
   </data>
-  <data name="&gt;&gt;chkboxExtend.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbExtend.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkboxExtend.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbExtend.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;chkboxExtend.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbExtend.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="labTV.AutoSize" type="System.Boolean, mscorlib">
@@ -405,82 +405,82 @@
   <data name="&gt;&gt;labTV.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="ipadrboxSendIP.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="iabSendIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 88</value>
   </data>
-  <data name="ipadrboxSendIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="iabSendIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="ipadrboxSendIP.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="iabSendIP.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>142, 20</value>
   </data>
-  <data name="ipadrboxSendIP.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="iabSendIP.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 20</value>
   </data>
-  <data name="ipadrboxSendIP.TabIndex" type="System.Int32, mscorlib">
+  <data name="iabSendIP.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSendIP.Name" xml:space="preserve">
-    <value>ipadrboxSendIP</value>
+  <data name="&gt;&gt;iabSendIP.Name" xml:space="preserve">
+    <value>iabSendIP</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSendIP.Type" xml:space="preserve">
+  <data name="&gt;&gt;iabSendIP.Type" xml:space="preserve">
     <value>MagicRemoteService.IPAddressBox, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSendIP.Parent" xml:space="preserve">
+  <data name="&gt;&gt;iabSendIP.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSendIP.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;iabSendIP.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="numboxSendPort.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="nbSendPort.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 114</value>
   </data>
-  <data name="numboxSendPort.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="nbSendPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="numboxSendPort.TabIndex" type="System.Int32, mscorlib">
+  <data name="nbSendPort.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.Name" xml:space="preserve">
-    <value>numboxSendPort</value>
+  <data name="&gt;&gt;nbSendPort.Name" xml:space="preserve">
+    <value>nbSendPort</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.Type" xml:space="preserve">
+  <data name="&gt;&gt;nbSendPort.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.Parent" xml:space="preserve">
+  <data name="&gt;&gt;nbSendPort.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;nbSendPort.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="phyadrboxPCMac.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+  <data name="pabPCMac.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="phyadrboxPCMac.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="pabPCMac.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 166</value>
   </data>
-  <data name="phyadrboxPCMac.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="pabPCMac.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="phyadrboxPCMac.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="pabPCMac.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>152, 20</value>
   </data>
-  <data name="phyadrboxPCMac.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="pabPCMac.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 20</value>
   </data>
-  <data name="phyadrboxPCMac.TabIndex" type="System.Int32, mscorlib">
+  <data name="pabPCMac.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
   </data>
-  <data name="&gt;&gt;phyadrboxPCMac.Name" xml:space="preserve">
-    <value>phyadrboxPCMac</value>
+  <data name="&gt;&gt;pabPCMac.Name" xml:space="preserve">
+    <value>pabPCMac</value>
   </data>
-  <data name="&gt;&gt;phyadrboxPCMac.Type" xml:space="preserve">
+  <data name="&gt;&gt;pabPCMac.Type" xml:space="preserve">
     <value>MagicRemoteService.PhysicalAddressBox, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;phyadrboxPCMac.Parent" xml:space="preserve">
+  <data name="&gt;&gt;pabPCMac.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;phyadrboxPCMac.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;pabPCMac.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
   <data name="labTVPort.AutoSize" type="System.Boolean, mscorlib">
@@ -513,31 +513,31 @@
   <data name="&gt;&gt;labTVPort.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="ipadrboxSubnetMask.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="iabSubnetMask.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 140</value>
   </data>
-  <data name="ipadrboxSubnetMask.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="iabSubnetMask.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="ipadrboxSubnetMask.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="iabSubnetMask.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>142, 20</value>
   </data>
-  <data name="ipadrboxSubnetMask.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="iabSubnetMask.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 20</value>
   </data>
-  <data name="ipadrboxSubnetMask.TabIndex" type="System.Int32, mscorlib">
+  <data name="iabSubnetMask.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSubnetMask.Name" xml:space="preserve">
-    <value>ipadrboxSubnetMask</value>
+  <data name="&gt;&gt;iabSubnetMask.Name" xml:space="preserve">
+    <value>iabSubnetMask</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSubnetMask.Type" xml:space="preserve">
+  <data name="&gt;&gt;iabSubnetMask.Type" xml:space="preserve">
     <value>MagicRemoteService.IPAddressBox, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSubnetMask.Parent" xml:space="preserve">
+  <data name="&gt;&gt;iabSubnetMask.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;ipadrboxSubnetMask.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;iabSubnetMask.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
   <data name="btnTVInstall.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -774,67 +774,67 @@
   <data name="&gt;&gt;labLongClick.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  <data name="numboxLongClick.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="nbLongClick.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 192</value>
   </data>
-  <data name="numboxLongClick.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="nbLongClick.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="numboxLongClick.TabIndex" type="System.Int32, mscorlib">
+  <data name="nbLongClick.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
   </data>
-  <data name="&gt;&gt;numboxLongClick.Name" xml:space="preserve">
-    <value>numboxLongClick</value>
+  <data name="&gt;&gt;nbLongClick.Name" xml:space="preserve">
+    <value>nbLongClick</value>
   </data>
-  <data name="&gt;&gt;numboxLongClick.Type" xml:space="preserve">
+  <data name="&gt;&gt;nbLongClick.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numboxLongClick.Parent" xml:space="preserve">
+  <data name="&gt;&gt;nbLongClick.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;numboxLongClick.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;nbLongClick.ZOrder" xml:space="preserve">
     <value>22</value>
   </data>
-  <data name="cmbboxInput.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cbbInput.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 34</value>
   </data>
-  <data name="cmbboxInput.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cbbInput.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
   </data>
-  <data name="cmbboxInput.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbbInput.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
-  <data name="&gt;&gt;cmbboxInput.Name" xml:space="preserve">
-    <value>cmbboxInput</value>
+  <data name="&gt;&gt;cbbInput.Name" xml:space="preserve">
+    <value>cbbInput</value>
   </data>
-  <data name="&gt;&gt;cmbboxInput.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbbInput.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cmbboxInput.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbbInput.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;cmbboxInput.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbbInput.ZOrder" xml:space="preserve">
     <value>23</value>
   </data>
-  <data name="cmbboxTV.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cbbTV.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 7</value>
   </data>
-  <data name="cmbboxTV.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cbbTV.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
   </data>
-  <data name="cmbboxTV.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbbTV.TabIndex" type="System.Int32, mscorlib">
     <value>41</value>
   </data>
-  <data name="&gt;&gt;cmbboxTV.Name" xml:space="preserve">
-    <value>cmbboxTV</value>
+  <data name="&gt;&gt;cbbTV.Name" xml:space="preserve">
+    <value>cbbTV</value>
   </data>
-  <data name="&gt;&gt;cmbboxTV.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbbTV.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cmbboxTV.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbbTV.Parent" xml:space="preserve">
     <value>tabTV</value>
   </data>
-  <data name="&gt;&gt;cmbboxTV.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbbTV.ZOrder" xml:space="preserve">
     <value>24</value>
   </data>
   <data name="tabTV.Location" type="System.Drawing.Point, System.Drawing">
@@ -864,34 +864,34 @@
   <data name="&gt;&gt;tabTV.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="chkboxStartup.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cbStartup.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkboxStartup.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="cbStartup.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="chkboxStartup.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cbStartup.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 82</value>
   </data>
-  <data name="chkboxStartup.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cbStartup.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 17</value>
   </data>
-  <data name="chkboxStartup.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbStartup.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
   </data>
-  <data name="chkboxStartup.Text" xml:space="preserve">
+  <data name="cbStartup.Text" xml:space="preserve">
     <value>Automatically launch at startup</value>
   </data>
-  <data name="&gt;&gt;chkboxStartup.Name" xml:space="preserve">
-    <value>chkboxStartup</value>
+  <data name="&gt;&gt;cbStartup.Name" xml:space="preserve">
+    <value>cbStartup</value>
   </data>
-  <data name="&gt;&gt;chkboxStartup.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbStartup.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkboxStartup.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbStartup.Parent" xml:space="preserve">
     <value>tabPC</value>
   </data>
-  <data name="&gt;&gt;chkboxStartup.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbStartup.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="labPCPort.AutoSize" type="System.Boolean, mscorlib">
@@ -951,76 +951,76 @@
   <data name="&gt;&gt;btnPCSave.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="numboxListenPort.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="nbListenPort.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 7</value>
   </data>
-  <data name="numboxListenPort.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="nbListenPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="numboxListenPort.TabIndex" type="System.Int32, mscorlib">
+  <data name="nbListenPort.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
   </data>
-  <data name="&gt;&gt;numboxListenPort.Name" xml:space="preserve">
-    <value>numboxListenPort</value>
+  <data name="&gt;&gt;nbListenPort.Name" xml:space="preserve">
+    <value>nbListenPort</value>
   </data>
-  <data name="&gt;&gt;numboxListenPort.Type" xml:space="preserve">
+  <data name="&gt;&gt;nbListenPort.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numboxListenPort.Parent" xml:space="preserve">
+  <data name="&gt;&gt;nbListenPort.Parent" xml:space="preserve">
     <value>tabPC</value>
   </data>
-  <data name="&gt;&gt;numboxListenPort.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;nbListenPort.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="chkboxInactivity.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cbInactivity.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkboxInactivity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="cbInactivity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="chkboxInactivity.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cbInactivity.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 33</value>
   </data>
-  <data name="chkboxInactivity.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cbInactivity.Size" type="System.Drawing.Size, System.Drawing">
     <value>278, 17</value>
   </data>
-  <data name="chkboxInactivity.TabIndex" type="System.Int32, mscorlib">
+  <data name="cbInactivity.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
-  <data name="chkboxInactivity.Text" xml:space="preserve">
+  <data name="cbInactivity.Text" xml:space="preserve">
     <value>Automatically turn off the computer when the TV is on</value>
   </data>
-  <data name="&gt;&gt;chkboxInactivity.Name" xml:space="preserve">
-    <value>chkboxInactivity</value>
+  <data name="&gt;&gt;cbInactivity.Name" xml:space="preserve">
+    <value>cbInactivity</value>
   </data>
-  <data name="&gt;&gt;chkboxInactivity.Type" xml:space="preserve">
+  <data name="&gt;&gt;cbInactivity.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkboxInactivity.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cbInactivity.Parent" xml:space="preserve">
     <value>tabPC</value>
   </data>
-  <data name="&gt;&gt;chkboxInactivity.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cbInactivity.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="numboxTimeoutInactivity.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="nbTimeoutInactivity.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 56</value>
   </data>
-  <data name="numboxTimeoutInactivity.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="nbTimeoutInactivity.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="numboxTimeoutInactivity.TabIndex" type="System.Int32, mscorlib">
+  <data name="nbTimeoutInactivity.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
-  <data name="&gt;&gt;numboxTimeoutInactivity.Name" xml:space="preserve">
-    <value>numboxTimeoutInactivity</value>
+  <data name="&gt;&gt;nbTimeoutInactivity.Name" xml:space="preserve">
+    <value>nbTimeoutInactivity</value>
   </data>
-  <data name="&gt;&gt;numboxTimeoutInactivity.Type" xml:space="preserve">
+  <data name="&gt;&gt;nbTimeoutInactivity.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numboxTimeoutInactivity.Parent" xml:space="preserve">
+  <data name="&gt;&gt;nbTimeoutInactivity.Parent" xml:space="preserve">
     <value>tabPC</value>
   </data>
-  <data name="&gt;&gt;numboxTimeoutInactivity.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;nbTimeoutInactivity.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="labTimeoutIncativity.AutoSize" type="System.Boolean, mscorlib">

@@ -144,7 +144,7 @@
     <value>pnlBind</value>
   </data>
   <data name="&gt;&gt;selBindMouse.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="selBindKeyboard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -171,7 +171,7 @@
     <value>pnlBind</value>
   </data>
   <data name="&gt;&gt;selBindKeyboard.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="selBindAction.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -198,13 +198,44 @@
     <value>pnlBind</value>
   </data>
   <data name="&gt;&gt;selBindAction.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
+  </data>
+  <data name="selBindCommand.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="selBindCommand.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="selBindCommand.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 3</value>
+  </data>
+  <data name="selBindCommand.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 17</value>
+  </data>
+  <data name="selBindCommand.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="selBindCommand.Text" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="&gt;&gt;selBindCommand.Name" xml:space="preserve">
+    <value>selBindCommand</value>
+  </data>
+  <data name="&gt;&gt;selBindCommand.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;selBindCommand.Parent" xml:space="preserve">
+    <value>pnlBind</value>
+  </data>
+  <data name="&gt;&gt;selBindCommand.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="pnlBind.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
   </data>
   <data name="pnlBind.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
+    <value>275, 23</value>
   </data>
   <data name="pnlBind.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -221,75 +252,11 @@
   <data name="&gt;&gt;pnlBind.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;selMouseRight.Name" xml:space="preserve">
-    <value>selMouseRight</value>
-  </data>
-  <data name="&gt;&gt;selMouseRight.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;selMouseRight.Parent" xml:space="preserve">
-    <value>pnlMouse</value>
-  </data>
-  <data name="&gt;&gt;selMouseRight.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;selMouseMiddle.Name" xml:space="preserve">
-    <value>selMouseMiddle</value>
-  </data>
-  <data name="&gt;&gt;selMouseMiddle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;selMouseMiddle.Parent" xml:space="preserve">
-    <value>pnlMouse</value>
-  </data>
-  <data name="&gt;&gt;selMouseMiddle.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;selMouseLeft.Name" xml:space="preserve">
-    <value>selMouseLeft</value>
-  </data>
-  <data name="&gt;&gt;selMouseLeft.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;selMouseLeft.Parent" xml:space="preserve">
-    <value>pnlMouse</value>
-  </data>
-  <data name="&gt;&gt;selMouseLeft.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="pnlMouse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pnlMouse.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="pnlMouse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
-  </data>
-  <data name="pnlMouse.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="pnlMouse.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;pnlMouse.Name" xml:space="preserve">
-    <value>pnlMouse</value>
-  </data>
-  <data name="&gt;&gt;pnlMouse.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pnlMouse.Parent" xml:space="preserve">
-    <value>tlpBind</value>
-  </data>
-  <data name="&gt;&gt;pnlMouse.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="selMouseRight.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="selMouseRight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 3</value>
+    <value>168, 3</value>
   </data>
   <data name="selMouseRight.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 17</value>
@@ -315,8 +282,11 @@
   <data name="selMouseMiddle.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="selMouseMiddle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="selMouseMiddle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 3</value>
+    <value>106, 3</value>
   </data>
   <data name="selMouseMiddle.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 17</value>
@@ -343,7 +313,7 @@
     <value>True</value>
   </data>
   <data name="selMouseLeft.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>57, 3</value>
   </data>
   <data name="selMouseLeft.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 17</value>
@@ -366,6 +336,33 @@
   <data name="&gt;&gt;selMouseLeft.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="pnlMouse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="pnlMouse.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="pnlMouse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 23</value>
+  </data>
+  <data name="pnlMouse.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="pnlMouse.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;pnlMouse.Name" xml:space="preserve">
+    <value>pnlMouse</value>
+  </data>
+  <data name="&gt;&gt;pnlMouse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlMouse.Parent" xml:space="preserve">
+    <value>tlpBind</value>
+  </data>
+  <data name="&gt;&gt;pnlMouse.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="libKeyboard.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 23</value>
   </data>
@@ -373,7 +370,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="libKeyboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
+    <value>275, 23</value>
   </data>
   <data name="libKeyboard.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -399,62 +396,11 @@
   <data name="&gt;&gt;libKeyboard.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;selActionKeyboard.Name" xml:space="preserve">
-    <value>selActionKeyboard</value>
-  </data>
-  <data name="&gt;&gt;selActionKeyboard.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;selActionKeyboard.Parent" xml:space="preserve">
-    <value>pnlAction</value>
-  </data>
-  <data name="&gt;&gt;selActionKeyboard.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;selActionShutdown.Name" xml:space="preserve">
-    <value>selActionShutdown</value>
-  </data>
-  <data name="&gt;&gt;selActionShutdown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;selActionShutdown.Parent" xml:space="preserve">
-    <value>pnlAction</value>
-  </data>
-  <data name="&gt;&gt;selActionShutdown.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="pnlAction.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 46</value>
-  </data>
-  <data name="pnlAction.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="pnlAction.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
-  </data>
-  <data name="pnlAction.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="pnlAction.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;pnlAction.Name" xml:space="preserve">
-    <value>pnlAction</value>
-  </data>
-  <data name="&gt;&gt;pnlAction.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pnlAction.Parent" xml:space="preserve">
-    <value>tlpBind</value>
-  </data>
-  <data name="&gt;&gt;pnlAction.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="selActionKeyboard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="selActionKeyboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 3</value>
+    <value>142, 3</value>
   </data>
   <data name="selActionKeyboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 17</value>
@@ -481,7 +427,7 @@
     <value>True</value>
   </data>
   <data name="selActionShutdown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>63, 3</value>
   </data>
   <data name="selActionShutdown.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 17</value>
@@ -504,8 +450,35 @@
   <data name="&gt;&gt;selActionShutdown.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="pnlAction.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 46</value>
+  </data>
+  <data name="pnlAction.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="pnlAction.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 23</value>
+  </data>
+  <data name="pnlAction.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="pnlAction.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;pnlAction.Name" xml:space="preserve">
+    <value>pnlAction</value>
+  </data>
+  <data name="&gt;&gt;pnlAction.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlAction.Parent" xml:space="preserve">
+    <value>tlpBind</value>
+  </data>
+  <data name="&gt;&gt;pnlAction.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>137, 70</value>
+    <value>212, 70</value>
   </data>
   <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -532,7 +505,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnConfirm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>56, 70</value>
+    <value>131, 70</value>
   </data>
   <data name="btnConfirm.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -558,14 +531,62 @@
   <data name="tlpBind.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <data name="tbCommand.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 1</value>
+  </data>
+  <data name="tbCommand.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="tbCommand.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 20</value>
+  </data>
+  <data name="tbCommand.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tbCommand.Name" xml:space="preserve">
+    <value>tbCommand</value>
+  </data>
+  <data name="&gt;&gt;tbCommand.Type" xml:space="preserve">
+    <value>System.Windows.Forms.tb, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbCommand.Parent" xml:space="preserve">
+    <value>pnlCommand</value>
+  </data>
+  <data name="&gt;&gt;tbCommand.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnlCommand.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 69</value>
+  </data>
+  <data name="pnlCommand.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="pnlCommand.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 23</value>
+  </data>
+  <data name="pnlCommand.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;pnlCommand.Name" xml:space="preserve">
+    <value>pnlCommand</value>
+  </data>
+  <data name="&gt;&gt;pnlCommand.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlCommand.Parent" xml:space="preserve">
+    <value>tlpBind</value>
+  </data>
+  <data name="&gt;&gt;pnlCommand.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="tlpBind.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 41</value>
   </data>
   <data name="tlpBind.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="tlpBind.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
+    <value>275, 23</value>
   </data>
   <data name="tlpBind.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -583,7 +604,7 @@
     <value>0</value>
   </data>
   <data name="tlpBind.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="libKeyboard" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlAction" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlMouse" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="libKeyboard" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlAction" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlMouse" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pnlCommand" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -592,7 +613,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>224, 105</value>
+    <value>299, 105</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

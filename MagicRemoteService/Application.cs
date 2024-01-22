@@ -43,28 +43,12 @@ namespace MagicRemoteService {
 			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService");
 			System.Version vRegistry = new System.Version((string)rkMagicRemoteService.GetValue("Version", "0.0.0.0"));
 			if(vRegistry != vCurrent) {
-				if(vRegistry < new System.Version("1.2.2.10")) {
+				if(vRegistry < new System.Version("1.2.3.0")) {
 					rkMagicRemoteService.DeleteSubKey("KeyBindMouse", false);
 					rkMagicRemoteService.DeleteSubKey("KeyBindKeyboard", false);
 					rkMagicRemoteService.DeleteSubKey("KeyBindAction", false);
-				}
-				if(vRegistry < new System.Version("1.2.3.0")) {
 					foreach(string strSubKey in rkMagicRemoteService.GetSubKeyNames()) {
-						string strNewSubKey;
-						switch(strSubKey) {
-							case "KeyBindMouse":
-								strNewSubKey = "Remote\\Mouse";
-								break;
-							case "KeyBindKeyboard":
-								strNewSubKey = "Remote\\Keyboard";
-								break;
-							case "KeyBindAction":
-								strNewSubKey = "Remote\\Action";
-								break;
-							default:
-								strNewSubKey = "Device\\" + strSubKey;
-								break;
-						}
+						string strNewSubKey = "Device\\" + strSubKey;
 						Microsoft.Win32.RegistryKey rkMagicRemoteServiceSubKey = rkMagicRemoteService.OpenSubKey(strSubKey);
 						Microsoft.Win32.RegistryKey rkMagicRemoteServiceNewSubKey = rkMagicRemoteService.CreateSubKey(strNewSubKey);
 
@@ -86,30 +70,6 @@ namespace MagicRemoteService {
 								rkMagicRemoteServiceDevice.DeleteValue("TimeoutRightClick");
 								rkMagicRemoteServiceDevice.DeleteValue("TimeoutScreensaver", false);
 							}
-						}
-					}
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceMouse = rkMagicRemoteService.OpenSubKey("Remote\\Mouse", true);
-					if(rkMagicRemoteServiceMouse != null) {
-						foreach(string sKey in rkMagicRemoteServiceMouse.GetValueNames()) {
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceMouseKey = rkMagicRemoteServiceMouse.CreateSubKey(sKey);
-							rkMagicRemoteServiceMouseKey.SetValue("1", System.BitConverter.GetBytes((ushort)(int)rkMagicRemoteServiceMouse.GetValue(sKey)), Microsoft.Win32.RegistryValueKind.Binary);
-							rkMagicRemoteServiceMouse.DeleteValue(sKey);
-						}
-					}
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyboard = rkMagicRemoteService.OpenSubKey("Remote\\Keyboard", true);
-					if(rkMagicRemoteServiceKeyboard != null) {
-						foreach(string sKey in rkMagicRemoteServiceKeyboard.GetValueNames()) {
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceKeyboardKey = rkMagicRemoteServiceKeyboard.CreateSubKey(sKey);
-							rkMagicRemoteServiceKeyboardKey.SetValue("1", rkMagicRemoteServiceKeyboard.GetValue(sKey), Microsoft.Win32.RegistryValueKind.Binary);
-							rkMagicRemoteServiceKeyboard.DeleteValue(sKey);
-						}
-					}
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceAction = rkMagicRemoteService.OpenSubKey("Remote\\Action", true);
-					if(rkMagicRemoteServiceAction != null) {
-						foreach(string sKey in rkMagicRemoteServiceAction.GetValueNames()) {
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceActionKey = rkMagicRemoteServiceAction.CreateSubKey(sKey);
-							rkMagicRemoteServiceActionKey.SetValue("1", new byte[] { (byte)(int)rkMagicRemoteServiceAction.GetValue(sKey) }, Microsoft.Win32.RegistryValueKind.Binary);
-							rkMagicRemoteServiceAction.DeleteValue(sKey);
 						}
 					}
 				}

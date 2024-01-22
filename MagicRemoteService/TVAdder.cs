@@ -39,8 +39,8 @@ namespace MagicRemoteService {
 				this.cbAdvanced.Checked = false;
 				this.tbName.Text = this.wocdDevice.Name;
 				this.tbDescription.Text = this.wocdDevice.DeviceDetail.Description;
-				this.ipadrboxIP.Value = this.wocdDevice.DeviceInfo.IP;
-				this.numboxSendPort.Value = this.wocdDevice.DeviceInfo.Port;
+				this.iabIP.Value = this.wocdDevice.DeviceInfo.IP;
+				this.nbSendPort.Value = this.wocdDevice.DeviceInfo.Port;
 				this.tbUser.Text = this.wocdDevice.DeviceInfo.User;
 				this.tbPrivateKey.Text = this.wocdDevice.DeviceDetail.PrivateKey;
 				this.tbPassphrase.Text = this.wocdDevice.DeviceDetail.Passphrase;
@@ -48,8 +48,8 @@ namespace MagicRemoteService {
 				this.cbAdvanced.Checked = true;
 				this.tbName.Text = wocdDevice.Name;
 				this.tbDescription.Text = wocdDevice.DeviceDetail.Description;
-				this.ipadrboxIP.Value = wocdDevice.DeviceInfo.IP;
-				this.numboxSendPort.Value = wocdDevice.DeviceInfo.Port;
+				this.iabIP.Value = wocdDevice.DeviceInfo.IP;
+				this.nbSendPort.Value = wocdDevice.DeviceInfo.Port;
 				this.tbUser.Text = wocdDevice.DeviceInfo.User;
 				this.tbPrivateKey.Text = wocdDevice.DeviceDetail.PrivateKey;
 				this.tbPassphrase.Text = wocdDevice.DeviceDetail.Passphrase;
@@ -75,12 +75,12 @@ namespace MagicRemoteService {
 		}
 
 		private void IP_ValueChanged(object sender, System.EventArgs e) {
-			this.wocdDevice.DeviceInfo.IP = this.ipadrboxIP.Value;
+			this.wocdDevice.DeviceInfo.IP = this.iabIP.Value;
 		}
 
 		private void SendPort_ValueChanged(object sender, System.EventArgs e) {
 			if(this.cbAdvanced.Checked) {
-				this.wocdDevice.DeviceInfo.Port = (ushort)this.numboxSendPort.Value;
+				this.wocdDevice.DeviceInfo.Port = (ushort)this.nbSendPort.Value;
 			}
 		}
 
@@ -121,7 +121,7 @@ namespace MagicRemoteService {
 				this.wocdDevice.DeviceDetail.PrivateKey = "";
 			} else {
 				this.wocdDevice.DeviceDetail.Description = this.tbDescription.Text;
-				this.wocdDevice.DeviceInfo.Port = (ushort)this.numboxSendPort.Value;
+				this.wocdDevice.DeviceInfo.Port = (ushort)this.nbSendPort.Value;
 				this.wocdDevice.DeviceInfo.User = this.tbUser.Text;
 				this.wocdDevice.DeviceDetail.PrivateKey = this.tbPrivateKey.Text;
 			}

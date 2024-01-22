@@ -29,6 +29,7 @@ namespace MagicRemoteService {
 			this.selBindKeyboard = new System.Windows.Forms.RadioButton();
 			this.selBindAction = new System.Windows.Forms.RadioButton();
 			this.pnlBind = new System.Windows.Forms.Panel();
+			this.selBindCommand = new System.Windows.Forms.RadioButton();
 			this.pnlMouse = new System.Windows.Forms.Panel();
 			this.selMouseRight = new System.Windows.Forms.RadioButton();
 			this.selMouseMiddle = new System.Windows.Forms.RadioButton();
@@ -40,10 +41,13 @@ namespace MagicRemoteService {
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnConfirm = new System.Windows.Forms.Button();
 			this.tlpBind = new System.Windows.Forms.TableLayoutPanel();
+			this.pnlCommand = new System.Windows.Forms.Panel();
+			this.tbCommand = new System.Windows.Forms.TextBox();
 			this.pnlBind.SuspendLayout();
 			this.pnlMouse.SuspendLayout();
 			this.pnlAction.SuspendLayout();
 			this.tlpBind.SuspendLayout();
+			this.pnlCommand.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// selBindMouse
@@ -69,11 +73,19 @@ namespace MagicRemoteService {
 			// 
 			// pnlBind
 			// 
+			this.pnlBind.Controls.Add(this.selBindCommand);
 			this.pnlBind.Controls.Add(this.selBindMouse);
 			this.pnlBind.Controls.Add(this.selBindAction);
 			this.pnlBind.Controls.Add(this.selBindKeyboard);
 			resources.ApplyResources(this.pnlBind, "pnlBind");
 			this.pnlBind.Name = "pnlBind";
+			// 
+			// selBindCommand
+			// 
+			resources.ApplyResources(this.selBindCommand, "selBindCommand");
+			this.selBindCommand.Name = "selBindCommand";
+			this.selBindCommand.UseVisualStyleBackColor = true;
+			this.selBindCommand.CheckedChanged += new System.EventHandler(this.BindCommand_CheckedChanged);
 			// 
 			// pnlMouse
 			// 
@@ -156,7 +168,20 @@ namespace MagicRemoteService {
 			this.tlpBind.Controls.Add(this.libKeyboard, 0, 1);
 			this.tlpBind.Controls.Add(this.pnlAction, 0, 2);
 			this.tlpBind.Controls.Add(this.pnlMouse, 0, 0);
+			this.tlpBind.Controls.Add(this.pnlCommand, 0, 3);
 			this.tlpBind.Name = "tlpBind";
+			// 
+			// pnlCommand
+			// 
+			this.pnlCommand.Controls.Add(this.tbCommand);
+			resources.ApplyResources(this.pnlCommand, "pnlCommand");
+			this.pnlCommand.Name = "pnlCommand";
+			// 
+			// tbCommand
+			// 
+			resources.ApplyResources(this.tbCommand, "tbCommand");
+			this.tbCommand.Name = "tbCommand";
+			this.tbCommand.TextChanged += new System.EventHandler(this.Command_TextChanged);
 			// 
 			// BindCreator
 			// 
@@ -180,6 +205,8 @@ namespace MagicRemoteService {
 			this.pnlAction.ResumeLayout(false);
 			this.pnlAction.PerformLayout();
 			this.tlpBind.ResumeLayout(false);
+			this.pnlCommand.ResumeLayout(false);
+			this.pnlCommand.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -201,5 +228,8 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnConfirm;
 		private System.Windows.Forms.TableLayoutPanel tlpBind;
+		private System.Windows.Forms.Panel pnlCommand;
+		private System.Windows.Forms.RadioButton selBindCommand;
+		private System.Windows.Forms.TextBox tbCommand;
 	}
 }

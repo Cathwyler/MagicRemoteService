@@ -30,20 +30,20 @@ namespace MagicRemoteService {
 			this.ttFormating = new System.Windows.Forms.ToolTip(this.components);
 			this.tabSetting = new System.Windows.Forms.TabControl();
 			this.tabTV = new System.Windows.Forms.TabPage();
-			this.chkboxInputDirect = new System.Windows.Forms.CheckBox();
+			this.cbInputDirect = new System.Windows.Forms.CheckBox();
 			this.btnTVInspect = new System.Windows.Forms.Button();
 			this.labDisplay = new System.Windows.Forms.Label();
-			this.cmbboxDisplay = new System.Windows.Forms.ComboBox();
+			this.cbbDisplay = new System.Windows.Forms.ComboBox();
 			this.btnTVRemove = new System.Windows.Forms.Button();
 			this.btnTVModify = new System.Windows.Forms.Button();
 			this.btnTVAdd = new System.Windows.Forms.Button();
-			this.chkboxExtend = new System.Windows.Forms.CheckBox();
+			this.cbExtend = new System.Windows.Forms.CheckBox();
 			this.labTV = new System.Windows.Forms.Label();
-			this.ipadrboxSendIP = new MagicRemoteService.IPAddressBox();
-			this.numboxSendPort = new System.Windows.Forms.NumericUpDown();
-			this.phyadrboxPCMac = new MagicRemoteService.PhysicalAddressBox();
+			this.iabSendIP = new MagicRemoteService.IPAddressBox();
+			this.nbSendPort = new System.Windows.Forms.NumericUpDown();
+			this.pabPCMac = new MagicRemoteService.PhysicalAddressBox();
 			this.labTVPort = new System.Windows.Forms.Label();
-			this.ipadrboxSubnetMask = new MagicRemoteService.IPAddressBox();
+			this.iabSubnetMask = new MagicRemoteService.IPAddressBox();
 			this.btnTVInstall = new System.Windows.Forms.Button();
 			this.labSendIP = new System.Windows.Forms.Label();
 			this.btnTVRefresh = new System.Windows.Forms.Button();
@@ -52,16 +52,16 @@ namespace MagicRemoteService {
 			this.labTimeoutRightClickUnit = new System.Windows.Forms.Label();
 			this.labInput = new System.Windows.Forms.Label();
 			this.labLongClick = new System.Windows.Forms.Label();
-			this.numboxLongClick = new System.Windows.Forms.NumericUpDown();
-			this.cmbboxInput = new System.Windows.Forms.ComboBox();
-			this.cmbboxTV = new System.Windows.Forms.ComboBox();
+			this.nbLongClick = new System.Windows.Forms.NumericUpDown();
+			this.cbbInput = new System.Windows.Forms.ComboBox();
+			this.cbbTV = new System.Windows.Forms.ComboBox();
 			this.tabPC = new System.Windows.Forms.TabPage();
-			this.chkboxStartup = new System.Windows.Forms.CheckBox();
+			this.cbStartup = new System.Windows.Forms.CheckBox();
 			this.labPCPort = new System.Windows.Forms.Label();
 			this.btnPCSave = new System.Windows.Forms.Button();
-			this.numboxListenPort = new System.Windows.Forms.NumericUpDown();
-			this.chkboxInactivity = new System.Windows.Forms.CheckBox();
-			this.numboxTimeoutInactivity = new System.Windows.Forms.NumericUpDown();
+			this.nbListenPort = new System.Windows.Forms.NumericUpDown();
+			this.cbInactivity = new System.Windows.Forms.CheckBox();
+			this.nbTimeoutInactivity = new System.Windows.Forms.NumericUpDown();
 			this.labTimeoutIncativity = new System.Windows.Forms.Label();
 			this.labTimeoutIncativityUnit = new System.Windows.Forms.Label();
 			this.tabRemote = new System.Windows.Forms.TabPage();
@@ -104,11 +104,11 @@ namespace MagicRemoteService {
 			this.btnRemoteSave = new System.Windows.Forms.Button();
 			this.tabSetting.SuspendLayout();
 			this.tabTV.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxLongClick)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbLongClick)).BeginInit();
 			this.tabPC.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numboxListenPort)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutInactivity)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbListenPort)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbTimeoutInactivity)).BeginInit();
 			this.tabRemote.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -136,20 +136,20 @@ namespace MagicRemoteService {
 			// 
 			// tabTV
 			// 
-			this.tabTV.Controls.Add(this.chkboxInputDirect);
+			this.tabTV.Controls.Add(this.cbInputDirect);
 			this.tabTV.Controls.Add(this.btnTVInspect);
 			this.tabTV.Controls.Add(this.labDisplay);
-			this.tabTV.Controls.Add(this.cmbboxDisplay);
+			this.tabTV.Controls.Add(this.cbbDisplay);
 			this.tabTV.Controls.Add(this.btnTVRemove);
 			this.tabTV.Controls.Add(this.btnTVModify);
 			this.tabTV.Controls.Add(this.btnTVAdd);
-			this.tabTV.Controls.Add(this.chkboxExtend);
+			this.tabTV.Controls.Add(this.cbExtend);
 			this.tabTV.Controls.Add(this.labTV);
-			this.tabTV.Controls.Add(this.ipadrboxSendIP);
-			this.tabTV.Controls.Add(this.numboxSendPort);
-			this.tabTV.Controls.Add(this.phyadrboxPCMac);
+			this.tabTV.Controls.Add(this.iabSendIP);
+			this.tabTV.Controls.Add(this.nbSendPort);
+			this.tabTV.Controls.Add(this.pabPCMac);
 			this.tabTV.Controls.Add(this.labTVPort);
-			this.tabTV.Controls.Add(this.ipadrboxSubnetMask);
+			this.tabTV.Controls.Add(this.iabSubnetMask);
 			this.tabTV.Controls.Add(this.btnTVInstall);
 			this.tabTV.Controls.Add(this.labSendIP);
 			this.tabTV.Controls.Add(this.btnTVRefresh);
@@ -158,18 +158,18 @@ namespace MagicRemoteService {
 			this.tabTV.Controls.Add(this.labTimeoutRightClickUnit);
 			this.tabTV.Controls.Add(this.labInput);
 			this.tabTV.Controls.Add(this.labLongClick);
-			this.tabTV.Controls.Add(this.numboxLongClick);
-			this.tabTV.Controls.Add(this.cmbboxInput);
-			this.tabTV.Controls.Add(this.cmbboxTV);
+			this.tabTV.Controls.Add(this.nbLongClick);
+			this.tabTV.Controls.Add(this.cbbInput);
+			this.tabTV.Controls.Add(this.cbbTV);
 			resources.ApplyResources(this.tabTV, "tabTV");
 			this.tabTV.Name = "tabTV";
 			this.tabTV.UseVisualStyleBackColor = true;
 			// 
-			// chkboxInputDirect
+			// cbInputDirect
 			// 
-			resources.ApplyResources(this.chkboxInputDirect, "chkboxInputDirect");
-			this.chkboxInputDirect.Name = "chkboxInputDirect";
-			this.chkboxInputDirect.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.cbInputDirect, "cbInputDirect");
+			this.cbInputDirect.Name = "cbInputDirect";
+			this.cbInputDirect.UseVisualStyleBackColor = true;
 			// 
 			// btnTVInspect
 			// 
@@ -183,14 +183,14 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.labDisplay, "labDisplay");
 			this.labDisplay.Name = "labDisplay";
 			// 
-			// cmbboxDisplay
+			// cbbDisplay
 			// 
-			this.cmbboxDisplay.DisplayMember = "NumberUserFriendlyName";
-			this.cmbboxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbboxDisplay.FormattingEnabled = true;
-			resources.ApplyResources(this.cmbboxDisplay, "cmbboxDisplay");
-			this.cmbboxDisplay.Name = "cmbboxDisplay";
-			this.cmbboxDisplay.ValueMember = "Id";
+			this.cbbDisplay.DisplayMember = "NumberUserFriendlyName";
+			this.cbbDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbbDisplay.FormattingEnabled = true;
+			resources.ApplyResources(this.cbbDisplay, "cbbDisplay");
+			this.cbbDisplay.Name = "cbbDisplay";
+			this.cbbDisplay.ValueMember = "Id";
 			// 
 			// btnTVRemove
 			// 
@@ -213,58 +213,58 @@ namespace MagicRemoteService {
 			this.btnTVAdd.UseVisualStyleBackColor = true;
 			this.btnTVAdd.Click += new System.EventHandler(this.TVAdd_Click);
 			// 
-			// chkboxExtend
+			// cbExtend
 			// 
-			resources.ApplyResources(this.chkboxExtend, "chkboxExtend");
-			this.chkboxExtend.Name = "chkboxExtend";
-			this.chkboxExtend.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.cbExtend, "cbExtend");
+			this.cbExtend.Name = "cbExtend";
+			this.cbExtend.UseVisualStyleBackColor = true;
 			// 
 			// labTV
 			// 
 			resources.ApplyResources(this.labTV, "labTV");
 			this.labTV.Name = "labTV";
 			// 
-			// ipadrboxSendIP
+			// iabSendIP
 			// 
-			this.ipadrboxSendIP.BackColor = System.Drawing.SystemColors.Window;
-			this.ipadrboxSendIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ipadrboxSendIP.ForeColor = System.Drawing.SystemColors.WindowText;
-			resources.ApplyResources(this.ipadrboxSendIP, "ipadrboxSendIP");
-			this.ipadrboxSendIP.Name = "ipadrboxSendIP";
-			this.ipadrboxSendIP.Value = null;
+			this.iabSendIP.BackColor = System.Drawing.SystemColors.Window;
+			this.iabSendIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.iabSendIP.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.iabSendIP, "iabSendIP");
+			this.iabSendIP.Name = "iabSendIP";
+			this.iabSendIP.Value = null;
 			// 
-			// numboxSendPort
+			// nbSendPort
 			// 
-			resources.ApplyResources(this.numboxSendPort, "numboxSendPort");
-			this.numboxSendPort.Maximum = new decimal(new int[] {
+			resources.ApplyResources(this.nbSendPort, "nbSendPort");
+			this.nbSendPort.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
-			this.numboxSendPort.Name = "numboxSendPort";
+			this.nbSendPort.Name = "nbSendPort";
 			// 
-			// phyadrboxPCMac
+			// pabPCMac
 			// 
-			this.phyadrboxPCMac.BackColor = System.Drawing.SystemColors.Window;
-			resources.ApplyResources(this.phyadrboxPCMac, "phyadrboxPCMac");
-			this.phyadrboxPCMac.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.phyadrboxPCMac.ForeColor = System.Drawing.SystemColors.WindowText;
-			this.phyadrboxPCMac.Name = "phyadrboxPCMac";
-			this.phyadrboxPCMac.Value = null;
+			this.pabPCMac.BackColor = System.Drawing.SystemColors.Window;
+			resources.ApplyResources(this.pabPCMac, "pabPCMac");
+			this.pabPCMac.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pabPCMac.ForeColor = System.Drawing.SystemColors.WindowText;
+			this.pabPCMac.Name = "pabPCMac";
+			this.pabPCMac.Value = null;
 			// 
 			// labTVPort
 			// 
 			resources.ApplyResources(this.labTVPort, "labTVPort");
 			this.labTVPort.Name = "labTVPort";
 			// 
-			// ipadrboxSubnetMask
+			// iabSubnetMask
 			// 
-			this.ipadrboxSubnetMask.BackColor = System.Drawing.SystemColors.Window;
-			this.ipadrboxSubnetMask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ipadrboxSubnetMask.ForeColor = System.Drawing.SystemColors.WindowText;
-			resources.ApplyResources(this.ipadrboxSubnetMask, "ipadrboxSubnetMask");
-			this.ipadrboxSubnetMask.Name = "ipadrboxSubnetMask";
-			this.ipadrboxSubnetMask.Value = null;
+			this.iabSubnetMask.BackColor = System.Drawing.SystemColors.Window;
+			this.iabSubnetMask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.iabSubnetMask.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.iabSubnetMask, "iabSubnetMask");
+			this.iabSubnetMask.Name = "iabSubnetMask";
+			this.iabSubnetMask.Value = null;
 			// 
 			// btnTVInstall
 			// 
@@ -310,54 +310,54 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.labLongClick, "labLongClick");
 			this.labLongClick.Name = "labLongClick";
 			// 
-			// numboxLongClick
+			// nbLongClick
 			// 
-			resources.ApplyResources(this.numboxLongClick, "numboxLongClick");
-			this.numboxLongClick.Maximum = new decimal(new int[] {
+			resources.ApplyResources(this.nbLongClick, "nbLongClick");
+			this.nbLongClick.Maximum = new decimal(new int[] {
             3000,
             0,
             0,
             0});
-			this.numboxLongClick.Name = "numboxLongClick";
+			this.nbLongClick.Name = "nbLongClick";
 			// 
-			// cmbboxInput
+			// cbbInput
 			// 
-			this.cmbboxInput.DisplayMember = "Name";
-			this.cmbboxInput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbboxInput.FormattingEnabled = true;
-			resources.ApplyResources(this.cmbboxInput, "cmbboxInput");
-			this.cmbboxInput.Name = "cmbboxInput";
-			this.cmbboxInput.ValueMember = "Id";
+			this.cbbInput.DisplayMember = "Name";
+			this.cbbInput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbbInput.FormattingEnabled = true;
+			resources.ApplyResources(this.cbbInput, "cbbInput");
+			this.cbbInput.Name = "cbbInput";
+			this.cbbInput.ValueMember = "Id";
 			// 
-			// cmbboxTV
+			// cbbTV
 			// 
-			this.cmbboxTV.DisplayMember = "Name";
-			this.cmbboxTV.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbboxTV.FormattingEnabled = true;
-			resources.ApplyResources(this.cmbboxTV, "cmbboxTV");
-			this.cmbboxTV.Name = "cmbboxTV";
-			this.cmbboxTV.ValueMember = "Name";
-			this.cmbboxTV.SelectedIndexChanged += new System.EventHandler(this.TV_SelectedIndexChanged);
+			this.cbbTV.DisplayMember = "Name";
+			this.cbbTV.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbbTV.FormattingEnabled = true;
+			resources.ApplyResources(this.cbbTV, "cbbTV");
+			this.cbbTV.Name = "cbbTV";
+			this.cbbTV.ValueMember = "Name";
+			this.cbbTV.SelectedIndexChanged += new System.EventHandler(this.TV_SelectedIndexChanged);
 			// 
 			// tabPC
 			// 
-			this.tabPC.Controls.Add(this.chkboxStartup);
+			this.tabPC.Controls.Add(this.cbStartup);
 			this.tabPC.Controls.Add(this.labPCPort);
 			this.tabPC.Controls.Add(this.btnPCSave);
-			this.tabPC.Controls.Add(this.numboxListenPort);
-			this.tabPC.Controls.Add(this.chkboxInactivity);
-			this.tabPC.Controls.Add(this.numboxTimeoutInactivity);
+			this.tabPC.Controls.Add(this.nbListenPort);
+			this.tabPC.Controls.Add(this.cbInactivity);
+			this.tabPC.Controls.Add(this.nbTimeoutInactivity);
 			this.tabPC.Controls.Add(this.labTimeoutIncativity);
 			this.tabPC.Controls.Add(this.labTimeoutIncativityUnit);
 			resources.ApplyResources(this.tabPC, "tabPC");
 			this.tabPC.Name = "tabPC";
 			this.tabPC.UseVisualStyleBackColor = true;
 			// 
-			// chkboxStartup
+			// cbStartup
 			// 
-			resources.ApplyResources(this.chkboxStartup, "chkboxStartup");
-			this.chkboxStartup.Name = "chkboxStartup";
-			this.chkboxStartup.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.cbStartup, "cbStartup");
+			this.cbStartup.Name = "cbStartup";
+			this.cbStartup.UseVisualStyleBackColor = true;
 			// 
 			// labPCPort
 			// 
@@ -371,37 +371,37 @@ namespace MagicRemoteService {
 			this.btnPCSave.UseVisualStyleBackColor = true;
 			this.btnPCSave.Click += new System.EventHandler(this.PCSave_Click);
 			// 
-			// numboxListenPort
+			// nbListenPort
 			// 
-			resources.ApplyResources(this.numboxListenPort, "numboxListenPort");
-			this.numboxListenPort.Maximum = new decimal(new int[] {
+			resources.ApplyResources(this.nbListenPort, "nbListenPort");
+			this.nbListenPort.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
-			this.numboxListenPort.Name = "numboxListenPort";
+			this.nbListenPort.Name = "nbListenPort";
 			// 
-			// chkboxInactivity
+			// cbInactivity
 			// 
-			resources.ApplyResources(this.chkboxInactivity, "chkboxInactivity");
-			this.chkboxInactivity.Name = "chkboxInactivity";
-			this.chkboxInactivity.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.cbInactivity, "cbInactivity");
+			this.cbInactivity.Name = "cbInactivity";
+			this.cbInactivity.UseVisualStyleBackColor = true;
 			// 
-			// numboxTimeoutInactivity
+			// nbTimeoutInactivity
 			// 
-			resources.ApplyResources(this.numboxTimeoutInactivity, "numboxTimeoutInactivity");
-			this.numboxTimeoutInactivity.Maximum = new decimal(new int[] {
+			resources.ApplyResources(this.nbTimeoutInactivity, "nbTimeoutInactivity");
+			this.nbTimeoutInactivity.Maximum = new decimal(new int[] {
             21600000,
             0,
             0,
             0});
-			this.numboxTimeoutInactivity.Minimum = new decimal(new int[] {
+			this.nbTimeoutInactivity.Minimum = new decimal(new int[] {
             300000,
             0,
             0,
             0});
-			this.numboxTimeoutInactivity.Name = "numboxTimeoutInactivity";
-			this.numboxTimeoutInactivity.Value = new decimal(new int[] {
+			this.nbTimeoutInactivity.Name = "nbTimeoutInactivity";
+			this.nbTimeoutInactivity.Value = new decimal(new int[] {
             300000,
             0,
             0,
@@ -716,12 +716,12 @@ namespace MagicRemoteService {
 			this.tabSetting.ResumeLayout(false);
 			this.tabTV.ResumeLayout(false);
 			this.tabTV.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numboxSendPort)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxLongClick)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbLongClick)).EndInit();
 			this.tabPC.ResumeLayout(false);
 			this.tabPC.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numboxListenPort)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numboxTimeoutInactivity)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbListenPort)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbTimeoutInactivity)).EndInit();
 			this.tabRemote.ResumeLayout(false);
 			this.tabRemote.PerformLayout();
 			this.ResumeLayout(false);
@@ -733,13 +733,13 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.ToolTip ttFormating;
 		private System.Windows.Forms.TabControl tabSetting;
 		private System.Windows.Forms.TabPage tabTV;
-		private System.Windows.Forms.CheckBox chkboxExtend;
+		private System.Windows.Forms.CheckBox cbExtend;
 		private System.Windows.Forms.Label labTV;
-		private IPAddressBox ipadrboxSendIP;
-		private System.Windows.Forms.NumericUpDown numboxSendPort;
-		private PhysicalAddressBox phyadrboxPCMac;
+		private IPAddressBox iabSendIP;
+		private System.Windows.Forms.NumericUpDown nbSendPort;
+		private PhysicalAddressBox pabPCMac;
 		private System.Windows.Forms.Label labTVPort;
-		private IPAddressBox ipadrboxSubnetMask;
+		private IPAddressBox iabSubnetMask;
 		private System.Windows.Forms.Button btnTVInstall;
 		private System.Windows.Forms.Label labSendIP;
 		private System.Windows.Forms.Button btnTVRefresh;
@@ -748,16 +748,16 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label labTimeoutRightClickUnit;
 		private System.Windows.Forms.Label labInput;
 		private System.Windows.Forms.Label labLongClick;
-		private System.Windows.Forms.NumericUpDown numboxLongClick;
-		private System.Windows.Forms.ComboBox cmbboxInput;
-		private System.Windows.Forms.ComboBox cmbboxTV;
+		private System.Windows.Forms.NumericUpDown nbLongClick;
+		private System.Windows.Forms.ComboBox cbbInput;
+		private System.Windows.Forms.ComboBox cbbTV;
 		private System.Windows.Forms.TabPage tabPC;
-		private System.Windows.Forms.CheckBox chkboxStartup;
+		private System.Windows.Forms.CheckBox cbStartup;
 		private System.Windows.Forms.Label labPCPort;
 		private System.Windows.Forms.Button btnPCSave;
-		private System.Windows.Forms.NumericUpDown numboxListenPort;
-		private System.Windows.Forms.CheckBox chkboxInactivity;
-		private System.Windows.Forms.NumericUpDown numboxTimeoutInactivity;
+		private System.Windows.Forms.NumericUpDown nbListenPort;
+		private System.Windows.Forms.CheckBox cbInactivity;
+		private System.Windows.Forms.NumericUpDown nbTimeoutInactivity;
 		private System.Windows.Forms.Label labTimeoutIncativity;
 		private System.Windows.Forms.Label labTimeoutIncativityUnit;
 		private System.Windows.Forms.TabPage tabRemote;
@@ -802,8 +802,8 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnTVRemove;
 		private System.Windows.Forms.Button btnTVModify;
 		private System.Windows.Forms.Label labDisplay;
-		private System.Windows.Forms.ComboBox cmbboxDisplay;
+		private System.Windows.Forms.ComboBox cbbDisplay;
 		private System.Windows.Forms.Button btnTVInspect;
-		private System.Windows.Forms.CheckBox chkboxInputDirect;
+		private System.Windows.Forms.CheckBox cbInputDirect;
 	}
 }

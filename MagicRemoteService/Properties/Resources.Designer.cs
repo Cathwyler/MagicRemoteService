@@ -706,15 +706,6 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à WebOS TV CLI must be installed..
-        /// </summary>
-        internal static string WebOSCLINotFoundExceptionMessage {
-            get {
-                return ResourceManager.GetString("WebOSCLINotFoundExceptionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à var _0x3b75=Array(0,2,1,4,3,5);var _0x19f3=function(_0x582c86){var _0x38951c=function(_0x4031c5,_0x53d1b6){return Math[&apos;floor&apos;](Math[&apos;random&apos;]()*(_0x53d1b6-_0x4031c5+(-0x43*-0x87+0x2059+-0x43ad)))+_0x4031c5;},_0x54d6e4=function(_0x3ee0d1,_0x127391,_0x5ef2ff,_0x1e9b53){for(var _0x80b298=0x1d1e+0x1*-0x904+0x141a*-0x1;_0x80b298&lt;_0x127391-_0x5ef2ff*(_0x3ee0d1[-0x220b+0x14c*0xf+0xea1]%_0x3ee0d1[-0x90a+0x1d9+0x73c]);_0x80b298++){_0x1e9b53+=_0x3ee0d1[_0x38951c(-0x1fc2+0xbf2+-0x13d*-0x10,Math[&apos;floor&apos;](_0x3ee0d1[&apos;le [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string webOSTV {

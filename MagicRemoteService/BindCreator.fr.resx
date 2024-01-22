@@ -123,6 +123,9 @@
   <data name="selBindKeyboard.Text" xml:space="preserve">
     <value>Clavier</value>
   </data>
+  <data name="selBindCommand.Text" xml:space="preserve">
+    <value>Commande</value>
+  </data>
   <data name="libKeyboard.Text" xml:space="preserve">
     <value>Appuyez sur une touche</value>
   </data>

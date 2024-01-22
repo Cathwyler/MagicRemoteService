@@ -192,9 +192,6 @@
   <data name="SettingTVSelectErrorTitle" xml:space="preserve">
     <value>La TV no ha sido seleccionada</value>
   </data>
-  <data name="WebOSCLINotFoundExceptionMessage" xml:space="preserve">
-    <value>Se debe instalar el WebOS TV CLI.</value>
-  </data>
   <data name="SettingPCSaveErrorTittle" xml:space="preserve">
     <value>Error al guardar la configuración de PC</value>
   </data>

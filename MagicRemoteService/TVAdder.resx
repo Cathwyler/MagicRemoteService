@@ -234,25 +234,25 @@
   <data name="&gt;&gt;labTVPort.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="numboxSendPort.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="nbSendPort.Location" type="System.Drawing.Point, System.Drawing">
     <value>108, 0</value>
   </data>
-  <data name="numboxSendPort.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="nbSendPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="numboxSendPort.TabIndex" type="System.Int32, mscorlib">
+  <data name="nbSendPort.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.Name" xml:space="preserve">
-    <value>numboxSendPort</value>
+  <data name="&gt;&gt;nbSendPort.Name" xml:space="preserve">
+    <value>nbSendPort</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.Type" xml:space="preserve">
+  <data name="&gt;&gt;nbSendPort.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.Parent" xml:space="preserve">
+  <data name="&gt;&gt;nbSendPort.Parent" xml:space="preserve">
     <value>pnlPort</value>
   </data>
-  <data name="&gt;&gt;numboxSendPort.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;nbSendPort.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="labDescription.AutoSize" type="System.Boolean, mscorlib">
@@ -298,7 +298,7 @@
     <value>tbDescription</value>
   </data>
   <data name="&gt;&gt;tbDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.tb, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbDescription.Parent" xml:space="preserve">
     <value>pnlDescription</value>
@@ -349,7 +349,7 @@
     <value>tbUser</value>
   </data>
   <data name="&gt;&gt;tbUser.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.tb, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbUser.Parent" xml:space="preserve">
     <value>pnlUser</value>
@@ -400,7 +400,7 @@
     <value>tbPassword</value>
   </data>
   <data name="&gt;&gt;tbPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.tb, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbPassword.Parent" xml:space="preserve">
     <value>pnlPassword</value>
@@ -451,7 +451,7 @@
     <value>tbPassphrase</value>
   </data>
   <data name="&gt;&gt;tbPassphrase.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.tb, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbPassphrase.Parent" xml:space="preserve">
     <value>pnlPassphrase</value>
@@ -502,7 +502,7 @@
     <value>tbPrivateKey</value>
   </data>
   <data name="&gt;&gt;tbPrivateKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.tb, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbPrivateKey.Parent" xml:space="preserve">
     <value>pnlPrivateKey</value>
@@ -646,7 +646,7 @@
     <value>tbName</value>
   </data>
   <data name="&gt;&gt;tbName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.tb, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbName.Parent" xml:space="preserve">
     <value>pnlName</value>
@@ -705,31 +705,31 @@
   <data name="&gt;&gt;pnlDescription.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="ipadrboxIP.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="iabIP.Location" type="System.Drawing.Point, System.Drawing">
     <value>108, 0</value>
   </data>
-  <data name="ipadrboxIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="iabIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="ipadrboxIP.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="iabIP.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>142, 20</value>
   </data>
-  <data name="ipadrboxIP.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="iabIP.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 20</value>
   </data>
-  <data name="ipadrboxIP.TabIndex" type="System.Int32, mscorlib">
+  <data name="iabIP.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;ipadrboxIP.Name" xml:space="preserve">
-    <value>ipadrboxIP</value>
+  <data name="&gt;&gt;iabIP.Name" xml:space="preserve">
+    <value>iabIP</value>
   </data>
-  <data name="&gt;&gt;ipadrboxIP.Type" xml:space="preserve">
+  <data name="&gt;&gt;iabIP.Type" xml:space="preserve">
     <value>MagicRemoteService.IPAddressBox, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;ipadrboxIP.Parent" xml:space="preserve">
+  <data name="&gt;&gt;iabIP.Parent" xml:space="preserve">
     <value>pnlIP</value>
   </data>
-  <data name="&gt;&gt;ipadrboxIP.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;iabIP.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="pnlIP.Location" type="System.Drawing.Point, System.Drawing">

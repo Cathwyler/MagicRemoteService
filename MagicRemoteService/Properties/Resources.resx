@@ -226,9 +226,6 @@
   <data name="SettingTVSelectErrorTitle" xml:space="preserve">
     <value>The TV has not been selected</value>
   </data>
-  <data name="WebOSCLINotFoundExceptionMessage" xml:space="preserve">
-    <value>WebOS TV CLI must be installed.</value>
-  </data>
   <data name="webOSTV" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

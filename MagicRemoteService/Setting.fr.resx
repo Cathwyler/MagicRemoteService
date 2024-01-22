@@ -121,7 +121,7 @@
     <value>Fermer</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="chkboxInputDirect.Text" xml:space="preserve">
+  <data name="cbInputDirect.Text" xml:space="preserve">
     <value>Câblage HDMI direct</value>
   </data>
   <data name="btnTVInspect.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
   <data name="btnTVAdd.Text" xml:space="preserve">
     <value>Ajouter une TV</value>
   </data>
-  <data name="chkboxExtend.Text" xml:space="preserve">
+  <data name="cbExtend.Text" xml:space="preserve">
     <value>Étendre automatiquement le mode développeur tous les jours</value>
   </data>
   <data name="labTV.Text" xml:space="preserve">
@@ -169,7 +169,7 @@
   <data name="labLongClick.Text" xml:space="preserve">
     <value>Délai du clique long</value>
   </data>
-  <data name="chkboxStartup.Text" xml:space="preserve">
+  <data name="cbStartup.Text" xml:space="preserve">
     <value>Lancer automatiquement au démarrage</value>
   </data>
   <data name="labPCPort.Text" xml:space="preserve">
@@ -178,7 +178,7 @@
   <data name="btnPCSave.Text" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
-  <data name="chkboxInactivity.Text" xml:space="preserve">
+  <data name="cbInactivity.Text" xml:space="preserve">
     <value>Éteindre automatiquement l'ordinateur lorsque la TV est allumée</value>
   </data>
   <data name="labTimeoutIncativity.Text" xml:space="preserve">

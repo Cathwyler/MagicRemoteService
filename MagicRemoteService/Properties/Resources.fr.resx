@@ -240,7 +240,4 @@
   <data name="SettingTVSelectErrorTitle" xml:space="preserve">
     <value>La TV n'a pas été sélectionné</value>
   </data>
-  <data name="WebOSCLINotFoundExceptionMessage" xml:space="preserve">
-    <value>WebOS TV CLI doit être installé.</value>
-  </data>
 </root>

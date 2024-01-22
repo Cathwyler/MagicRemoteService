@@ -153,4 +153,7 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Asociar</value>
   </data>
+  <data name="selBindCommand.Text" xml:space="preserve">
+    <value>Comando</value>
+  </data>
 </root>

@@ -44,6 +44,10 @@ namespace MagicRemoteService {
 							break;
 					}
 					break;
+				case MagicRemoteService.BindCommand bc:
+					this.selBindCommand.Checked = true;
+					this.tbCommand.Text = string.Join<Bind>(" + ", arrBind);
+					break;
 			}
 		}
 		private void Confirm_Click(object sender, System.EventArgs e) {
@@ -61,6 +65,9 @@ namespace MagicRemoteService {
 		}
 		private void BindAction_CheckedChanged(object sender, System.EventArgs e) {
 			this.pnlAction.Visible = ((System.Windows.Forms.RadioButton)sender).Checked;
+		}
+		private void BindCommand_CheckedChanged(object sender, System.EventArgs e) {
+			this.pnlCommand.Visible = ((System.Windows.Forms.RadioButton)sender).Checked;
 		}
 		private void MouseLeft_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
@@ -125,6 +132,9 @@ namespace MagicRemoteService {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
 				this.arrBind = new Bind[] { new MagicRemoteService.BindAction(BindActionValue.Keyboard) };
 			}
+		}
+		private void Command_TextChanged(object sender, System.EventArgs e) {
+			this.arrBind = new Bind[] { new MagicRemoteService.BindCommand(this.tbCommand.Text) };
 		}
 	}
 }
