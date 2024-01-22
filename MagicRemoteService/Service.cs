@@ -425,7 +425,7 @@ namespace MagicRemoteService {
 					lpEnvironmentBlock = System.IntPtr.Zero;
 					//throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 				} else {
-					if(!WinApi.Userenv.CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, false)) {
+					if(!WinApi.Userenv.CreateEnvironmentBlock(out lpEnvironmentBlock, hUserToken, true)) {
 						WinApi.Kernel32.CloseHandle(hUserToken);
 						throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 					}
