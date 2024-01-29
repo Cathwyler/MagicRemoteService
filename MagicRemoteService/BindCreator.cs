@@ -76,12 +76,12 @@ namespace MagicRemoteService {
 		}
 		private void MouseMiddle_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.arrBind = new Bind[] { new MagicRemoteService.BindMouse(BindMouseValue.Right) };
+				this.arrBind = new Bind[] { new MagicRemoteService.BindMouse(BindMouseValue.Middle) };
 			}
 		}
 		private void MouseRight_CheckedChanged(object sender, System.EventArgs e) {
 			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.arrBind = new Bind[] { new MagicRemoteService.BindMouse(BindMouseValue.Middle) };
+				this.arrBind = new Bind[] { new MagicRemoteService.BindMouse(BindMouseValue.Right) };
 			}
 		}
 		protected override bool ProcessCmdKey(ref System.Windows.Forms.Message m, System.Windows.Forms.Keys k) {
