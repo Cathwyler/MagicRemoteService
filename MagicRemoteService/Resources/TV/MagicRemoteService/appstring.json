@@ -1,6 +1,7 @@
 {
 	"strAppTittle": "MagicRemoteService",
-	"strAppDescription": "Service providing computer remote control using a LG WebOS TV",
+	"strAppDescription": "HDMI",
+	"strAppDescriptionLong": "Service providing computer remote control using a LG WebOS TV",
 
 	"strLogTitle": "Log",
 	"strWarnTitle": "Warn",

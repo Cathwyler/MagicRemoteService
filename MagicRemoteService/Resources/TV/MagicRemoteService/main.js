@@ -421,20 +421,20 @@ function SubscriptionGetSensorData() {
 }
 
 function AddDevice() {
-	webOS.service.request("luna://com.webos.service.eim", { 
-		method: "addDevice", 
-		parameters: { 
-			appId: sAppID, 
-			pigImage: "", 
-			mvpdIcon: "", 
-			type: "MVPD_IP", 
-			showPopup: true, 
-			label: oString.strAppTittle + " " + sInputName, 
-			description: oString.strAppDescription, 
-		}, 
+	webOS.service.request("luna://com.webos.service.eim", {
+		method: "addDevice",
+		parameters: {
+			appId: sAppID,
+			pigImage: "",
+			mvpdIcon: "",
+			type: "MVPD_IP",
+			showPopup: true,
+			label: oString.strAppTittle,
+			description: oString.strAppDescription
+		},
 		onSuccess: function(inResponse) {
 			LogIfDebug(oString.strAddDeviceSuccess);
-		}, 
+		},
 		onFailure: function(inError) {
 			switch(inError.errorCode) {
 				case -1:

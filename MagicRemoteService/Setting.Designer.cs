@@ -65,6 +65,26 @@ namespace MagicRemoteService {
 			this.labTimeoutIncativity = new System.Windows.Forms.Label();
 			this.labTimeoutIncativityUnit = new System.Windows.Forms.Label();
 			this.tabRemote = new System.Windows.Forms.TabPage();
+			this.bcRemote9 = new MagicRemoteService.BindControl();
+			this.libRemote9 = new System.Windows.Forms.Label();
+			this.bcRemote8 = new MagicRemoteService.BindControl();
+			this.libRemote8 = new System.Windows.Forms.Label();
+			this.bcRemote7 = new MagicRemoteService.BindControl();
+			this.libRemote7 = new System.Windows.Forms.Label();
+			this.bcRemote6 = new MagicRemoteService.BindControl();
+			this.libRemote6 = new System.Windows.Forms.Label();
+			this.bcRemote5 = new MagicRemoteService.BindControl();
+			this.libRemote5 = new System.Windows.Forms.Label();
+			this.bcRemote4 = new MagicRemoteService.BindControl();
+			this.libRemote4 = new System.Windows.Forms.Label();
+			this.bcRemote3 = new MagicRemoteService.BindControl();
+			this.libRemote3 = new System.Windows.Forms.Label();
+			this.bcRemote2 = new MagicRemoteService.BindControl();
+			this.libRemote2 = new System.Windows.Forms.Label();
+			this.bcRemote1 = new MagicRemoteService.BindControl();
+			this.libRemote1 = new System.Windows.Forms.Label();
+			this.bcRemote0 = new MagicRemoteService.BindControl();
+			this.libRemote0 = new System.Windows.Forms.Label();
 			this.bcRemoteRewind = new MagicRemoteService.BindControl();
 			this.bcRemoteFastForward = new MagicRemoteService.BindControl();
 			this.bcRemotePause = new MagicRemoteService.BindControl();
@@ -419,6 +439,26 @@ namespace MagicRemoteService {
 			// 
 			// tabRemote
 			// 
+			this.tabRemote.Controls.Add(this.bcRemote9);
+			this.tabRemote.Controls.Add(this.libRemote9);
+			this.tabRemote.Controls.Add(this.bcRemote8);
+			this.tabRemote.Controls.Add(this.libRemote8);
+			this.tabRemote.Controls.Add(this.bcRemote7);
+			this.tabRemote.Controls.Add(this.libRemote7);
+			this.tabRemote.Controls.Add(this.bcRemote6);
+			this.tabRemote.Controls.Add(this.libRemote6);
+			this.tabRemote.Controls.Add(this.bcRemote5);
+			this.tabRemote.Controls.Add(this.libRemote5);
+			this.tabRemote.Controls.Add(this.bcRemote4);
+			this.tabRemote.Controls.Add(this.libRemote4);
+			this.tabRemote.Controls.Add(this.bcRemote3);
+			this.tabRemote.Controls.Add(this.libRemote3);
+			this.tabRemote.Controls.Add(this.bcRemote2);
+			this.tabRemote.Controls.Add(this.libRemote2);
+			this.tabRemote.Controls.Add(this.bcRemote1);
+			this.tabRemote.Controls.Add(this.libRemote1);
+			this.tabRemote.Controls.Add(this.bcRemote0);
+			this.tabRemote.Controls.Add(this.libRemote0);
 			this.tabRemote.Controls.Add(this.bcRemoteRewind);
 			this.tabRemote.Controls.Add(this.bcRemoteFastForward);
 			this.tabRemote.Controls.Add(this.bcRemotePause);
@@ -459,6 +499,136 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.tabRemote, "tabRemote");
 			this.tabRemote.Name = "tabRemote";
 			this.tabRemote.UseVisualStyleBackColor = true;
+			// 
+			// bcRemote9
+			// 
+			this.bcRemote9.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote9.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote9, "bcRemote9");
+			this.bcRemote9.Name = "bcRemote9";
+			this.bcRemote9.Value = null;
+			// 
+			// libRemote9
+			// 
+			resources.ApplyResources(this.libRemote9, "libRemote9");
+			this.libRemote9.Name = "libRemote9";
+			// 
+			// bcRemote8
+			// 
+			this.bcRemote8.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote8.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote8, "bcRemote8");
+			this.bcRemote8.Name = "bcRemote8";
+			this.bcRemote8.Value = null;
+			// 
+			// libRemote8
+			// 
+			resources.ApplyResources(this.libRemote8, "libRemote8");
+			this.libRemote8.Name = "libRemote8";
+			// 
+			// bcRemote7
+			// 
+			this.bcRemote7.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote7.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote7, "bcRemote7");
+			this.bcRemote7.Name = "bcRemote7";
+			this.bcRemote7.Value = null;
+			// 
+			// libRemote7
+			// 
+			resources.ApplyResources(this.libRemote7, "libRemote7");
+			this.libRemote7.Name = "libRemote7";
+			// 
+			// bcRemote6
+			// 
+			this.bcRemote6.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote6.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote6, "bcRemote6");
+			this.bcRemote6.Name = "bcRemote6";
+			this.bcRemote6.Value = null;
+			// 
+			// libRemote6
+			// 
+			resources.ApplyResources(this.libRemote6, "libRemote6");
+			this.libRemote6.Name = "libRemote6";
+			// 
+			// bcRemote5
+			// 
+			this.bcRemote5.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote5.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote5, "bcRemote5");
+			this.bcRemote5.Name = "bcRemote5";
+			this.bcRemote5.Value = null;
+			// 
+			// libRemote5
+			// 
+			resources.ApplyResources(this.libRemote5, "libRemote5");
+			this.libRemote5.Name = "libRemote5";
+			// 
+			// bcRemote4
+			// 
+			this.bcRemote4.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote4.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote4, "bcRemote4");
+			this.bcRemote4.Name = "bcRemote4";
+			this.bcRemote4.Value = null;
+			// 
+			// libRemote4
+			// 
+			resources.ApplyResources(this.libRemote4, "libRemote4");
+			this.libRemote4.Name = "libRemote4";
+			// 
+			// bcRemote3
+			// 
+			this.bcRemote3.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote3.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote3, "bcRemote3");
+			this.bcRemote3.Name = "bcRemote3";
+			this.bcRemote3.Value = null;
+			// 
+			// libRemote3
+			// 
+			resources.ApplyResources(this.libRemote3, "libRemote3");
+			this.libRemote3.Name = "libRemote3";
+			// 
+			// bcRemote2
+			// 
+			this.bcRemote2.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote2.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote2, "bcRemote2");
+			this.bcRemote2.Name = "bcRemote2";
+			this.bcRemote2.Value = null;
+			// 
+			// libRemote2
+			// 
+			resources.ApplyResources(this.libRemote2, "libRemote2");
+			this.libRemote2.Name = "libRemote2";
+			// 
+			// bcRemote1
+			// 
+			this.bcRemote1.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote1.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote1, "bcRemote1");
+			this.bcRemote1.Name = "bcRemote1";
+			this.bcRemote1.Value = null;
+			// 
+			// libRemote1
+			// 
+			resources.ApplyResources(this.libRemote1, "libRemote1");
+			this.libRemote1.Name = "libRemote1";
+			// 
+			// bcRemote0
+			// 
+			this.bcRemote0.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemote0.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemote0, "bcRemote0");
+			this.bcRemote0.Name = "bcRemote0";
+			this.bcRemote0.Value = null;
+			// 
+			// libRemote0
+			// 
+			resources.ApplyResources(this.libRemote0, "libRemote0");
+			this.libRemote0.Name = "libRemote0";
 			// 
 			// bcRemoteRewind
 			// 
@@ -805,5 +975,25 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.ComboBox cbbDisplay;
 		private System.Windows.Forms.Button btnTVInspect;
 		private System.Windows.Forms.CheckBox cbInputDirect;
+		private BindControl bcRemote9;
+		private System.Windows.Forms.Label libRemote9;
+		private BindControl bcRemote8;
+		private System.Windows.Forms.Label libRemote8;
+		private BindControl bcRemote7;
+		private System.Windows.Forms.Label libRemote7;
+		private BindControl bcRemote6;
+		private System.Windows.Forms.Label libRemote6;
+		private BindControl bcRemote5;
+		private System.Windows.Forms.Label libRemote5;
+		private BindControl bcRemote4;
+		private BindControl bcRemote3;
+		private System.Windows.Forms.Label libRemote3;
+		private BindControl bcRemote2;
+		private System.Windows.Forms.Label libRemote2;
+		private BindControl bcRemote1;
+		private System.Windows.Forms.Label libRemote1;
+		private BindControl bcRemote0;
+		private System.Windows.Forms.Label libRemote0;
+		private System.Windows.Forms.Label libRemote4;
 	}
 }

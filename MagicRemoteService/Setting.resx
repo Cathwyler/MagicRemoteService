@@ -126,10 +126,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 369</value>
+    <value>490, 369</value>
   </data>
   <data name="btnClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnClose.TabIndex" type="System.Int32, mscorlib">
@@ -190,10 +190,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnTVInspect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 264</value>
+    <value>333, 264</value>
   </data>
   <data name="btnTVInspect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnTVInspect.TabIndex" type="System.Int32, mscorlib">
     <value>57</value>
@@ -244,7 +244,7 @@
     <value>2</value>
   </data>
   <data name="cbbDisplay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 61</value>
+    <value>175, 61</value>
   </data>
   <data name="cbbDisplay.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
@@ -268,10 +268,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnTVRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 87</value>
+    <value>333, 87</value>
   </data>
   <data name="btnTVRemove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnTVRemove.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
@@ -295,10 +295,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnTVModify.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 60</value>
+    <value>333, 60</value>
   </data>
   <data name="btnTVModify.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnTVModify.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
@@ -322,10 +322,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnTVAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 33</value>
+    <value>333, 33</value>
   </data>
   <data name="btnTVAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnTVAdd.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -406,7 +406,7 @@
     <value>8</value>
   </data>
   <data name="iabSendIP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 88</value>
+    <value>175, 88</value>
   </data>
   <data name="iabSendIP.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
@@ -433,7 +433,7 @@
     <value>9</value>
   </data>
   <data name="nbSendPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 114</value>
+    <value>175, 114</value>
   </data>
   <data name="nbSendPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -457,7 +457,7 @@
     <value>None</value>
   </data>
   <data name="pabPCMac.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 166</value>
+    <value>175, 166</value>
   </data>
   <data name="pabPCMac.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
@@ -514,7 +514,7 @@
     <value>12</value>
   </data>
   <data name="iabSubnetMask.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 140</value>
+    <value>175, 140</value>
   </data>
   <data name="iabSubnetMask.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
@@ -544,10 +544,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnTVInstall.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 264</value>
+    <value>175, 264</value>
   </data>
   <data name="btnTVInstall.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnTVInstall.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
@@ -601,10 +601,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnTVRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 6</value>
+    <value>333, 6</value>
   </data>
   <data name="btnTVRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnTVRefresh.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -691,7 +691,7 @@
     <value>NoControl</value>
   </data>
   <data name="labTimeoutRightClickUnit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>258, 194</value>
+    <value>281, 194</value>
   </data>
   <data name="labTimeoutRightClickUnit.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 13</value>
@@ -775,7 +775,7 @@
     <value>21</value>
   </data>
   <data name="nbLongClick.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 192</value>
+    <value>175, 192</value>
   </data>
   <data name="nbLongClick.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -796,7 +796,7 @@
     <value>22</value>
   </data>
   <data name="cbbInput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 34</value>
+    <value>175, 34</value>
   </data>
   <data name="cbbInput.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
@@ -817,7 +817,7 @@
     <value>23</value>
   </data>
   <data name="cbbTV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 7</value>
+    <value>175, 7</value>
   </data>
   <data name="cbbTV.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 21</value>
@@ -844,7 +844,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabTV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 325</value>
+    <value>570, 325</value>
   </data>
   <data name="tabTV.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -928,10 +928,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnPCSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 105</value>
+    <value>175, 105</value>
   </data>
   <data name="btnPCSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnPCSave.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -952,7 +952,7 @@
     <value>2</value>
   </data>
   <data name="nbListenPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 7</value>
+    <value>175, 7</value>
   </data>
   <data name="nbListenPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -1003,7 +1003,7 @@
     <value>4</value>
   </data>
   <data name="nbTimeoutInactivity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 56</value>
+    <value>175, 56</value>
   </data>
   <data name="nbTimeoutInactivity.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -1060,7 +1060,7 @@
     <value>NoControl</value>
   </data>
   <data name="labTimeoutIncativityUnit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>258, 58</value>
+    <value>281, 58</value>
   </data>
   <data name="labTimeoutIncativityUnit.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 13</value>
@@ -1090,7 +1090,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 325</value>
+    <value>570, 325</value>
   </data>
   <data name="tabPC.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1109,6 +1109,546 @@
   </data>
   <data name="&gt;&gt;tabPC.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="bcRemote9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 267</value>
+  </data>
+  <data name="bcRemote9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote9.TabIndex" type="System.Int32, mscorlib">
+    <value>141</value>
+  </data>
+  <data name="&gt;&gt;bcRemote9.Name" xml:space="preserve">
+    <value>bcRemote9</value>
+  </data>
+  <data name="&gt;&gt;bcRemote9.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote9.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="libRemote9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 272</value>
+  </data>
+  <data name="libRemote9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote9.TabIndex" type="System.Int32, mscorlib">
+    <value>140</value>
+  </data>
+  <data name="libRemote9.Text" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;libRemote9.Name" xml:space="preserve">
+    <value>libRemote9</value>
+  </data>
+  <data name="&gt;&gt;libRemote9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote9.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="bcRemote8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 238</value>
+  </data>
+  <data name="bcRemote8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote8.TabIndex" type="System.Int32, mscorlib">
+    <value>139</value>
+  </data>
+  <data name="&gt;&gt;bcRemote8.Name" xml:space="preserve">
+    <value>bcRemote8</value>
+  </data>
+  <data name="&gt;&gt;bcRemote8.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote8.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote8.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="libRemote8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 243</value>
+  </data>
+  <data name="libRemote8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote8.TabIndex" type="System.Int32, mscorlib">
+    <value>138</value>
+  </data>
+  <data name="libRemote8.Text" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;libRemote8.Name" xml:space="preserve">
+    <value>libRemote8</value>
+  </data>
+  <data name="&gt;&gt;libRemote8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote8.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote8.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="bcRemote7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 209</value>
+  </data>
+  <data name="bcRemote7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote7.TabIndex" type="System.Int32, mscorlib">
+    <value>137</value>
+  </data>
+  <data name="&gt;&gt;bcRemote7.Name" xml:space="preserve">
+    <value>bcRemote7</value>
+  </data>
+  <data name="&gt;&gt;bcRemote7.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote7.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote7.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="libRemote7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 214</value>
+  </data>
+  <data name="libRemote7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote7.TabIndex" type="System.Int32, mscorlib">
+    <value>136</value>
+  </data>
+  <data name="libRemote7.Text" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;libRemote7.Name" xml:space="preserve">
+    <value>libRemote7</value>
+  </data>
+  <data name="&gt;&gt;libRemote7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote7.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote7.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="bcRemote6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 180</value>
+  </data>
+  <data name="bcRemote6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote6.TabIndex" type="System.Int32, mscorlib">
+    <value>135</value>
+  </data>
+  <data name="&gt;&gt;bcRemote6.Name" xml:space="preserve">
+    <value>bcRemote6</value>
+  </data>
+  <data name="&gt;&gt;bcRemote6.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote6.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote6.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="libRemote6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 185</value>
+  </data>
+  <data name="libRemote6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote6.TabIndex" type="System.Int32, mscorlib">
+    <value>134</value>
+  </data>
+  <data name="libRemote6.Text" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;libRemote6.Name" xml:space="preserve">
+    <value>libRemote6</value>
+  </data>
+  <data name="&gt;&gt;libRemote6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote6.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote6.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="bcRemote5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 151</value>
+  </data>
+  <data name="bcRemote5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote5.TabIndex" type="System.Int32, mscorlib">
+    <value>133</value>
+  </data>
+  <data name="&gt;&gt;bcRemote5.Name" xml:space="preserve">
+    <value>bcRemote5</value>
+  </data>
+  <data name="&gt;&gt;bcRemote5.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote5.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote5.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="libRemote5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 156</value>
+  </data>
+  <data name="libRemote5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote5.TabIndex" type="System.Int32, mscorlib">
+    <value>132</value>
+  </data>
+  <data name="libRemote5.Text" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;libRemote5.Name" xml:space="preserve">
+    <value>libRemote5</value>
+  </data>
+  <data name="&gt;&gt;libRemote5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote5.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote5.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="bcRemote4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 122</value>
+  </data>
+  <data name="bcRemote4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote4.TabIndex" type="System.Int32, mscorlib">
+    <value>131</value>
+  </data>
+  <data name="&gt;&gt;bcRemote4.Name" xml:space="preserve">
+    <value>bcRemote4</value>
+  </data>
+  <data name="&gt;&gt;bcRemote4.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote4.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote4.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="libRemote4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 127</value>
+  </data>
+  <data name="libRemote4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote4.TabIndex" type="System.Int32, mscorlib">
+    <value>130</value>
+  </data>
+  <data name="libRemote4.Text" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;libRemote4.Name" xml:space="preserve">
+    <value>libRemote4</value>
+  </data>
+  <data name="&gt;&gt;libRemote4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote4.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote4.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="bcRemote3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 93</value>
+  </data>
+  <data name="bcRemote3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote3.TabIndex" type="System.Int32, mscorlib">
+    <value>129</value>
+  </data>
+  <data name="&gt;&gt;bcRemote3.Name" xml:space="preserve">
+    <value>bcRemote3</value>
+  </data>
+  <data name="&gt;&gt;bcRemote3.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote3.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote3.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="libRemote3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 98</value>
+  </data>
+  <data name="libRemote3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote3.TabIndex" type="System.Int32, mscorlib">
+    <value>128</value>
+  </data>
+  <data name="libRemote3.Text" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;libRemote3.Name" xml:space="preserve">
+    <value>libRemote3</value>
+  </data>
+  <data name="&gt;&gt;libRemote3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote3.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote3.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="bcRemote2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 64</value>
+  </data>
+  <data name="bcRemote2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote2.TabIndex" type="System.Int32, mscorlib">
+    <value>127</value>
+  </data>
+  <data name="&gt;&gt;bcRemote2.Name" xml:space="preserve">
+    <value>bcRemote2</value>
+  </data>
+  <data name="&gt;&gt;bcRemote2.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote2.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote2.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="libRemote2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 69</value>
+  </data>
+  <data name="libRemote2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote2.TabIndex" type="System.Int32, mscorlib">
+    <value>126</value>
+  </data>
+  <data name="libRemote2.Text" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;libRemote2.Name" xml:space="preserve">
+    <value>libRemote2</value>
+  </data>
+  <data name="&gt;&gt;libRemote2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote2.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote2.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="bcRemote1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 35</value>
+  </data>
+  <data name="bcRemote1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote1.TabIndex" type="System.Int32, mscorlib">
+    <value>125</value>
+  </data>
+  <data name="&gt;&gt;bcRemote1.Name" xml:space="preserve">
+    <value>bcRemote1</value>
+  </data>
+  <data name="&gt;&gt;bcRemote1.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote1.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote1.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="libRemote1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 40</value>
+  </data>
+  <data name="libRemote1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote1.TabIndex" type="System.Int32, mscorlib">
+    <value>124</value>
+  </data>
+  <data name="libRemote1.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;libRemote1.Name" xml:space="preserve">
+    <value>libRemote1</value>
+  </data>
+  <data name="&gt;&gt;libRemote1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote1.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote1.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="bcRemote0.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 6</value>
+  </data>
+  <data name="bcRemote0.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="bcRemote0.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 23</value>
+  </data>
+  <data name="bcRemote0.TabIndex" type="System.Int32, mscorlib">
+    <value>123</value>
+  </data>
+  <data name="&gt;&gt;bcRemote0.Name" xml:space="preserve">
+    <value>bcRemote0</value>
+  </data>
+  <data name="&gt;&gt;bcRemote0.Type" xml:space="preserve">
+    <value>MagicRemoteService.BindControl, MagicRemoteService, Version=1.2.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bcRemote0.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;bcRemote0.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="libRemote0.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="libRemote0.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="libRemote0.Location" type="System.Drawing.Point, System.Drawing">
+    <value>421, 11</value>
+  </data>
+  <data name="libRemote0.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="libRemote0.TabIndex" type="System.Int32, mscorlib">
+    <value>122</value>
+  </data>
+  <data name="libRemote0.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;libRemote0.Name" xml:space="preserve">
+    <value>libRemote0</value>
+  </data>
+  <data name="&gt;&gt;libRemote0.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;libRemote0.Parent" xml:space="preserve">
+    <value>tabRemote</value>
+  </data>
+  <data name="&gt;&gt;libRemote0.ZOrder" xml:space="preserve">
+    <value>19</value>
   </data>
   <data name="bcRemoteRewind.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 180</value>
@@ -1132,7 +1672,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteRewind.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>20</value>
   </data>
   <data name="bcRemoteFastForward.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 151</value>
@@ -1156,7 +1696,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteFastForward.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>21</value>
   </data>
   <data name="bcRemotePause.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 122</value>
@@ -1180,7 +1720,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemotePause.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>22</value>
   </data>
   <data name="bcRemotePlay.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 93</value>
@@ -1204,7 +1744,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemotePlay.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>23</value>
   </data>
   <data name="bcRemoteBackspace.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 64</value>
@@ -1228,7 +1768,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteBackspace.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>24</value>
   </data>
   <data name="bcRemoteLongClick.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 35</value>
@@ -1252,7 +1792,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteLongClick.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>25</value>
   </data>
   <data name="bcRemoteClick.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 6</value>
@@ -1276,7 +1816,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteClick.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>26</value>
   </data>
   <data name="bcRemoteStop.Location" type="System.Drawing.Point, System.Drawing">
     <value>294, 209</value>
@@ -1300,7 +1840,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteStop.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>27</value>
   </data>
   <data name="bcRemoteBlue.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 267</value>
@@ -1324,7 +1864,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteBlue.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>28</value>
   </data>
   <data name="bcRemoteYellow.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 238</value>
@@ -1348,7 +1888,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteYellow.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>29</value>
   </data>
   <data name="bcRemoteGreen.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 209</value>
@@ -1372,7 +1912,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteGreen.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>30</value>
   </data>
   <data name="bcRemoteRed.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 180</value>
@@ -1396,7 +1936,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteRed.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>31</value>
   </data>
   <data name="bcRemoteBack.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 151</value>
@@ -1420,7 +1960,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteBack.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>32</value>
   </data>
   <data name="bcRemoteOk.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 122</value>
@@ -1444,7 +1984,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteOk.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>33</value>
   </data>
   <data name="bcRemoteDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 93</value>
@@ -1468,7 +2008,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteDown.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>34</value>
   </data>
   <data name="bcRemoteRight.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 64</value>
@@ -1492,7 +2032,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteRight.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>35</value>
   </data>
   <data name="bcRemoteLeft.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 6</value>
@@ -1516,7 +2056,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteLeft.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>36</value>
   </data>
   <data name="bcRemoteUp.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 35</value>
@@ -1540,7 +2080,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;bcRemoteUp.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>37</value>
   </data>
   <data name="libRemoteBackspace.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1570,7 +2110,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteBackspace.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>38</value>
   </data>
   <data name="libRemoteStop.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1600,7 +2140,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteStop.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>39</value>
   </data>
   <data name="libRemoteRewind.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1630,7 +2170,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteRewind.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>40</value>
   </data>
   <data name="libRemoteFastForward.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1660,7 +2200,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteFastForward.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>41</value>
   </data>
   <data name="libRemotePause.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1690,7 +2230,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemotePause.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>42</value>
   </data>
   <data name="libRemotePlay.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1720,7 +2260,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemotePlay.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>43</value>
   </data>
   <data name="libRemoteBlue.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1750,7 +2290,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteBlue.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>44</value>
   </data>
   <data name="libRemoteYellow.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1780,7 +2320,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteYellow.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>45</value>
   </data>
   <data name="libRemoteGreen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1810,7 +2350,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteGreen.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>46</value>
   </data>
   <data name="libRemoteRed.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1840,7 +2380,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteRed.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>47</value>
   </data>
   <data name="libRemoteBack.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1870,7 +2410,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteBack.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>48</value>
   </data>
   <data name="libRemoteOk.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1900,7 +2440,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteOk.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>49</value>
   </data>
   <data name="libRemoteDown.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1930,7 +2470,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteDown.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>50</value>
   </data>
   <data name="libRemoteRight.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1960,7 +2500,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteRight.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>51</value>
   </data>
   <data name="libRemoteUp.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1990,7 +2530,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteUp.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>52</value>
   </data>
   <data name="libRemoteLeft.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2020,7 +2560,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteLeft.ZOrder" xml:space="preserve">
-    <value>33</value>
+    <value>53</value>
   </data>
   <data name="libRemoteLongClick.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2050,7 +2590,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteLongClick.ZOrder" xml:space="preserve">
-    <value>34</value>
+    <value>54</value>
   </data>
   <data name="libRemoteClick.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2077,7 +2617,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;libRemoteClick.ZOrder" xml:space="preserve">
-    <value>35</value>
+    <value>55</value>
   </data>
   <data name="btnRemoteSave.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2086,10 +2626,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnRemoteSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>294, 296</value>
+    <value>443, 296</value>
   </data>
   <data name="btnRemoteSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 23</value>
+    <value>100, 23</value>
   </data>
   <data name="btnRemoteSave.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
@@ -2107,7 +2647,7 @@
     <value>tabRemote</value>
   </data>
   <data name="&gt;&gt;btnRemoteSave.ZOrder" xml:space="preserve">
-    <value>36</value>
+    <value>56</value>
   </data>
   <data name="tabRemote.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -2116,7 +2656,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabRemote.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 325</value>
+    <value>570, 325</value>
   </data>
   <data name="tabRemote.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2140,7 +2680,7 @@
     <value>12, 12</value>
   </data>
   <data name="tabSetting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>426, 351</value>
+    <value>578, 351</value>
   </data>
   <data name="tabSetting.TabIndex" type="System.Int32, mscorlib">
     <value>66</value>
@@ -2167,7 +2707,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>450, 404</value>
+    <value>602, 404</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

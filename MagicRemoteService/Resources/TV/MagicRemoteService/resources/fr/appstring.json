@@ -1,6 +1,6 @@
 {
 	"strAppTittle": "MagicRemoteService",
-	"strAppDescription": "Service permettant de contrôler un ordinateur à l'aide d'une TV WebOS LG",
+	"strAppDescriptionLong": "Service permettant de contrôler un ordinateur à l'aide d'une TV WebOS LG",
 
 	"strLogTitle": "Evenement",
 	"strWarnTitle": "Attention",

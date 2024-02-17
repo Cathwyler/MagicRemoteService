@@ -34,6 +34,16 @@ namespace MagicRemoteService {
 			{ 0x0026, null },
 			{ 0x0027, null },
 			{ 0x0028, null },
+			{ 0x0030, null },
+			{ 0x0031, null },
+			{ 0x0032, null },
+			{ 0x0033, null },
+			{ 0x0034, null },
+			{ 0x0035, null },
+			{ 0x0036, null },
+			{ 0x0037, null },
+			{ 0x0038, null },
+			{ 0x0039, null },
 			{ 0x0193, null },
 			{ 0x0194, null },
 			{ 0x0195, null },
@@ -134,24 +144,34 @@ namespace MagicRemoteService {
 			}
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Bind");
 			if(rkMagicRemoteServiceRemoteBind == null) {
-				this.dBind[0x0001] = new Bind[] { new BindMouse(BindMouseValue.Left) };													//Click -> Left click
-				this.dBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };												//LongClick -> Right click
-				this.dBind[0x0008] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };				//BackSpace -> Keyboard Delete
-				this.dBind[0x000D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };				//Ok -> Keyboard Return Enter
-				this.dBind[0x0025] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };					//Left -> Keyboard LeftArrow
-				this.dBind[0x0026] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };					//Up -> Keyboard UpArrow
-				this.dBind[0x0027] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };				//Right -> Keyboard RightArrow
-				this.dBind[0x0028] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };					//Down -> Keyboard DownArrow
-				this.dBind[0x0193] = new Bind[] { new BindAction(BindActionValue.Shutdown) };											//Red -> Show shutdown
-				this.dBind[0x0194] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };					//Green -> Keyboard Left GUI
-				this.dBind[0x0195] = new Bind[] { new BindMouse(BindMouseValue.Right) };												//Yellow -> Right click
-				this.dBind[0x0196] = new Bind[] { new BindAction(BindActionValue.Keyboard) };											//Blue -> Show keyboard
-				this.dBind[0x01CD] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };				//Back -> Keyboard Escape
-				this.dBind[0x019F] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };				//Play -> Play/Pause
-				this.dBind[0x0013] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };				//Pause -> Play/Pause
-				this.dBind[0x01A1] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };		//FastForward -> Scan Next Track
-				this.dBind[0x019C] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };	//Rewind -> Scan Previous Track
-				this.dBind[0x019D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };			//Stop -> Stop
+				this.dBind[0x0001] = new Bind[] { new BindMouse(BindMouseValue.Left) };
+				this.dBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };
+				this.dBind[0x0008] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
+				this.dBind[0x000D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
+				this.dBind[0x0025] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
+				this.dBind[0x0026] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
+				this.dBind[0x0027] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
+				this.dBind[0x0028] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };
+				this.dBind[0x0030] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad0, 0x52, false) };
+				this.dBind[0x0031] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad1, 0x4F, false) };
+				this.dBind[0x0032] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad2, 0x50, false) };
+				this.dBind[0x0033] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad3, 0x51, false) };
+				this.dBind[0x0034] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad4, 0x4B, false) };
+				this.dBind[0x0035] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad5, 0x4C, false) };
+				this.dBind[0x0036] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad6, 0x4D, false) };
+				this.dBind[0x0037] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad7, 0x47, false) };
+				this.dBind[0x0038] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad8, 0x48, false) };
+				this.dBind[0x0039] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad9, 0x49, false) };
+				this.dBind[0x0193] = new Bind[] { new BindAction(BindActionValue.Shutdown) };
+				this.dBind[0x0194] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };
+				this.dBind[0x0195] = new Bind[] { new BindMouse(BindMouseValue.Right) };
+				this.dBind[0x0196] = new Bind[] { new BindAction(BindActionValue.Keyboard) };
+				this.dBind[0x01CD] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };
+				this.dBind[0x019F] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };
+				this.dBind[0x0013] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };
+				this.dBind[0x01A1] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };
+				this.dBind[0x019C] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };
+				this.dBind[0x019D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };
 			} else {
 				foreach(string sKey in rkMagicRemoteServiceRemoteBind.GetSubKeyNames()) {
 					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();

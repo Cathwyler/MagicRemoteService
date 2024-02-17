@@ -47,6 +47,16 @@ namespace MagicRemoteService {
 			{ 0x0026, null },
 			{ 0x0027, null },
 			{ 0x0028, null },
+			{ 0x0030, null },
+			{ 0x0031, null },
+			{ 0x0032, null },
+			{ 0x0033, null },
+			{ 0x0034, null },
+			{ 0x0035, null },
+			{ 0x0036, null },
+			{ 0x0037, null },
+			{ 0x0038, null },
+			{ 0x0039, null },
 			{ 0x0193, null },
 			{ 0x0194, null },
 			{ 0x0195, null },
@@ -71,6 +81,16 @@ namespace MagicRemoteService {
 				{ 0x0026, this.bcRemoteUp },
 				{ 0x0027, this.bcRemoteRight },
 				{ 0x0028, this.bcRemoteDown },
+				{ 0x0030, this.bcRemote0 },
+				{ 0x0031, this.bcRemote1 },
+				{ 0x0032, this.bcRemote2 },
+				{ 0x0033, this.bcRemote3 },
+				{ 0x0034, this.bcRemote4 },
+				{ 0x0035, this.bcRemote5 },
+				{ 0x0036, this.bcRemote6 },
+				{ 0x0037, this.bcRemote7 },
+				{ 0x0038, this.bcRemote8 },
+				{ 0x0039, this.bcRemote9 },
 				{ 0x0193, this.bcRemoteRed },
 				{ 0x0194, this.bcRemoteGreen },
 				{ 0x0195, this.bcRemoteYellow },
@@ -308,24 +328,34 @@ namespace MagicRemoteService {
 		public void RemoteDataRefresh() {
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Bind");
 			if(rkMagicRemoteServiceRemoteBind == null) {
-				this.dBindControl[0x0001].Value = new Bind[] { new BindMouse(BindMouseValue.Left) };												//Click -> Left click
-				this.dBindControl[0x0002].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };												//LongClick -> Right click
-				this.dBindControl[0x0008].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };				//Backspace -> Keyboard Delete
-				this.dBindControl[0x000D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };				//Ok -> Keyboard Return Enter
-				this.dBindControl[0x0025].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };				//Left -> Keyboard LeftArrow
-				this.dBindControl[0x0026].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };					//Up -> Keyboard UpArrow
-				this.dBindControl[0x0027].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };				//Right -> Keyboard RightArrow
-				this.dBindControl[0x0028].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };				//Down -> Keyboard DownArrow
-				this.dBindControl[0x0193].Value = new Bind[] { new BindAction(BindActionValue.Shutdown) };											//Red -> Show shutdown
-				this.dBindControl[0x0194].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };				//Green -> Keyboard Left GUI
-				this.dBindControl[0x0195].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };												//Yellow -> Right click
-				this.dBindControl[0x0196].Value = new Bind[] { new BindAction(BindActionValue.Keyboard) };											//Blue -> Show keyboard
-				this.dBindControl[0x01CD].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };				//Back -> Keyboard Escape
-				this.dBindControl[0x019F].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };				//Play -> Play/Pause
-				this.dBindControl[0x0013].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };				//Pause -> Play/Pause
-				this.dBindControl[0x01A1].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };		//FastForward -> Scan Next Track
-				this.dBindControl[0x019C].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };	//Rewind -> Scan Previous Track
-				this.dBindControl[0x019D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };			//Stop -> Stop
+				this.dBindControl[0x0001].Value = new Bind[] { new BindMouse(BindMouseValue.Left) };
+				this.dBindControl[0x0002].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };
+				this.dBindControl[0x0008].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
+				this.dBindControl[0x000D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
+				this.dBindControl[0x0025].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
+				this.dBindControl[0x0026].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
+				this.dBindControl[0x0027].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
+				this.dBindControl[0x0028].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };
+				this.dBindControl[0x0030].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad0, 0x52, false) };
+				this.dBindControl[0x0031].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad1, 0x4F, false) };
+				this.dBindControl[0x0032].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad2, 0x50, false) };
+				this.dBindControl[0x0033].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad3, 0x51, false) };
+				this.dBindControl[0x0034].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad4, 0x4B, false) };
+				this.dBindControl[0x0035].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad5, 0x4C, false) };
+				this.dBindControl[0x0036].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad6, 0x4D, false) };
+				this.dBindControl[0x0037].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad7, 0x47, false) };
+				this.dBindControl[0x0038].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad8, 0x48, false) };
+				this.dBindControl[0x0039].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad9, 0x49, false) };
+				this.dBindControl[0x0193].Value = new Bind[] { new BindAction(BindActionValue.Shutdown) };
+				this.dBindControl[0x0194].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };
+				this.dBindControl[0x0195].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };
+				this.dBindControl[0x0196].Value = new Bind[] { new BindAction(BindActionValue.Keyboard) };
+				this.dBindControl[0x01CD].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };
+				this.dBindControl[0x019F].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };
+				this.dBindControl[0x0013].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };
+				this.dBindControl[0x01A1].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };
+				this.dBindControl[0x019C].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };
+				this.dBindControl[0x019D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };
 			} else {
 				foreach(string sKey in rkMagicRemoteServiceRemoteBind.GetSubKeyNames()) {
 					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
@@ -427,8 +457,11 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appinfo.json", MagicRemoteService.Properties.Resources.appinfo
 				.Replace("\"id\": \"com.cathwyler.magicremoteservice\"", "\"id\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "\"")
 				.Replace("\"version\": \"1.0.0\"", "\"version\": \"" + strVersion + "\"")
+				.Replace("\"appDescription\": \"HDMI\"", "\"appDescription\": \"" + wocdiInput.Name + "\"")
 			);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appstring.json", MagicRemoteService.Properties.Resources.appstring);
+			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appstring.json", MagicRemoteService.Properties.Resources.appstring
+				.Replace("\"strAppDescription\": \"HDMI\"", "\"strAppDescription\": \"" + wocdiInput.Name + "\"")
+			);
 			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\icon.png", MagicRemoteService.Properties.Resources.icon);
 			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
 			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
