@@ -10,7 +10,6 @@
 		}
 		* {
 			font-family: Sandstone;
-			-o-text-overflow: ellipsis;
 			text-overflow: ellipsis;
 		}
 
@@ -28,34 +27,27 @@
 		}
 
 		div.flex {
-			display: -webkit-box;
-			display: -ms-flexbox;
+			display: -webkit-flex;
 			display: flex;
-			-webkit-box-orient: horizontal;
-			-webkit-box-direction: normal;
-			-ms-flex-flow: row wrap;
+			-webkit-flex-flow: row wrap;
 			flex-flow: row wrap;
 			/*gap: 1rem; chrome < 84*/
 		}
 		div.justify-center {
-			-webkit-box-pack:center;
-			-ms-flex-pack:center;
-			justify-content:center;
+			-webkit-justify-content: center;
+			justify-content: center;
 		}
 		div.justify-flex-end {
-			-webkit-box-pack:end;
-			-ms-flex-pack:end;
-			justify-content:flex-end;
+			-webkit-justify-content: flex-end;
+			justify-content: flex-end;
 		}
 		div.align-flex-end {
-			-webkit-box-align:end;
-			-ms-flex-align:end;
-			align-items:flex-end;
+  			-webkit-align-items: flex-end;
+			align-items: flex-end;
 		}
 		div.align-center {
-			-webkit-box-align:center;
-			-ms-flex-align:center;
-			align-items:center;
+			-webkit-align-items: center;
+			align-items: center;
 		}
 		
 		div.window {
@@ -85,14 +77,17 @@
 			font-size: 1.5rem;
 		}
 
-		div#uncaught {
-			color: #E6E6E6;
-			white-space: pre-wrap;
+		#keyboard {
+			opacity: 0;
 		}
-		video#video {
+		#video {
 			pointer-events: auto;
 			height: 100%;
 			width: 100%;
+		}
+		#uncaught {
+			color: #E6E6E6;
+			white-space: pre-wrap;
 		}
 		div.dialog {
 			min-width: 30%;

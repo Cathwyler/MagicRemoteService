@@ -122,6 +122,7 @@ namespace MagicRemoteService {
 			this.libRemoteLongClick = new System.Windows.Forms.Label();
 			this.libRemoteClick = new System.Windows.Forms.Label();
 			this.btnRemoteSave = new System.Windows.Forms.Button();
+			this.cbOverlay = new System.Windows.Forms.CheckBox();
 			this.tabSetting.SuspendLayout();
 			this.tabTV.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
@@ -156,6 +157,7 @@ namespace MagicRemoteService {
 			// 
 			// tabTV
 			// 
+			this.tabTV.Controls.Add(this.cbOverlay);
 			this.tabTV.Controls.Add(this.cbInputDirect);
 			this.tabTV.Controls.Add(this.btnTVInspect);
 			this.tabTV.Controls.Add(this.labDisplay);
@@ -871,6 +873,12 @@ namespace MagicRemoteService {
 			this.btnRemoteSave.UseVisualStyleBackColor = true;
 			this.btnRemoteSave.Click += new System.EventHandler(this.RemoteSave_Click);
 			// 
+			// cbOverlay
+			// 
+			resources.ApplyResources(this.cbOverlay, "cbOverlay");
+			this.cbOverlay.Name = "cbOverlay";
+			this.cbOverlay.UseVisualStyleBackColor = true;
+			// 
 			// Setting
 			// 
 			resources.ApplyResources(this, "$this");
@@ -995,5 +1003,6 @@ namespace MagicRemoteService {
 		private BindControl bcRemote0;
 		private System.Windows.Forms.Label libRemote0;
 		private System.Windows.Forms.Label libRemote4;
+		private System.Windows.Forms.CheckBox cbOverlay;
 	}
 }

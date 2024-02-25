@@ -63,23 +63,21 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice&quot;,
-        ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
         ///	&quot;main&quot;: &quot;index.html&quot;,
+        ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
         ///	&quot;icon&quot;: &quot;icon.png&quot;,
+        ///	&quot;miniicon&quot;: &quot;miniIcon.png&quot;,
         ///	&quot;largeIcon&quot;: &quot;largeIcon.png&quot;,
-        ///	&quot;iconColor&quot;: &quot;#575E66&quot;,
         ///	&quot;type&quot;: &quot;web&quot;,
         ///	&quot;vendor&quot;: &quot;Cathwyler&quot;,
         ///	&quot;version&quot;: &quot;1.0.0&quot;,
-        ///	&quot;appDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
-        ///	&quot;label&quot;: &quot;HDMI1&quot;,
-        ///	&quot;displayName&quot;: &quot;HDMI2&quot;,
-        ///	&quot;appmenu&quot;: &quot;HDMI3&quot;,
-        ///	&quot;bgColor&quot;: &quot;#575E66&quot;,
-        ///	&quot;supportTouchMode&quot;: &quot;none&quot;,
+        ///	&quot;iconColor&quot;: &quot;#575E66&quot;,
+        ///	&quot;appDescription&quot;: &quot;HDMI&quot;,
+        ///	&quot;appDescriptionLong&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
         ///	&quot;disableBackHistoryAPI&quot;: true,
         ///	&quot;transparent&quot;: true,
-        ///	 [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;defaultWindowType&quot; : &quot;floating&quot;,
+        ///	&quot;noSplashOnLaunch&quot;: true [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string appinfo {
             get {
@@ -108,7 +106,8 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;strAppDescription&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
+        ///	&quot;strAppDescription&quot;: &quot;HDMI&quot;,
+        ///	&quot;strAppDescriptionLong&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
         ///
         ///	&quot;strLogTitle&quot;: &quot;Log&quot;,
         ///	&quot;strWarnTitle&quot;: &quot;Warn&quot;,
@@ -118,7 +117,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Failed to get all input status&quot;,
         ///	&quot;strAddDeviceSuccess&quot;: &quot;Sucess to add device&quot;,
         ///	&quot;strAddDeviceFailure&quot;: &quot;Failed to add device&quot;,
-        ///	&quot;strRegisterScreenSaverRequestSubscribe&quot;: &quot;Start to register scree [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strRegisterScreenSaverRequestS [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string appstring {
             get {
@@ -182,8 +181,7 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
-        ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;appDescription&quot;: &quot;Servicio que proporciona control remoto de computadora usando un televisor LG WebOS&quot;
+        ///	&quot;appDescriptionLong&quot;: &quot;Servicio que proporciona control remoto de computadora usando un televisor LG WebOS&quot;
         ///}.
         /// </summary>
         internal static string esappinfo {
@@ -195,7 +193,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;strAppDescription&quot;: &quot;Servicio que proporciona control remoto de computadora usando un televisor LG WebOS&quot;,
+        ///	&quot;strAppDescriptionLong&quot;: &quot;Servicio que proporciona control remoto de computadora usando un televisor LG WebOS&quot;,
         ///
         ///	&quot;strLogTitle&quot;: &quot;Registro&quot;,
         ///	&quot;strWarnTitle&quot;: &quot;Aviso&quot;,
@@ -204,7 +202,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Se ha obtenido correctamente el estado de todas las entradas&quot;,
         ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Fallo al obtener el estado de todas las entradas&quot;,
         ///	&quot;strAddDeviceSuccess&quot;: &quot;Se ha añadido el dispositivo correctamente&quot;,
-        ///	&quot;strAddDeviceFailure&quot;: &quot;Fall [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strAddDeviceFailure&quot;: &quot; [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string esappstring {
             get {
@@ -214,8 +212,7 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
-        ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;appDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;
+        ///	&quot;appDescriptionLong&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;
         ///}.
         /// </summary>
         internal static string frappinfo {
@@ -227,7 +224,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///	&quot;strAppTittle&quot;: &quot;MagicRemoteService&quot;,
-        ///	&quot;strAppDescription&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
+        ///	&quot;strAppDescriptionLong&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;,
         ///
         ///	&quot;strLogTitle&quot;: &quot;Evenement&quot;,
         ///	&quot;strWarnTitle&quot;: &quot;Attention&quot;,
@@ -236,7 +233,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Succès de la récupération l&apos;état des entrées&quot;,
         ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Echec de la récupération l&apos;état des entrées&quot;,
         ///	&quot;strAddDeviceSuccess&quot;: &quot;Succès de l&apos;ajout de l&apos;appareil&quot;,
-        ///	&quot;strAddDeviceFailure&quot;: &quot;Echec de l&apos;ajout de l&apos;appareil [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strAddDeviceFailure&quot;: &quot;Echec de l&apos;ajout de l&apos;appa [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string frappstring {
             get {
@@ -267,7 +264,6 @@ namespace MagicRemoteService.Properties {
         ///		}
         ///		* {
         ///			font-family: Sandstone;
-        ///			-o-text-overflow: ellipsis;
         ///			text-overflow: ellipsis;
         ///		}
         ///
@@ -285,9 +281,10 @@ namespace MagicRemoteService.Properties {
         ///		}
         ///
         ///		div.flex {
-        ///			display: -webkit-box;
-        ///			display: -ms-flexbox;
-        ///			di [le reste de la chaîne a été tronqué]&quot;;.
+        ///			display: -webkit-flex;
+        ///			display: flex;
+        ///			-webkit-flex-flow: row wrap;
+        ///			flex-fl [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string index {
             get {
@@ -373,6 +370,16 @@ namespace MagicRemoteService.Properties {
         internal static string main {
             get {
                 return ResourceManager.GetString("main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] miniIcon {
+            get {
+                object obj = ResourceManager.GetObject("miniIcon", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

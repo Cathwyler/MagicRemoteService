@@ -18,6 +18,10 @@
 	"strGetSensorDataFailure": "Echec de la récupération des donnéees du capteur",
 	"strGetSystemSettingsSuccess": "Succès de la récupération des paramètres du système",
 	"strGetSystemSettingsFailure": "Echec de la récupération des paramètres du système",
+	"strLaunchSuccess": "Succès du lancement",
+	"strLaunchFailure": "Echec du lancement",
+	"strCloseSubscribe": "Début de la fermeture",
+	"strCloseFailure": "Echec de la fermeture",
 	
 	"strSendWolSuccess": "Succès de l'envoi du WoL",
 	"strSendWolFailure": "Echec de l'envoi du WoL",
