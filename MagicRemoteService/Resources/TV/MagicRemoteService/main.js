@@ -216,7 +216,7 @@ if(bInputDirect){
 					iIntervalWakeOnLan = startInterval(function() {
 						SendWol({
 							tabMac: tabMac
-						}, sBroadcast);
+						}, strBroadcast);
 					}, 5000);
 					iTimeoutSourceStatus = setTimeout(function() {
 						iTimeoutSourceStatus = 0;
@@ -491,7 +491,7 @@ function SubscriptionClose() {
 			}
 		},
 		onFailure: function (inError) {
-			Error(oString.strCloseFailure + " [", inError.errorText, "]");
+			Error(oString.strCloseFailure + " [", inError.eError, "]");
 		},
 	});
 }
@@ -700,7 +700,7 @@ if(bInputDirect){
 					iIntervalWakeOnLan = startInterval(function() {
 						SendWol({
 							tabMac: tabMac
-						}, sBroadcast);
+						}, strBroadcast);
 					}, 5000);
 					iTimeoutOpen = setTimeout(function() {
 						iTimeoutOpen = 0;
@@ -820,18 +820,18 @@ function Close() {
 	}
 }
 
-function SendWol(mMac, sBroadcast) {
+function SendWol(mMac, strBroadcast) {
 	webOS.service.request("luna://" + strAppId + ".send", {
 		method: "wol",
 		parameters: {
 			mMac: mMac,
-			sBroadcast: sBroadcast
+			strBroadcast: strBroadcast
 		},
 		onSuccess: function(inResponse) {
-			LogIfDebug(oString.strSendWolSuccess + " [0x" + inResponse.sBuffer + "]@" + sBroadcast + ":9 ", mMac);
+			LogIfDebug(oString.strSendWolSuccess + " [0x" + inResponse.strBuffer + "]@" + strBroadcast + ":9 ", mMac);
 		},
 		onFailure: function(inError) {
-			Error(oString.strSendWolFailure + " [", inError.eError, "]@" + sBroadcast + ":9 ", mMac);
+			Error(oString.strSendWolFailure + " [", inError.eError, "]@" + strBroadcast + ":9 ", mMac);
 		}
 	});
 }

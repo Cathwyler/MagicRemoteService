@@ -24,10 +24,10 @@ bufWol.fill(0xFF, 0, 6);
 serService.register("wol", function(mMessage) {
 	try {
 		bufWol.fill(Buffer.from(mMessage.payload.mMac.tabMac), 6);
-		socClient.send(bufWol, 9, mMessage.payload.sBroadcast);
+		socClient.send(bufWol, 9, mMessage.payload.strBroadcast);
 		
 		mMessage.respond({
-			sBuffer: bufWol.toString("hex"),
+			strBuffer: bufWol.toString("hex"),
 			returnValue: true
 		});
 	} catch(eError) {
@@ -57,7 +57,7 @@ if(bOverlay){
 			});
 		} catch(eError) {
 			mMessage.respond({
-				eError: eError.message,
+				eError: eError,
 				returnValue: false
 			});
 		}
