@@ -427,35 +427,6 @@ function SubscriptionGetSensorData() {
 	});
 }
 
-function AddDevice() {
-	webOS.service.request("luna://com.webos.service.eim", {
-		method: "addDevice",
-		parameters: {
-			appId: strAppId,
-			pigImage: "",
-			mvpdIcon: "",
-			type: "MVPD_IP",
-			showPopup: true,
-			label: oString.strAppTittle,
-			description: oString.strAppDescription
-		},
-		onSuccess: function(inResponse) {
-			LogIfDebug(oString.strAddDeviceSuccess);
-		},
-		onFailure: function(inError) {
-			switch(inError.errorCode) {
-				case "-1":
-				case "EIM.105":
-					console.error(oString.strAddDeviceFailure + " [", inError.errorText, "]");
-					break;
-				default:
-					Error(oString.strAddDeviceFailure + " [", inError.errorText, "]");
-					break;
-			}
-		} 
-	});
-}
-
 function LaunchInput() {
 	webOS.service.request("luna://com.webos.applicationManager", {
 		method: "launch",
@@ -463,10 +434,10 @@ function LaunchInput() {
 			id: strInputAppId
 		},
 		onSuccess: function (inResponse) {
-			LogIfDebug(oString.strCloseSuccess);
+			LogIfDebug(oString.strLaunchSuccess);
 		},
 		onFailure: function (inError) {
-			Error(oString.strCloseFailure + " [", inError.errorText, "]");
+			Error(oString.strLaunchFailure + " [", inError.errorText, "]");
 		},
 	});
 }
@@ -1014,6 +985,7 @@ function Load() {
 					return false;
 				};
 			}
+			SubscriptionScreenSaverRequest();
 			SubscriptionInputStatus();
 			SubscriptionGetSensorData();
 			SubscriptionDomEvent();
@@ -1033,8 +1005,6 @@ function Load() {
 					window.PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
 				} else {
 				}*/
-				SubscriptionScreenSaverRequest();
-				AddDevice(); //TODO Move this to window app and launchPoint 
 
 				var deSource = document.createElement("source");
 				deSource.setAttribute("src", strInputSource);

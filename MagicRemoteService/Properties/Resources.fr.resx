@@ -240,4 +240,7 @@
   <data name="SettingTVSelectErrorTitle" xml:space="preserve">
     <value>La TV n'a pas été sélectionné</value>
   </data>
+  <data name="SettingTVVersionErrorTitle" xml:space="preserve">
+    <value>Erreur lors de la récupération de la version de la TV</value>
+  </data>
 </root>

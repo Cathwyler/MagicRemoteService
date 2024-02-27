@@ -145,7 +145,6 @@ namespace MagicRemoteService {
 			get; set;
 		}
 	}
-
 	internal static class WebOSCLI {
 		private static string ExecWebOSCLICommand(string strCommand, string strArgument, System.Collections.Generic.Dictionary<ushort, string> dInput = null, string strWorkingDirectory = null) {
 			System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
@@ -173,7 +172,7 @@ namespace MagicRemoteService {
 #if DEBUG
 					System.Console.WriteLine(e.Data);
 #endif
-					strOutput += e.Data;
+					strOutput += e.Data + System.Environment.NewLine;
 					usOutputLine++;
 					if(dInput != null && dInput.ContainsKey(usOutputLine)) {
 						System.Threading.Tasks.Task.Run(async delegate () {
@@ -250,6 +249,13 @@ namespace MagicRemoteService {
 			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-novacom", string.Join(" ", tabArgument), new System.Collections.Generic.Dictionary<ushort, string>() { { 1, strPassphrase } });
 		}
+		public static void NovacomRun(string strDevice, string strCommand) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\"",
+				"-r \"" + strCommand.Replace("\"", "\\\"") + "\""
+			};
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-novacom", string.Join(" ", tabArgument));
+		}
 		public static void Package(string strOutDirectory, string strApplication, string strService = null, string strPackage = null) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
 				"\"" + strApplication + "\"",
@@ -301,6 +307,12 @@ namespace MagicRemoteService {
 				"-o"
 			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-inspect", string.Join(" ", tabArgument));
+		}
+		public static string DeviceInfo(string strDevice) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\""
+			};
+			return MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-device-info", string.Join(" ", tabArgument));
 		}
 		public static void Extend(string strDevice) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {

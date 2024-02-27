@@ -120,7 +120,9 @@
   <data name="btnClose.Text" xml:space="preserve">
     <value>Cerrar</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnTVVersion.Text" xml:space="preserve">
+    <value>Versión de TV</value>
+  </data>
   <data name="cbInputDirect.Text" xml:space="preserve">
     <value>Cableado HDMI directo</value>
   </data>
@@ -184,6 +186,9 @@
   <data name="labTimeoutIncativity.Text" xml:space="preserve">
     <value>Se agotó el tiempo de espera</value>
   </data>
+  <data name="tabRemote.Text" xml:space="preserve">
+    <value>Remoto</value>
+  </data>
   <data name="libRemoteBackspace.Text" xml:space="preserve">
     <value>Retroceso</value>
   </data>
@@ -237,9 +242,6 @@
   </data>
   <data name="btnRemoteSave.Text" xml:space="preserve">
     <value>Guardar</value>
-  </data>
-  <data name="tabRemote.Text" xml:space="preserve">
-    <value>Remoto</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Ajustes</value>

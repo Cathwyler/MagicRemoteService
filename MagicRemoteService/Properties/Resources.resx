@@ -295,4 +295,7 @@
   <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
     <value>The display has not been selected</value>
   </data>
+  <data name="SettingTVVersionErrorTitle" xml:space="preserve">
+    <value>Error while retrieving TV version</value>
+  </data>
 </root>

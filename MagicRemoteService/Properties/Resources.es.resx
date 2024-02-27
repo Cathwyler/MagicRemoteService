@@ -240,4 +240,7 @@
   <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
     <value>La pantalla no ha sido seleccionada</value>
   </data>
+  <data name="SettingTVVersionErrorTitle" xml:space="preserve">
+    <value>Error al recuperar la versión de TV</value>
+  </data>
 </root>

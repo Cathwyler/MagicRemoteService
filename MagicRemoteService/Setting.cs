@@ -73,6 +73,7 @@ namespace MagicRemoteService {
 		public Setting(MagicRemoteService.Service mrs) {
 			this.mrsService = mrs;
 			this.InitializeComponent();
+			this.libVersion.Text = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 			this.dBindControl = new System.Collections.Generic.Dictionary<ushort, BindControl>() {
 				{ 0x0001, this.bcRemoteClick },
 				{ 0x0002, this.bcRemoteLongClick },
@@ -116,7 +117,7 @@ namespace MagicRemoteService {
 			}
 		}
 		public void PCDataRefresh() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService");
 			if(rkMagicRemoteService == null) {
 				this.nbListenPort.Value = 41230;
 				this.cbInactivity.Checked = true;
@@ -143,7 +144,7 @@ namespace MagicRemoteService {
 				TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
 				ts.Connect();
 				TaskScheduler.IRegisteredTask rtStartup = null;
-				foreach(TaskScheduler.IRegisteredTask rt in ts.GetFolder("\\").GetTasks(0)) {
+				foreach(TaskScheduler.IRegisteredTask rt in ts.GetFolder(@"\").GetTasks(0)) {
 					if(rt.Name == "MagicRemoteService") {
 						rtStartup = rt;
 					}
@@ -157,7 +158,7 @@ namespace MagicRemoteService {
 			this.bStartup = this.cbStartup.Checked;
 		}
 		public void PCDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService");
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Software\MagicRemoteService");
 			rkMagicRemoteService.SetValue("Port", this.nbListenPort.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteService.SetValue("Inactivity", this.cbInactivity.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteService.SetValue("TimeoutInactivity", this.nbTimeoutInactivity.Value, Microsoft.Win32.RegistryValueKind.DWord);
@@ -211,7 +212,7 @@ namespace MagicRemoteService {
 				TaskScheduler.IExecAction eaStartup = (TaskScheduler.IExecAction)tdStartup.Actions.Create(TaskScheduler._TASK_ACTION_TYPE.TASK_ACTION_EXEC);
 				eaStartup.Path = System.Reflection.Assembly.GetExecutingAssembly().Location;
 				eaStartup.WorkingDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				ts.GetFolder("\\").RegisterTaskDefinition("MagicRemoteService", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
+				ts.GetFolder(@"\").RegisterTaskDefinition("MagicRemoteService", tdStartup, (int)TaskScheduler._TASK_CREATION.TASK_CREATE_OR_UPDATE, null, null, TaskScheduler._TASK_LOGON_TYPE.TASK_LOGON_NONE);
 			}
 
 			if(MagicRemoteService.Program.bElevated) {
@@ -264,7 +265,7 @@ namespace MagicRemoteService {
 				this.cbExtend.Enabled = true;
 				this.btnTVInstall.Enabled = true;
 				this.btnTVInspect.Enabled = true;
-				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Device\\" + ((MagicRemoteService.WebOSCLIDevice)this.cbbTV.SelectedItem).Name);
+				Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Device\" + ((MagicRemoteService.WebOSCLIDevice)this.cbbTV.SelectedItem).Name);
 				if(rkMagicRemoteServiceDevice == null) {
 					this.cbbInput.SelectedIndex = 0;
 					this.cbbDisplay.SelectedIndex = 0;
@@ -321,7 +322,7 @@ namespace MagicRemoteService {
 			this.bExtend = this.cbExtend.Checked;
 		}
 		public void TVDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Device\\" + ((MagicRemoteService.WebOSCLIDevice)this.cbbTV.SelectedItem).Name);
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Software\MagicRemoteService\Device\" + ((MagicRemoteService.WebOSCLIDevice)this.cbbTV.SelectedItem).Name);
 			rkMagicRemoteServiceDevice.SetValue("InputId", ((MagicRemoteService.WebOSCLIDeviceInput)this.cbbInput.SelectedItem).Id, Microsoft.Win32.RegistryValueKind.String);
 			rkMagicRemoteServiceDevice.SetValue("Display", ((MagicRemoteService.Screen)this.cbbDisplay.SelectedItem).Id, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteServiceDevice.SetValue("SendIp", this.iabSendIP.Value.ToString(), Microsoft.Win32.RegistryValueKind.String);
@@ -334,7 +335,7 @@ namespace MagicRemoteService {
 			rkMagicRemoteServiceDevice.SetValue("Extend", this.cbExtend.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 		}
 		public void RemoteDataRefresh() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Bind");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Remote\Bind");
 			if(rkMagicRemoteServiceRemoteBind == null) {
 				this.dBindControl[0x0001].Value = new Bind[] { new BindMouse(BindMouseValue.Left) };
 				this.dBindControl[0x0002].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };
@@ -393,7 +394,7 @@ namespace MagicRemoteService {
 			}
 		}
 		public void RemoteDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Remote\\Bind");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Softwar\MagicRemoteService\Remote\Bind");
 			foreach(string sKey in rkMagicRemoteServiceRemoteBind.GetSubKeyNames()) {
 				Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBindKey = rkMagicRemoteServiceRemoteBind.CreateSubKey(sKey);
 				foreach(string sBind in rkMagicRemoteServiceRemoteBindKey.GetSubKeyNames()) {
@@ -441,65 +442,65 @@ namespace MagicRemoteService {
 			bool bInputDirect,
 			bool bOverlay
 		) {
-			if(System.IO.Directory.Exists(".\\TV")) {
-				System.IO.Directory.Delete(".\\TV", true);
+			if(System.IO.Directory.Exists(@".\TV")) {
+				System.IO.Directory.Delete(@".\TV", true);
 			}
-			System.IO.Directory.CreateDirectory(".\\TV");
-			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService");
-			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8");
-			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources");
-			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources\\fr");
-			System.IO.Directory.CreateDirectory(".\\TV\\MagicRemoteService\\resources\\es");
-			System.IO.Directory.CreateDirectory(".\\TV\\Send");
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\main.js", MagicRemoteService.Properties.Resources.main
+			System.IO.Directory.CreateDirectory(@".\TV");
+			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService");
+			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\webOSTVjs-1.2.8");
+			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources");
+			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\fr");
+			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\es");
+			System.IO.Directory.CreateDirectory(@".\TV\Send");
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\main.js", MagicRemoteService.Properties.Resources.main
 #if DEBUG
-				.Replace("const bDebug = false;", "const bDebug = true;")
+				.Replace(@"const bDebug = false;", @"const bDebug = true;")
 #endif
-				.Replace("const bInputDirect = true", "const bInputDirect = " + (bInputDirect ? "true" : "false"))
-				.Replace("const bOverlay = true", "const bOverlay = " + (bOverlay ? "true" : "false"))
-				.Replace("const uiLongClick = 1500", "const uiLongClick = " + dLongClick.ToString())
-				.Replace("const strInputId = \"HDMI\"", "const strInputId = \"" + wocdiInput.Id + "\"")
-				.Replace("const strInputAppId = \"com.webos.app.hdmi\"", "const strInputAppId = \"com.webos.app." + wocdiInput.AppIdShort + "\"")
-				.Replace("const strInputName = \"HDMI\"", "const strInputName = \"" + wocdiInput.Name + "\"")
-				.Replace("const strInputSource = \"ext://hdmi\"", "const strInputSource = \"" + wocdiInput.Source + "\"")
-				.Replace("const strIP = \"127.0.0.1\"", "const strIP = \"" + ipaSendIP.ToString() + "\"")
-				.Replace("const uiPort = 41230", "const uiPort = " + dSendPort.ToString())
-				.Replace("const strMask = \"255.255.255.0\"", "const strMask = \"" + ipaMask.ToString() + "\"")
-				.Replace("const strMac = \"AA:AA:AA:AA:AA:AA\"", "const strMac = \"" + paPCMac.ToString() + "\"")
-				.Replace("const strAppId = \"com.cathwyler.magicremoteservice\"", "const strAppId = \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "\"")
+				.Replace(@"const bInputDirect = true", @"const bInputDirect = " + (bInputDirect ? "true" : "false"))
+				.Replace(@"const bOverlay = true", @"const bOverlay = " + (bOverlay ? "true" : "false"))
+				.Replace(@"const uiLongClick = 1500", @"const uiLongClick = " + dLongClick.ToString())
+				.Replace(@"const strInputId = ""HDMI""", @"const strInputId = """ + wocdiInput.Id + @"""")
+				.Replace(@"const strInputAppId = ""com.webos.app.hdmi""", @"const strInputAppId = ""com.webos.app." + wocdiInput.AppIdShort + @"""")
+				.Replace(@"const strInputName = ""HDMI""", @"const strInputName = """ + wocdiInput.Name + @"""")
+				.Replace(@"const strInputSource = ""ext://hdmi""", @"const strInputSource = """ + wocdiInput.Source + @"""")
+				.Replace(@"const strIP = ""127.0.0.1""", @"const strIP = """ + ipaSendIP.ToString() + @"""")
+				.Replace(@"const uiPort = 41230", @"const uiPort = " + dSendPort.ToString())
+				.Replace(@"const strMask = ""255.255.255.0""", @"const strMask = """ + ipaMask.ToString() + @"""")
+				.Replace(@"const strMac = ""AA:AA:AA:AA:AA:AA""", @"const strMac = """ + paPCMac.ToString() + @"""")
+				.Replace(@"const strAppId = ""com.cathwyler.magicremoteservice""", @"const strAppId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""")
 			);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\index.html", MagicRemoteService.Properties.Resources.index);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appinfo.json", MagicRemoteService.Properties.Resources.appinfo
-				.Replace("\"id\": \"com.cathwyler.magicremoteservice\"", "\"id\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "\"")
-				.Replace("\"version\": \"1.0.0\"", "\"version\": \"" + strVersion + "\"")
-				.Replace("\"appDescription\": \"HDMI\"", "\"appDescription\": \"" + wocdiInput.Name + "\"")
-				.Replace("\"defaultWindowType\": \"floating\"", "\"defaultWindowType\": \"" + (bOverlay ? "floating" : "card") + "\"")
-				.Replace("\"noSplashOnLaunch\": true", "\"noSplashOnLaunch\": " + (bOverlay ? "true" : "false"))
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\index.html", MagicRemoteService.Properties.Resources.index);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\appinfo.json", MagicRemoteService.Properties.Resources.appinfo
+				.Replace(@"""id"": ""com.cathwyler.magicremoteservice""", @"""id"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""")
+				.Replace(@"""version"": ""1.0.0""", @"""version"": """ + strVersion + @"""")
+				.Replace(@"""appDescription"": ""HDMI""", @"""appDescription"": """ + wocdiInput.Name + @"""")
+				.Replace(@"""defaultWindowType"": ""floating""", @"""defaultWindowType"": """ + (bOverlay ? "floating" : "card") + @"""")
+				.Replace(@"""noSplashOnLaunch"": true", @"""noSplashOnLaunch"": " + (bOverlay ? "true" : "false"))
 			);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\appstring.json", MagicRemoteService.Properties.Resources.appstring
-				.Replace("\"strAppDescription\": \"HDMI\"", "\"strAppDescription\": \"" + wocdiInput.Name + "\"")
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\appstring.json", MagicRemoteService.Properties.Resources.appstring
+				.Replace(@"""strAppDescription"": ""HDMI""", @"""strAppDescription"": """ + wocdiInput.Name + @"""")
 			);
-			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\icon.png", MagicRemoteService.Properties.Resources.icon);
-			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\miniIcon.png", MagicRemoteService.Properties.Resources.miniIcon);
-			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
-			System.IO.File.WriteAllBytes(".\\TV\\MagicRemoteService\\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8\\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\webOSTVjs-1.2.8\\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\fr\\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\fr\\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\es\\appinfo.json", MagicRemoteService.Properties.Resources.esappinfo);
-			System.IO.File.WriteAllText(".\\TV\\MagicRemoteService\\resources\\es\\appstring.json", MagicRemoteService.Properties.Resources.esappstring);
-			System.IO.File.WriteAllText(".\\TV\\Send\\package.json", MagicRemoteService.Properties.Resources.package
-				.Replace("\"name\": \"com.cathwyler.magicremoteservice.send\"", "\"name\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + ".send\"")
+			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\icon.png", MagicRemoteService.Properties.Resources.icon);
+			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\miniIcon.png", MagicRemoteService.Properties.Resources.miniIcon);
+			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
+			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\fr\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\fr\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\es\appinfo.json", MagicRemoteService.Properties.Resources.esappinfo);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\es\appstring.json", MagicRemoteService.Properties.Resources.esappstring);
+			System.IO.File.WriteAllText(@".\TV\Send\package.json", MagicRemoteService.Properties.Resources.package
+				.Replace(@"""name"": ""com.cathwyler.magicremoteservice.send""", @"""name"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
 			);
-			System.IO.File.WriteAllText(".\\TV\\Send\\send.js", MagicRemoteService.Properties.Resources.send
-				.Replace("const bOverlay = true", "const bOverlay = " + (bOverlay ? "true" : "false"))
-				.Replace("const strInputAppId = \"com.webos.app.hdmi\"", "const strInputAppId = \"com.webos.app." + wocdiInput.AppIdShort + "\"")
-				.Replace("const strAppId = \"com.cathwyler.magicremoteservice\"", "const strAppId = \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "\"")
+			System.IO.File.WriteAllText(@".\TV\Send\send.js", MagicRemoteService.Properties.Resources.send
+				.Replace(@"const bOverlay = true", "const bOverlay = " + (bOverlay ? "true" : "false"))
+				.Replace(@"const strInputAppId = ""com.webos.app.hdmi""", @"const strInputAppId = ""com.webos.app." + wocdiInput.AppIdShort + @"""")
+				.Replace(@"const strAppId = ""com.cathwyler.magicremoteservice""", @"const strAppId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""")
 			);
-			System.IO.File.WriteAllText(".\\TV\\Send\\services.json", MagicRemoteService.Properties.Resources.services
-				.Replace("\"id\": \"com.cathwyler.magicremoteservice.send\"", "\"id\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + ".send\"")
-				.Replace("\"name\": \"com.cathwyler.magicremoteservice.send\"", "\"name\": \"com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + ".send\"")
+			System.IO.File.WriteAllText(@".\TV\Send\services.json", MagicRemoteService.Properties.Resources.services
+				.Replace(@"""id"": ""com.cathwyler.magicremoteservice.send""", @"""id"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
+				.Replace(@"""name"": ""com.cathwyler.magicremoteservice.send""", @"""name"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
 			);
 		}
 		private async void PCSave_Click(object sender, System.EventArgs e) {
@@ -611,10 +612,15 @@ namespace MagicRemoteService {
 						System.Version vAssembly = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 						string strVersion = vAssembly.Major + "." + vAssembly.Minor + "." + vAssembly.Build;
 						MagicRemoteService.Setting.AppExtract(strVersion, wocdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dLongClick, bInputDirect, bOverlay);
-						string strTVDir = System.IO.Path.GetFullPath(".\\TV");
+						string strTVDir = System.IO.Path.GetFullPath(@".\TV");
 						MagicRemoteService.WebOSCLI.Package(strTVDir, MagicRemoteService.Application.CompleteDir(strTVDir) + "MagicRemoteService", MagicRemoteService.Application.CompleteDir(strTVDir) + "Send");
-						MagicRemoteService.WebOSCLI.Install(wocdDevice.Name, ".\\TV\\com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "_" + strVersion + "_all.ipk");
+						MagicRemoteService.WebOSCLI.Install(wocdDevice.Name, @".\TV\com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "_" + strVersion + "_all.ipk");
 						MagicRemoteService.WebOSCLI.Launch(wocdDevice.Name, "com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort);
+						if(this.cbOverlay.Checked) {
+							MagicRemoteService.WebOSCLI.NovacomRun(wocdDevice.Name, @"luna-send-pub -n 1 'luna://com.webos.service.eim/deleteDevice' '{""appId"":""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""}'");
+						} else {
+							MagicRemoteService.WebOSCLI.NovacomRun(wocdDevice.Name, @"luna-send-pub -n 1 'luna://com.webos.service.eim/addDevice' '{""appId"":""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @""", ""pigImage"": """", ""mvpdIcon"": """", ""type"": ""MVPD_IP"", ""showPopup"": true, ""label"": ""MagicRemoteService"", ""description"": """ + wocdiInput.Name + @"""}'");
+						}
 						return true;
 					} catch(System.Exception ex) {
 						strError = MagicRemoteService.Properties.Resources.SettingTVInstallErrorTitle;
@@ -940,6 +946,24 @@ namespace MagicRemoteService {
 				}
 			} else {
 				Inspect();
+			}
+		}
+		private async void TVVersion_Click(object sender, System.EventArgs e) {
+			MagicRemoteService.WebOSCLIDevice wocdDevice = (MagicRemoteService.WebOSCLIDevice)this.cbbTV.SelectedItem;
+			MagicRemoteService.WebOSCLIDeviceInput wocdiInput = (MagicRemoteService.WebOSCLIDeviceInput)this.cbbInput.SelectedItem;
+			string strError = null;
+			string strErrorInfo = null;
+			if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
+				try {
+					System.Windows.Forms.MessageBox.Show(MagicRemoteService.WebOSCLI.DeviceInfo(wocdDevice.Name), this.btnTVVersion.Text, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+					return true;
+				} catch(System.Exception ex) {
+					strError = MagicRemoteService.Properties.Resources.SettingTVVersionErrorTitle;
+					strErrorInfo = ex.Message;
+					return false;
+				}
+			})) {
+				System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 			}
 		}
 	}

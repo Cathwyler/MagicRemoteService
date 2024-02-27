@@ -94,12 +94,12 @@ namespace MagicRemoteService {
 			this.InitializeComponent();
 		}
 		public void ServiceStart() {
-			Service.ewhServerStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, "Global\\{FFB31601-E362-48A5-B9A2-5DF29A3B06C1}", out _, Program.ewhsAll);
-			Service.ewhClientStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, "Global\\{9878BC83-46A0-412B-86B6-10F1C43FC0D9}", out _, Program.ewhsAll);
-			Service.ewhSessionChanged = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, "Global\\{996C2D37-8FAC-4C89-8A00-CE30CBE66B87}", out _, Program.ewhsAll);
-			Service.ewhClientConnecting = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, "Global\\{06031D31-621A-4288-850E-8FEE0ED3F054}", out _, Program.ewhsAll);
-			Service.ewhServerMessage = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, "Global\\{78968501-8AE0-424D-B82E-EA0A0BEA3414}", out _, Program.ewhsAll);
-			Service.ewhServerDisconnecting = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, "Global\\{C45127E0-B626-46D0-8610-C5DE20E4F790}", out _, Program.ewhsAll);
+			Service.ewhServerStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, @"Global\{FFB31601-E362-48A5-B9A2-5DF29A3B06C1}", out _, Program.ewhsAll);
+			Service.ewhClientStarted = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.ManualReset, @"Global\{9878BC83-46A0-412B-86B6-10F1C43FC0D9}", out _, Program.ewhsAll);
+			Service.ewhSessionChanged = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, @"Global\{996C2D37-8FAC-4C89-8A00-CE30CBE66B87}", out _, Program.ewhsAll);
+			Service.ewhClientConnecting = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, @"Global\{06031D31-621A-4288-850E-8FEE0ED3F054}", out _, Program.ewhsAll);
+			Service.ewhServerMessage = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, @"Global\{78968501-8AE0-424D-B82E-EA0A0BEA3414}", out _, Program.ewhsAll);
+			Service.ewhServerDisconnecting = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, @"Global\{C45127E0-B626-46D0-8610-C5DE20E4F790}", out _, Program.ewhsAll);
 
 			if(!System.Environment.UserInteractive) {
 				this.stType = ServiceType.Server;
@@ -132,7 +132,7 @@ namespace MagicRemoteService {
 				case ServiceType.Client:
 					break;
 			}
-			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService");
+			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService");
 			if(rkMagicRemoteService == null) {
 				this.iPort = 41230;
 				this.bInactivity = true;
@@ -142,7 +142,7 @@ namespace MagicRemoteService {
 				this.bInactivity = (int)rkMagicRemoteService.GetValue("Inactivity", 1) != 0;
 				this.iTimeoutInactivity = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
 			}
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Remote\\Bind");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Remote\Bind");
 			if(rkMagicRemoteServiceRemoteBind == null) {
 				this.dBind[0x0001] = new Bind[] { new BindMouse(BindMouseValue.Left) };
 				this.dBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };
@@ -199,14 +199,14 @@ namespace MagicRemoteService {
 			switch(this.stType) {
 				case ServiceType.Server:
 				case ServiceType.Both:
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDeviceList = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Device");
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDeviceList = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Device");
 					if(rkMagicRemoteServiceDeviceList != null) {
 						this.tabExtend = System.Array.ConvertAll(System.Array.FindAll(rkMagicRemoteServiceDeviceList.GetSubKeyNames(), delegate (string str) {
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Device\\" + str);
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Device\" + str);
 							return (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
 						}), new System.Converter<string, System.Timers.Timer>(delegate (string str) {
 
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey("Software\\MagicRemoteService\\Device\\" + str);
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Software\MagicRemoteService\Device\" + str);
 
 							System.Timers.Timer tExtend = new System.Timers.Timer {
 								AutoReset = false,
@@ -455,7 +455,7 @@ namespace MagicRemoteService {
 				WinApi.StartupInfo si = new WinApi.StartupInfo();
 				WinApi.ProcessInformation piProcess;
 				si.cb = System.Runtime.InteropServices.Marshal.SizeOf(si);
-				si.lpDesktop = "winsta0\\default";
+				si.lpDesktop = @"winsta0\default";
 				if(!WinApi.Advapi32.CreateProcessAsUser(hProcessTokenDupplicate, strApplication, strArgument, ref sa, ref sa, false, 0x00000400, lpEnvironmentBlock, System.IO.Path.GetDirectoryName(strApplication), ref si, out piProcess)) {
 					WinApi.Kernel32.CloseHandle(hProcessTokenDupplicate);
 					if(lpEnvironmentBlock != System.IntPtr.Zero) {
@@ -987,7 +987,7 @@ namespace MagicRemoteService {
 					if(wocdClient == null) {
 						uiDisplay = 0;
 					} else {
-						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey("Software\\MagicRemoteService\\Device\\" + wocdClient.Name);
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Device\" + wocdClient.Name);
 						if(rkMagicRemoteServiceDevice == null) {
 							uiDisplay = 0;
 						} else {

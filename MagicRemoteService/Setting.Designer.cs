@@ -30,6 +30,8 @@ namespace MagicRemoteService {
 			this.ttFormating = new System.Windows.Forms.ToolTip(this.components);
 			this.tabSetting = new System.Windows.Forms.TabControl();
 			this.tabTV = new System.Windows.Forms.TabPage();
+			this.btnTVVersion = new System.Windows.Forms.Button();
+			this.cbOverlay = new System.Windows.Forms.CheckBox();
 			this.cbInputDirect = new System.Windows.Forms.CheckBox();
 			this.btnTVInspect = new System.Windows.Forms.Button();
 			this.labDisplay = new System.Windows.Forms.Label();
@@ -67,42 +69,15 @@ namespace MagicRemoteService {
 			this.tabRemote = new System.Windows.Forms.TabPage();
 			this.bcRemote9 = new MagicRemoteService.BindControl();
 			this.libRemote9 = new System.Windows.Forms.Label();
-			this.bcRemote8 = new MagicRemoteService.BindControl();
 			this.libRemote8 = new System.Windows.Forms.Label();
-			this.bcRemote7 = new MagicRemoteService.BindControl();
 			this.libRemote7 = new System.Windows.Forms.Label();
-			this.bcRemote6 = new MagicRemoteService.BindControl();
 			this.libRemote6 = new System.Windows.Forms.Label();
-			this.bcRemote5 = new MagicRemoteService.BindControl();
 			this.libRemote5 = new System.Windows.Forms.Label();
-			this.bcRemote4 = new MagicRemoteService.BindControl();
 			this.libRemote4 = new System.Windows.Forms.Label();
-			this.bcRemote3 = new MagicRemoteService.BindControl();
 			this.libRemote3 = new System.Windows.Forms.Label();
-			this.bcRemote2 = new MagicRemoteService.BindControl();
 			this.libRemote2 = new System.Windows.Forms.Label();
-			this.bcRemote1 = new MagicRemoteService.BindControl();
 			this.libRemote1 = new System.Windows.Forms.Label();
-			this.bcRemote0 = new MagicRemoteService.BindControl();
 			this.libRemote0 = new System.Windows.Forms.Label();
-			this.bcRemoteRewind = new MagicRemoteService.BindControl();
-			this.bcRemoteFastForward = new MagicRemoteService.BindControl();
-			this.bcRemotePause = new MagicRemoteService.BindControl();
-			this.bcRemotePlay = new MagicRemoteService.BindControl();
-			this.bcRemoteBackspace = new MagicRemoteService.BindControl();
-			this.bcRemoteLongClick = new MagicRemoteService.BindControl();
-			this.bcRemoteClick = new MagicRemoteService.BindControl();
-			this.bcRemoteStop = new MagicRemoteService.BindControl();
-			this.bcRemoteBlue = new MagicRemoteService.BindControl();
-			this.bcRemoteYellow = new MagicRemoteService.BindControl();
-			this.bcRemoteGreen = new MagicRemoteService.BindControl();
-			this.bcRemoteRed = new MagicRemoteService.BindControl();
-			this.bcRemoteBack = new MagicRemoteService.BindControl();
-			this.bcRemoteOk = new MagicRemoteService.BindControl();
-			this.bcRemoteDown = new MagicRemoteService.BindControl();
-			this.bcRemoteRight = new MagicRemoteService.BindControl();
-			this.bcRemoteLeft = new MagicRemoteService.BindControl();
-			this.bcRemoteUp = new MagicRemoteService.BindControl();
 			this.libRemoteBackspace = new System.Windows.Forms.Label();
 			this.libRemoteStop = new System.Windows.Forms.Label();
 			this.libRemoteRewind = new System.Windows.Forms.Label();
@@ -122,7 +97,34 @@ namespace MagicRemoteService {
 			this.libRemoteLongClick = new System.Windows.Forms.Label();
 			this.libRemoteClick = new System.Windows.Forms.Label();
 			this.btnRemoteSave = new System.Windows.Forms.Button();
-			this.cbOverlay = new System.Windows.Forms.CheckBox();
+			this.bcRemote8 = new MagicRemoteService.BindControl();
+			this.bcRemote7 = new MagicRemoteService.BindControl();
+			this.bcRemote6 = new MagicRemoteService.BindControl();
+			this.bcRemote5 = new MagicRemoteService.BindControl();
+			this.bcRemote4 = new MagicRemoteService.BindControl();
+			this.bcRemote3 = new MagicRemoteService.BindControl();
+			this.bcRemote2 = new MagicRemoteService.BindControl();
+			this.bcRemote1 = new MagicRemoteService.BindControl();
+			this.bcRemote0 = new MagicRemoteService.BindControl();
+			this.bcRemoteRewind = new MagicRemoteService.BindControl();
+			this.bcRemoteFastForward = new MagicRemoteService.BindControl();
+			this.bcRemotePause = new MagicRemoteService.BindControl();
+			this.bcRemotePlay = new MagicRemoteService.BindControl();
+			this.bcRemoteBackspace = new MagicRemoteService.BindControl();
+			this.bcRemoteLongClick = new MagicRemoteService.BindControl();
+			this.bcRemoteClick = new MagicRemoteService.BindControl();
+			this.bcRemoteStop = new MagicRemoteService.BindControl();
+			this.bcRemoteBlue = new MagicRemoteService.BindControl();
+			this.bcRemoteYellow = new MagicRemoteService.BindControl();
+			this.bcRemoteGreen = new MagicRemoteService.BindControl();
+			this.bcRemoteRed = new MagicRemoteService.BindControl();
+			this.bcRemoteBack = new MagicRemoteService.BindControl();
+			this.bcRemoteOk = new MagicRemoteService.BindControl();
+			this.bcRemoteDown = new MagicRemoteService.BindControl();
+			this.bcRemoteRight = new MagicRemoteService.BindControl();
+			this.bcRemoteLeft = new MagicRemoteService.BindControl();
+			this.bcRemoteUp = new MagicRemoteService.BindControl();
+			this.libVersion = new System.Windows.Forms.Label();
 			this.tabSetting.SuspendLayout();
 			this.tabTV.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
@@ -157,6 +159,7 @@ namespace MagicRemoteService {
 			// 
 			// tabTV
 			// 
+			this.tabTV.Controls.Add(this.btnTVVersion);
 			this.tabTV.Controls.Add(this.cbOverlay);
 			this.tabTV.Controls.Add(this.cbInputDirect);
 			this.tabTV.Controls.Add(this.btnTVInspect);
@@ -186,6 +189,19 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.tabTV, "tabTV");
 			this.tabTV.Name = "tabTV";
 			this.tabTV.UseVisualStyleBackColor = true;
+			// 
+			// btnTVVersion
+			// 
+			resources.ApplyResources(this.btnTVVersion, "btnTVVersion");
+			this.btnTVVersion.Name = "btnTVVersion";
+			this.btnTVVersion.UseVisualStyleBackColor = true;
+			this.btnTVVersion.Click += new System.EventHandler(this.TVVersion_Click);
+			// 
+			// cbOverlay
+			// 
+			resources.ApplyResources(this.cbOverlay, "cbOverlay");
+			this.cbOverlay.Name = "cbOverlay";
+			this.cbOverlay.UseVisualStyleBackColor = true;
 			// 
 			// cbInputDirect
 			// 
@@ -443,42 +459,15 @@ namespace MagicRemoteService {
 			// 
 			this.tabRemote.Controls.Add(this.bcRemote9);
 			this.tabRemote.Controls.Add(this.libRemote9);
-			this.tabRemote.Controls.Add(this.bcRemote8);
 			this.tabRemote.Controls.Add(this.libRemote8);
-			this.tabRemote.Controls.Add(this.bcRemote7);
 			this.tabRemote.Controls.Add(this.libRemote7);
-			this.tabRemote.Controls.Add(this.bcRemote6);
 			this.tabRemote.Controls.Add(this.libRemote6);
-			this.tabRemote.Controls.Add(this.bcRemote5);
 			this.tabRemote.Controls.Add(this.libRemote5);
-			this.tabRemote.Controls.Add(this.bcRemote4);
 			this.tabRemote.Controls.Add(this.libRemote4);
-			this.tabRemote.Controls.Add(this.bcRemote3);
 			this.tabRemote.Controls.Add(this.libRemote3);
-			this.tabRemote.Controls.Add(this.bcRemote2);
 			this.tabRemote.Controls.Add(this.libRemote2);
-			this.tabRemote.Controls.Add(this.bcRemote1);
 			this.tabRemote.Controls.Add(this.libRemote1);
-			this.tabRemote.Controls.Add(this.bcRemote0);
 			this.tabRemote.Controls.Add(this.libRemote0);
-			this.tabRemote.Controls.Add(this.bcRemoteRewind);
-			this.tabRemote.Controls.Add(this.bcRemoteFastForward);
-			this.tabRemote.Controls.Add(this.bcRemotePause);
-			this.tabRemote.Controls.Add(this.bcRemotePlay);
-			this.tabRemote.Controls.Add(this.bcRemoteBackspace);
-			this.tabRemote.Controls.Add(this.bcRemoteLongClick);
-			this.tabRemote.Controls.Add(this.bcRemoteClick);
-			this.tabRemote.Controls.Add(this.bcRemoteStop);
-			this.tabRemote.Controls.Add(this.bcRemoteBlue);
-			this.tabRemote.Controls.Add(this.bcRemoteYellow);
-			this.tabRemote.Controls.Add(this.bcRemoteGreen);
-			this.tabRemote.Controls.Add(this.bcRemoteRed);
-			this.tabRemote.Controls.Add(this.bcRemoteBack);
-			this.tabRemote.Controls.Add(this.bcRemoteOk);
-			this.tabRemote.Controls.Add(this.bcRemoteDown);
-			this.tabRemote.Controls.Add(this.bcRemoteRight);
-			this.tabRemote.Controls.Add(this.bcRemoteLeft);
-			this.tabRemote.Controls.Add(this.bcRemoteUp);
 			this.tabRemote.Controls.Add(this.libRemoteBackspace);
 			this.tabRemote.Controls.Add(this.libRemoteStop);
 			this.tabRemote.Controls.Add(this.libRemoteRewind);
@@ -498,6 +487,33 @@ namespace MagicRemoteService {
 			this.tabRemote.Controls.Add(this.libRemoteLongClick);
 			this.tabRemote.Controls.Add(this.libRemoteClick);
 			this.tabRemote.Controls.Add(this.btnRemoteSave);
+			this.tabRemote.Controls.Add(this.bcRemote8);
+			this.tabRemote.Controls.Add(this.bcRemote7);
+			this.tabRemote.Controls.Add(this.bcRemote6);
+			this.tabRemote.Controls.Add(this.bcRemote5);
+			this.tabRemote.Controls.Add(this.bcRemote4);
+			this.tabRemote.Controls.Add(this.bcRemote3);
+			this.tabRemote.Controls.Add(this.bcRemote2);
+			this.tabRemote.Controls.Add(this.bcRemote1);
+			this.tabRemote.Controls.Add(this.bcRemote0);
+			this.tabRemote.Controls.Add(this.bcRemoteRewind);
+			this.tabRemote.Controls.Add(this.bcRemoteFastForward);
+			this.tabRemote.Controls.Add(this.bcRemotePause);
+			this.tabRemote.Controls.Add(this.bcRemotePlay);
+			this.tabRemote.Controls.Add(this.bcRemoteBackspace);
+			this.tabRemote.Controls.Add(this.bcRemoteLongClick);
+			this.tabRemote.Controls.Add(this.bcRemoteClick);
+			this.tabRemote.Controls.Add(this.bcRemoteStop);
+			this.tabRemote.Controls.Add(this.bcRemoteBlue);
+			this.tabRemote.Controls.Add(this.bcRemoteYellow);
+			this.tabRemote.Controls.Add(this.bcRemoteGreen);
+			this.tabRemote.Controls.Add(this.bcRemoteRed);
+			this.tabRemote.Controls.Add(this.bcRemoteBack);
+			this.tabRemote.Controls.Add(this.bcRemoteOk);
+			this.tabRemote.Controls.Add(this.bcRemoteDown);
+			this.tabRemote.Controls.Add(this.bcRemoteRight);
+			this.tabRemote.Controls.Add(this.bcRemoteLeft);
+			this.tabRemote.Controls.Add(this.bcRemoteUp);
 			resources.ApplyResources(this.tabRemote, "tabRemote");
 			this.tabRemote.Name = "tabRemote";
 			this.tabRemote.UseVisualStyleBackColor = true;
@@ -515,6 +531,148 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.libRemote9, "libRemote9");
 			this.libRemote9.Name = "libRemote9";
 			// 
+			// libRemote8
+			// 
+			resources.ApplyResources(this.libRemote8, "libRemote8");
+			this.libRemote8.Name = "libRemote8";
+			// 
+			// libRemote7
+			// 
+			resources.ApplyResources(this.libRemote7, "libRemote7");
+			this.libRemote7.Name = "libRemote7";
+			// 
+			// libRemote6
+			// 
+			resources.ApplyResources(this.libRemote6, "libRemote6");
+			this.libRemote6.Name = "libRemote6";
+			// 
+			// libRemote5
+			// 
+			resources.ApplyResources(this.libRemote5, "libRemote5");
+			this.libRemote5.Name = "libRemote5";
+			// 
+			// libRemote4
+			// 
+			resources.ApplyResources(this.libRemote4, "libRemote4");
+			this.libRemote4.Name = "libRemote4";
+			// 
+			// libRemote3
+			// 
+			resources.ApplyResources(this.libRemote3, "libRemote3");
+			this.libRemote3.Name = "libRemote3";
+			// 
+			// libRemote2
+			// 
+			resources.ApplyResources(this.libRemote2, "libRemote2");
+			this.libRemote2.Name = "libRemote2";
+			// 
+			// libRemote1
+			// 
+			resources.ApplyResources(this.libRemote1, "libRemote1");
+			this.libRemote1.Name = "libRemote1";
+			// 
+			// libRemote0
+			// 
+			resources.ApplyResources(this.libRemote0, "libRemote0");
+			this.libRemote0.Name = "libRemote0";
+			// 
+			// libRemoteBackspace
+			// 
+			resources.ApplyResources(this.libRemoteBackspace, "libRemoteBackspace");
+			this.libRemoteBackspace.Name = "libRemoteBackspace";
+			// 
+			// libRemoteStop
+			// 
+			resources.ApplyResources(this.libRemoteStop, "libRemoteStop");
+			this.libRemoteStop.Name = "libRemoteStop";
+			// 
+			// libRemoteRewind
+			// 
+			resources.ApplyResources(this.libRemoteRewind, "libRemoteRewind");
+			this.libRemoteRewind.Name = "libRemoteRewind";
+			// 
+			// libRemoteFastForward
+			// 
+			resources.ApplyResources(this.libRemoteFastForward, "libRemoteFastForward");
+			this.libRemoteFastForward.Name = "libRemoteFastForward";
+			// 
+			// libRemotePause
+			// 
+			resources.ApplyResources(this.libRemotePause, "libRemotePause");
+			this.libRemotePause.Name = "libRemotePause";
+			// 
+			// libRemotePlay
+			// 
+			resources.ApplyResources(this.libRemotePlay, "libRemotePlay");
+			this.libRemotePlay.Name = "libRemotePlay";
+			// 
+			// libRemoteBlue
+			// 
+			resources.ApplyResources(this.libRemoteBlue, "libRemoteBlue");
+			this.libRemoteBlue.Name = "libRemoteBlue";
+			// 
+			// libRemoteYellow
+			// 
+			resources.ApplyResources(this.libRemoteYellow, "libRemoteYellow");
+			this.libRemoteYellow.Name = "libRemoteYellow";
+			// 
+			// libRemoteGreen
+			// 
+			resources.ApplyResources(this.libRemoteGreen, "libRemoteGreen");
+			this.libRemoteGreen.Name = "libRemoteGreen";
+			// 
+			// libRemoteRed
+			// 
+			resources.ApplyResources(this.libRemoteRed, "libRemoteRed");
+			this.libRemoteRed.Name = "libRemoteRed";
+			// 
+			// libRemoteBack
+			// 
+			resources.ApplyResources(this.libRemoteBack, "libRemoteBack");
+			this.libRemoteBack.Name = "libRemoteBack";
+			// 
+			// libRemoteOk
+			// 
+			resources.ApplyResources(this.libRemoteOk, "libRemoteOk");
+			this.libRemoteOk.Name = "libRemoteOk";
+			// 
+			// libRemoteDown
+			// 
+			resources.ApplyResources(this.libRemoteDown, "libRemoteDown");
+			this.libRemoteDown.Name = "libRemoteDown";
+			// 
+			// libRemoteRight
+			// 
+			resources.ApplyResources(this.libRemoteRight, "libRemoteRight");
+			this.libRemoteRight.Name = "libRemoteRight";
+			// 
+			// libRemoteUp
+			// 
+			resources.ApplyResources(this.libRemoteUp, "libRemoteUp");
+			this.libRemoteUp.Name = "libRemoteUp";
+			// 
+			// libRemoteLeft
+			// 
+			resources.ApplyResources(this.libRemoteLeft, "libRemoteLeft");
+			this.libRemoteLeft.Name = "libRemoteLeft";
+			// 
+			// libRemoteLongClick
+			// 
+			resources.ApplyResources(this.libRemoteLongClick, "libRemoteLongClick");
+			this.libRemoteLongClick.Name = "libRemoteLongClick";
+			// 
+			// libRemoteClick
+			// 
+			resources.ApplyResources(this.libRemoteClick, "libRemoteClick");
+			this.libRemoteClick.Name = "libRemoteClick";
+			// 
+			// btnRemoteSave
+			// 
+			resources.ApplyResources(this.btnRemoteSave, "btnRemoteSave");
+			this.btnRemoteSave.Name = "btnRemoteSave";
+			this.btnRemoteSave.UseVisualStyleBackColor = true;
+			this.btnRemoteSave.Click += new System.EventHandler(this.RemoteSave_Click);
+			// 
 			// bcRemote8
 			// 
 			this.bcRemote8.BackColor = System.Drawing.SystemColors.Window;
@@ -522,11 +680,6 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.bcRemote8, "bcRemote8");
 			this.bcRemote8.Name = "bcRemote8";
 			this.bcRemote8.Value = null;
-			// 
-			// libRemote8
-			// 
-			resources.ApplyResources(this.libRemote8, "libRemote8");
-			this.libRemote8.Name = "libRemote8";
 			// 
 			// bcRemote7
 			// 
@@ -536,11 +689,6 @@ namespace MagicRemoteService {
 			this.bcRemote7.Name = "bcRemote7";
 			this.bcRemote7.Value = null;
 			// 
-			// libRemote7
-			// 
-			resources.ApplyResources(this.libRemote7, "libRemote7");
-			this.libRemote7.Name = "libRemote7";
-			// 
 			// bcRemote6
 			// 
 			this.bcRemote6.BackColor = System.Drawing.SystemColors.Window;
@@ -548,11 +696,6 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.bcRemote6, "bcRemote6");
 			this.bcRemote6.Name = "bcRemote6";
 			this.bcRemote6.Value = null;
-			// 
-			// libRemote6
-			// 
-			resources.ApplyResources(this.libRemote6, "libRemote6");
-			this.libRemote6.Name = "libRemote6";
 			// 
 			// bcRemote5
 			// 
@@ -562,11 +705,6 @@ namespace MagicRemoteService {
 			this.bcRemote5.Name = "bcRemote5";
 			this.bcRemote5.Value = null;
 			// 
-			// libRemote5
-			// 
-			resources.ApplyResources(this.libRemote5, "libRemote5");
-			this.libRemote5.Name = "libRemote5";
-			// 
 			// bcRemote4
 			// 
 			this.bcRemote4.BackColor = System.Drawing.SystemColors.Window;
@@ -574,11 +712,6 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.bcRemote4, "bcRemote4");
 			this.bcRemote4.Name = "bcRemote4";
 			this.bcRemote4.Value = null;
-			// 
-			// libRemote4
-			// 
-			resources.ApplyResources(this.libRemote4, "libRemote4");
-			this.libRemote4.Name = "libRemote4";
 			// 
 			// bcRemote3
 			// 
@@ -588,11 +721,6 @@ namespace MagicRemoteService {
 			this.bcRemote3.Name = "bcRemote3";
 			this.bcRemote3.Value = null;
 			// 
-			// libRemote3
-			// 
-			resources.ApplyResources(this.libRemote3, "libRemote3");
-			this.libRemote3.Name = "libRemote3";
-			// 
 			// bcRemote2
 			// 
 			this.bcRemote2.BackColor = System.Drawing.SystemColors.Window;
@@ -600,11 +728,6 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.bcRemote2, "bcRemote2");
 			this.bcRemote2.Name = "bcRemote2";
 			this.bcRemote2.Value = null;
-			// 
-			// libRemote2
-			// 
-			resources.ApplyResources(this.libRemote2, "libRemote2");
-			this.libRemote2.Name = "libRemote2";
 			// 
 			// bcRemote1
 			// 
@@ -614,11 +737,6 @@ namespace MagicRemoteService {
 			this.bcRemote1.Name = "bcRemote1";
 			this.bcRemote1.Value = null;
 			// 
-			// libRemote1
-			// 
-			resources.ApplyResources(this.libRemote1, "libRemote1");
-			this.libRemote1.Name = "libRemote1";
-			// 
 			// bcRemote0
 			// 
 			this.bcRemote0.BackColor = System.Drawing.SystemColors.Window;
@@ -626,11 +744,6 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.bcRemote0, "bcRemote0");
 			this.bcRemote0.Name = "bcRemote0";
 			this.bcRemote0.Value = null;
-			// 
-			// libRemote0
-			// 
-			resources.ApplyResources(this.libRemote0, "libRemote0");
-			this.libRemote0.Name = "libRemote0";
 			// 
 			// bcRemoteRewind
 			// 
@@ -776,114 +889,17 @@ namespace MagicRemoteService {
 			this.bcRemoteUp.Name = "bcRemoteUp";
 			this.bcRemoteUp.Value = null;
 			// 
-			// libRemoteBackspace
+			// libVersion
 			// 
-			resources.ApplyResources(this.libRemoteBackspace, "libRemoteBackspace");
-			this.libRemoteBackspace.Name = "libRemoteBackspace";
-			// 
-			// libRemoteStop
-			// 
-			resources.ApplyResources(this.libRemoteStop, "libRemoteStop");
-			this.libRemoteStop.Name = "libRemoteStop";
-			// 
-			// libRemoteRewind
-			// 
-			resources.ApplyResources(this.libRemoteRewind, "libRemoteRewind");
-			this.libRemoteRewind.Name = "libRemoteRewind";
-			// 
-			// libRemoteFastForward
-			// 
-			resources.ApplyResources(this.libRemoteFastForward, "libRemoteFastForward");
-			this.libRemoteFastForward.Name = "libRemoteFastForward";
-			// 
-			// libRemotePause
-			// 
-			resources.ApplyResources(this.libRemotePause, "libRemotePause");
-			this.libRemotePause.Name = "libRemotePause";
-			// 
-			// libRemotePlay
-			// 
-			resources.ApplyResources(this.libRemotePlay, "libRemotePlay");
-			this.libRemotePlay.Name = "libRemotePlay";
-			// 
-			// libRemoteBlue
-			// 
-			resources.ApplyResources(this.libRemoteBlue, "libRemoteBlue");
-			this.libRemoteBlue.Name = "libRemoteBlue";
-			// 
-			// libRemoteYellow
-			// 
-			resources.ApplyResources(this.libRemoteYellow, "libRemoteYellow");
-			this.libRemoteYellow.Name = "libRemoteYellow";
-			// 
-			// libRemoteGreen
-			// 
-			resources.ApplyResources(this.libRemoteGreen, "libRemoteGreen");
-			this.libRemoteGreen.Name = "libRemoteGreen";
-			// 
-			// libRemoteRed
-			// 
-			resources.ApplyResources(this.libRemoteRed, "libRemoteRed");
-			this.libRemoteRed.Name = "libRemoteRed";
-			// 
-			// libRemoteBack
-			// 
-			resources.ApplyResources(this.libRemoteBack, "libRemoteBack");
-			this.libRemoteBack.Name = "libRemoteBack";
-			// 
-			// libRemoteOk
-			// 
-			resources.ApplyResources(this.libRemoteOk, "libRemoteOk");
-			this.libRemoteOk.Name = "libRemoteOk";
-			// 
-			// libRemoteDown
-			// 
-			resources.ApplyResources(this.libRemoteDown, "libRemoteDown");
-			this.libRemoteDown.Name = "libRemoteDown";
-			// 
-			// libRemoteRight
-			// 
-			resources.ApplyResources(this.libRemoteRight, "libRemoteRight");
-			this.libRemoteRight.Name = "libRemoteRight";
-			// 
-			// libRemoteUp
-			// 
-			resources.ApplyResources(this.libRemoteUp, "libRemoteUp");
-			this.libRemoteUp.Name = "libRemoteUp";
-			// 
-			// libRemoteLeft
-			// 
-			resources.ApplyResources(this.libRemoteLeft, "libRemoteLeft");
-			this.libRemoteLeft.Name = "libRemoteLeft";
-			// 
-			// libRemoteLongClick
-			// 
-			resources.ApplyResources(this.libRemoteLongClick, "libRemoteLongClick");
-			this.libRemoteLongClick.Name = "libRemoteLongClick";
-			// 
-			// libRemoteClick
-			// 
-			resources.ApplyResources(this.libRemoteClick, "libRemoteClick");
-			this.libRemoteClick.Name = "libRemoteClick";
-			// 
-			// btnRemoteSave
-			// 
-			resources.ApplyResources(this.btnRemoteSave, "btnRemoteSave");
-			this.btnRemoteSave.Name = "btnRemoteSave";
-			this.btnRemoteSave.UseVisualStyleBackColor = true;
-			this.btnRemoteSave.Click += new System.EventHandler(this.RemoteSave_Click);
-			// 
-			// cbOverlay
-			// 
-			resources.ApplyResources(this.cbOverlay, "cbOverlay");
-			this.cbOverlay.Name = "cbOverlay";
-			this.cbOverlay.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.libVersion, "libVersion");
+			this.libVersion.Name = "libVersion";
 			// 
 			// Setting
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnClose;
+			this.Controls.Add(this.libVersion);
 			this.Controls.Add(this.tabSetting);
 			this.Controls.Add(this.btnClose);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1004,5 +1020,7 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label libRemote0;
 		private System.Windows.Forms.Label libRemote4;
 		private System.Windows.Forms.CheckBox cbOverlay;
+		private System.Windows.Forms.Label libVersion;
+		private System.Windows.Forms.Button btnTVVersion;
 	}
 }

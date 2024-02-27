@@ -66,18 +66,19 @@ namespace MagicRemoteService.Properties {
         ///	&quot;main&quot;: &quot;index.html&quot;,
         ///	&quot;title&quot;: &quot;MagicRemoteService&quot;,
         ///	&quot;icon&quot;: &quot;icon.png&quot;,
-        ///	&quot;miniicon&quot;: &quot;miniIcon.png&quot;,
+        ///	&quot;miniIcon&quot;: &quot;miniIcon.png&quot;,
         ///	&quot;largeIcon&quot;: &quot;largeIcon.png&quot;,
         ///	&quot;type&quot;: &quot;web&quot;,
         ///	&quot;vendor&quot;: &quot;Cathwyler&quot;,
         ///	&quot;version&quot;: &quot;1.0.0&quot;,
+        ///	&quot;bgColor&quot;: &quot;#575E66&quot;,
         ///	&quot;iconColor&quot;: &quot;#575E66&quot;,
         ///	&quot;appDescription&quot;: &quot;HDMI&quot;,
         ///	&quot;appDescriptionLong&quot;: &quot;Service providing computer remote control using a LG WebOS TV&quot;,
         ///	&quot;disableBackHistoryAPI&quot;: true,
         ///	&quot;transparent&quot;: true,
-        ///	&quot;defaultWindowType&quot; : &quot;floating&quot;,
-        ///	&quot;noSplashOnLaunch&quot;: true [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;defaultWindowType&quot;: &quot;floating&quot;,
+        ///	&quot; [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string appinfo {
             get {
@@ -113,11 +114,11 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strWarnTitle&quot;: &quot;Warn&quot;,
         ///	&quot;strErrorTitle&quot;: &quot;Error&quot;,
         ///
-        ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Sucess to get all input status&quot;,
+        ///	&quot;strGetAllInputStatusSuccess&quot;: &quot;Success to get all input status&quot;,
         ///	&quot;strGetAllInputStatusFailure&quot;: &quot;Failed to get all input status&quot;,
-        ///	&quot;strAddDeviceSuccess&quot;: &quot;Sucess to add device&quot;,
+        ///	&quot;strAddDeviceSuccess&quot;: &quot;Success to add device&quot;,
         ///	&quot;strAddDeviceFailure&quot;: &quot;Failed to add device&quot;,
-        ///	&quot;strRegisterScreenSaverRequestS [le reste de la chaîne a été tronqué]&quot;;.
+        ///	&quot;strRegisterScreenSaverReques [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string appstring {
             get {
@@ -462,24 +463,27 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
-        ///var pkgInfo = require(&quot;./package.json&quot;);
+        ///function startInterval(fCallback, iMs) {
+        ///	fCallback();
+        ///	return setInterval(fCallback, iMs);
+        ///}
+        ///
+        ///const bOverlay = true;
+        ///const strInputAppId = &quot;com.webos.app.hdmi&quot;;
+        ///const strAppId = &quot;com.cathwyler.magicremoteservice&quot;;
+        ///
+        ///var oPackage = require(&quot;./package.json&quot;);
         ///var Service = require(&quot;webos-service&quot;);
         ///var Dgram = require(&quot;dgram&quot;);
         ///
-        ///var serService = new Service(pkgInfo.name);
+        ///var serService = new Service(oPackage.name); 
         ///
         ///var socClient = Dgram.createSocket(&quot;udp4&quot;);
         ///socClient.bind(function() {
         ///	socClient.setBroadcast(true);
         ///});
         ///
-        ///var bufWol = Buffer.alloc(102);
-        ///bufWol.fill(0xFF, 0, 6);
-        ///
-        ///serService.register(&quot;wol&quot;, function(mMessage) {
-        ///	try {
-        ///		bufWol.fill(Buffer.from(mMessage.payload.mMac.tabMac), 6);
-        ///		socClient.send(bufWol, 9, mMessage.payload.sBroadcas [le reste de la chaîne a été tronqué]&quot;;.
+        ///var bu [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string send {
             get {
@@ -709,6 +713,15 @@ namespace MagicRemoteService.Properties {
         internal static string SettingTVSelectErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVSelectErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error while retrieving TV version.
+        /// </summary>
+        internal static string SettingTVVersionErrorTitle {
+            get {
+                return ResourceManager.GetString("SettingTVVersionErrorTitle", resourceCulture);
             }
         }
         

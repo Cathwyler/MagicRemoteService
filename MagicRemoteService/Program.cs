@@ -17,7 +17,7 @@
 		[System.STAThread]
 		private static void Main() {
 			if(!System.Environment.UserInteractive) {
-				System.Threading.Mutex mServer = new System.Threading.Mutex(false, "Global\\{40169E2A-C106-44BC-84FF-18AD489DB914}", out _, Program.msAll);
+				System.Threading.Mutex mServer = new System.Threading.Mutex(false, @"Global\{40169E2A-C106-44BC-84FF-18AD489DB914}", out _, Program.msAll);
 				if(mServer.WaitOne(System.TimeSpan.Zero)) {
 					System.ServiceProcess.ServiceBase[] sb;
 					sb = new System.ServiceProcess.ServiceBase[]
@@ -30,8 +30,8 @@
 				mServer.Close();
 				mServer.Dispose();
 			} else {
-				System.Threading.Mutex mClient = new System.Threading.Mutex(false, "Global\\{7CC08060-4D87-482B-9C44-FCCCBC572798}", out _, Program.msAll);
-				System.Threading.EventWaitHandle ewhShow = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, "Global\\{74D2F5A8-46FF-4AA3-B666-67F11B0DB793}", out _, Program.ewhsAll);
+				System.Threading.Mutex mClient = new System.Threading.Mutex(false, @"Global\{7CC08060-4D87-482B-9C44-FCCCBC572798}", out _, Program.msAll);
+				System.Threading.EventWaitHandle ewhShow = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset, @"Global\{74D2F5A8-46FF-4AA3-B666-67F11B0DB793}", out _, Program.ewhsAll);
 				if(mClient.WaitOne(System.TimeSpan.Zero)) {
 					System.Windows.Forms.Application.EnableVisualStyles();
 					System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
