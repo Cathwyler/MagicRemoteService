@@ -23,7 +23,7 @@ var bufWol = Buffer.alloc(102);
 bufWol.fill(0xFF, 0, 6);
 serService.register("wol", function(mMessage) {
 	try {
-		bufWol.fill(Buffer.from(mMessage.payload.mMac.tabMac), 6);
+		bufWol.fill(Buffer.from(mMessage.payload.mMac.arrMac), 6);
 		socClient.send(bufWol, 9, mMessage.payload.strBroadcast);
 		
 		mMessage.respond({

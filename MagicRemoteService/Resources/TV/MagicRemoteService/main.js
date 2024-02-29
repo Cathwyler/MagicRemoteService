@@ -59,14 +59,14 @@ const strMac = "AA:AA:AA:AA:AA:AA";
 const strBroadcast = strIP.split(".").map(function(x, i) {
 	return(x | (parseInt(strMask.split(".")[i], 10) ^ 0xFF)).toString(10);
 }).join(".");
-const tabMac = strMac.split(":").map(function(x) {
+const arrMac = strMac.split(":").map(function(x) {
 	return parseInt(x, 16);
 });
 const strAppId = "com.cathwyler.magicremoteservice";
 
 const strPath = webOS.fetchAppRootPath();
-const oDevice = window.webOSSystem === undefined ? PalmSystem.deviceInfo : webOSSystem.deviceInfo;
 var oString = null;
+var arrVersion = null;
 
 function Toast(strTitre, strMessage) {
 	var deScreenToast = document.createElement("div");
@@ -91,7 +91,7 @@ function Toast(strTitre, strMessage) {
 	return deScreenToast;
 }
 
-function Dialog(strTitre, strMessage, tabButton) {
+function Dialog(strTitre, strMessage, arrButton) {
 	var deScreenDialog = document.createElement("div");
 	deScreenDialog.className = "screen flex justify-center align-center";
 	var deDialog = document.createElement("div");
@@ -108,10 +108,10 @@ function Dialog(strTitre, strMessage, tabButton) {
 		dePopupMessage.innerText = strMessage;
 		deDialog.appendChild(dePopupMessage);
 	}
-	if(tabButton.length) {
+	if(arrButton.length) {
 		var dePopupButton = document.createElement("div");
 		dePopupButton.className = "button flex justify-flex-end align-center";
-		tabButton.forEach(function(bButton) {
+		arrButton.forEach(function(bButton) {
 			var deButton = document.createElement("button");
 			deButton.innerText = bButton.sName;
 			deButton.addEventListener("click", function() {
@@ -174,59 +174,14 @@ function Error() {
 }
 
 function AppVisible() {};
-if(oDevice.versionMajor > 2) {
-	AppVisible = function() {
-		return document.hidden === false;
-	};
-} else {
-	AppVisible = function() {
-		return document.webkitHidden === false;
-	};
-}
-function functionAppFocus() {
+
+function AppFocus() {
 	return document.hasFocus() === true;
 };
 
 function CursorVisible() {};
-if(oDevice.versionMajor > 4) {
-	CursorVisible = function() {
-		return webOSSystem.cursor.visibility === true;
-	};
-} else if(oDevice.versionMajor > 2) {
-	CursorVisible = function() {
-		return PalmSystem.cursor.visibility === true;
-	};
-} else {
-	CursorVisible = function() {
-		return false;
-	};
-}
 
 function KeyboardVisible() {};
-if(oDevice.versionMajor > 4) {
-	KeyboardVisible = function() {
-		return webOSSystem.isKeyboardVisible === true;
-	};
-} else if(oDevice.versionMajor > 2) {
-	KeyboardVisible = function() {
-		return PalmSystem.isKeyboardVisible === true;
-	};
-} else {
-	KeyboardVisible = function() {
-		return false;
-	};
-}
-
-function Local() {};
-if(oDevice.versionMajor > 4) {
-	Local = function() {
-		return webOSSystem.locale;
-	}
-} else {
-	Local = function() {
-		return PalmSystem.locale;
-	}
-}
 
 var deKeyboard = document.getElementById("keyboard");
 var deVideo = document.getElementById("video");
@@ -269,7 +224,7 @@ if(bInputDirect){
 				fAction: function() {
 					iIntervalWakeOnLan = startInterval(function() {
 						SendWol({
-							tabMac: tabMac
+							arrMac: arrMac
 						}, strBroadcast);
 					}, 5000);
 					iTimeoutSourceStatus = setTimeout(function() {
@@ -399,7 +354,7 @@ var iTimeoutLongClick = 0;
 function SubscriptionGetSensorData() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
 		method: "sensor/getSensorData",
-		parameters: oDevice.versionMajor > 1 ? {
+		parameters: arrVersion[0] > 1 ? {
 			callbackInterval: 1,
 			subscribe: true
 		} : {
@@ -431,7 +386,7 @@ function SubscriptionGetSensorData() {
 					break;
 				case true:
 					LogIfDebug(oString.strGetSensorDataSubscribe);
-					if(oDevice.versionMajor > 2) {
+					if(arrVersion[0] > 2) {
 					} else {
 						CursorVisible = function() {
 							return true;
@@ -447,13 +402,13 @@ function SubscriptionGetSensorData() {
 			switch(inError.errorCode) {
 				case "1301":
 					LogIfDebug(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
-					if(oDevice.versionMajor > 2) {
+					if(arrVersion[0] > 2) {
 					} else {
 						CursorVisible = function() {
 							return false;
 						};
 					}
-					if(oDevice.versionMajor > 2) {
+					if(arrVersion[0] > 2) {
 						document.oneEventListener("cursorStateChange", function(inEvent) {
 							if(CursorVisible()) {
 								SubscriptionGetSensorData();
@@ -561,14 +516,17 @@ function SubscriptionDomEvent() {
 		}
 	});
 
-	if(oDevice.versionMajor > 1) {
+	if(arrVersion[0] > 1) {
 		deVideo.addEventListener("wheel", function(inEvent) {
+			console.log("wheel" + arrVersion[0]);
 			SendWheel({
 				sY: inEvent.deltaY
 			});
 		});
 	} else {
 		deVideo.addEventListener("mousewheel", function(inEvent) {
+			console.log(oDevice);
+			console.log("mousewheel" + arrVersion[0]);
 			SendWheel({
 				sY: inEvent.wheelDeltaY
 			});
@@ -596,7 +554,7 @@ function SubscriptionDomEvent() {
 		deKeyboard.value = "";
 	});
 
-	if(oDevice.versionMajor > 2) {
+	if(arrVersion[0] > 2) {
 		document.addEventListener("visibilitychange", function(inEvent) {
 			if(InputStatus()) {
 				if(AppVisible()) {
@@ -634,7 +592,7 @@ function SubscriptionDomEvent() {
 		}
 	});
 
-	if(oDevice.versionMajor > 2) {
+	if(arrVersion[0] > 2) {
 		document.addEventListener("cursorStateChange", function(inEvent) {
 			SendVisible({
 				bV: CursorVisible()
@@ -663,7 +621,7 @@ function SubscriptionDomEvent() {
 		});
 	}
 
-	if(oDevice.versionMajor > 2) {
+	if(arrVersion[0] > 2) {
 	} else {
 		deKeyboard.addEventListener("focus", function(inEvent) {
 			KeyboardVisible = function() {
@@ -676,12 +634,6 @@ function SubscriptionDomEvent() {
 			};
 		});
 	}
-	
-	document.addEventListener("webOSLocaleChange", function(inEvent) {
-		FetchLocalizedAppInfo(function(oInfo) {
-			oString = oInfo;
-		});
-	});
 }
 
 var deScreenOpen = null;
@@ -731,7 +683,7 @@ if(bInputDirect){
 				fAction: function() {
 					iIntervalWakeOnLan = startInterval(function() {
 						SendWol({
-							tabMac: tabMac
+							arrMac: arrMac
 						}, strBroadcast);
 					}, 5000);
 					iTimeoutOpen = setTimeout(function() {
@@ -960,8 +912,8 @@ function SendShutdown() {
 }
 
 var dInfoLocal = {};
-function FetchLocalizedAppInfo(fCallback){
-	[null].concat(Local().split("-")).forEach(function(strLocal, iLocal, arrLocal) {
+function FetchLocaleAppInfo(fCallback, strLocale){
+	[null].concat(strLocale.split("-")).forEach(function(strLocal, iLocal, arrLocal) {
 		webOS.fetchAppInfo(function(oInfo) {
 			dInfoLocal[iLocal] = oInfo;
 			if(Object.keys(dInfoLocal).length === arrLocal.length){
@@ -977,36 +929,103 @@ function FetchLocalizedAppInfo(fCallback){
 	});
 }
 
-FetchLocalizedAppInfo(function(oInfo) {
-	oString = oInfo;
-	Load();
+webOS.service.request("luna://com.webos.settingsservice", {
+	method: "getSystemSettings",
+	parameters: {
+		keys: ["localeInfo"],
+		subscribe: true
+	},
+	onSuccess: function(inResponse) {
+		FetchLocaleAppInfo(function(oInfo) {
+			oString = oInfo;
+			Load();
+		}, inResponse.settings.localeInfo.locales.UI);
+	},
+	onFailure: function(inError) {
+		throw new Error(inError.errorText);
+	}
 });
 
-function Load() {
-	SubscriptionScreenSaverRequest();
-	SubscriptionInputStatus();
-	SubscriptionGetSensorData();
-	SubscriptionDomEvent();
-	if(bOverlay) {
-		/*if(oDevice.versionMajor > 4) {
-			webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
-		} else if(oDevice.versionMajor > 2) {
-			PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
-		} else {
-		}*/
-		SubscriptionClose();
-		LaunchInput();
-	} else {
-		/*if(oDevice.versionMajor > 4) {
-			webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
-		} else if(oDevice.versionMajor > 2) {
-			PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
-		} else {
-		}*/
+webOS.service.request("luna://com.webos.service.tv.systemproperty", {
+	method: "getSystemInfo",
+	parameters: {
+		keys: ["sdkVersion"]
+	},
+	onSuccess: function(inResponse) {
+		arrVersion = inResponse.sdkVersion.split(".").map(function(x) {
+			return parseInt(x);
+		});
+		Load();
+	},
+	onFailure: function(inError) {
+		throw new Error(inError.errorText);
+	}
+});
 
-		var deSource = document.createElement("source");
-		deSource.setAttribute("src", strInputSource);
-		deSource.setAttribute("type", "service/webos-external");
-		deVideo.appendChild(deSource);
+var bLoaded = false;
+function Load() {
+	if(arrVersion !== null && oString !== null && bLoaded === false) {
+		bLoaded = true;
+		if(arrVersion[0] > 2) {
+			AppVisible = function() {
+				return document.hidden === false;
+			};
+		} else {
+			AppVisible = function() {
+				return document.webkitHidden === false;
+			};
+		}
+		if(arrVersion[0] > 4) {
+			CursorVisible = function() {
+				return webOSSystem.cursor.visibility === true;
+			};
+		} else if(arrVersion[0] > 2) {
+			CursorVisible = function() {
+				return PalmSystem.cursor.visibility === true;
+			};
+		} else {
+			CursorVisible = function() {
+				return false;
+			};
+		}
+		if(arrVersion[0] > 4) {
+			KeyboardVisible = function() {
+				return webOSSystem.isKeyboardVisible === true;
+			};
+		} else if(arrVersion[0] > 2) {
+			KeyboardVisible = function() {
+				return PalmSystem.isKeyboardVisible === true;
+			};
+		} else {
+			KeyboardVisible = function() {
+				return false;
+			};
+		}
+		SubscriptionScreenSaverRequest();
+		SubscriptionInputStatus();
+		SubscriptionGetSensorData();
+		SubscriptionDomEvent();
+		if(bOverlay) {
+			/*if(arrVersion[0] > 4) {
+				webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
+			} else if(arrVersion[0] > 2) {
+				PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
+			} else {
+			}*/
+			SubscriptionClose();
+			LaunchInput();
+		} else {
+			/*if(arrVersion[0] > 4) {
+				webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
+			} else if(arrVersion[0] > 2) {
+				PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
+			} else {
+			}*/
+			var deSource = document.createElement("source");
+			deSource.setAttribute("src", strInputSource);
+			deSource.setAttribute("type", "service/webos-external");
+			deVideo.appendChild(deSource);
+		}
+		console.log(arrVersion[0]);
 	}
 }
