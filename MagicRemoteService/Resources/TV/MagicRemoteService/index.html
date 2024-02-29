@@ -11,6 +11,7 @@
 		* {
 			font-family: Sandstone;
 			text-overflow: ellipsis;
+			color: #E6E6E6;
 		}
 
 		body {
@@ -55,7 +56,6 @@
 			pointer-events: auto;
 			border-radius: .5rem;
 			background: #575E66;
-			color: #E6E6E6;
 		}
 		div.titre {
 			margin: 1.5rem;
@@ -76,7 +76,10 @@
 			max-width: 50%;
 			font-size: 1.5rem;
 		}
-
+		
+		#titre{
+			opacity: 1%;
+		}
 		#keyboard {
 			opacity: 0;
 		}
@@ -86,7 +89,6 @@
 			width: 100%;
 		}
 		#uncaught {
-			color: #E6E6E6;
 			white-space: pre-wrap;
 		}
 		div.dialog {
@@ -101,6 +103,9 @@
 </head>
 
 <body>
+	<div class="screen flex justify-center align-center">
+		<h1 id="titre">MagicRemoteService</h1>
+	</div>
 	<div class="screen">
 		<input id="keyboard" type="text" />
 	</div>
@@ -120,5 +125,8 @@
 <script type="text/javascript" src="webOSTVjs-1.2.8/webOSTV.js" charset="utf-8"></script>
 <script type="text/javascript" src="webOSTVjs-1.2.8/webOSTV-dev.js" charset="utf-8"></script>
 <script type="text/javascript" src="main.js" charset="utf-8"></script>
+<script type="text/javascript">
+	document.getElementById("titre").style.opacity = 0;
+</script>
 
 </html>

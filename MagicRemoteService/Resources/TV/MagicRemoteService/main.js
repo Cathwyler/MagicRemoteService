@@ -321,6 +321,7 @@ function SubscriptionScreenSaverRequest() {
 		onFailure: function(inError) {
 			switch(inError.errorCode) {
 				case "-1":
+				case "-3":
 					console.error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]");
 					break;
 				default:
@@ -621,6 +622,12 @@ function SubscriptionDomEvent() {
 			};
 		});
 	}
+	
+	document.addEventListener("webOSLocaleChange", function(inEvent) {
+		FetchLocalizedAppInfo(function(oInfo) {
+			oString = oInfo;
+		});
+	});
 }
 
 var deScreenOpen = null;
@@ -899,118 +906,119 @@ function SendShutdown() {
 }
 
 const strPath = webOS.fetchAppRootPath();
-var oString = null;
-webOS.service.request('luna://com.webos.settingsservice', {
-	method: 'getSystemSettings',
-	parameters: {
-		keys: ['localeInfo'],
-		subscribe: true
-	},
-	onSuccess: function(inResponse) {
-		webOS.fetchAppInfo(function(oInfo) {
-			oString = oInfo;
-			LogIfDebug(oString.strGetSystemSettingsSuccess);
-			Load();
-		}, strPath + "appstring.json");
-		inResponse.settings.localeInfo.locales.UI.split("-").forEach(function(x, i, arr) {
+function FetchLocalizedAppInfo(fCallback){
+	webOS.service.request('luna://com.webos.settingsservice', {
+		method: 'getSystemSettings',
+		parameters: {
+			keys: ['localeInfo'],
+			subscribe: true
+		},
+		onSuccess: function(inResponse) {
+			//LogIfDebug(oString.strGetSystemSettingsSuccess);
+			dInfoLocal = {};
+			[null].concat(inResponse.settings.localeInfo.locales.UI.split("-")).forEach(function(strLocal, iLocal, arrLocal) {
+				webOS.fetchAppInfo(function(oInfo) {
+					dInfoLocal[iLocal] = oInfo;
+					if(Object.keys(dInfoLocal).length === arrLocal.length){
+						var o = dInfoLocal[0];
+						for (var i = 1; i < arrLocal.length; i++) {
+							if(dInfoLocal[i] !== undefined){
+								o.spread(dInfoLocal[i]);
+							}
+						}
+						fCallback(o);
+					}
+				}, strPath + (iLocal > 0 ? ("resources/" + arrLocal.slice(1, iLocal + 1).join("/") + "/") : "") + "appstring.json");
+			});
+		},
+		onFailure: function(inError) {
+			//LogIfDebug(oString.strGetSystemSettingsFailure + " [", inError.errorText, "]");
 			webOS.fetchAppInfo(function(oInfo) {
-				if(oInfo !== undefined) {
-					oString.spread(oInfo);
-					LogIfDebug(oString.strGetSystemSettingsSuccess);
-					Load();
-				}
-			}, strPath + "resources/" + arr.slice(0, i + 1).join("/") + "/appstring.json");
-		});
-	},
-	onFailure: function(inError) {
-		webOS.fetchAppInfo(function(oInfo) {
-			oString = oInfo;
-			LogIfDebug(oString.strGetSystemSettingsFailure + " [", inError.errorText, "]");
-			Load();
-		}, strPath + "appstring.json");
-	},
+				fCallback(oInfo);
+			}, strPath + "appstring.json");
+		},
+	});
+}
+
+var oString = null;
+FetchLocalizedAppInfo(function(oInfo) {
+	oString = oInfo;
+	if(oDevice !== null){
+		Load();
+	}
 });
 
 var oDevice = null;
 webOS.deviceInfo(function(oInfo) {
 	oDevice = oInfo;
-	Load();
+	if(oString !== null){
+		Load();
+	}
 });
 
-var bLoaded = false;
-var iTimeoutLoad = 0;
 function Load() {
-	if(oDevice !== null && oString !== null && bLoaded === false) {
-		if(iTimeoutLoad) {
-			clearTimeout(iTimeoutLoad);
-		}
-		iTimeoutLoad = setTimeout(function() {
-			bLoaded = true;
-			
-			if(oDevice.versionMajor > 2) {
-				AppVisible = function() {
-					return document.hidden === false;
-				};
-			} else {
-				AppVisible = function() {
-					return document.webkitHidden === false;
-				};
-			}
-			AppFocus = function() {
-				return document.hasFocus() === true;
-			};
-			if(oDevice.versionMajor > 4) {
-				KeyboardVisible = function() {
-					return window.webOSSystem.cursor.visibility === true;
-				};
-			} else if(oDevice.versionMajor > 2) {
-				CursorVisible = function() {
-					return window.PalmSystem.cursor.visibility === true;
-				};
-			} else {
-				CursorVisible = function() {
-					return false;
-				};
-			}
-			if(oDevice.versionMajor > 4) {
-				KeyboardVisible = function() {
-					return window.webOSSystem.isKeyboardVisible === true;
-				};
-			} else if(oDevice.versionMajor > 2) {
-				KeyboardVisible = function() {
-					return window.PalmSystem.isKeyboardVisible === true;
-				};
-			} else {
-				KeyboardVisible = function() {
-					return false;
-				};
-			}
-			SubscriptionScreenSaverRequest();
-			SubscriptionInputStatus();
-			SubscriptionGetSensorData();
-			SubscriptionDomEvent();
-			if(bOverlay) {
-				/*if(oDevice.versionMajor > 4) {
-					window.webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
-				} else if(oDevice.versionMajor > 2) {
-					window.PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
-				} else {
-				}*/
-				SubscriptionClose();
-				LaunchInput();
-			} else {
-				/*if(oDevice.versionMajor > 4) {
-					window.webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
-				} else if(oDevice.versionMajor > 2) {
-					window.PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
-				} else {
-				}*/
+	if(oDevice.versionMajor > 2) {
+		AppVisible = function() {
+			return document.hidden === false;
+		};
+	} else {
+		AppVisible = function() {
+			return document.webkitHidden === false;
+		};
+	}
+	AppFocus = function() {
+		return document.hasFocus() === true;
+	};
+	if(oDevice.versionMajor > 4) {
+		KeyboardVisible = function() {
+			return window.webOSSystem.cursor.visibility === true;
+		};
+	} else if(oDevice.versionMajor > 2) {
+		CursorVisible = function() {
+			return window.PalmSystem.cursor.visibility === true;
+		};
+	} else {
+		CursorVisible = function() {
+			return false;
+		};
+	}
+	if(oDevice.versionMajor > 4) {
+		KeyboardVisible = function() {
+			return window.webOSSystem.isKeyboardVisible === true;
+		};
+	} else if(oDevice.versionMajor > 2) {
+		KeyboardVisible = function() {
+			return window.PalmSystem.isKeyboardVisible === true;
+		};
+	} else {
+		KeyboardVisible = function() {
+			return false;
+		};
+	}
+	SubscriptionScreenSaverRequest();
+	SubscriptionInputStatus();
+	SubscriptionGetSensorData();
+	SubscriptionDomEvent();
+	if(bOverlay) {
+		/*if(oDevice.versionMajor > 4) {
+			window.webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
+		} else if(oDevice.versionMajor > 2) {
+			window.PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
+		} else {
+		}*/
+		SubscriptionClose();
+		LaunchInput();
+	} else {
+		/*if(oDevice.versionMajor > 4) {
+			window.webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
+		} else if(oDevice.versionMajor > 2) {
+			window.PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
+		} else {
+		}*/
 
-				var deSource = document.createElement("source");
-				deSource.setAttribute("src", strInputSource);
-				deSource.setAttribute("type", "service/webos-external");
-				deVideo.appendChild(deSource);
-			}
-		}, 1000);
+		var deSource = document.createElement("source");
+		deSource.setAttribute("src", strInputSource);
+		deSource.setAttribute("type", "service/webos-external");
+		deVideo.appendChild(deSource);
 	}
 }
