@@ -83,7 +83,7 @@ var oString = null;
 var deKeyboard = document.getElementById("keyboard");
 var deVideo = document.getElementById("video");
 
-function Toast(strTitre, strMessage) {
+function Toast(strTitle, strMessage) {
 	var deScreenToast = document.createElement("div");
 	deScreenToast.className = "screen flex justify-center align-flex-end";
 	var deToast = document.createElement("div");
@@ -91,11 +91,13 @@ function Toast(strTitre, strMessage) {
 	deToast.addEventListener("click", function() {
 		ScreenCancel(deScreenToast);
 	});
-	var dePopupTitre = document.createElement("div");
-	dePopupTitre.className = "titre";
-	dePopupTitre.innerText = strTitre;
-	deToast.appendChild(dePopupTitre);
-	if(arguments.length) {
+	if(strTitle.length) {
+		var dePopupTitle = document.createElement("div");
+		dePopupTitle.className = "title";
+		dePopupTitle.innerText = strTitle;
+		deToast.appendChild(dePopupTitle);
+	}
+	if(strMessage.length) {
 		var dePopupMessage = document.createElement("div");
 		dePopupMessage.className = "message";
 		dePopupMessage.innerText = strMessage;
@@ -106,16 +108,16 @@ function Toast(strTitre, strMessage) {
 	return deScreenToast;
 }
 
-function Dialog(strTitre, strMessage, arrButton) {
+function Dialog(strTitle, strMessage, arrButton) {
 	var deScreenDialog = document.createElement("div");
 	deScreenDialog.className = "screen flex justify-center align-center";
 	var deDialog = document.createElement("div");
 	deDialog.className = "window dialog";
-	if(strTitre.length) {
-		var dePopupTitre = document.createElement("div");
-		dePopupTitre.className = "titre";
-		dePopupTitre.innerText = strTitre;
-		deDialog.appendChild(dePopupTitre);
+	if(strTitle.length) {
+		var dePopupTitle = document.createElement("div");
+		dePopupTitle.className = "title";
+		dePopupTitle.innerText = strTitle;
+		deDialog.appendChild(dePopupTitle);
 	}
 	if(strMessage.length) {
 		var dePopupMessage = document.createElement("div");
