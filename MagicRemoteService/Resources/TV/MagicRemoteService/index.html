@@ -57,7 +57,7 @@
 			background: #575E66;
 			color: #E6E6E6;
 		}
-		div.titre {
+		div.title {
 			margin: 1.5rem;
 			font-weight: bold;
 			font-size: 3rem;
@@ -78,7 +78,8 @@
 		}
 		
 		#titre{
-			opacity: 1%;
+			-webkit-transform: translateY(-100%);
+			transform: translateY(-100%);
 			color: #E6E6E6;
 		}
 		#keyboard {
@@ -105,8 +106,8 @@
 </head>
 
 <body>
-	<div class="screen flex justify-center align-center">
-		<h1 id="titre">MagicRemoteService</h1>
+	<div class="screen flex justify-center">
+		<h1 id="title">MagicRemoteService</h1>
 	</div>
 	<div class="screen">
 		<input id="keyboard" type="text" />
@@ -127,8 +128,5 @@
 <script type="text/javascript" src="webOSTVjs-1.2.8/webOSTV.js" charset="utf-8"></script>
 <script type="text/javascript" src="webOSTVjs-1.2.8/webOSTV-dev.js" charset="utf-8"></script>
 <script type="text/javascript" src="main.js" charset="utf-8"></script>
-<script type="text/javascript">
-	document.getElementById("titre").style.opacity = 0;
-</script>
 
 </html>

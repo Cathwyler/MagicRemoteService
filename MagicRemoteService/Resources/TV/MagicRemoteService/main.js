@@ -34,6 +34,18 @@ function startInterval(callback, ms) {
 	return setInterval(callback, ms);
 }
 
+function readJson(fCallback, strPath) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(e) {
+		fCallback(JSON.parse(xhr.responseText));
+	};
+	xhr.onerror = function(e) {
+		fCallback();
+	};
+    xhr.open("GET", strPath, true);
+	xhr.send(null);
+}
+
 const bDebug = false;
 
 const MessageType = {
@@ -65,8 +77,11 @@ const arrMac = strMac.split(":").map(function(x) {
 const strAppId = "com.cathwyler.magicremoteservice";
 
 const strPath = webOS.fetchAppRootPath();
-var oString = null;
 var arrVersion = null;
+var oString = null;
+
+var deKeyboard = document.getElementById("keyboard");
+var deVideo = document.getElementById("video");
 
 function Toast(strTitre, strMessage) {
 	var deScreenToast = document.createElement("div");
@@ -182,9 +197,6 @@ function AppFocus() {
 function CursorVisible() {};
 
 function KeyboardVisible() {};
-
-var deKeyboard = document.getElementById("keyboard");
-var deVideo = document.getElementById("video");
 
 var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
@@ -911,41 +923,6 @@ function SendShutdown() {
 	}
 }
 
-var dInfoLocal = {};
-function FetchLocaleAppInfo(fCallback, strLocale){
-	[null].concat(strLocale.split("-")).forEach(function(strLocal, iLocal, arrLocal) {
-		webOS.fetchAppInfo(function(oInfo) {
-			dInfoLocal[iLocal] = oInfo;
-			if(Object.keys(dInfoLocal).length === arrLocal.length){
-				var o = dInfoLocal[0];
-				for (var i = 1; i < arrLocal.length; i++) {
-					if(dInfoLocal[i] !== undefined){
-						o.spread(dInfoLocal[i]);
-					}
-				}
-				fCallback(o);
-			}
-		}, strPath + (iLocal > 0 ? ("resources/" + arrLocal.slice(1, iLocal + 1).join("/") + "/") : "") + "appstring.json");
-	});
-}
-
-webOS.service.request("luna://com.webos.settingsservice", {
-	method: "getSystemSettings",
-	parameters: {
-		keys: ["localeInfo"],
-		subscribe: true
-	},
-	onSuccess: function(inResponse) {
-		FetchLocaleAppInfo(function(oInfo) {
-			oString = oInfo;
-			Load();
-		}, inResponse.settings.localeInfo.locales.UI);
-	},
-	onFailure: function(inError) {
-		throw new Error(inError.errorText);
-	}
-});
-
 webOS.service.request("luna://com.webos.service.tv.systemproperty", {
 	method: "getSystemInfo",
 	parameters: {
@@ -956,6 +933,35 @@ webOS.service.request("luna://com.webos.service.tv.systemproperty", {
 			return parseInt(x);
 		});
 		Load();
+	},
+	onFailure: function(inError) {
+		throw new Error(inError.errorText);
+	}
+});
+
+webOS.service.request("luna://com.webos.settingsservice", {
+	method: "getSystemSettings",
+	parameters: {
+		keys: ["localeInfo"],
+		subscribe: true
+	},
+	onSuccess: function(inResponse) {
+		readJson(function(oInfo) {
+			oString = oInfo;
+			function readJsonLocale(i, arr){
+				if(i < arr.length){
+					readJson(function(oInfo) {
+						if(oInfo !== undefined){
+							oString.spread(oInfo);
+						}
+						readJsonLocale(i + 1, arr);
+					}, strPath + "resources/" + arr.slice(0, i + 1).join("/") + "/appstring.json");
+				} else {
+					Load();
+				}
+			}
+			readJsonLocale(0, inResponse.settings.localeInfo.locales.UI.split("-"));
+		}, strPath + "/appstring.json");
 	},
 	onFailure: function(inError) {
 		throw new Error(inError.errorText);
@@ -1026,6 +1032,5 @@ function Load() {
 			deSource.setAttribute("type", "service/webos-external");
 			deVideo.appendChild(deSource);
 		}
-		console.log(arrVersion[0]);
 	}
 }
