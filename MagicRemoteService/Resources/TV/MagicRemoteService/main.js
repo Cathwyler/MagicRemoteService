@@ -25,8 +25,23 @@ Object.prototype.spread = function(o) {
 	}
 };
 
+
 Object.prototype.toString = function() {
-	return JSON.stringify(this);
+	const arrAncestor = [];
+	return JSON.stringify(this, function(k, o) {
+		if (typeof o !== "object" || o === null) {
+			return o;
+		} else {
+			while (arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
+				arrAncestor.pop();
+			}
+			if (arrAncestor.indexOf(o) !== -1 ) {
+				return "[Circular]";
+			}
+			arrAncestor.push(o);
+			return o;
+		}
+	});
 };
 
 function startInterval(callback, ms) {
@@ -154,13 +169,17 @@ function ScreenCancel(deScreen) {
 
 var deScreenToast = null;
 function Log() {
+	console.log.apply(console, arguments);
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
 	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
-		return x.toString();
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
 	}).join(""));
-	console.log.apply(console, arguments);
 }
 
 function LogIfDebug() {};
@@ -171,23 +190,31 @@ if(bDebug) {
 }
 
 function Warn() {
+	console.warn.apply(console, arguments);
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
 	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
-		return x.toString();
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
 	}).join(""));
-	console.warn.apply(console, arguments);
 }
 
 function Error() {
+	console.error.apply(console, arguments);
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
 	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
-		return x.toString();
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
 	}).join(""));
-	console.error.apply(console, arguments);
 }
 
 function AppVisible() {};
@@ -532,7 +559,6 @@ function SubscriptionDomEvent() {
 
 	if(arrVersion[0] > 1) {
 		deVideo.addEventListener("wheel", function(inEvent) {
-			console.log("wheel" + arrVersion[0]);
 			SendWheel({
 				sY: inEvent.deltaY
 			});
@@ -540,7 +566,6 @@ function SubscriptionDomEvent() {
 	} else {
 		deVideo.addEventListener("mousewheel", function(inEvent) {
 			console.log(oDevice);
-			console.log("mousewheel" + arrVersion[0]);
 			SendWheel({
 				sY: inEvent.wheelDeltaY
 			});
@@ -1009,7 +1034,6 @@ function Load() {
 				return false;
 			};
 		}
-		SubscriptionScreenSaverRequest();
 		SubscriptionInputStatus();
 		SubscriptionGetSensorData();
 		SubscriptionDomEvent();
@@ -1023,6 +1047,7 @@ function Load() {
 			SubscriptionClose();
 			LaunchInput();
 		} else {
+			SubscriptionScreenSaverRequest();
 			/*if(arrVersion[0] > 4) {
 				webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
 			} else if(arrVersion[0] > 2) {
