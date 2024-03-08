@@ -32,7 +32,8 @@ serService.register("wol", function(mMessage) {
 		});
 	} catch(eError) {
 		mMessage.respond({
-			eError: eError,
+			errorCode: "1",
+			errorText: eError.message,
 			returnValue: false
 		});
 	}
@@ -57,7 +58,8 @@ if(bOverlay){
 			});
 		} catch(eError) {
 			mMessage.respond({
-				eError: eError,
+				errorCode: "1",
+				errorText: eError.message,
 				returnValue: false
 			});
 		}
@@ -121,7 +123,8 @@ regLog.on("request", function(mMessage) {
 		});
 	} catch(eError) {
 		mMessage.respond({
-			eError: eError.message,
+			errorCode: "1",
+			errorText: eError.message,
 			returnValue: false
 		});
 	}
@@ -147,7 +150,8 @@ function SendLog(){
 	} catch(eError) {
 		for(var uniqueToken in subLog) {       
 			subLog[uniqueToken].respond({
-				eError: eError.message,
+				errorCode: "1",
+				errorText: eError.message,
 				returnValue: false
 			});
 		}

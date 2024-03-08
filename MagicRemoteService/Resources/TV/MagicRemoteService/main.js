@@ -513,7 +513,7 @@ function SubscriptionClose() {
 			}
 		},
 		onFailure: function (inError) {
-			Error(oString.strCloseFailure + " [", inError.eError, "]");
+			Error(oString.strCloseFailure + " [", inError.errorText, "]");
 		},
 	});
 }
@@ -854,7 +854,7 @@ function SendWol(mMac, strBroadcast) {
 			LogIfDebug(oString.strSendWolSuccess + " [0x" + inResponse.strBuffer + "]@" + strBroadcast + ":9 ", mMac);
 		},
 		onFailure: function(inError) {
-			Error(oString.strSendWolFailure + " [", inError.eError, "]@" + strBroadcast + ":9 ", mMac);
+			Error(oString.strSendWolFailure + " [", inError.errorText, "]@" + strBroadcast + ":9 ", mMac);
 		}
 	});
 }
