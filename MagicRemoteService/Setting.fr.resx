@@ -237,4 +237,10 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Paramètres</value>
   </data>
+  <data name="libRemoteChannelDown.Text" xml:space="preserve">
+    <value>Chaîne -</value>
+  </data>
+  <data name="libRemoteChannelUp.Text" xml:space="preserve">
+    <value>Chaîne +</value>
+  </data>
 </root>

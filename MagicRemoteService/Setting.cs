@@ -44,6 +44,8 @@ namespace MagicRemoteService {
 			{ 0x0002, null },
 			{ 0x0008, null },
 			{ 0x000D, null },
+			{ 0x0021, null },
+			{ 0x0022, null },
 			{ 0x0025, null },
 			{ 0x0026, null },
 			{ 0x0027, null },
@@ -79,6 +81,8 @@ namespace MagicRemoteService {
 				{ 0x0002, this.bcRemoteLongClick },
 				{ 0x0008, this.bcRemoteBackspace },
 				{ 0x000D, this.bcRemoteOk },
+				{ 0x0021, this.bcRemoteChannelUp },
+				{ 0x0022, this.bcRemoteChannelDown },
 				{ 0x0025, this.bcRemoteLeft },
 				{ 0x0026, this.bcRemoteUp },
 				{ 0x0027, this.bcRemoteRight },
@@ -341,6 +345,8 @@ namespace MagicRemoteService {
 				this.dBindControl[0x0002].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };
 				this.dBindControl[0x0008].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
 				this.dBindControl[0x000D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
+				this.dBindControl[0x0021].Value = null;
+				this.dBindControl[0x0022].Value = null;
 				this.dBindControl[0x0025].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
 				this.dBindControl[0x0026].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
 				this.dBindControl[0x0027].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
@@ -394,7 +400,7 @@ namespace MagicRemoteService {
 			}
 		}
 		public void RemoteDataSave() {
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Softwar\MagicRemoteService\Remote\Bind");
+			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Software\MagicRemoteService\Remote\Bind");
 			foreach(string sKey in rkMagicRemoteServiceRemoteBind.GetSubKeyNames()) {
 				Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBindKey = rkMagicRemoteServiceRemoteBind.CreateSubKey(sKey);
 				foreach(string sBind in rkMagicRemoteServiceRemoteBindKey.GetSubKeyNames()) {

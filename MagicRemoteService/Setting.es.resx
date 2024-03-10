@@ -246,4 +246,10 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Ajustes</value>
   </data>
+  <data name="libRemoteChannelDown.Text" xml:space="preserve">
+    <value>Canal -</value>
+  </data>
+  <data name="libRemoteChannelUp.Text" xml:space="preserve">
+    <value>Canal +</value>
+  </data>
 </root>

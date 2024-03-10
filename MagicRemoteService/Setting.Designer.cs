@@ -125,6 +125,10 @@ namespace MagicRemoteService {
 			this.bcRemoteLeft = new MagicRemoteService.BindControl();
 			this.bcRemoteUp = new MagicRemoteService.BindControl();
 			this.libVersion = new System.Windows.Forms.Label();
+			this.libRemoteChannelDown = new System.Windows.Forms.Label();
+			this.libRemoteChannelUp = new System.Windows.Forms.Label();
+			this.bcRemoteChannelUp = new MagicRemoteService.BindControl();
+			this.bcRemoteChannelDown = new MagicRemoteService.BindControl();
 			this.tabSetting.SuspendLayout();
 			this.tabTV.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
@@ -457,6 +461,10 @@ namespace MagicRemoteService {
 			// 
 			// tabRemote
 			// 
+			this.tabRemote.Controls.Add(this.libRemoteChannelDown);
+			this.tabRemote.Controls.Add(this.libRemoteChannelUp);
+			this.tabRemote.Controls.Add(this.bcRemoteChannelUp);
+			this.tabRemote.Controls.Add(this.bcRemoteChannelDown);
 			this.tabRemote.Controls.Add(this.bcRemote9);
 			this.tabRemote.Controls.Add(this.libRemote9);
 			this.tabRemote.Controls.Add(this.libRemote8);
@@ -894,6 +902,32 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.libVersion, "libVersion");
 			this.libVersion.Name = "libVersion";
 			// 
+			// libRemoteChannelDown
+			// 
+			resources.ApplyResources(this.libRemoteChannelDown, "libRemoteChannelDown");
+			this.libRemoteChannelDown.Name = "libRemoteChannelDown";
+			// 
+			// libRemoteChannelUp
+			// 
+			resources.ApplyResources(this.libRemoteChannelUp, "libRemoteChannelUp");
+			this.libRemoteChannelUp.Name = "libRemoteChannelUp";
+			// 
+			// bcRemoteChannelUp
+			// 
+			this.bcRemoteChannelUp.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemoteChannelUp.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemoteChannelUp, "bcRemoteChannelUp");
+			this.bcRemoteChannelUp.Name = "bcRemoteChannelUp";
+			this.bcRemoteChannelUp.Value = null;
+			// 
+			// bcRemoteChannelDown
+			// 
+			this.bcRemoteChannelDown.BackColor = System.Drawing.SystemColors.Window;
+			this.bcRemoteChannelDown.ForeColor = System.Drawing.SystemColors.WindowText;
+			resources.ApplyResources(this.bcRemoteChannelDown, "bcRemoteChannelDown");
+			this.bcRemoteChannelDown.Name = "bcRemoteChannelDown";
+			this.bcRemoteChannelDown.Value = null;
+			// 
 			// Setting
 			// 
 			resources.ApplyResources(this, "$this");
@@ -1022,5 +1056,9 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.CheckBox cbOverlay;
 		private System.Windows.Forms.Label libVersion;
 		private System.Windows.Forms.Button btnTVVersion;
+		private System.Windows.Forms.Label libRemoteChannelDown;
+		private System.Windows.Forms.Label libRemoteChannelUp;
+		private BindControl bcRemoteChannelUp;
+		private BindControl bcRemoteChannelDown;
 	}
 }

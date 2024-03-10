@@ -30,6 +30,8 @@ namespace MagicRemoteService {
 			{ 0x0002, null },
 			{ 0x0008, null },
 			{ 0x000D, null },
+			{ 0x0021, null },
+			{ 0x0022, null },
 			{ 0x0025, null },
 			{ 0x0026, null },
 			{ 0x0027, null },
@@ -148,6 +150,8 @@ namespace MagicRemoteService {
 				this.dBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };
 				this.dBind[0x0008] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
 				this.dBind[0x000D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
+				this.dBind[0x0021] = null;
+				this.dBind[0x0022] = null;
 				this.dBind[0x0025] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
 				this.dBind[0x0026] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
 				this.dBind[0x0027] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
