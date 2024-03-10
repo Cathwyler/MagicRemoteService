@@ -45,17 +45,20 @@ if(bOverlay){
 		aKeepAlive = a; 
 	});
 
-	var subClose = [];
-	var regClose = serService.register("close");
-	regClose.on("request", function(mMessage) {
+	var dClose = {};
+	serService.register("close", function(mMessage) {
 		try {
 			if (mMessage.isSubscription) {
-				subClose[mMessage.uniqueToken] = mMessage;
+				dClose[mMessage.uniqueToken] = mMessage;
+				mMessage.respond({
+					subscribed: true,
+					returnValue: true
+				});
+			} else {
+				mMessage.respond({
+					returnValue: true
+				});
 			}
-			mMessage.respond({
-				subscribed: true,
-				returnValue: true
-			});
 		} catch(eError) {
 			mMessage.respond({
 				errorCode: "1",
@@ -63,16 +66,15 @@ if(bOverlay){
 				returnValue: false
 			});
 		}
-	}); 
-	regClose.on("cancel", function(mMessage) { 
-		delete subClose[mMessage.uniqueToken]; 
+	}, function(mMessage) { 
+		delete dClose[mMessage.uniqueToken]; 
 	});
 
 
 	var bApp = false;
 	var iIntervalLaunch = 0;
-	var registerInputSub = serService.subscribe("luna://com.webos.service.videooutput/getStatus", { subscribe: true });
-	registerInputSub.on("response", function(mMessage) {
+	var subInputStatus = serService.subscribe("luna://com.webos.service.videooutput/getStatus", { subscribe: true });
+	subInputStatus.on("response", function(mMessage) {
 		try {
 			if(mMessage.payload.video[0].connected === true && mMessage.payload.video[0].appId === strInputAppId) {
 				if(!bApp){
@@ -97,64 +99,14 @@ if(bOverlay){
 						clearInterval(iIntervalLaunch);
 						iIntervalLaunch = 0;
 					}
-					for(var uniqueToken in subClose) {
-						subClose[uniqueToken].respond({
+					for(var uniqueToken in dClose) {
+						dClose[uniqueToken].respond({
 							returnValue: true
 						});
 					} 
 				}
 			}
 		} catch(eError) {
-			//SendLog(eError.message);
 		}
 	});
 }
-
-/*var subLog = [];
-var regLog = serService.register("log");
-regLog.on("request", function(mMessage) {
-	try {
-		if (mMessage.isSubscription) {
-			subLog[mMessage.uniqueToken] = mMessage;
-		}
-		mMessage.respond({
-			subscribed: true,
-			returnValue: true
-		});
-	} catch(eError) {
-		mMessage.respond({
-			errorCode: "1",
-			errorText: eError.message,
-			returnValue: false
-		});
-	}
-}); 
-regLog.on("cancel", function(mMessage) { 
-    delete subLog[mMessage.uniqueToken]; 
-});
-
-Object.prototype.toString = function() {
-	return JSON.stringify(this);
-};
-function SendLog(){
-	try {
-		var log = Array.prototype.slice.call(arguments).map(function(x) {
-			return x.toString();
-		}).join("");
-		for(var uniqueToken in subLog) {       
-			subLog[uniqueToken].respond({
-				log: log,
-				returnValue: true
-			});
-		}
-	} catch(eError) {
-		for(var uniqueToken in subLog) {       
-			subLog[uniqueToken].respond({
-				errorCode: "1",
-				errorText: eError.message,
-				returnValue: false
-			});
-		}
-	}
-}*/
-
