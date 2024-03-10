@@ -57,7 +57,7 @@ function readJson(fCallback, strPath) {
 	xhr.onerror = function(e) {
 		fCallback();
 	};
-    xhr.open("GET", strPath, true);
+	xhr.open("GET", strPath, true);
 	xhr.send(null);
 }
 
@@ -194,7 +194,7 @@ function Warn() {
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
-	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	deScreenToast = Toast(oString.strWarnTitle, Array.prototype.slice.call(arguments).map(function(x) {
 		if (typeof o !== "object" || o === null) {
 			return x;
 		} else {
@@ -208,7 +208,7 @@ function Error() {
 	if(ScreenExist(deScreenToast)) {
 		ScreenCancel(deScreenToast);
 	}
-	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	deScreenToast = Toast(oString.strErrorTitle, Array.prototype.slice.call(arguments).map(function(x) {
 		if (typeof o !== "object" || o === null) {
 			return x;
 		} else {

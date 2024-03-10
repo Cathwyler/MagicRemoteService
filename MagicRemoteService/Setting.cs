@@ -500,9 +500,10 @@ namespace MagicRemoteService {
 				.Replace(@"""name"": ""com.cathwyler.magicremoteservice.send""", @"""name"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
 			);
 			System.IO.File.WriteAllText(@".\TV\Send\send.js", MagicRemoteService.Properties.Resources.send
-				.Replace(@"const bOverlay = true", "const bOverlay = " + (bOverlay ? "true" : "false"))
-				.Replace(@"const strInputAppId = ""com.webos.app.hdmi""", @"const strInputAppId = ""com.webos.app." + wocdiInput.AppIdShort + @"""")
-				.Replace(@"const strAppId = ""com.cathwyler.magicremoteservice""", @"const strAppId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""")
+				.Replace(@"var bOverlay = true", "var bOverlay = " + (bOverlay ? "true" : "false"))
+				.Replace(@"var strServiceId = ""com.cathwyler.magicremoteservice.send""", @"var strServiceId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
+				.Replace(@"var strInputAppId = ""com.webos.app.hdmi""", @"var strInputAppId = ""com.webos.app." + wocdiInput.AppIdShort + @"""")
+				.Replace(@"var strAppId = ""com.cathwyler.magicremoteservice""", @"var strAppId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""")
 			);
 			System.IO.File.WriteAllText(@".\TV\Send\services.json", MagicRemoteService.Properties.Resources.services
 				.Replace(@"""id"": ""com.cathwyler.magicremoteservice.send""", @"""id"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")

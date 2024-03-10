@@ -1,10 +1,19 @@
 {
-    "id": "com.cathwyler.magicremoteservice.send",
-    "description": "Send Service",
-    "services": [
-        {
-            "name": "com.cathwyler.magicremoteservice.send",
-			"description": "Send Service"
-        }
-    ]
+	"id": "com.cathwyler.magicremoteservice.send",
+	"description": "Send Service",
+	"services": [
+		{
+			"name": "com.cathwyler.magicremoteservice.send",
+			"description": "Send Service",
+			"commands": [
+				{
+					"name": "wol",
+					"public": true
+				}, {
+					"name": "close",
+					"public": true
+				}
+			]
+		}
+	]
 }

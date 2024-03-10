@@ -4,15 +4,15 @@ function startInterval(fCallback, iMs) {
 	return setInterval(fCallback, iMs);
 }
 
-const bOverlay = true;
-const strInputAppId = "com.webos.app.hdmi";
-const strAppId = "com.cathwyler.magicremoteservice";
+var bOverlay = true;
+var strServiceId = "com.cathwyler.magicremoteservice.send";
+var strInputAppId = "com.webos.app.hdmi";
+var strAppId = "com.cathwyler.magicremoteservice";
 
-var oPackage = require("./package.json");
 var Service = require("webos-service");
 var Dgram = require("dgram");
 
-var serService = new Service(oPackage.name); 
+var serService = new Service(strServiceId); 
 
 var socClient = Dgram.createSocket("udp4");
 socClient.bind(function() {
