@@ -25,7 +25,6 @@ Object.prototype.spread = function(o) {
 	}
 };
 
-
 Object.prototype.toString = function() {
 	const arrAncestor = [];
 	return JSON.stringify(this, function(k, o) {

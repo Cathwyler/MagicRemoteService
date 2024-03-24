@@ -1,16 +1,9 @@
 
-function startInterval(fCallback, iMs) {
-	fCallback();
-	return setInterval(fCallback, iMs);
-}
+var Service = require("webos-service");
+var Dgram = require("dgram");
 
 var bOverlay = true;
 var strServiceId = "com.cathwyler.magicremoteservice.send";
-var strInputAppId = "com.webos.app.hdmi";
-var strAppId = "com.cathwyler.magicremoteservice";
-
-var Service = require("webos-service");
-var Dgram = require("dgram");
 
 var serService = new Service(strServiceId); 
 
@@ -21,7 +14,8 @@ socClient.bind(function() {
 
 var bufWol = Buffer.alloc(102);
 bufWol.fill(0xFF, 0, 6);
-serService.register("wol", function(mMessage) {
+var metWol = serService.register("wol");
+metWol.on("request", function(mMessage) {
 	try {
 		bufWol.fill(Buffer.from(mMessage.payload.mMac.arrMac), 6);
 		socClient.send(bufWol, 9, mMessage.payload.strBroadcast);
@@ -40,13 +34,17 @@ serService.register("wol", function(mMessage) {
 });
 
 if(bOverlay){
-	var aKeepAlive;
-	serService.activityManager.create("aKeepAlive", function(a) {
-		aKeepAlive = a; 
-	});
+	//var Service = require("webos-service");
+
+	//var strServiceId = "com.cathwyler.magicremoteservice.auto";
+	var strInputAppId = "com.webos.app.hdmi";
+	var strAppId = "com.cathwyler.magicremoteservice";
+
+	//var serService = new Service(strServiceId); 
 
 	var dClose = {};
-	serService.register("close", function(mMessage) {
+	var metclose = serService.register("close");
+	metclose.on("request", function(mMessage) {
 		try {
 			if (mMessage.isSubscription) {
 				dClose[mMessage.uniqueToken] = mMessage;
@@ -66,39 +64,71 @@ if(bOverlay){
 				returnValue: false
 			});
 		}
-	}, function(mMessage) { 
+	}); 
+	metclose.on("cancel", function(mMessage) { 
 		delete dClose[mMessage.uniqueToken]; 
 	});
 
+	var subAutoLaunch = serService.subscribe("luna://com.palm.activitymanager/create", {
+		activity: {
+			name: "MagicRemoteService auto launch",
+			description: "MagicRemoteService auto launch",
+			type: {
+				foreground: true,
+				probe: true,
+				persist: true,
+				explicit: true
+			}, schedule: {
+				precise: true,
+				interval: "00d00h00m05s"
+			}, callback: {
+				method: "luna://" + strAppId + ".send/close",
+				params: {}
+			}
+		},
+		subscribe: true,
+		detailedEvents: true,
+		start: true,
+		replace: true
+	});
+	subAutoLaunch.on("response", function(mMessage) {
+		try {
+			switch(mMessage.payload.event) {
+				case undefined:
+					break;
+				case "update":
+					break;
+				case "start":
+					serService.call("luna://com.palm.activitymanager/complete", {
+						activityId: mMessage.payload.activityId,
+						restart: true
+					});
+					break;
+				default:
+					break;
+			}
+		} catch(eError) {
+		}
+	});
+	subAutoLaunch.on("cancel", function(mMessage) {
+	});
 
 	var bApp = false;
-	var iIntervalLaunch = 0;
-	var subInputStatus = serService.subscribe("luna://com.webos.service.videooutput/getStatus", { subscribe: true });
+	var subInputStatus = serService.subscribe("luna://com.webos.service.videooutput/getStatus", {
+		subscribe: true
+	});
 	subInputStatus.on("response", function(mMessage) {
 		try {
 			if(mMessage.payload.video[0].connected === true && mMessage.payload.video[0].appId === strInputAppId) {
 				if(!bApp){
 					bApp = true;
-					iIntervalLaunch = startInterval(function(){
-						serService.call("luna://com.webos.applicationManager/launch", {
-							id: strAppId
-						}, function(mMessage) {
-							if(mMessage.payload.returnValue){
-								if(iIntervalLaunch) {
-									clearInterval(iIntervalLaunch);
-									iIntervalLaunch = 0;
-								}
-							}
-						});
-					}, 1000);
+					serService.call("luna://com.webos.applicationManager/launch", {
+						id: strAppId
+					});
 				}
 			} else {
 				if(bApp){
 					bApp = false;
-					if(iIntervalLaunch) {
-						clearInterval(iIntervalLaunch);
-						iIntervalLaunch = 0;
-					}
 					for(var uniqueToken in dClose) {
 						dClose[uniqueToken].respond({
 							returnValue: true
@@ -108,5 +138,7 @@ if(bOverlay){
 			}
 		} catch(eError) {
 		}
+	});
+	subInputStatus.on("cancel", function(mMessage) {
 	});
 }
