@@ -2,23 +2,93 @@
 var Service = require("webos-service");
 var Dgram = require("dgram");
 
+var bDebug = false;
 var bOverlay = true;
-var strServiceId = "com.cathwyler.magicremoteservice.send";
+var strAppId = "com.cathwyler.magicremoteservice";
 
-var serService = new Service(strServiceId); 
+var serService = new Service(strAppId + ".service"); 
+
+/*function SendLogIfDebug() {};
+if(bDebug){
+	var arrLog = [];
+	var dLog = {};
+	var metLog = serService.register("log");
+	metLog.on("request", function(mMessage) {
+		try {
+			if (mMessage.isSubscription) {
+				dLog[mMessage.uniqueToken] = mMessage;
+			}
+			mMessage.respond({
+				subscribed: true,
+				returnValue: true
+			});
+		} catch(eError) {
+			mMessage.respond({
+				eError: eError.message,
+				returnValue: false
+			});
+		}
+	}); 
+	metLog.on("cancel", function(mMessage) { 
+		delete dLog[mMessage.uniqueToken]; 
+	});
+
+	Object.prototype.toString = function() {
+		var arrAncestor = [];
+		return JSON.stringify(this, function(k, o) {
+			if (typeof o !== "object" || o === null) {
+				return o;
+			} else {
+				while (arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
+					arrAncestor.pop();
+				}
+				if (arrAncestor.indexOf(o) !== -1 ) {
+					return "[Circular]";
+				}
+				arrAncestor.push(o);
+				return o;
+			}
+		});
+	};
+	SendLogIfDebug = function() {
+		try {
+			arrLog.push(Array.prototype.slice.call(arguments).map(function(x) {
+				return x.toString();
+			}).join(""));
+			if(Object.keys(dLog).length > 0){
+				while (arrLog.length > 0) {
+					var strLog = arrLog.shift();
+					for(var uniqueToken in dLog) {       
+						dLog[uniqueToken].respond({
+							log: strLog,
+							returnValue: true
+						});
+					}
+				}
+			}
+		} catch(eError) {
+			for(var uniqueToken in dLog) {       
+				dLog[uniqueToken].respond({
+					eError: eError.message,
+					returnValue: false
+				});
+			}
+		}
+	}
+}*/
 
 var socClient = Dgram.createSocket("udp4");
-socClient.bind(function() {
+socClient.on("listening", function () {
 	socClient.setBroadcast(true);
 });
 
-var bufWol = Buffer.alloc(102);
+var bufWol = new Buffer(102);
 bufWol.fill(0xFF, 0, 6);
 var metWol = serService.register("wol");
 metWol.on("request", function(mMessage) {
 	try {
-		bufWol.fill(Buffer.from(mMessage.payload.mMac.arrMac), 6);
-		socClient.send(bufWol, 9, mMessage.payload.strBroadcast);
+		bufWol.fill(new Buffer(mMessage.payload.mMac.arrMac), 6);
+		socClient.send(bufWol, 0, bufWol.length, 9, mMessage.payload.strBroadcast);
 		
 		mMessage.respond({
 			strBuffer: bufWol.toString("hex"),
@@ -34,13 +104,7 @@ metWol.on("request", function(mMessage) {
 });
 
 if(bOverlay){
-	//var Service = require("webos-service");
-
-	//var strServiceId = "com.cathwyler.magicremoteservice.auto";
 	var strInputAppId = "com.webos.app.hdmi";
-	var strAppId = "com.cathwyler.magicremoteservice";
-
-	//var serService = new Service(strServiceId); 
 
 	var dClose = {};
 	var metclose = serService.register("close");
@@ -74,20 +138,17 @@ if(bOverlay){
 			name: "MagicRemoteService auto launch",
 			description: "MagicRemoteService auto launch",
 			type: {
-				foreground: true,
-				probe: true,
-				persist: true,
-				explicit: true
+				background: true,
+				persist: true
 			}, schedule: {
 				precise: true,
 				interval: "00d00h00m05s"
 			}, callback: {
-				method: "luna://" + strAppId + ".send/close",
+				method: "luna://" + strAppId + ".service/close",
 				params: {}
 			}
 		},
 		subscribe: true,
-		detailedEvents: true,
 		start: true,
 		replace: true
 	});

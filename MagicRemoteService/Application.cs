@@ -1,7 +1,7 @@
 ﻿
 namespace MagicRemoteService {
 	public class Invoker : System.Windows.Forms.Control {
-		public Invoker() {
+		public Invoker() : base() {
 			this.CreateControl();
 		}
 	}
@@ -10,16 +10,48 @@ namespace MagicRemoteService {
 			this.Start();
 		}
 	}
+	public class PowerSettingNotification : System.Windows.Forms.Control {
+		private System.IntPtr hNotification;
+		public event NotificationArrivedEventHandler NotificationArrived;
 
+		public delegate void NotificationArrivedEventHandler(WinApi.PowerBroadcastSetting pbs);
+		public PowerSettingNotification() : base() {
+			this.hNotification = WinApi.User32.RegisterPowerSettingNotification(this.Handle, ref WinApi.User32.GUID_MONITOR_POWER_ON, WinApi.User32.DEVICE_NOTIFY_WINDOW_HANDLE);
+			if(this.hNotification == System.IntPtr.Zero) {
+				throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+			}
+		}
+		protected override void Dispose(bool disposing) {
+			WinApi.User32.UnregisterPowerSettingNotification(this.hNotification);
+			base.Dispose(disposing);
+		}
+		protected override void WndProc(ref System.Windows.Forms.Message m) {
+			switch(m.Msg) {
+				case 0x218:
+					switch(m.WParam.ToInt32()) {
+						case 0x8013:
+							this.NotificationArrived?.Invoke(System.Runtime.InteropServices.Marshal.PtrToStructure<WinApi.PowerBroadcastSetting>(m.LParam));
+							break;
+					}
+					break;
+			}
+			base.WndProc(ref m);
+		}
+	}
 	internal class Application : System.Windows.Forms.ApplicationContext {
 		private static readonly MagicRemoteService.Invoker iInvoker = new MagicRemoteService.Invoker();
 		private static readonly MagicRemoteService.Watcher wExplorer = new MagicRemoteService.Watcher("SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = \"explorer.exe\"");
+		private static readonly MagicRemoteService.PowerSettingNotification psnPowerSettingNotification = new MagicRemoteService.PowerSettingNotification();
+		public static event MagicRemoteService.PowerSettingNotification.NotificationArrivedEventHandler PowerSettingNotificationArrived;
+		
 		private MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
 		private System.Windows.Forms.NotifyIcon niIcon;
 		private MagicRemoteService.Setting sSetting;
+		static Application() {
+			MagicRemoteService.Application.psnPowerSettingNotification.NotificationArrived += MagicRemoteService.Application.OnPowerSettingNotification;
+		}
 		public Application() {
-			MagicRemoteService.Application.wExplorer.EventArrived += this.ExplorerStartEvent;
-
+			MagicRemoteService.Application.wExplorer.EventArrived += this.OnExplorerStart;
 			this.VersionScript();
 
 			this.mrsService.ServiceStart();
@@ -38,6 +70,7 @@ namespace MagicRemoteService {
 				this.Setting(this, System.EventArgs.Empty);
 			}
 		}
+
 		private void VersionScript() {
 			System.Version vCurrent = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Software\MagicRemoteService");
@@ -79,9 +112,12 @@ namespace MagicRemoteService {
 		public void Invoke(System.Delegate methode) {
 			MagicRemoteService.Application.iInvoker.Invoke(methode);
 		}
-		public void ExplorerStartEvent(object sender, System.Management.EventArrivedEventArgs e) {
+		private void OnExplorerStart(object sender, System.Management.EventArrivedEventArgs e) {
 			this.niIcon.Visible = false;
 			this.niIcon.Visible = true;
+		}
+		static private void OnPowerSettingNotification(WinApi.PowerBroadcastSetting pbs) {
+			MagicRemoteService.Application.PowerSettingNotificationArrived?.Invoke(pbs);
 		}
 		protected override void Dispose(bool disposing) {
 			if(disposing) {
@@ -90,7 +126,7 @@ namespace MagicRemoteService {
 				if(this.sSetting != null && !this.sSetting.IsDisposed) {
 					this.sSetting.Dispose();
 				}
-				MagicRemoteService.Application.wExplorer.EventArrived -= this.ExplorerStartEvent;
+				MagicRemoteService.Application.wExplorer.EventArrived -= this.OnExplorerStart;
 			}
 			base.Dispose(disposing);
 		}

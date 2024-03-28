@@ -171,6 +171,9 @@
   <data name="labLongClick.Text" xml:space="preserve">
     <value>Délai du clique long</value>
   </data>
+  <data name="cbVideoInput.Text" xml:space="preserve">
+    <value>Éteindre automatiquement l’ordinateur lorsque le téléviseur est allumé et qu'il n'y a pas de signal video.</value>
+  </data>
   <data name="cbStartup.Text" xml:space="preserve">
     <value>Lancer automatiquement au démarrage</value>
   </data>
@@ -181,13 +184,19 @@
     <value>Enregistrer</value>
   </data>
   <data name="cbInactivity.Text" xml:space="preserve">
-    <value>Éteindre automatiquement l'ordinateur lorsque la TV est allumée</value>
+    <value>Éteindre automatiquement l’ordinateur lorsque le téléviseur est allumé et qu'il n'y a pas d'activité.</value>
   </data>
   <data name="labTimeoutIncativity.Text" xml:space="preserve">
     <value>Délai</value>
   </data>
   <data name="tabRemote.Text" xml:space="preserve">
     <value>Télécommande</value>
+  </data>
+  <data name="libRemoteChannelDown.Text" xml:space="preserve">
+    <value>Chaîne -</value>
+  </data>
+  <data name="libRemoteChannelUp.Text" xml:space="preserve">
+    <value>Chaîne +</value>
   </data>
   <data name="libRemoteBackspace.Text" xml:space="preserve">
     <value>Retour arrière</value>
@@ -236,11 +245,5 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Paramètres</value>
-  </data>
-  <data name="libRemoteChannelDown.Text" xml:space="preserve">
-    <value>Chaîne -</value>
-  </data>
-  <data name="libRemoteChannelUp.Text" xml:space="preserve">
-    <value>Chaîne +</value>
   </data>
 </root>

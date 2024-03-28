@@ -26,6 +26,8 @@ namespace MagicRemoteService {
 		private decimal dListenPort;
 		private bool bInactivity;
 		private decimal dTimeoutInactivity;
+		private bool bVideoInput;
+		private decimal dTimeoutVideoInput;
 		private bool bStartup;
 
 		private MagicRemoteService.WebOSCLIDeviceInput wocdiInput;
@@ -126,14 +128,20 @@ namespace MagicRemoteService {
 				this.nbListenPort.Value = 41230;
 				this.cbInactivity.Checked = true;
 				this.nbTimeoutInactivity.Value = 7200000;
+				this.cbVideoInput.Checked = true;
+				this.nbTimeoutVideoInput.Value = 900000;
 			} else {
 				this.nbListenPort.Value = (int)rkMagicRemoteService.GetValue("Port", 41230);
 				this.cbInactivity.Checked = (int)rkMagicRemoteService.GetValue("Inactivity", 1) != 0;
 				this.nbTimeoutInactivity.Value = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
+				this.cbVideoInput.Checked = (int)rkMagicRemoteService.GetValue("VideoInput", 1) != 0;
+				this.nbTimeoutVideoInput.Value = (int)rkMagicRemoteService.GetValue("TimeoutVideoInput", 900000);
 			}
 			this.dListenPort = this.nbListenPort.Value;
 			this.bInactivity = this.cbInactivity.Checked;
 			this.dTimeoutInactivity = this.nbTimeoutInactivity.Value;
+			this.bVideoInput = this.cbVideoInput.Checked;
+			this.dTimeoutVideoInput = this.nbTimeoutVideoInput.Value;
 
 			if(MagicRemoteService.Program.bElevated) {
 				System.ServiceProcess.ServiceController scService = System.Array.Find<System.ServiceProcess.ServiceController>(System.ServiceProcess.ServiceController.GetServices(), delegate (System.ServiceProcess.ServiceController sc) {
@@ -166,6 +174,8 @@ namespace MagicRemoteService {
 			rkMagicRemoteService.SetValue("Port", this.nbListenPort.Value, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteService.SetValue("Inactivity", this.cbInactivity.Checked, Microsoft.Win32.RegistryValueKind.DWord);
 			rkMagicRemoteService.SetValue("TimeoutInactivity", this.nbTimeoutInactivity.Value, Microsoft.Win32.RegistryValueKind.DWord);
+			rkMagicRemoteService.SetValue("VideoInput", this.cbVideoInput.Checked, Microsoft.Win32.RegistryValueKind.DWord);
+			rkMagicRemoteService.SetValue("TimeoutVideoInput", this.nbTimeoutVideoInput.Value, Microsoft.Win32.RegistryValueKind.DWord);
 
 			if(MagicRemoteService.Program.bElevated) {
 				System.ServiceProcess.ServiceController scService = System.Array.Find<System.ServiceProcess.ServiceController>(System.ServiceProcess.ServiceController.GetServices(), delegate (System.ServiceProcess.ServiceController sc) {
@@ -457,7 +467,7 @@ namespace MagicRemoteService {
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\fr");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\es");
-			System.IO.Directory.CreateDirectory(@".\TV\Send");
+			System.IO.Directory.CreateDirectory(@".\TV\Service");
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\main.js", MagicRemoteService.Properties.Resources.main
 #if DEBUG
 				.Replace(@"const bDebug = false;", @"const bDebug = true;")
@@ -496,18 +506,20 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\fr\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\es\appinfo.json", MagicRemoteService.Properties.Resources.esappinfo);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\es\appstring.json", MagicRemoteService.Properties.Resources.esappstring);
-			System.IO.File.WriteAllText(@".\TV\Send\package.json", MagicRemoteService.Properties.Resources.package
-				.Replace(@"""name"": ""com.cathwyler.magicremoteservice.send""", @"""name"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
+			System.IO.File.WriteAllText(@".\TV\Service\package.json", MagicRemoteService.Properties.Resources.package
+				.Replace(@"""name"": ""com.cathwyler.magicremoteservice.service""", @"""name"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".service""")
 			);
-			System.IO.File.WriteAllText(@".\TV\Send\send.js", MagicRemoteService.Properties.Resources.send
+			System.IO.File.WriteAllText(@".\TV\Service\service.js", MagicRemoteService.Properties.Resources.service
+#if DEBUG
+				.Replace(@"var bDebug = false;", @"var bDebug = true;")
+#endif
 				.Replace(@"var bOverlay = true", "var bOverlay = " + (bOverlay ? "true" : "false"))
-				.Replace(@"var strServiceId = ""com.cathwyler.magicremoteservice.send""", @"var strServiceId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
 				.Replace(@"var strInputAppId = ""com.webos.app.hdmi""", @"var strInputAppId = ""com.webos.app." + wocdiInput.AppIdShort + @"""")
 				.Replace(@"var strAppId = ""com.cathwyler.magicremoteservice""", @"var strAppId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""")
 			);
-			System.IO.File.WriteAllText(@".\TV\Send\services.json", MagicRemoteService.Properties.Resources.services
-				.Replace(@"""id"": ""com.cathwyler.magicremoteservice.send""", @"""id"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
-				.Replace(@"""name"": ""com.cathwyler.magicremoteservice.send""", @"""name"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".send""")
+			System.IO.File.WriteAllText(@".\TV\Service\services.json", MagicRemoteService.Properties.Resources.services
+				.Replace(@"""id"": ""com.cathwyler.magicremoteservice.service""", @"""id"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".service""")
+				.Replace(@"""name"": ""com.cathwyler.magicremoteservice.service""", @"""name"": ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @".service""")
 			);
 		}
 		private async void PCSave_Click(object sender, System.EventArgs e) {
@@ -620,7 +632,7 @@ namespace MagicRemoteService {
 						string strVersion = vAssembly.Major + "." + vAssembly.Minor + "." + vAssembly.Build;
 						MagicRemoteService.Setting.AppExtract(strVersion, wocdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dLongClick, bInputDirect, bOverlay);
 						string strTVDir = System.IO.Path.GetFullPath(@".\TV");
-						MagicRemoteService.WebOSCLI.Package(strTVDir, MagicRemoteService.Application.CompleteDir(strTVDir) + "MagicRemoteService", MagicRemoteService.Application.CompleteDir(strTVDir) + "Send");
+						MagicRemoteService.WebOSCLI.Package(strTVDir, MagicRemoteService.Application.CompleteDir(strTVDir) + "MagicRemoteService", MagicRemoteService.Application.CompleteDir(strTVDir) + "Service");
 						MagicRemoteService.WebOSCLI.Install(wocdDevice.Name, @".\TV\com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "_" + strVersion + "_all.ipk");
 						MagicRemoteService.WebOSCLI.Launch(wocdDevice.Name, "com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort);
 						if(this.cbOverlay.Checked) {
@@ -690,6 +702,10 @@ namespace MagicRemoteService {
 				this.bInactivity != this.cbInactivity.Checked
 				||
 				this.dTimeoutInactivity != this.nbTimeoutInactivity.Value
+				||
+				this.bVideoInput != this.cbVideoInput.Checked
+				||
+				this.dTimeoutVideoInput != this.nbTimeoutVideoInput.Value
 				||
 				this.bStartup != this.cbStartup.Checked
 			)) {

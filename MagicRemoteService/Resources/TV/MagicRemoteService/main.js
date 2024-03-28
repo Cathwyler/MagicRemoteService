@@ -493,7 +493,7 @@ function LaunchInput() {
 }
 
 function SubscriptionClose() {
-	webOS.service.request("luna://" + strAppId + ".send", {
+	webOS.service.request("luna://" + strAppId + ".service", {
 		method: "close",
 		parameters: {
 			subscribe: true
@@ -513,6 +513,31 @@ function SubscriptionClose() {
 		},
 		onFailure: function (inError) {
 			Error(oString.strCloseFailure + " [", inError.errorText, "]");
+		},
+	});
+}
+
+function SubscriptionLog() {
+	webOS.service.request("luna://" + strAppId + ".service", {
+		method: "log",
+		parameters: {
+			subscribe: true
+		},
+		onSuccess: function (inResponse) {
+			switch(inResponse.subscribed) {
+				case undefined:
+					console.log(inResponse.log);
+					break;
+				case true:
+					console.log(oString.strLogSubscribe);
+					break;
+				default:
+					Error(oString.strLogFailure);
+					break;
+			}
+		},
+		onFailure: function (inError) {
+			Error(oString.strLogFailure + " [", inError.errorText, "]");
 		},
 	});
 }
@@ -843,7 +868,7 @@ function Close() {
 }
 
 function SendWol(mMac, strBroadcast) {
-	webOS.service.request("luna://" + strAppId + ".send", {
+	webOS.service.request("luna://" + strAppId + ".service", {
 		method: "wol",
 		parameters: {
 			mMac: mMac,
@@ -1033,26 +1058,17 @@ function Load() {
 				return false;
 			};
 		}
+		if(bDebug) {
+			SubscriptionLog();
+		}
 		SubscriptionInputStatus();
 		SubscriptionGetSensorData();
 		SubscriptionDomEvent();
 		if(bOverlay) {
-			/*if(arrVersion[0] > 4) {
-				webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
-			} else if(arrVersion[0] > 2) {
-				PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_FLOATING");
-			} else {
-			}*/
 			SubscriptionClose();
 			LaunchInput();
 		} else {
 			SubscriptionScreenSaverRequest();
-			/*if(arrVersion[0] > 4) {
-				webOSSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
-			} else if(arrVersion[0] > 2) {
-				PalmSystem.setWindowProperty("_WEBOS_WINDOW_TYPE", "_WEBOS_WINDOW_TYPE_CARD");
-			} else {
-			}*/
 			var deSource = document.createElement("source");
 			deSource.setAttribute("src", strInputSource);
 			deSource.setAttribute("type", "service/webos-external");

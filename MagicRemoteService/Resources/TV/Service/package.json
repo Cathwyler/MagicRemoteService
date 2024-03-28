@@ -1,0 +1,4 @@
+{
+	"name": "com.cathwyler.magicremoteservice.service",
+	"main": "service.js"
+}

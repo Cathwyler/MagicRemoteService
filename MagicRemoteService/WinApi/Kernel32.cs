@@ -10,7 +10,6 @@ namespace MagicRemoteService.WinApi {
 		public static extern bool GetNamedPipeServerProcessId(System.IntPtr Pipe, out uint ServerProcessId);
 		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
 		public static extern bool GetNamedPipeClientProcessId(System.IntPtr Pipe, out uint ClientProcessId);
-
 	}
 }
 #pragma warning restore IDE1006

@@ -396,9 +396,8 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
-        ///    &quot;name&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;,
-        ///    &quot;description&quot;: &quot;Send service&quot;,
-        ///    &quot;main&quot;: &quot;send.js&quot;
+        ///	&quot;name&quot;: &quot;com.cathwyler.magicremoteservice.service&quot;,
+        ///	&quot;main&quot;: &quot;service.js&quot;
         ///}.
         /// </summary>
         internal static string package {
@@ -463,44 +462,49 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
-        ///function startInterval(fCallback, iMs) {
-        ///	fCallback();
-        ///	return setInterval(fCallback, iMs);
-        ///}
-        ///
-        ///const bOverlay = true;
-        ///const strInputAppId = &quot;com.webos.app.hdmi&quot;;
-        ///const strAppId = &quot;com.cathwyler.magicremoteservice&quot;;
-        ///
-        ///var oPackage = require(&quot;./package.json&quot;);
         ///var Service = require(&quot;webos-service&quot;);
         ///var Dgram = require(&quot;dgram&quot;);
         ///
-        ///var serService = new Service(oPackage.name); 
+        ///var bOverlay = true;
+        ///var strServiceId = &quot;com.cathwyler.magicremoteservice.service&quot;;
+        ///
+        ///var serService = new Service(strServiceId); 
         ///
         ///var socClient = Dgram.createSocket(&quot;udp4&quot;);
-        ///socClient.bind(function() {
+        ///socClient.bind(9, undefined, function() {
         ///	socClient.setBroadcast(true);
         ///});
         ///
-        ///var bu [le reste de la chaîne a été tronqué]&quot;;.
+        ///var bufWol = new Buffer(102);
+        ///bufWol.fill(0xFF, 0, 6);
+        ///var metWol = serService.register(&quot;wol&quot;);
+        ///metWol.on(&quot;request&quot;, function(mMessage) {
+        ///	try {
+        ///		bufWol.fill(new Buffe [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string send {
+        internal static string service {
             get {
-                return ResourceManager.GetString("send", resourceCulture);
+                return ResourceManager.GetString("service", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {
-        ///    &quot;id&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;,
-        ///    &quot;description&quot;: &quot;Send Service&quot;,
-        ///    &quot;services&quot;: [
-        ///        {
-        ///            &quot;name&quot;: &quot;com.cathwyler.magicremoteservice.send&quot;,
-        ///			&quot;description&quot;: &quot;Send Service&quot;
-        ///        }
-        ///    ]
+        ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice.service&quot;,
+        ///	&quot;services&quot;: [
+        ///		{
+        ///			&quot;name&quot;: &quot;com.cathwyler.magicremoteservice.service&quot;,
+        ///			&quot;commands&quot;: [
+        ///				{
+        ///					&quot;name&quot;: &quot;wol&quot;,
+        ///					&quot;public&quot;: true
+        ///				}, {
+        ///					&quot;name&quot;: &quot;close&quot;,
+        ///					&quot;public&quot;: true
+        ///				}
+        ///			]
+        ///		}
+        ///	]
         ///}.
         /// </summary>
         internal static string services {

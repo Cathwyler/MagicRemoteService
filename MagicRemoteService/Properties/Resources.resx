@@ -164,7 +164,7 @@
     <value>..\Resources\TV\MagicRemoteService\main.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="package" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TV\Send\package.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\TV\Service\package.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="PhysicalAddressBoxErrorByteEntryMessage" xml:space="preserve">
     <value>{0} is not a valid entry. Please specify a value between 0x00 and 0xFF.</value>
@@ -178,11 +178,11 @@
   <data name="PhysicalAddressBoxErrorPasteTitle" xml:space="preserve">
     <value>Badly formatted physical address</value>
   </data>
-  <data name="send" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TV\Send\send.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="service" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TV\Service\service.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="services" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TV\Send\services.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\TV\Service\services.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SettingInputRefreshlErrorTitle" xml:space="preserve">
     <value>Error refreshing TV inputs</value>

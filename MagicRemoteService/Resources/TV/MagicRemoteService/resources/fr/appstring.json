@@ -22,6 +22,8 @@
 	"strLaunchFailure": "Echec du lancement",
 	"strCloseSubscribe": "Début de la fermeture",
 	"strCloseFailure": "Echec de la fermeture",
+	"strLogSubscribe": "Début de l'enregistrement",
+	"strLogFailure": "Echec de l'enregistrement",
 	
 	"strSendWolSuccess": "Succès de l'envoi du WoL",
 	"strSendWolFailure": "Echec de l'envoi du WoL",

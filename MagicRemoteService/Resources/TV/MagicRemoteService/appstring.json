@@ -23,6 +23,8 @@
 	"strLaunchFailure": "Failed to launch",
 	"strCloseSubscribe": "Start to close",
 	"strCloseFailure": "Failed to close",
+	"strLogSubscribe": "Start to log",
+	"strLogFailure": "Failed to log",
 
 	"strSendWolSuccess": "Success to send WoL",
 	"strSendWolFailure": "Failed to send WoL",

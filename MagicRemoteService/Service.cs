@@ -25,6 +25,8 @@ namespace MagicRemoteService {
 		private volatile int iPort;
 		private volatile bool bInactivity;
 		private volatile int iTimeoutInactivity;
+		private volatile bool bVideoInput;
+		private volatile int iTimeoutVideoInput;
 		private volatile System.Collections.Generic.Dictionary<ushort, Bind[]> dBind = new System.Collections.Generic.Dictionary<ushort, Bind[]>() {
 			{ 0x0001, null },
 			{ 0x0002, null },
@@ -86,7 +88,7 @@ namespace MagicRemoteService {
 		}
 		private static readonly byte[] tabClose = { (0b1000 << 4) | (0x8 << 0), 0x00 };
 		private static readonly byte[] tabPing = { (0b1000 << 4) | (0x9 << 0), 0x00 };
-		private static readonly byte[] tabPingInactivity = { (0b1000 << 4) | (0x9 << 0), 0x01, 0x01 };
+		private static readonly byte[] tabPingUserInput = { (0b1000 << 4) | (0x9 << 0), 0x01, 0x01 };
 		static Service() {
 			if(!System.Diagnostics.EventLog.SourceExists("MagicRemoteService")) {
 				System.Diagnostics.EventLog.CreateEventSource("MagicRemoteService", "Application");
@@ -139,10 +141,14 @@ namespace MagicRemoteService {
 				this.iPort = 41230;
 				this.bInactivity = true;
 				this.iTimeoutInactivity = 7200000;
+				this.bVideoInput = true;
+				this.iTimeoutVideoInput = 900000;
 			} else {
 				this.iPort = (int)rkMagicRemoteService.GetValue("Port", 41230);
 				this.bInactivity = (int)rkMagicRemoteService.GetValue("Inactivity", 1) != 0;
 				this.iTimeoutInactivity = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
+				this.bVideoInput = (int)rkMagicRemoteService.GetValue("VideoInput", 1) != 0;
+				this.iTimeoutVideoInput = (int)rkMagicRemoteService.GetValue("TimeoutVideoInput", 900000);
 			}
 			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Remote\Bind");
 			if(rkMagicRemoteServiceRemoteBind == null) {
@@ -757,6 +763,7 @@ namespace MagicRemoteService {
 				}
 
 				System.Threading.ManualResetEvent mreClientStop = new System.Threading.ManualResetEvent(false);
+
 				System.Timers.Timer tUserInput = new System.Timers.Timer {
 					Interval = 10,
 					AutoReset = true
@@ -775,11 +782,11 @@ namespace MagicRemoteService {
 						Service.Log("Client user input activity on socket [" + socClient.GetHashCode() + "]");
 					}
 				};
-				System.Timers.Timer tPongInactivity = new System.Timers.Timer {
+				System.Timers.Timer tPongUserInput = new System.Timers.Timer {
 					Interval = 5000,
 					AutoReset = false
 				};
-				tPongInactivity.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+				tPongUserInput.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 					socClient.Send(Service.tabClose);
 					mreClientStop.Set();
 					Service.Warn("Client timeout pong inactivity on socket [" + socClient.GetHashCode() + "]");
@@ -789,9 +796,19 @@ namespace MagicRemoteService {
 					AutoReset = false
 				};
 				tInactivity.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
-					socClient.Send(Service.tabPingInactivity);
-					tPongInactivity.Start();
+					socClient.Send(Service.tabPingUserInput);
+					tPongUserInput.Start();
 					Service.Log("Client timeout inactivity on socket [" + socClient.GetHashCode() + "]");
+				};
+
+				System.Timers.Timer tVideoInput = new System.Timers.Timer {
+					Interval = this.iTimeoutVideoInput - 300000,
+					AutoReset = false
+				};
+				tVideoInput.Elapsed += delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
+					socClient.Send(Service.tabPingUserInput);
+					tPongUserInput.Start();
+					Service.Log("Client timeout video input on socket [" + socClient.GetHashCode() + "]");
 				};
 
 				System.Timers.Timer tPong = new System.Timers.Timer {
@@ -811,6 +828,24 @@ namespace MagicRemoteService {
 					socClient.Send(Service.tabPing);
 					tPong.Start();
 				};
+
+				void PowerSettingNotificationArrived(WinApi.PowerBroadcastSetting pbs) {
+					if(pbs.PowerSetting == WinApi.User32.GUID_MONITOR_POWER_ON) {
+						switch(pbs.Data) {
+							case 0:
+								if(this.bVideoInput) {
+									tVideoInput.Start();
+								}
+								break;
+							case 1:
+								if(this.bVideoInput) {
+									tVideoInput.Stop();
+								}
+								break;
+						}
+					}
+				};
+				MagicRemoteService.Application.PowerSettingNotificationArrived += PowerSettingNotificationArrived;
 
 				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dBindDown = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
 				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dBindUp = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
@@ -1217,7 +1252,7 @@ namespace MagicRemoteService {
 											if(ulLenData != 0) {
 												switch(tabData[ulOffsetData + 0]) {
 													case 0x01:
-														tPongInactivity.Stop();
+														tPongUserInput.Stop();
 														System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
 														pProcess.StartInfo.FileName = "shutdown";
 														pProcess.StartInfo.Arguments = "/s /t 300";
@@ -1257,7 +1292,8 @@ namespace MagicRemoteService {
 				tPong.Stop();
 				if(this.bInactivity) {
 					tInactivity.Stop();
-					tPongInactivity.Stop();
+					tVideoInput.Stop();
+					tPongUserInput.Stop();
 				}
 
 				eaClientReceiveAsync.Completed -= ClientReceiveAsyncCompleted;

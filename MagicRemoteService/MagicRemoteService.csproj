@@ -120,6 +120,11 @@
       <DependentUpon>BindControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Bind.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.es.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -138,11 +143,6 @@
     <Compile Include="WinApi\Kernel32.cs" />
     <Compile Include="WinApi\User32.cs" />
     <Compile Include="PhysicalAdress.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.fr.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -196,8 +196,8 @@
     <None Include="Resources\TV\MagicRemoteService\resources\es\appstring.json" />
     <None Include="Resources\TV\MagicRemoteService\resources\fr\appinfo.json" />
     <None Include="Resources\TV\MagicRemoteService\resources\fr\appstring.json" />
-    <None Include="Resources\TV\Send\package.json" />
-    <None Include="Resources\TV\Send\services.json" />
+    <None Include="Resources\TV\Service\package.json" />
+    <None Include="Resources\TV\Service\services.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BindControl.resx">
@@ -290,7 +290,7 @@
     <None Include="Resources\TV\MagicRemoteService\main.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\TV\Send\send.js" />
+    <None Include="Resources\TV\Service\service.js" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="NetFwTypeLib">
