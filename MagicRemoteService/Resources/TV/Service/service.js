@@ -106,9 +106,14 @@ metWol.on("request", function(mMessage) {
 if(bOverlay){
 	var strInputAppId = "com.webos.app.hdmi";
 
+	var aKeepAlive;
+	serService.activityManager.create("aKeepAlive", function(a) {
+		aKeepAlive = a; 
+	});
+
 	var dClose = {};
-	var metclose = serService.register("close");
-	metclose.on("request", function(mMessage) {
+	var metClose = serService.register("close");
+	metClose.on("request", function(mMessage) {
 		try {
 			if (mMessage.isSubscription) {
 				dClose[mMessage.uniqueToken] = mMessage;
@@ -129,7 +134,7 @@ if(bOverlay){
 			});
 		}
 	}); 
-	metclose.on("cancel", function(mMessage) { 
+	metClose.on("cancel", function(mMessage) { 
 		delete dClose[mMessage.uniqueToken]; 
 	});
 
@@ -138,7 +143,7 @@ if(bOverlay){
 			name: "MagicRemoteService auto launch",
 			description: "MagicRemoteService auto launch",
 			type: {
-				background: true,
+				foreground: true,
 				persist: true
 			}, schedule: {
 				precise: true,

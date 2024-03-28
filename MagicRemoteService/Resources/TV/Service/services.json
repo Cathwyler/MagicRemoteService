@@ -2,16 +2,7 @@
 	"id": "com.cathwyler.magicremoteservice.service",
 	"services": [
 		{
-			"name": "com.cathwyler.magicremoteservice.service",
-			"commands": [
-				{
-					"name": "wol",
-					"public": true
-				}, {
-					"name": "close",
-					"public": true
-				}
-			]
+			"name": "com.cathwyler.magicremoteservice.service"
 		}
 	]
 }
