@@ -8,7 +8,7 @@ var strAppId = "com.cathwyler.magicremoteservice";
 
 var serService = new Service(strAppId + ".service"); 
 
-/*function SendLogIfDebug() {};
+function LogIfDebug() {};
 if(bDebug){
 	var arrLog = [];
 	var dLog = {};
@@ -17,14 +17,25 @@ if(bDebug){
 		try {
 			if (mMessage.isSubscription) {
 				dLog[mMessage.uniqueToken] = mMessage;
+				mMessage.respond({
+					subscribed: true,
+					returnValue: true
+				});
+			} else if (!(arrLog.length > 0)) {
+				mMessage.respond({
+					returnValue: true
+				});
 			}
-			mMessage.respond({
-				subscribed: true,
-				returnValue: true
-			});
+			while (arrLog.length > 0) {
+				mMessage.respond({
+					log: arrLog.shift(),
+					returnValue: true
+				});
+			}
 		} catch(eError) {
 			mMessage.respond({
-				eError: eError.message,
+				errorCode: "1",
+				errorText: eError.message,
 				returnValue: false
 			});
 		}
@@ -50,7 +61,7 @@ if(bDebug){
 			}
 		});
 	};
-	SendLogIfDebug = function() {
+	LogIfDebug = function() {
 		try {
 			arrLog.push(Array.prototype.slice.call(arguments).map(function(x) {
 				return x.toString();
@@ -58,7 +69,7 @@ if(bDebug){
 			if(Object.keys(dLog).length > 0){
 				while (arrLog.length > 0) {
 					var strLog = arrLog.shift();
-					for(var uniqueToken in dLog) {       
+					for(var uniqueToken in dLog) {
 						dLog[uniqueToken].respond({
 							log: strLog,
 							returnValue: true
@@ -69,13 +80,14 @@ if(bDebug){
 		} catch(eError) {
 			for(var uniqueToken in dLog) {       
 				dLog[uniqueToken].respond({
-					eError: eError.message,
+					errorCode: "1",
+					errorText: eError.message,
 					returnValue: false
 				});
 			}
 		}
 	}
-}*/
+}
 
 var socClient = Dgram.createSocket("udp4");
 socClient.on("listening", function () {
@@ -87,7 +99,9 @@ bufWol.fill(0xFF, 0, 6);
 var metWol = serService.register("wol");
 metWol.on("request", function(mMessage) {
 	try {
-		bufWol.fill(new Buffer(mMessage.payload.mMac.arrMac), 6);
+		for (var iWol = 6, iMac = 0; iWol < bufWol.length; iWol++, iMac++) {
+			bufWol[iWol] = mMessage.payload.mMac.arrMac[iMac % mMessage.payload.mMac.arrMac.length];
+		}
 		socClient.send(bufWol, 0, bufWol.length, 9, mMessage.payload.strBroadcast);
 		
 		mMessage.respond({
@@ -106,10 +120,7 @@ metWol.on("request", function(mMessage) {
 if(bOverlay){
 	var strInputAppId = "com.webos.app.hdmi";
 
-	var aKeepAlive;
-	serService.activityManager.create("aKeepAlive", function(a) {
-		aKeepAlive = a; 
-	});
+	serService.activityManager.create("MagicRemoteServiceKeepAlive");
 
 	var dClose = {};
 	var metClose = serService.register("close");
@@ -122,6 +133,7 @@ if(bOverlay){
 					returnValue: true
 				});
 			} else {
+				LogIfDebug("Subscribe auto launch callback");
 				mMessage.respond({
 					returnValue: true
 				});
@@ -140,11 +152,12 @@ if(bOverlay){
 
 	var subAutoLaunch = serService.subscribe("luna://com.palm.activitymanager/create", {
 		activity: {
-			name: "MagicRemoteService auto launch",
+			name: "MagicRemoteServiceAutoLaunch",
 			description: "MagicRemoteService auto launch",
 			type: {
 				foreground: true,
-				persist: true
+				persist: true,
+				explicit: true
 			}, schedule: {
 				precise: true,
 				interval: "00d00h00m05s"
@@ -159,21 +172,27 @@ if(bOverlay){
 	});
 	subAutoLaunch.on("response", function(mMessage) {
 		try {
-			switch(mMessage.payload.event) {
-				case undefined:
-					break;
-				case "update":
-					break;
-				case "start":
-					serService.call("luna://com.palm.activitymanager/complete", {
-						activityId: mMessage.payload.activityId,
-						restart: true
-					});
-					break;
-				default:
-					break;
+			if(mMessage.payload.returnValue) {
+				switch(mMessage.payload.event) {
+					case undefined:
+						LogIfDebug("Subscribe auto launch");
+						break;
+					case "start":
+						LogIfDebug("Subscribe auto launch start");
+						serService.call("luna://com.palm.activitymanager/complete", {
+							activityId: mMessage.payload.activityId,
+							restart: true
+						});
+						break;
+					default:
+						LogIfDebug("Subscribe auto launch ", mMessage.payload.event);
+						break;
+				}
+			} else {
+				LogIfDebug("Subscribe auto launch response error [", mMessage.payload.errorText, "]");
 			}
 		} catch(eError) {
+			LogIfDebug("Subscribe auto launch response error [", eError, "]");
 		}
 	});
 	subAutoLaunch.on("cancel", function(mMessage) {
@@ -185,24 +204,29 @@ if(bOverlay){
 	});
 	subInputStatus.on("response", function(mMessage) {
 		try {
-			if(mMessage.payload.video[0].connected === true && mMessage.payload.video[0].appId === strInputAppId) {
-				if(!bApp){
-					bApp = true;
-					serService.call("luna://com.webos.applicationManager/launch", {
-						id: strAppId
-					});
+			if(mMessage.payload.returnValue){
+				if(mMessage.payload.video[0].connected === true && mMessage.payload.video[0].appId === strInputAppId) {
+					if(!bApp){
+						bApp = true;
+						serService.call("luna://com.webos.applicationManager/launch", {
+							id: strAppId
+						});
+					}
+				} else {
+					if(bApp){
+						bApp = false;
+						for(var uniqueToken in dClose) {
+							dClose[uniqueToken].respond({
+								returnValue: true
+							});
+						} 
+					}
 				}
 			} else {
-				if(bApp){
-					bApp = false;
-					for(var uniqueToken in dClose) {
-						dClose[uniqueToken].respond({
-							returnValue: true
-						});
-					} 
-				}
+				LogIfDebug("Subscribe input status response error [", mMessage.payload.errorText, "]");
 			}
 		} catch(eError) {
+			LogIfDebug("Subscribe input status response error [", eError, "]");
 		}
 	});
 	subInputStatus.on("cancel", function(mMessage) {

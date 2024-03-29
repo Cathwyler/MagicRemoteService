@@ -611,9 +611,11 @@ function SubscriptionDomEvent() {
 	});
 
 	deKeyboard.addEventListener("input", function(inEvent) {
-		SendUnicode({
-			usC: deKeyboard.value.charCodeAt()
-		});
+		for(var i = 0; i < deKeyboard.value.length; i++){
+			SendUnicode({
+				usC: deKeyboard.value.charCodeAt(i)
+			});
+		}
 		deKeyboard.value = "";
 	});
 
