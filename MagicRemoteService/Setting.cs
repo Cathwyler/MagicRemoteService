@@ -355,8 +355,8 @@ namespace MagicRemoteService {
 				this.dBindControl[0x0002].Value = new Bind[] { new BindMouse(BindMouseValue.Right) };
 				this.dBindControl[0x0008].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
 				this.dBindControl[0x000D].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
-				this.dBindControl[0x0021].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.C, 0x2E, false) };
-				this.dBindControl[0x0022].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.V, 0x2F, false) };
+				this.dBindControl[0x0021].Value = null;
+				this.dBindControl[0x0022].Value = null;
 				this.dBindControl[0x0025].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
 				this.dBindControl[0x0026].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
 				this.dBindControl[0x0027].Value = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
@@ -463,12 +463,11 @@ namespace MagicRemoteService {
 			}
 			System.IO.Directory.CreateDirectory(@".\TV");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService");
-			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\webOSTVjs-1.2.10");
+			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\webOSTVjs-1.2.8");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\fr");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\es");
 			System.IO.Directory.CreateDirectory(@".\TV\Service");
-			System.IO.Directory.CreateDirectory(@".\TV\Service\WebSocket");
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\main.js", MagicRemoteService.Properties.Resources.main
 #if DEBUG
 				.Replace(@"const bDebug = false;", @"const bDebug = true;")
@@ -501,8 +500,8 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\miniIcon.png", MagicRemoteService.Properties.Resources.miniIcon);
 			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
 			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
-			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
-			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\fr\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\fr\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\es\appinfo.json", MagicRemoteService.Properties.Resources.esappinfo);
