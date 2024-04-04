@@ -156,8 +156,8 @@ namespace MagicRemoteService {
 				this.dBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };
 				this.dBind[0x0008] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
 				this.dBind[0x000D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
-				this.dBind[0x0021] = null;
-				this.dBind[0x0022] = null;
+				this.dBind[0x0021] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.C, 0x2E, false) };
+				this.dBind[0x0022] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.V, 0x2F, false) };
 				this.dBind[0x0025] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
 				this.dBind[0x0026] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
 				this.dBind[0x0027] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
@@ -1098,12 +1098,12 @@ namespace MagicRemoteService {
 								bool bMask = (tabData[ulOffsetFrame + 1] & 0b10000000) == 0b10000000;
 								ulong ulLenData;
 								ulong ulOffsetMask;
-								if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111110) {
-									ulLenData = System.BitConverter.ToUInt16(new byte[] { tabData[ulOffsetFrame + 3], tabData[ulOffsetFrame + 2] }, 0);
-									ulOffsetMask = ulOffsetFrame + 4;
-								} else if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111111) {
+								if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111111) {
 									ulLenData = System.BitConverter.ToUInt64(new byte[] { tabData[ulOffsetFrame + 9], tabData[ulOffsetFrame + 8], tabData[ulOffsetFrame + 7], tabData[ulOffsetFrame + 6], tabData[ulOffsetFrame + 5], tabData[ulOffsetFrame + 4], tabData[ulOffsetFrame + 3], tabData[ulOffsetFrame + 2] }, 0);
 									ulOffsetMask = ulOffsetFrame + 10;
+								} else if((tabData[ulOffsetFrame + 1] & 0b01111111) == 0b01111110) {
+									ulLenData = System.BitConverter.ToUInt16(new byte[] { tabData[ulOffsetFrame + 3], tabData[ulOffsetFrame + 2] }, 0);
+									ulOffsetMask = ulOffsetFrame + 4;
 								} else {
 									ulLenData = (byte)(tabData[ulOffsetFrame + 1] & 0b01111111);
 									ulOffsetMask = ulOffsetFrame + 2;
@@ -1262,7 +1262,7 @@ namespace MagicRemoteService {
 														Service.LogIfDebug("Pong incativity received on socket [" + socClient.GetHashCode() + "]");
 														break;
 													default:
-														Service.Warn("Uprocessed pong message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "]");
+														Service.Warn("Unprocessed pong message [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "]");
 														break;
 												}
 											} else {

@@ -316,8 +316,8 @@
   <ItemGroup>
     <None Include="Resources\miniIcon.bmp" />
     <Content Include="Resources\TV\MagicRemoteService\miniIcon.png" />
-    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV-dev.js" />
-    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.8\webOSTV.js" />
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV-dev.js" />
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />

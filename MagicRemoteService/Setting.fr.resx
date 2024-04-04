@@ -192,52 +192,52 @@
   <data name="tabRemote.Text" xml:space="preserve">
     <value>Télécommande</value>
   </data>
-  <data name="libRemoteChannelDown.Text" xml:space="preserve">
+  <data name="labRemoteChannelDown.Text" xml:space="preserve">
     <value>Chaîne -</value>
   </data>
-  <data name="libRemoteChannelUp.Text" xml:space="preserve">
+  <data name="labRemoteChannelUp.Text" xml:space="preserve">
     <value>Chaîne +</value>
   </data>
-  <data name="libRemoteBackspace.Text" xml:space="preserve">
+  <data name="labRemoteBackspace.Text" xml:space="preserve">
     <value>Retour arrière</value>
   </data>
-  <data name="libRemoteRewind.Text" xml:space="preserve">
+  <data name="labRemoteRewind.Text" xml:space="preserve">
     <value>Rembobiner</value>
   </data>
-  <data name="libRemoteFastForward.Text" xml:space="preserve">
+  <data name="labRemoteFastForward.Text" xml:space="preserve">
     <value>Avance rapide</value>
   </data>
-  <data name="libRemotePlay.Text" xml:space="preserve">
+  <data name="labRemotePlay.Text" xml:space="preserve">
     <value>Jouer</value>
   </data>
-  <data name="libRemoteBlue.Text" xml:space="preserve">
+  <data name="labRemoteBlue.Text" xml:space="preserve">
     <value>Bleu</value>
   </data>
-  <data name="libRemoteYellow.Text" xml:space="preserve">
+  <data name="labRemoteYellow.Text" xml:space="preserve">
     <value>Jaune</value>
   </data>
-  <data name="libRemoteGreen.Text" xml:space="preserve">
+  <data name="labRemoteGreen.Text" xml:space="preserve">
     <value>Vert</value>
   </data>
-  <data name="libRemoteRed.Text" xml:space="preserve">
+  <data name="labRemoteRed.Text" xml:space="preserve">
     <value>Rouge</value>
   </data>
-  <data name="libRemoteBack.Text" xml:space="preserve">
+  <data name="labRemoteBack.Text" xml:space="preserve">
     <value>Retour</value>
   </data>
-  <data name="libRemoteDown.Text" xml:space="preserve">
+  <data name="labRemoteDown.Text" xml:space="preserve">
     <value>Bas</value>
   </data>
-  <data name="libRemoteRight.Text" xml:space="preserve">
+  <data name="labRemoteRight.Text" xml:space="preserve">
     <value>Droite</value>
   </data>
-  <data name="libRemoteUp.Text" xml:space="preserve">
+  <data name="labRemoteUp.Text" xml:space="preserve">
     <value>Haut</value>
   </data>
-  <data name="libRemoteLeft.Text" xml:space="preserve">
+  <data name="labRemoteLeft.Text" xml:space="preserve">
     <value>Gauche</value>
   </data>
-  <data name="libRemoteLongClick.Text" xml:space="preserve">
+  <data name="labRemoteLongClick.Text" xml:space="preserve">
     <value>Click long</value>
   </data>
   <data name="btnRemoteSave.Text" xml:space="preserve">
@@ -245,5 +245,8 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Paramètres</value>
+  </data>
+  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
+    <value>Délai</value>
   </data>
 </root>
