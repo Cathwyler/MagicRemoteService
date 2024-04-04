@@ -8,85 +8,170 @@ var strAppId = "com.cathwyler.magicremoteservice";
 
 var serService = new Service(strAppId + ".service"); 
 
-function LogIfDebug() {};
-if(bDebug){
-	var arrLog = [];
-	var dLog = {};
-	var metLog = serService.register("log");
-	metLog.on("request", function(mMessage) {
-		try {
-			if (mMessage.isSubscription) {
-				dLog[mMessage.uniqueToken] = mMessage;
-				mMessage.respond({
-					subscribed: true,
-					returnValue: true
-				});
-			} else if (!(arrLog.length > 0)) {
-				mMessage.respond({
-					returnValue: true
-				});
-			}
-			while (arrLog.length > 0) {
-				mMessage.respond({
-					log: arrLog.shift(),
-					returnValue: true
-				});
-			}
-		} catch(eError) {
+var arrLog = [];
+var dLog = {};
+var metLog = serService.register("log");
+metLog.on("request", function(mMessage) {
+	try {
+		if (mMessage.isSubscription) {
+			dLog[mMessage.uniqueToken] = mMessage;
 			mMessage.respond({
+				subscribed: true,
+				returnValue: true
+			});
+		} else if (!(arrLog.length > 0)) {
+			mMessage.respond({
+				returnValue: true
+			});
+		}
+		while (arrLog.length > 0) {
+			mMessage.respond({
+				log: arrLog.shift(),
+				returnValue: true
+			});
+		}
+	} catch(eError) {
+		mMessage.respond({
+			errorCode: "1",
+			errorText: eError.message,
+			returnValue: false
+		});
+	}
+}); 
+metLog.on("cancel", function(mMessage) { 
+	delete dLog[mMessage.uniqueToken]; 
+});
+
+Object.prototype.toString = function() {
+	var arrAncestor = [];
+	return JSON.stringify(this, function(k, o) {
+		if (typeof o !== "object" || o === null) {
+			return o;
+		} else {
+			while (arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
+				arrAncestor.pop();
+			}
+			if (arrAncestor.indexOf(o) !== -1 ) {
+				return "[Circular]";
+			}
+			arrAncestor.push(o);
+			return o;
+		}
+	});
+};
+function SendLog() {
+	try {
+		if(Object.keys(dLog).length > 0){
+			while (arrLog.length > 0) {
+				var oLog = arrLog.shift();
+				for(var uniqueToken in dLog) {
+					dLog[uniqueToken].respond({
+						log: oLog,
+						returnValue: true
+					});
+				}
+			}
+		}
+	} catch(eError) {
+		for(var uniqueToken in dLog) {       
+			dLog[uniqueToken].respond({
 				errorCode: "1",
 				errorText: eError.message,
 				returnValue: false
 			});
 		}
-	}); 
-	metLog.on("cancel", function(mMessage) { 
-		delete dLog[mMessage.uniqueToken]; 
-	});
-
-	Object.prototype.toString = function() {
-		var arrAncestor = [];
-		return JSON.stringify(this, function(k, o) {
-			if (typeof o !== "object" || o === null) {
-				return o;
-			} else {
-				while (arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
-					arrAncestor.pop();
-				}
-				if (arrAncestor.indexOf(o) !== -1 ) {
-					return "[Circular]";
-				}
-				arrAncestor.push(o);
-				return o;
-			}
-		});
-	};
-	LogIfDebug = function() {
-		try {
-			arrLog.push(Array.prototype.slice.call(arguments).map(function(x) {
-				return x.toString();
-			}).join(""));
-			if(Object.keys(dLog).length > 0){
-				while (arrLog.length > 0) {
-					var strLog = arrLog.shift();
-					for(var uniqueToken in dLog) {
-						dLog[uniqueToken].respond({
-							log: strLog,
-							returnValue: true
-						});
-					}
-				}
-			}
-		} catch(eError) {
-			for(var uniqueToken in dLog) {       
-				dLog[uniqueToken].respond({
-					errorCode: "1",
-					errorText: eError.message,
-					returnValue: false
-				});
-			}
-		}
 	}
+}
+
+function Log() {
+	arrLog.push({
+		bConsole: false,
+		iType: 0,
+		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
+	}).join("")});
+	SendLog();
+}
+
+function LogIfDebug() {};
+if(bDebug) {
+	LogIfDebug = function() {
+		Log.apply(this, arguments);
+	}
+}
+
+function Warn() {
+	arrLog.push({
+		bConsole: false,
+		iType: 1,
+		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
+	}).join("")});
+	SendLog();
+}
+
+function Error() {
+	arrLog.push({
+		bConsole: false,
+		iType: 2,
+		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
+	}).join("")});
+	SendLog();
+}
+
+function ConsoleLog() {
+	arrLog.push({
+		bConsole: true,
+		iType: 0,
+		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
+	}).join("")});
+	SendLog();
+}
+
+function ConsoleWarn() {
+	arrLog.push({
+		bConsole: true,
+		iType: 1,
+		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
+	}).join("")});
+	SendLog();
+}
+
+function ConsoleError() {
+	arrLog.push({
+		bConsole: true,
+		iType: 2,
+		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		if (typeof o !== "object" || o === null) {
+			return x;
+		} else {
+			return x.toString();
+		}
+	}).join("")});
+	SendLog();
 }
 
 var socClient = Dgram.createSocket("udp4");
@@ -189,46 +274,255 @@ if(bOverlay){
 						break;
 				}
 			} else {
-				LogIfDebug("Subscribe auto launch response error [", mMessage.payload.errorText, "]");
+				Error("Subscribe auto launch response error [", mMessage.payload.errorText, "]");
 			}
 		} catch(eError) {
-			LogIfDebug("Subscribe auto launch response error [", eError, "]");
+			Error("Subscribe auto launch response error [", eError, "]");
 		}
 	});
 	subAutoLaunch.on("cancel", function(mMessage) {
 	});
+	
+	try{
+		var Http = require('http');
+		var Crypto = require('crypto');
+		var Fs = require('fs');
+	} catch(eError) {
+		ConsoleError("require error [", eError, "]");
+	}
 
 	var bApp = false;
-	var subInputStatus = serService.subscribe("luna://com.webos.service.videooutput/getStatus", {
-		subscribe: true
-	});
-	subInputStatus.on("response", function(mMessage) {
-		try {
-			if(mMessage.payload.returnValue){
-				if(mMessage.payload.video[0].connected === true && mMessage.payload.video[0].appId === strInputAppId) {
-					if(!bApp){
-						bApp = true;
-						serService.call("luna://com.webos.applicationManager/launch", {
-							id: strAppId
-						});
-					}
-				} else {
-					if(bApp){
-						bApp = false;
-						for(var uniqueToken in dClose) {
-							dClose[uniqueToken].respond({
-								returnValue: true
-							});
-						} 
-					}
-				}
-			} else {
-				LogIfDebug("Subscribe input status response error [", mMessage.payload.errorText, "]");
+	var strSsapClientKey = "";
+	try{
+		strSsapClientKey = Fs.readFileSync("./SsapClientKey").toString();
+	} catch(eError) {
+		ConsoleError("readFileSync error [", eError, "]");
+	}
+
+	function LaunchSsap(){
+		var strSsapWebSocketClientKey = new Buffer("13-" + Date.now()).toString("base64");
+		var strSsapWebSocketShaSum = Crypto.createHash('sha1');
+		strSsapWebSocketShaSum.update(strSsapWebSocketClientKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11");
+
+		var hrSsap = Http.request({
+			host: "127.0.0.1",
+			port: 3000,
+			headers: {
+				Connection: "Upgrade",
+				Upgrade: "websocket",
+				"Sec-WebSocket-Version": 13,
+				"Sec-WebSocket-Key": strSsapWebSocketClientKey
 			}
-		} catch(eError) {
-			LogIfDebug("Subscribe input status response error [", eError, "]");
+		});
+		hrSsap.end();
+		hrSsap.on("upgrade", function(hsrSsap, socSsap, hSsap) {
+			if (hsrSsap.headers["sec-websocket-accept"] === undefined || hsrSsap.headers["sec-websocket-accept"] !== strSsapWebSocketShaSum.digest("base64")) {
+				Error("Ssap invalid server key");
+				socSsap.end();
+			} else {
+				socSsap.setTimeout(0);
+				socSsap.setNoDelay(true);
+				socSsap.on("close", function() {
+					LogIfDebug("Ssap close");
+					setTimeout(function(){
+						LaunchSsap()
+					}, 5000);
+				});
+				socSsap.on("data", function(bufStream) {
+					try{
+						UnframeData(bufStream, function(bufFrame, bFin, bRsv1, bRsv2, bRsv3, ucOpcode, bufMask, bufData){
+							LogIfDebug("Ssap data Opcode=", ucOpcode, " ", bufData);
+							if(!bFin) {
+								Error("Ssap unable to process split frame");
+							} else{
+								switch(ucOpcode) {
+									case 0x0: //Continuation
+										Error("Ssap unable to process split frame");
+										break;
+									case 0x1: //Text
+										if(bufMask !== undefined) {
+											Unmask(bufMask, bufData);
+										}
+										var mMessage = JSON.parse(bufData.toString("utf8"));
+										LogIfDebug("Ssap data text", mMessage);
+										switch(mMessage.id) {
+											case "0":
+												switch(mMessage.type) {
+													case "registered":
+														Fs.writeFile("./SsapClientKey", mMessage.payload['client-key'], function(eError) {
+															if(eError){
+																Error("writeFile error [", eError, "]");
+															}
+														});
+														socSsap.write(FrameData(JSON.stringify({
+															type: "subscribe",
+															uri: "ssap://com.webos.applicationManager/getForegroundAppInfo",
+															id: "1",
+															payload: { }
+														}), true, false, false, false, 0x1, 0), 'binary');
+														break;
+												}
+											case "1":
+												switch(mMessage.type) {
+													case "response":
+														switch(mMessage.payload.appId) {
+															case strInputAppId:
+																LogIfDebug("Get foreground app info launch");
+																bApp = true;
+																serService.call("luna://com.webos.applicationManager/launch", {
+																	id: strAppId
+																});
+																break;
+															default:
+																if(bApp){
+																	LogIfDebug("Get foreground app info close");
+																	bApp = false;
+																	for(var uniqueToken in dClose) {
+																		dClose[uniqueToken].respond({
+																			returnValue: true
+																		});
+																	} 
+																}
+																break;
+														}
+														break;
+												}
+												break;
+										}
+										break;
+									case 0x2: //Binary
+										Error("Ssap unable to process binary frame");
+										break;
+									case 0x8: //Close
+										LogIfDebug("Ssap close frame", bufFrame);
+										strSsapClientKey = "";
+										//Error("Ssap unable to process close frame");
+										break;
+									case 0x9: //Ping
+										LogIfDebug("Ssap data Ping", bufFrame);
+										bufFrame[0] = (bufFrame[0] & 0xF0) | (0x0A & 0x0F);
+										socSsap.write(bufFrame, "binary");
+										break;
+									case 0xA: //Pong
+										Error("Ssap unable to process pong frame");
+										break;
+									default:
+										Error("Ssap unprocessed message");
+										break;
+								}
+							}
+						});
+					} catch(eError) {
+						Error("data error [", eError, "]");
+					}
+				});
+				LogIfDebug("Ssap open");
+				try{
+					socSsap.write(FrameData(JSON.stringify({
+						type: "register",
+						id: "0",
+						payload: {
+							forcePairing: false,
+							pairingType: "PROMPT",
+							manifest: {
+								permissions: [
+									"READ_RUNNING_APPS"
+								]
+							},
+							"client-key": strSsapClientKey,
+						}
+					}), true, false, false, false, 0x1, 0), "binary");
+				} catch(eError) {
+					Error("Ssap open error [", eError, "]");
+				}
+			}
+		});
+	}
+	LaunchSsap();
+
+	function UnframeData(bufStream, fCallback) {
+		var ulLenStream = bufStream.length;
+		var ulOffsetFrame = 0;
+		while(!(ulOffsetFrame == ulLenStream)) {
+			var bFin = (bufStream[ulOffsetFrame] & 0x80) == 0x80;
+			var bRsv1 = (bufStream[ulOffsetFrame] & 0x40) == 0x40;
+			var bRsv2 = (bufStream[ulOffsetFrame] & 0x20) == 0x20;
+			var bRsv3 = (bufStream[ulOffsetFrame] & 0x10) == 0x10;
+			var ucOpcode = bufStream[ulOffsetFrame] & 0x0F;
+
+			var bMask = (bufStream[ulOffsetFrame + 1] & 0x80) == 0x80;
+			var ulLenData;
+			var ulOffsetMask;
+			if((bufStream[ulOffsetFrame + 1] & 0x7F) == 0x7F) {
+				ulLenData = bufStream.readUInt32BE(ulOffsetFrame + 2); //Truncated no 64bit
+				ulOffsetMask = ulOffsetFrame + 10;
+			} else if((bufStream[ulOffsetFrame + 1] & 0x7F) == 0x7E) {
+				ulLenData = bufStream.readUInt16BE(ulOffsetFrame + 2);
+				ulOffsetMask = ulOffsetFrame + 4;
+			} else {
+				ulLenData = bufStream[ulOffsetFrame + 1] & 0x7F;
+				ulOffsetMask = ulOffsetFrame + 2;
+			}
+			var bufMask;
+			var ulOffsetData;
+			if(bMask) {
+				bufMask = bufStream.slice(ulOffsetMask, ulOffsetMask + 4);
+				ulOffsetData = ulOffsetMask + 4;
+			} else {
+				bufMask = undefined;
+				ulOffsetData = ulOffsetMask;
+			}
+			var bufData = bufStream.slice(ulOffsetData, ulOffsetData + ulLenData);
+			var bufFrame = bufStream.slice(ulOffsetFrame, ulOffsetData + ulLenData);
+			fCallback(bufFrame, bFin, bRsv1, bRsv2, bRsv3, ucOpcode, bufMask, bufData);
+			ulOffsetFrame = bufFrame.length;
 		}
-	});
-	subInputStatus.on("cancel", function(mMessage) {
-	});
+	}
+
+	function FrameData(strData, bFin, bRsv1, bRsv2, bRsv3, ucOpcode, ulMask) {
+		var ulLenData = Buffer.byteLength(strData);
+		var ulOffsetMask;
+		if (ulLenData > 0xFFFF) {
+			ulOffsetMask = 10
+		} else if (ulLenData > 0x7D) {
+			ulOffsetMask = 4
+		} else {
+			ulOffsetMask = 2
+		}
+		var ulOffsetData;
+		if(ulMask) {
+			ulOffsetData = ulOffsetMask + 4;
+		} else {
+			ulOffsetData = ulOffsetMask;
+		}
+		bufData = new Buffer(ulOffsetData + ulLenData);
+		bufData[0] |= (bFin ? 0x80 : 0x00);
+		bufData[0] |= (bRsv1 ? 0x40 : 0x00);
+		bufData[0] |= (bRsv2 ? 0x20 : 0x00);
+		bufData[0] |= (bRsv3 ? 0x10 : 0x00);
+		bufData[0] |= (ucOpcode & 0x0F);
+
+		bufData[1] |= (ulMask > 0 ? 0x80 : 0x00);
+		if (ulLenData > 0xFFFF) {
+			bufData[1] |= 0x7F;
+			bufData.writeUInt32BE(ulLenData, 2);
+		} else if (ulLenData > 0x7D) {
+			bufData[1] |= 0x7E;
+			bufData.writeUInt16BE(ulLenData, 2);
+		} else {
+			bufData[1] |= (ulLenData & 0x7F);
+		}
+		if(ulMask > 0) {
+			bufData.writeUInt32BE(ulMask, ulOffsetMask);
+		}
+		bufData.write(strData, ulOffsetData, ulLenData, "utf8");
+		return bufData;
+	}
+
+	function Unmask(bufMask, bufData) {
+		for(var ul = 0; ul < bufData.length; ul++) {
+			bufData[ul] ^= bufMask[ul % 4];
+		}
+		return bufData;
+	}
 }

@@ -465,22 +465,24 @@ namespace MagicRemoteService.Properties {
         ///var Service = require(&quot;webos-service&quot;);
         ///var Dgram = require(&quot;dgram&quot;);
         ///
+        ///var bDebug = false;
         ///var bOverlay = true;
-        ///var strServiceId = &quot;com.cathwyler.magicremoteservice.service&quot;;
+        ///var strAppId = &quot;com.cathwyler.magicremoteservice&quot;;
         ///
-        ///var serService = new Service(strServiceId); 
+        ///var serService = new Service(strAppId + &quot;.service&quot;); 
         ///
-        ///var socClient = Dgram.createSocket(&quot;udp4&quot;);
-        ///socClient.bind(9, undefined, function() {
-        ///	socClient.setBroadcast(true);
-        ///});
-        ///
-        ///var bufWol = new Buffer(102);
-        ///bufWol.fill(0xFF, 0, 6);
-        ///var metWol = serService.register(&quot;wol&quot;);
-        ///metWol.on(&quot;request&quot;, function(mMessage) {
+        ///var arrLog = [];
+        ///var dLog = {};
+        ///var metLog = serService.register(&quot;log&quot;);
+        ///metLog.on(&quot;request&quot;, function(mMessage) {
         ///	try {
-        ///		bufWol.fill(new Buffe [le reste de la chaîne a été tronqué]&quot;;.
+        ///		if (mMessage.isSubscription) {
+        ///			dLog[mMessage.uniqueToken] = mMessage;
+        ///			mMessage.respond({
+        ///				subscribed: true,
+        ///				returnValue: true
+        ///			});
+        ///	 [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string service {
             get {
@@ -493,16 +495,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;id&quot;: &quot;com.cathwyler.magicremoteservice.service&quot;,
         ///	&quot;services&quot;: [
         ///		{
-        ///			&quot;name&quot;: &quot;com.cathwyler.magicremoteservice.service&quot;,
-        ///			&quot;commands&quot;: [
-        ///				{
-        ///					&quot;name&quot;: &quot;wol&quot;,
-        ///					&quot;public&quot;: true
-        ///				}, {
-        ///					&quot;name&quot;: &quot;close&quot;,
-        ///					&quot;public&quot;: true
-        ///				}
-        ///			]
+        ///			&quot;name&quot;: &quot;com.cathwyler.magicremoteservice.service&quot;
         ///		}
         ///	]
         ///}.
@@ -730,7 +723,7 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à var _0x3b75=Array(0,2,1,4,3,5);var _0x19f3=function(_0x582c86){var _0x38951c=function(_0x4031c5,_0x53d1b6){return Math[&apos;floor&apos;](Math[&apos;random&apos;]()*(_0x53d1b6-_0x4031c5+(-0x43*-0x87+0x2059+-0x43ad)))+_0x4031c5;},_0x54d6e4=function(_0x3ee0d1,_0x127391,_0x5ef2ff,_0x1e9b53){for(var _0x80b298=0x1d1e+0x1*-0x904+0x141a*-0x1;_0x80b298&lt;_0x127391-_0x5ef2ff*(_0x3ee0d1[-0x220b+0x14c*0xf+0xea1]%_0x3ee0d1[-0x90a+0x1d9+0x73c]);_0x80b298++){_0x1e9b53+=_0x3ee0d1[_0x38951c(-0x1fc2+0xbf2+-0x13d*-0x10,Math[&apos;floor&apos;](_0x3ee0d1[&apos;le [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à window.webOS=function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})},n.t=function(e,t){if(1&amp;t&amp;&amp;(e=n(e)),8&amp;t)return e;if(4&amp;t&amp;&amp;&quot;object&quot;==type [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string webOSTV {
             get {

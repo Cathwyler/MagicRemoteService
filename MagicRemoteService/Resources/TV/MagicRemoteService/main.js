@@ -504,7 +504,7 @@ function SubscriptionClose() {
 					window.close();
 					break;
 				case true:
-					console.log(oString.strCloseSubscribe);
+					LogIfDebug(oString.strCloseSubscribe);
 					break;
 				default:
 					Error(oString.strCloseFailure);
@@ -526,10 +526,32 @@ function SubscriptionLog() {
 		onSuccess: function (inResponse) {
 			switch(inResponse.subscribed) {
 				case undefined:
-					console.log(inResponse.log);
+					switch(inResponse.log.iType){
+						case 0:
+							if(inResponse.log.bConsole){
+								console.log(inResponse.log.strMessage);
+							} else{
+								Log(inResponse.log.strMessage);
+							}
+							break;
+						case 1:
+							if(inResponse.log.bConsole){
+								console.warn(inResponse.log.strMessage);
+							} else{
+								Warn(inResponse.log.strMessage);
+							}
+							break;
+						case 2:
+							if(inResponse.log.bConsole){
+								console.error(inResponse.log.strMessage);
+							} else{
+								Error(inResponse.log.strMessage);
+							}
+							break;
+					}
 					break;
 				case true:
-					console.log(oString.strLogSubscribe);
+					LogIfDebug(oString.strLogSubscribe);
 					break;
 				default:
 					Error(oString.strLogFailure);
@@ -589,7 +611,6 @@ function SubscriptionDomEvent() {
 		});
 	} else {
 		deVideo.addEventListener("mousewheel", function(inEvent) {
-			console.log(oDevice);
 			SendWheel({
 				sY: inEvent.wheelDeltaY
 			});
@@ -1060,9 +1081,163 @@ function Load() {
 				return false;
 			};
 		}
-		if(bDebug) {
-			SubscriptionLog();
-		}
+
+		/*webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "getForegroundAppInfo",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/getForegroundAppInfo " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/getForegroundAppInfo  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "listApps",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/listApps " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/listApps  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "registerApp",
+			parameters: {},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/registerApp ");
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/registerApp  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "running",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/running " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/running  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "getAppStatus",
+			parameters: {
+				appId: strInputAppId
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/getAppStatus " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/getAppStatus  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "getAppLifeEvents",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/getAppLifeEvents " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/getAppLifeEvents  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "getAppLifeStatus",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/getAppLifeStatus " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/getAppLifeStatus  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.surfacemanager", {
+			method: "getForegroundAppInfo",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.surfacemanager/getForegroundAppInfo " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.surfacemanager/getForegroundAppInfo  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.media", {
+			method: "getForegroundAppInfo",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.media/getForegroundAppInfo " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.media/getForegroundAppInfo  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.media", {
+			method: "trackAppProcesses",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.media/trackAppProcesses " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.media/trackAppProcesses  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "dev/listApps",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/dev/listApps " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/dev/listApps  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "dev/managerInfo",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/dev/managerInfo " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/dev/managerInfo  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.applicationmanager", {
+			method: "dev/running",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.applicationmanager/dev/running " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.applicationmanager/dev/running  [", inError.errorText, "]");
+			},
+		});
+		webOS.service.request("luna://com.webos.service.audiooutput", {
+			method: "audio/getStatus",
+			parameters: {
+			},
+			onSuccess: function (inResponse) {
+				Warn("com.webos.service.audiooutput/audio/getStatus " + inResponse.toString());
+			},
+			onFailure: function (inError) {
+				Error("com.webos.service.audiooutput/audio/getStatus [", inError.errorText, "]");
+			},
+		});*/
+
+		SubscriptionLog();
 		SubscriptionInputStatus();
 		SubscriptionGetSensorData();
 		SubscriptionDomEvent();
