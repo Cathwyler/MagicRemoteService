@@ -314,7 +314,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Resources\miniIcon.bmp" />
     <Content Include="Resources\TV\MagicRemoteService\miniIcon.png" />
     <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV-dev.js" />
     <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV.js" />
