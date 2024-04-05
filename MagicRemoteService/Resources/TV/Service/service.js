@@ -282,27 +282,25 @@ if(bOverlay){
 	});
 	subAutoLaunch.on("cancel", function(mMessage) {
 	});
-	
-	try{
-		var Http = require('http');
-		var Crypto = require('crypto');
-		var Fs = require('fs');
-	} catch(eError) {
-		ConsoleError("require error [", eError, "]");
-	}
+
+	var Http = require("http");
+	var Crypto = require("crypto");
+	var Fs = require("fs");
 
 	var bApp = false;
-	var strSsapClientKey = "";
-	try{
-		strSsapClientKey = Fs.readFileSync("./SsapClientKey").toString();
-	} catch(eError) {
-		ConsoleError("readFileSync error [", eError, "]");
-	}
-
-	function LaunchSsap(){
+	var strSsapClientKey;
+	Fs.readFile("./SsapClientKey", { encoding: "utf8" }, function(eError, strData){
+		if(eError) {
+			ConsoleError("readFile error [", eError, "]");
+		}
+		strSsapClientKey = strData;
+		LogIfDebug(strSsapClientKey);
+		SsapLaunch();
+	});
+	function SsapLaunch() {
 		var strSsapWebSocketClientKey = new Buffer("13-" + Date.now()).toString("base64");
-		var strSsapWebSocketShaSum = Crypto.createHash('sha1');
-		strSsapWebSocketShaSum.update(strSsapWebSocketClientKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11");
+		var haSsapWebSocketShaSum = Crypto.createHash("sha1");
+		haSsapWebSocketShaSum.update(strSsapWebSocketClientKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11");
 
 		var hrSsap = Http.request({
 			host: "127.0.0.1",
@@ -316,7 +314,7 @@ if(bOverlay){
 		});
 		hrSsap.end();
 		hrSsap.on("upgrade", function(hsrSsap, socSsap, hSsap) {
-			if (hsrSsap.headers["sec-websocket-accept"] === undefined || hsrSsap.headers["sec-websocket-accept"] !== strSsapWebSocketShaSum.digest("base64")) {
+			if (hsrSsap.headers["sec-websocket-accept"] !== haSsapWebSocketShaSum.digest("base64")) {
 				Error("Ssap invalid server key");
 				socSsap.end();
 			} else {
@@ -324,20 +322,19 @@ if(bOverlay){
 				socSsap.setNoDelay(true);
 				socSsap.on("close", function() {
 					LogIfDebug("Ssap close");
-					setTimeout(function(){
-						LaunchSsap()
+					setTimeout(function() {
+						SsapLaunch()
 					}, 5000);
 				});
 				socSsap.on("data", function(bufStream) {
 					try{
-						UnframeData(bufStream, function(bufFrame, bFin, bRsv1, bRsv2, bRsv3, ucOpcode, bufMask, bufData){
-							LogIfDebug("Ssap data Opcode=", ucOpcode, " ", bufData);
+						UnframeData(bufStream, function(bufFrame, bFin, bRsv1, bRsv2, bRsv3, ucOpcode, bufMask, bufData) {
 							if(!bFin) {
-								Error("Ssap unable to process split frame");
-							} else{
+								Error("Ssap unable to process split frame", bufFrame);
+							} else {
 								switch(ucOpcode) {
 									case 0x0: //Continuation
-										Error("Ssap unable to process split frame");
+										Error("Ssap unable to process split frame", bufFrame);
 										break;
 									case 0x1: //Text
 										if(bufMask !== undefined) {
@@ -349,19 +346,21 @@ if(bOverlay){
 											case "0":
 												switch(mMessage.type) {
 													case "registered":
-														Fs.writeFile("./SsapClientKey", mMessage.payload['client-key'], function(eError) {
-															if(eError){
-																Error("writeFile error [", eError, "]");
+														strSsapClientKey = mMessage.payload["client-key"];
+														Fs.writeFile("./SsapClientKey", strSsapClientKey, { encoding: "utf8" }, function(eError) {
+															if(eError) {
+																ConsoleError("writeFile error [", eError, "]");
 															}
 														});
 														socSsap.write(FrameData(JSON.stringify({
 															type: "subscribe",
 															uri: "ssap://com.webos.applicationManager/getForegroundAppInfo",
 															id: "1",
-															payload: { }
-														}), true, false, false, false, 0x1, 0), 'binary');
+															payload: {}
+														}), true, false, false, false, 0x1, 0), "binary");
 														break;
 												}
+												break;
 											case "1":
 												switch(mMessage.type) {
 													case "response":
@@ -374,7 +373,7 @@ if(bOverlay){
 																});
 																break;
 															default:
-																if(bApp){
+																if(bApp) {
 																	LogIfDebug("Get foreground app info close");
 																	bApp = false;
 																	for(var uniqueToken in dClose) {
@@ -391,12 +390,11 @@ if(bOverlay){
 										}
 										break;
 									case 0x2: //Binary
-										Error("Ssap unable to process binary frame");
+										Error("Ssap unable to process binary frame", bufFrame);
 										break;
 									case 0x8: //Close
 										LogIfDebug("Ssap close frame", bufFrame);
 										strSsapClientKey = "";
-										//Error("Ssap unable to process close frame");
 										break;
 									case 0x9: //Ping
 										LogIfDebug("Ssap data Ping", bufFrame);
@@ -404,10 +402,10 @@ if(bOverlay){
 										socSsap.write(bufFrame, "binary");
 										break;
 									case 0xA: //Pong
-										Error("Ssap unable to process pong frame");
+										Error("Ssap unable to process pong frame", bufFrame);
 										break;
 									default:
-										Error("Ssap unprocessed message");
+										Error("Ssap unprocessed message", bufFrame);
 										break;
 								}
 							}
@@ -438,7 +436,6 @@ if(bOverlay){
 			}
 		});
 	}
-	LaunchSsap();
 
 	function UnframeData(bufStream, fCallback) {
 		var ulLenStream = bufStream.length;
@@ -482,9 +479,9 @@ if(bOverlay){
 	function FrameData(strData, bFin, bRsv1, bRsv2, bRsv3, ucOpcode, ulMask) {
 		var ulLenData = Buffer.byteLength(strData);
 		var ulOffsetMask;
-		if (ulLenData > 0xFFFF) {
+		if(ulLenData > 0xFFFF) {
 			ulOffsetMask = 10
-		} else if (ulLenData > 0x7D) {
+		} else if(ulLenData > 0x7D) {
 			ulOffsetMask = 4
 		} else {
 			ulOffsetMask = 2
@@ -503,10 +500,10 @@ if(bOverlay){
 		bufData[0] |= (ucOpcode & 0x0F);
 
 		bufData[1] |= (ulMask > 0 ? 0x80 : 0x00);
-		if (ulLenData > 0xFFFF) {
+		if(ulLenData > 0xFFFF) {
 			bufData[1] |= 0x7F;
 			bufData.writeUInt32BE(ulLenData, 2);
-		} else if (ulLenData > 0x7D) {
+		} else if(ulLenData > 0x7D) {
 			bufData[1] |= 0x7E;
 			bufData.writeUInt16BE(ulLenData, 2);
 		} else {
