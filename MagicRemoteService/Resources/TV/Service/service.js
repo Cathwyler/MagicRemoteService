@@ -204,7 +204,7 @@ metWol.on("request", function(mMessage) {
 
 if(bOverlay){
 	var strInputAppId = "com.webos.app.hdmi";
-
+	
 	serService.activityManager.create("MagicRemoteServiceKeepAlive");
 
 	var dClose = {};
@@ -252,6 +252,7 @@ if(bOverlay){
 			}
 		},
 		subscribe: true,
+		detailedEvents: true, //WebOS 3
 		start: true,
 		replace: true
 	});
@@ -280,8 +281,6 @@ if(bOverlay){
 			Error("Subscribe auto launch response error [", eError, "]");
 		}
 	});
-	subAutoLaunch.on("cancel", function(mMessage) {
-	});
 
 	var Http = require("http");
 	var Crypto = require("crypto");
@@ -294,9 +293,9 @@ if(bOverlay){
 			ConsoleError("readFile error [", eError, "]");
 		}
 		strSsapClientKey = strData;
-		LogIfDebug(strSsapClientKey);
 		SsapLaunch();
 	});
+
 	function SsapLaunch() {
 		var strSsapWebSocketClientKey = new Buffer("13-" + Date.now()).toString("base64");
 		var haSsapWebSocketShaSum = Crypto.createHash("sha1");
@@ -493,13 +492,13 @@ if(bOverlay){
 			ulOffsetData = ulOffsetMask;
 		}
 		bufData = new Buffer(ulOffsetData + ulLenData);
-		bufData[0] |= (bFin ? 0x80 : 0x00);
+		bufData[0] = (bFin ? 0x80 : 0x00);
 		bufData[0] |= (bRsv1 ? 0x40 : 0x00);
 		bufData[0] |= (bRsv2 ? 0x20 : 0x00);
 		bufData[0] |= (bRsv3 ? 0x10 : 0x00);
 		bufData[0] |= (ucOpcode & 0x0F);
 
-		bufData[1] |= (ulMask > 0 ? 0x80 : 0x00);
+		bufData[1] = (ulMask > 0 ? 0x80 : 0x00);
 		if(ulLenData > 0xFFFF) {
 			bufData[1] |= 0x7F;
 			bufData.writeUInt32BE(ulLenData, 2);
