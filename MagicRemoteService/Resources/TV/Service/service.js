@@ -502,6 +502,7 @@ if(bOverlay){
 		if(ulLenData > 0xFFFF) {
 			bufData[1] |= 0x7F;
 			bufData.writeUInt32BE(ulLenData, 2);
+			bufData.fill(0x00, 6, 10);
 		} else if(ulLenData > 0x7D) {
 			bufData[1] |= 0x7E;
 			bufData.writeUInt16BE(ulLenData, 2);
