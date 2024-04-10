@@ -322,7 +322,7 @@ if(bOverlay){
 				socSsap.on("close", function() {
 					LogIfDebug("Ssap close");
 					setTimeout(function() {
-						SsapLaunch()
+						SsapLaunch();
 					}, 5000);
 				});
 				socSsap.on("data", function(bufStream) {
@@ -426,7 +426,7 @@ if(bOverlay){
 									"READ_RUNNING_APPS"
 								]
 							},
-							"client-key": strSsapClientKey,
+							"client-key": strSsapClientKey
 						}
 					}), true, false, false, false, 0x1, 0), "binary");
 				} catch(eError) {
@@ -479,11 +479,11 @@ if(bOverlay){
 		var ulLenData = Buffer.byteLength(strData);
 		var ulOffsetMask;
 		if(ulLenData > 0xFFFF) {
-			ulOffsetMask = 10
+			ulOffsetMask = 10;
 		} else if(ulLenData > 0x7D) {
-			ulOffsetMask = 4
+			ulOffsetMask = 4;
 		} else {
-			ulOffsetMask = 2
+			ulOffsetMask = 2;
 		}
 		var ulOffsetData;
 		if(ulMask) {
