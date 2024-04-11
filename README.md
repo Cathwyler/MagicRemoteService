@@ -18,7 +18,7 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 
 ## Installation
 
-- Install WebOS Command line interface on your PC. Please refer to [CLI Installation](https://webostv.developer.lge.com/develop/tools/cli-installation#cli-installation).
+- Install WebOS Command line interface on your PC. Please refer to [CLI Installation](https://webostv.developer.lge.com/develop/tools/cli-installation#how-to-install).
 - Install and activate developer mode app on your LG WebOS TV. Please refer to [Installing Developer Mode app](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#installing-developer-mode-app) and [Turning Developer Mode on](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#turning-developer-mode-on).
 - Open MagicRemoteService on PC.
 - Add your TV. You need to switch on the "Key Server" option on the developer mode app on your LG WebOS TV before confirm. Please refer to [Connecting with CLI](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#connecting-with-cli).
