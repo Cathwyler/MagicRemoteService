@@ -310,9 +310,10 @@ namespace MagicRemoteService {
 		}
 		public static string DeviceInfo(string strDevice) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
-				"-d \"" + strDevice + "\""
+				"-d \"" + strDevice + "\"",
+				"-i"
 			};
-			return MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-device-info", string.Join(" ", tabArgument));
+			return MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-device", string.Join(" ", tabArgument));
 		}
 		public static void Extend(string strDevice) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
