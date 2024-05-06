@@ -142,7 +142,7 @@
     <value>Añadir TV</value>
   </data>
   <data name="cbExtend.Text" xml:space="preserve">
-    <value>Extender el modo desarrollador automáticamente cada dia</value>
+    <value>Extender el modo desarrollador automáticamente cada 4 semanas</value>
   </data>
   <data name="labTV.Text" xml:space="preserve">
     <value>Nombre TV</value>

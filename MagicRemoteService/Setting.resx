@@ -150,9 +150,9 @@
   <data name="&gt;&gt;btnClose.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="ttFormating.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="ttFormating.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>17, 17</value>
-  </metadata>
+  </data>
   <data name="tabSetting.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -418,7 +418,7 @@
     <value>47</value>
   </data>
   <data name="cbExtend.Text" xml:space="preserve">
-    <value>Automatically extend developer mode every day</value>
+    <value>Automatically extend developer mode every 4 weeks</value>
   </data>
   <data name="&gt;&gt;cbExtend.Name" xml:space="preserve">
     <value>cbExtend</value>
@@ -3006,12 +3006,12 @@
   <data name="&gt;&gt;libVersion.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  </data>
+  <data name="$this.TrayHeight" type="System.Int32, mscorlib">
     <value>81</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>

@@ -63,7 +63,6 @@ namespace MagicRemoteService {
 		private static System.Diagnostics.EventLog elEventLog = new System.Diagnostics.EventLog("Application", ".", "MagicRemoteService");
 
 		private System.Threading.Thread thrServer;
-		private System.Timers.Timer[] tabExtend;
 		private WinApi.ServiceCurrentState scsState;
 		private ServiceType stType;
 
@@ -208,46 +207,6 @@ namespace MagicRemoteService {
 			}
 			switch(this.stType) {
 				case ServiceType.Server:
-				case ServiceType.Both:
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDeviceList = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Device");
-					if(rkMagicRemoteServiceDeviceList != null) {
-						this.tabExtend = System.Array.ConvertAll(System.Array.FindAll(rkMagicRemoteServiceDeviceList.GetSubKeyNames(), delegate (string str) {
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Device\" + str);
-							return (int)rkMagicRemoteServiceDevice.GetValue("Extend", 0) != 0;
-						}), new System.Converter<string, System.Timers.Timer>(delegate (string str) {
-
-							Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Software\MagicRemoteService\Device\" + str);
-
-							System.Timers.Timer tExtend = new System.Timers.Timer {
-								AutoReset = false,
-								Interval = System.Math.Max(100, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-28).Ticks)).AddHours(-4).Date.AddDays(28).AddHours(4) - System.DateTime.Now).TotalMilliseconds)
-							};
-							tExtend.Elapsed += async delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
-								if(await System.Threading.Tasks.Task.Run<bool>(delegate () {
-									try {
-										WebOSCLI.Launch(str, "com.palmdts.devmode", "extend=true");
-										return true;
-									} catch(System.Exception) {
-										return false;
-									}
-								})) {
-									rkMagicRemoteServiceDevice.SetValue("LastExtend", System.DateTime.Now.Ticks, Microsoft.Win32.RegistryValueKind.QWord);
-								}
-								tExtend.Interval = System.Math.Max(60000, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-28).Ticks)).AddHours(-4).Date.AddDays(28).AddHours(4) - System.DateTime.Now).TotalMilliseconds);
-								tExtend.Start();
-							};
-							tExtend.Start();
-							return tExtend;
-						}));
-					} else {
-						this.tabExtend = new System.Timers.Timer[] { };
-					}
-					break;
-				case ServiceType.Client:
-					break;
-			}
-			switch(this.stType) {
-				case ServiceType.Server:
 					Service.ewhServerStarted.Set();
 					break;
 				case ServiceType.Both:
@@ -305,18 +264,6 @@ namespace MagicRemoteService {
 					WinApi.Advapi32.SetServiceStatus(this.ServiceHandle, ref ssServiceStatus);
 					break;
 				case ServiceType.Both:
-				case ServiceType.Client:
-					break;
-			}
-			switch(this.stType) {
-				case ServiceType.Server:
-				case ServiceType.Both:
-					foreach(System.Timers.Timer tExtend in this.tabExtend) {
-						tExtend.Stop();
-						tExtend.Dispose();
-					}
-					this.tabExtend = null;
-					break;
 				case ServiceType.Client:
 					break;
 			}

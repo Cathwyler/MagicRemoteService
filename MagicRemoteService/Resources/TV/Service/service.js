@@ -4,6 +4,7 @@ var Dgram = require("dgram");
 
 var bDebug = false;
 var bOverlay = true;
+var bExtend = true;
 var strAppId = "com.cathwyler.magicremoteservice";
 
 var serService = new Service(strAppId + ".service"); 
@@ -230,7 +231,7 @@ if(bOverlay){
 					returnValue: true
 				});
 			} else {
-				LogIfDebug("Subscribe auto launch callback");
+				LogIfDebug("Auto launch callback");
 				mMessage.respond({
 					returnValue: true
 				});
@@ -534,4 +535,127 @@ if(bOverlay){
 		}
 		return bufData;
 	}
+} else {
+	serService.call("luna://com.palm.activitymanager/cancel", {
+		activityName: "MagicRemoteServiceAutoLaunch"
+	});
+}
+
+if(bExtend){
+	var dExtend = {};
+	var metExtend = serService.register("extend");
+	metExtend.on("request", function(mMessage) {
+		try {
+			if (mMessage.isSubscription) {
+				dExtend[mMessage.uniqueToken] = mMessage;
+				mMessage.respond({
+					subscribed: true,
+					returnValue: true
+				});
+			} else {
+				LogIfDebug("Auto extend callback");
+				serService.call("luna://com.webos.applicationManager/launch", {
+					id: "com.palmdts.devmode",
+					params: {
+						extend: true
+					}
+				});
+				CreateAutoExtend();
+				mMessage.respond({
+					returnValue: true
+				});
+			}
+		} catch(eError) {
+			mMessage.respond({
+				errorCode: "1",
+				errorText: eError.message,
+				returnValue: false
+			});
+		}
+	}); 
+	metExtend.on("cancel", function(mMessage) { 
+		delete dExtend[mMessage.uniqueToken]; 
+	});
+	function CreateAutoExtend() {
+		serService.call("luna://com.palm.activitymanager/create", {
+			activity: {
+				name: "MagicRemoteServiceAutoExtend",
+				description: "MagicRemoteService auto extend",
+				type: {
+					background: true,
+					persist: true,
+					explicit: true
+				}, schedule: {
+					interval: "28d00h00m00s"
+				}, callback: {
+					method: "luna://" + strAppId + ".service/extend",
+					params: {}
+				}
+			},
+			start: true,
+			replace : true
+		}, function(mMessage) {
+			try {
+				if(mMessage.payload.returnValue) {
+					LogIfDebug("Create auto extend");
+					AdoptAutoExtend();
+				} else {
+					Error("Create auto extend response error [", mMessage.payload.errorText, "]");
+				}
+			} catch(eError) {
+				Error("Create auto extend response error [", eError, "]");
+			}
+		});
+	}
+	function AdoptAutoExtend(){
+		var subAutoExtend = serService.subscribe("luna://com.palm.activitymanager/adopt", {
+			activityName: "MagicRemoteServiceAutoExtend",
+			wait: true,
+			subscribe: true,
+			detailedEvents: true //WebOS 3
+		});
+		subAutoExtend.on("response", function(mMessage) {
+			try {
+				if(mMessage.payload.returnValue) {
+					switch(mMessage.payload.event) {
+						case undefined:
+							LogIfDebug("Subscribe auto extend");
+							break;
+						case "start":
+							LogIfDebug("Subscribe auto extend start");
+							serService.call("luna://com.webos.applicationManager/launch", {
+								id: "com.palmdts.devmode",
+								params: {
+									extend: true
+								}
+							});
+							serService.call("luna://com.palm.activitymanager/complete", {
+								activityId: mMessage.payload.activityId,
+								restart: true
+							});
+							break;
+						default:
+							LogIfDebug("Subscribe auto extend ", mMessage.payload.event);
+							break;
+					}
+				} else {
+					switch(mMessage.payload.errorCode) {
+						case 2:
+							CreateAutoExtend();
+							break;
+						default:
+							Error("Subscribe auto extend response error [", mMessage.payload.errorText, "]");
+							break;
+					}
+				}
+			} catch(eError) {
+				Error("Subscribe auto extend response error [", eError, "]");
+			}
+		});
+	}
+	AdoptAutoExtend();
+} else {
+	serService.call("luna://com.palm.activitymanager/cancel", {
+		activityName: "MagicRemoteServiceAutoExtend"
+	});
 }

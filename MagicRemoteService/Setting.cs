@@ -456,7 +456,8 @@ namespace MagicRemoteService {
 			MagicRemoteService.PhysicalAddress paPCMac,
 			decimal dLongClick,
 			bool bInputDirect,
-			bool bOverlay
+			bool bOverlay,
+			bool bExtend
 		) {
 			if(System.IO.Directory.Exists(@".\TV")) {
 				System.IO.Directory.Delete(@".\TV", true);
@@ -514,6 +515,7 @@ namespace MagicRemoteService {
 #if DEBUG
 				.Replace(@"var bDebug = false;", @"var bDebug = true;")
 #endif
+				.Replace(@"var bExtend = true", "var bExtend = " + (bExtend ? "true" : "false"))
 				.Replace(@"var bOverlay = true", "var bOverlay = " + (bOverlay ? "true" : "false"))
 				.Replace(@"var strInputAppId = ""com.webos.app.hdmi""", @"var strInputAppId = ""com.webos.app." + wocdiInput.AppIdShort + @"""")
 				.Replace(@"var strAppId = ""com.cathwyler.magicremoteservice""", @"var strAppId = ""com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + @"""")
@@ -625,13 +627,14 @@ namespace MagicRemoteService {
 				decimal dLongClick = this.nbLongClick.Value;
 				bool bInputDirect = this.cbInputDirect.Checked;
 				bool bOverlay = this.cbOverlay.Checked;
+				bool bExtend = this.cbExtend.Checked;
 				string strError = null;
 				string strErrorInfo = null;
 				if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 					try {
 						System.Version vAssembly = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 						string strVersion = vAssembly.Major + "." + vAssembly.Minor + "." + vAssembly.Build;
-						MagicRemoteService.Setting.AppExtract(strVersion, wocdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dLongClick, bInputDirect, bOverlay);
+						MagicRemoteService.Setting.AppExtract(strVersion, wocdiInput, ipaSendIP, dSendPort, ipMask, macPCMac, dLongClick, bInputDirect, bOverlay, bExtend);
 						string strTVDir = System.IO.Path.GetFullPath(@".\TV");
 						MagicRemoteService.WebOSCLI.Package(strTVDir, MagicRemoteService.Application.CompleteDir(strTVDir) + "MagicRemoteService", MagicRemoteService.Application.CompleteDir(strTVDir) + "Service");
 						MagicRemoteService.WebOSCLI.Install(wocdDevice.Name, @".\TV\com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort + "_" + strVersion + "_all.ipk");
