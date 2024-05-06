@@ -925,12 +925,12 @@ namespace MagicRemoteService {
 				string strErrorInfo = null;
 				if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 					try {
-						MagicRemoteService.WebOSCLI.Inspect(wocdDevice.Name, "com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort);
+						MagicRemoteService.WebOSCLI.InspectApplication(wocdDevice.Name, "com.cathwyler.magicremoteservice." + wocdiInput.AppIdShort);
 						return true;
 					} catch(System.Exception ex) {
-						strError = MagicRemoteService.Properties.Resources.SettingTVInstallErrorTitle;
+						strError = MagicRemoteService.Properties.Resources.SettingTVInspectErrorTittle;
 						strErrorInfo = ex.Message;
-						return false;
+							return false;
 					}
 				})) {
 					System.Windows.Forms.MessageBox.Show(strErrorInfo, strError, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

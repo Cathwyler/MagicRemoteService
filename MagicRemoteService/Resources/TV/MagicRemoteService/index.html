@@ -33,6 +33,10 @@
 			flex-flow: row wrap;
 			/*gap: 1rem; chrome < 84*/
 		}
+		div.justify-flex-start {
+			-webkit-justify-content: start;
+			justify-content: start;
+		}
 		div.justify-center {
 			-webkit-justify-content: center;
 			justify-content: center;
@@ -41,13 +45,17 @@
 			-webkit-justify-content: flex-end;
 			justify-content: flex-end;
 		}
-		div.align-flex-end {
-  			-webkit-align-items: flex-end;
-			align-items: flex-end;
+		div.align-flex-start {
+			-webkit-align-items: flex-start;
+			align-items: flex-start;
 		}
 		div.align-center {
 			-webkit-align-items: center;
 			align-items: center;
+		}
+		div.align-flex-end {
+  			-webkit-align-items: flex-end;
+			align-items: flex-end;
 		}
 		
 		div.window {
@@ -118,15 +126,15 @@
 	<div class="screen">
 		<div id="uncaught"></div>
 	</div>
-</body>
 
-<script type="text/javascript">
-	window.addEventListener("error", function(oEvent) {
-		document.getElementById("uncaught").innerText += "\n" + oEvent.message + "\nSource : " + oEvent.filename + "\nLine : " + oEvent.lineno + "\nColumn : " + oEvent.colno + "\nError  : " + oEvent.error;
-	});
-</script>
-<script type="text/javascript" src="webOSTVjs-1.2.10/webOSTV.js" charset="utf-8"></script>
-<script type="text/javascript" src="webOSTVjs-1.2.10/webOSTV-dev.js" charset="utf-8"></script>
-<script type="text/javascript" src="main.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.addEventListener("error", function(oEvent) {
+			document.getElementById("uncaught").innerText += "\n" + oEvent.message + "\nSource : " + oEvent.filename + "\nLine : " + oEvent.lineno + "\nColumn : " + oEvent.colno + "\nError  : " + oEvent.error;
+		});
+	</script>
+	<script type="text/javascript" src="webOSTVjs-1.2.10/webOSTV.js" charset="utf-8"></script>
+	<script type="text/javascript" src="webOSTVjs-1.2.10/webOSTV-dev.js" charset="utf-8"></script>
+	<script type="text/javascript" src="main.js" charset="utf-8"></script>
+</body>
 
 </html>

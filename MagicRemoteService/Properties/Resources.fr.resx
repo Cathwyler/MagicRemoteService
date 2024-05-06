@@ -219,6 +219,9 @@
   <data name="SettingTVAddErrorTitle" xml:space="preserve">
     <value>Erreur lors de l'ajout de la TV</value>
   </data>
+  <data name="SettingTVInspectErrorTittle" xml:space="preserve">
+    <value>Erreur lors de l'inspection de l'application sur la TV</value>
+  </data>
   <data name="SettingTVInstallErrorTitle" xml:space="preserve">
     <value>Erreur lors de l'installation de l'application sur la TV</value>
   </data>

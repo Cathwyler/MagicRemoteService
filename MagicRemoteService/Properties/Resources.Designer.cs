@@ -651,7 +651,16 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Error while installing app on TV.
+        ///   Recherche une chaîne localisée semblable à Error while inspecting running application on TV.
+        /// </summary>
+        internal static string SettingTVInspectErrorTittle {
+            get {
+                return ResourceManager.GetString("SettingTVInspectErrorTittle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error while installing application on TV.
         /// </summary>
         internal static string SettingTVInstallErrorTitle {
             get {

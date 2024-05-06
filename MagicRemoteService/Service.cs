@@ -220,12 +220,12 @@ namespace MagicRemoteService {
 
 							System.Timers.Timer tExtend = new System.Timers.Timer {
 								AutoReset = false,
-								Interval = System.Math.Max(100, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-1).Ticks)).AddHours(-4).Date.AddDays(1).AddHours(4) - System.DateTime.Now).TotalMilliseconds)
+								Interval = System.Math.Max(100, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-28).Ticks)).AddHours(-4).Date.AddDays(28).AddHours(4) - System.DateTime.Now).TotalMilliseconds)
 							};
 							tExtend.Elapsed += async delegate (object oSource, System.Timers.ElapsedEventArgs eElapsed) {
 								if(await System.Threading.Tasks.Task.Run<bool>(delegate () {
 									try {
-										WebOSCLI.Extend(str);
+										WebOSCLI.Launch(str, "com.palmdts.devmode", "extend=true");
 										return true;
 									} catch(System.Exception) {
 										return false;
@@ -233,7 +233,7 @@ namespace MagicRemoteService {
 								})) {
 									rkMagicRemoteServiceDevice.SetValue("LastExtend", System.DateTime.Now.Ticks, Microsoft.Win32.RegistryValueKind.QWord);
 								}
-								tExtend.Interval = System.Math.Max(60000, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-1).Ticks)).AddHours(-4).Date.AddDays(1).AddHours(4) - System.DateTime.Now).TotalMilliseconds);
+								tExtend.Interval = System.Math.Max(60000, (new System.DateTime((long)rkMagicRemoteServiceDevice.GetValue("LastExtend", System.DateTime.Now.AddDays(-28).Ticks)).AddHours(-4).Date.AddDays(28).AddHours(4) - System.DateTime.Now).TotalMilliseconds);
 								tExtend.Start();
 							};
 							tExtend.Start();

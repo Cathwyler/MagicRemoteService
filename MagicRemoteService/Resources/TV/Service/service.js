@@ -84,16 +84,18 @@ function SendLog() {
 }
 
 function Log() {
+	console.log.apply(console, arguments);
 	arrLog.push({
 		bConsole: false,
 		iType: 0,
 		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
-			return x;
-		} else {
-			return x.toString();
-		}
-	}).join("")});
+			if (typeof o !== "object" || o === null) {
+				return x;
+			} else {
+				return x.toString();
+			}
+		}).join("")
+	});
 	SendLog();
 }
 
@@ -105,72 +107,82 @@ if(bDebug) {
 }
 
 function Warn() {
+	console.warn.apply(console, arguments);
 	arrLog.push({
 		bConsole: false,
 		iType: 1,
 		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
-			return x;
-		} else {
-			return x.toString();
-		}
-	}).join("")});
+			if (typeof o !== "object" || o === null) {
+				return x;
+			} else {
+				return x.toString();
+			}
+		}).join("")
+	});
 	SendLog();
 }
 
 function Error() {
+	console.error.apply(console, arguments);
 	arrLog.push({
 		bConsole: false,
 		iType: 2,
 		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
-			return x;
-		} else {
-			return x.toString();
-		}
-	}).join("")});
+			if (typeof o !== "object" || o === null) {
+				return x;
+			} else {
+				return x.toString();
+			}
+		}).join("")
+	});
 	SendLog();
 }
 
 function ConsoleLog() {
+	console.log.apply(console, arguments);
 	arrLog.push({
 		bConsole: true,
 		iType: 0,
 		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
-			return x;
-		} else {
-			return x.toString();
-		}
-	}).join("")});
+			if (typeof o !== "object" || o === null) {
+				return x;
+			} else {
+				return x.toString();
+			}
+		}).join("")
+	});
 	SendLog();
 }
 
 function ConsoleWarn() {
+	console.warn.apply(console, arguments);
 	arrLog.push({
 		bConsole: true,
 		iType: 1,
 		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
-			return x;
-		} else {
-			return x.toString();
-		}
-	}).join("")});
+			if (typeof o !== "object" || o === null) {
+				return x;
+			} else {
+				return x.toString();
+			}
+		}).join("")
+	});
 	SendLog();
 }
 
 function ConsoleError() {
+	console.error.apply(console, arguments);
 	arrLog.push({
 		bConsole: true,
 		iType: 2,
 		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
-			return x;
-		} else {
-			return x.toString();
-		}
-	}).join("")});
+			if (typeof o !== "object" || o === null) {
+				return x;
+			} else {
+				return x.toString();
+			}
+		}).join("")
+	});
 	SendLog();
 }
 

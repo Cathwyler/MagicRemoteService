@@ -261,7 +261,7 @@ namespace MagicRemoteService {
 				"\"" + strApplication + "\"",
 				"-n"
 			};
-			if(!string.IsNullOrEmpty(strService)) {
+			if(!string.IsNullOrEmpty(strOutDirectory)) {
 				tabArgument.Add("-o \"" + strOutDirectory + "\"");
 			}
 			if(!string.IsNullOrEmpty(strService)) {
@@ -286,24 +286,28 @@ namespace MagicRemoteService {
 			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-install", string.Join(" ", tabArgument));
 		}
-		//public static void InstallList(string strDevice, string strPackageFile) {
-		//	System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
-		//		"-d \"" + strDevice + "\"",
-		//		"-l"
-		//	};
-		//	MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-install", string.Join(" ", tabArgument));
-		//}
-		public static void Launch(string strDevice, string strApplicationId) {
+		public static void Launch(string strDevice, string strApplicationId, string strParameter = null) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
 				"-d \"" + strDevice + "\"",
 				"\"" + strApplicationId + "\""
 			};
+			if(!string.IsNullOrEmpty(strParameter)) {
+				tabArgument.Add("-p \"" + strParameter + "\"");
+			}
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-launch", string.Join(" ", tabArgument));
 		}
-		public static void Inspect(string strDevice, string strApplicationId) {
+		public static void InspectApplication(string strDevice, string strApplicationId) {
 			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
 				"-d \"" + strDevice + "\"",
 				"-a \"" + strApplicationId + "\"",
+				"-o"
+			};
+			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-inspect", string.Join(" ", tabArgument));
+		}
+		public static void InspectService(string strDevice, string strServiceId) {
+			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
+				"-d \"" + strDevice + "\"",
+				"-s \"" + strServiceId + "\"",
 				"-o"
 			};
 			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-inspect", string.Join(" ", tabArgument));
@@ -314,12 +318,6 @@ namespace MagicRemoteService {
 				"-i"
 			};
 			return MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-device", string.Join(" ", tabArgument));
-		}
-		public static void Extend(string strDevice) {
-			System.Collections.Generic.List<string> tabArgument = new System.Collections.Generic.List<string> {
-				"-d \"" + strDevice + "\""
-			};
-			MagicRemoteService.WebOSCLI.ExecWebOSCLICommand("ares-extend-dev", string.Join(" ", tabArgument));
 		}
 	}
 }

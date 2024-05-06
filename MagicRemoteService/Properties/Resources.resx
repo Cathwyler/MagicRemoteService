@@ -215,7 +215,7 @@
     <value>Invalid subnet mask</value>
   </data>
   <data name="SettingTVInstallErrorTitle" xml:space="preserve">
-    <value>Error while installing app on TV</value>
+    <value>Error while installing application on TV</value>
   </data>
   <data name="SettingTVRefreshlErrorTitle" xml:space="preserve">
     <value>Error while refreshing TVs</value>
@@ -297,5 +297,8 @@
   </data>
   <data name="SettingTVVersionErrorTitle" xml:space="preserve">
     <value>Error while retrieving TV version</value>
+  </data>
+  <data name="SettingTVInspectErrorTittle" xml:space="preserve">
+    <value>Error while inspecting running application on TV</value>
   </data>
 </root>
