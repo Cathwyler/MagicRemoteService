@@ -464,7 +464,7 @@ namespace MagicRemoteService {
 			}
 			System.IO.Directory.CreateDirectory(@".\TV");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService");
-			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\webOSTVjs-1.2.10");
+			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\webOSTVjs-1.2.12");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\fr");
 			System.IO.Directory.CreateDirectory(@".\TV\MagicRemoteService\resources\es");
@@ -502,8 +502,8 @@ namespace MagicRemoteService {
 			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\miniIcon.png", MagicRemoteService.Properties.Resources.miniIcon);
 			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\largeIcon.png", MagicRemoteService.Properties.Resources.largeIcon);
 			System.IO.File.WriteAllBytes(@".\TV\MagicRemoteService\MuseoSans-Medium.ttf", MagicRemoteService.Properties.Resources.MuseoSans_Medium);
-			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
-			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.12\webOSTV-dev.js", MagicRemoteService.Properties.Resources.webOSTV_dev);
+			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\webOSTVjs-1.2.12\webOSTV.js", MagicRemoteService.Properties.Resources.webOSTV);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\fr\appinfo.json", MagicRemoteService.Properties.Resources.frappinfo);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\fr\appstring.json", MagicRemoteService.Properties.Resources.frappstring);
 			System.IO.File.WriteAllText(@".\TV\MagicRemoteService\resources\es\appinfo.json", MagicRemoteService.Properties.Resources.esappinfo);

@@ -123,6 +123,15 @@
   <data name="ApplicationSetting" xml:space="preserve">
     <value>Paramètres</value>
   </data>
+  <data name="BindActionValueDisplayDefault" xml:space="preserve">
+    <value>Écran par défaut</value>
+  </data>
+  <data name="BindActionValueDisplayNext" xml:space="preserve">
+    <value>Écran suivant</value>
+  </data>
+  <data name="BindActionValueDisplayPrevious" xml:space="preserve">
+    <value>Écran précédant</value>
+  </data>
   <data name="BindActionValueKeyboard" xml:space="preserve">
     <value>Clavier</value>
   </data>

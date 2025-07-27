@@ -13,6 +13,13 @@ namespace MagicRemoteService {
 		public BindCreator(MagicRemoteService.Bind[] arrBind) {
 			this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.InitializeComponent();
+			this.cbbAction.DataSource = new BindActionValue[] {
+				BindActionValue.Shutdown,
+				BindActionValue.Keyboard,
+				BindActionValue.DisplayDefault,
+				BindActionValue.DisplayNext,
+				BindActionValue.DisplayPrevious
+			};
 			this.arrBind = arrBind;
 			switch(arrBind?[0]) {
 				case MagicRemoteService.BindMouse bm:
@@ -31,18 +38,11 @@ namespace MagicRemoteService {
 					break;
 				case MagicRemoteService.BindKeyboard bk:
 					this.selBindKeyboard.Checked = true;
-					this.libKeyboard.Text = string.Join<Bind>(" + ", arrBind);
+					this.labKeyboard.Text = string.Join<Bind>(" + ", arrBind);
 					break;
 				case MagicRemoteService.BindAction ba:
 					this.selBindAction.Checked = true;
-					switch(ba.bavValue) {
-						case BindActionValue.Shutdown:
-							this.selActionShutdown.Checked = true;
-							break;
-						case BindActionValue.Keyboard:
-							this.selActionKeyboard.Checked = true;
-							break;
-					}
+					this.cbbAction.SelectedItem = ba.bavValue;
 					break;
 				case MagicRemoteService.BindCommand bc:
 					this.selBindCommand.Checked = true;
@@ -61,7 +61,7 @@ namespace MagicRemoteService {
 			this.pnlMouse.Visible = ((System.Windows.Forms.RadioButton)sender).Checked;
 		}
 		private void BindKeyboard_CheckedChanged(object sender, System.EventArgs e) {
-			this.libKeyboard.Visible = ((System.Windows.Forms.RadioButton)sender).Checked;
+			this.pnlKeyboard.Visible = ((System.Windows.Forms.RadioButton)sender).Checked;
 		}
 		private void BindAction_CheckedChanged(object sender, System.EventArgs e) {
 			this.pnlAction.Visible = ((System.Windows.Forms.RadioButton)sender).Checked;
@@ -91,7 +91,7 @@ namespace MagicRemoteService {
 					case 0x0104:
 						this.liBind.Add(new MagicRemoteService.BindKeyboard(System.BitConverter.GetBytes(m.WParam.ToInt32())[0], System.BitConverter.GetBytes(m.LParam.ToInt32())[2], (System.BitConverter.GetBytes(m.LParam.ToInt32())[3] & 0x01) == 0x01));
 						this.arrBind = this.liBind.ToArray();
-						this.libKeyboard.Text = string.Join<Bind>(" + ", this.arrBind);
+						this.labKeyboard.Text = string.Join<Bind>(" + ", this.arrBind);
 						return true;
 					default:
 						return base.ProcessCmdKey(ref m, k);
@@ -123,18 +123,12 @@ namespace MagicRemoteService {
 				return base.ProcessKeyEventArgs(ref m);
 			}
 		}
-		private void ActionShutdown_CheckedChanged(object sender, System.EventArgs e) {
-			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.arrBind = new Bind[] { new MagicRemoteService.BindAction(BindActionValue.Shutdown) };
-			}
-		}
-		private void ActionKeyboard_CheckedChanged(object sender, System.EventArgs e) {
-			if(((System.Windows.Forms.RadioButton)sender).Checked) {
-				this.arrBind = new Bind[] { new MagicRemoteService.BindAction(BindActionValue.Keyboard) };
-			}
-		}
 		private void Command_TextChanged(object sender, System.EventArgs e) {
 			this.arrBind = new Bind[] { new MagicRemoteService.BindCommand(this.tbCommand.Text) };
+		}
+
+		private void Action_SelectedIndexChanged(object sender, System.EventArgs e) {
+			this.arrBind = new Bind[] { new MagicRemoteService.BindAction((BindActionValue)((System.Windows.Forms.ComboBox)sender).SelectedItem) };
 		}
 	}
 }

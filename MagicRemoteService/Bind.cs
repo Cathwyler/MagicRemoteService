@@ -7,6 +7,9 @@
 	public enum BindActionValue : byte {
 		Shutdown = 0x01,
 		Keyboard = 0x02,
+		DisplayDefault = 0x03,
+		DisplayNext = 0x04,
+		DisplayPrevious = 0x05
 	}
 	public abstract class Bind {
 	}
@@ -61,6 +64,12 @@
 					return MagicRemoteService.Properties.Resources.BindActionValueShutdown;
 				case BindActionValue.Keyboard:
 					return MagicRemoteService.Properties.Resources.BindActionValueKeyboard;
+				case BindActionValue.DisplayDefault:
+					return MagicRemoteService.Properties.Resources.BindActionValueDisplayDefault;
+				case BindActionValue.DisplayNext:
+					return MagicRemoteService.Properties.Resources.BindActionValueDisplayNext;
+				case BindActionValue.DisplayPrevious:
+					return MagicRemoteService.Properties.Resources.BindActionValueDisplayPrevious;
 				default:
 					return base.ToString();
 			}

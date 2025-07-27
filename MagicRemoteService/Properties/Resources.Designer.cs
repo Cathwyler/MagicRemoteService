@@ -127,6 +127,33 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Default display.
+        /// </summary>
+        internal static string BindActionValueDisplayDefault {
+            get {
+                return ResourceManager.GetString("BindActionValueDisplayDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Next display.
+        /// </summary>
+        internal static string BindActionValueDisplayNext {
+            get {
+                return ResourceManager.GetString("BindActionValueDisplayNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Previous display.
+        /// </summary>
+        internal static string BindActionValueDisplayPrevious {
+            get {
+                return ResourceManager.GetString("BindActionValueDisplayPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Keyboard.
         /// </summary>
         internal static string BindActionValueKeyboard {
@@ -462,27 +489,16 @@ namespace MagicRemoteService.Properties {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à 
+        ///try {
+        ///
+        ///Date.prototype.toISOSecondString = function() {
+        ///	return (&quot;00&quot; + this.getUTCFullYear().toString()).slice(-4) + &quot;-&quot; + (&quot;00&quot; + (this.getUTCMonth() + 1).toString()).slice(-2) + &quot;-&quot; + (&quot;00&quot; + this.getUTCDate().toString()).slice(-2) + &quot; &quot; + (&quot;00&quot; + this.getUTCHours().toString()).slice(-2) + &quot;:&quot; + (&quot;00&quot; + this.getUTCMinutes().toString()).slice(-2) + &quot;:&quot; + (&quot;00&quot; + this.getUTCSeconds().toString()).slice(-2) + &quot;Z&quot;
+        ///}
+        ///
         ///var Service = require(&quot;webos-service&quot;);
         ///var Dgram = require(&quot;dgram&quot;);
         ///
-        ///var bDebug = false;
-        ///var bOverlay = true;
-        ///var strAppId = &quot;com.cathwyler.magicremoteservice&quot;;
-        ///
-        ///var serService = new Service(strAppId + &quot;.service&quot;); 
-        ///
-        ///var arrLog = [];
-        ///var dLog = {};
-        ///var metLog = serService.register(&quot;log&quot;);
-        ///metLog.on(&quot;request&quot;, function(mMessage) {
-        ///	try {
-        ///		if (mMessage.isSubscription) {
-        ///			dLog[mMessage.uniqueToken] = mMessage;
-        ///			mMessage.respond({
-        ///				subscribed: true,
-        ///				returnValue: true
-        ///			});
-        ///	 [le reste de la chaîne a été tronqué]&quot;;.
+        ///var bDebug = [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string service {
             get {
@@ -732,7 +748,7 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à window.webOS=function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})},n.t=function(e,t){if(1&amp;t&amp;&amp;(e=n(e)),8&amp;t)return e;if(4&amp;t&amp;&amp;&quot;object&quot;==type [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à !function(){&quot;use strict&quot;;var e={d:function(n,t){for(var o in t)e.o(t,o)&amp;&amp;!e.o(n,o)&amp;&amp;Object.defineProperty(n,o,{enumerable:!0,get:t[o]})},o:function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},r:function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})}},n={};e.r(n),e.d(n,{deviceInfo:function(){return z},fetchAppId:function(){return t},fetchAppInfo:function(){return r},fetchAppRootPath:f [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string webOSTV {
             get {
@@ -741,7 +757,7 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à window.webOSDev=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})},t.t=function(e,r){if(1&amp;r&amp;&amp;(e=t(e)),8&amp;r)return e;if(4&amp;r&amp;&amp;&quot;object&quot;==t [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à !function(){&quot;use strict&quot;;var e={d:function(r,t){for(var n in t)e.o(t,n)&amp;&amp;!e.o(r,n)&amp;&amp;Object.defineProperty(r,n,{enumerable:!0,get:t[n]})},o:function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},r:function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})}},r={};function t(e){return t=&quot;function&quot;==typeof Symbol&amp;&amp;&quot;symbol&quot;==typeof Symbol.iterator?function(e){return typeof e}:function(e){return [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string webOSTV_dev {
             get {

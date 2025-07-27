@@ -34,20 +34,22 @@ namespace MagicRemoteService {
 			this.selMouseRight = new System.Windows.Forms.RadioButton();
 			this.selMouseMiddle = new System.Windows.Forms.RadioButton();
 			this.selMouseLeft = new System.Windows.Forms.RadioButton();
-			this.libKeyboard = new System.Windows.Forms.Label();
-			this.pnlAction = new System.Windows.Forms.Panel();
-			this.selActionKeyboard = new System.Windows.Forms.RadioButton();
-			this.selActionShutdown = new System.Windows.Forms.RadioButton();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnConfirm = new System.Windows.Forms.Button();
 			this.tlpBind = new System.Windows.Forms.TableLayoutPanel();
+			this.pnlAction = new System.Windows.Forms.Panel();
+			this.cbbAction = new System.Windows.Forms.ComboBox();
+			this.labAction = new System.Windows.Forms.Label();
 			this.pnlCommand = new System.Windows.Forms.Panel();
 			this.tbCommand = new System.Windows.Forms.TextBox();
+			this.pnlKeyboard = new System.Windows.Forms.Panel();
+			this.labKeyboard = new System.Windows.Forms.Label();
 			this.pnlBind.SuspendLayout();
 			this.pnlMouse.SuspendLayout();
-			this.pnlAction.SuspendLayout();
 			this.tlpBind.SuspendLayout();
+			this.pnlAction.SuspendLayout();
 			this.pnlCommand.SuspendLayout();
+			this.pnlKeyboard.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// selBindMouse
@@ -119,34 +121,6 @@ namespace MagicRemoteService {
 			this.selMouseLeft.UseVisualStyleBackColor = true;
 			this.selMouseLeft.CheckedChanged += new System.EventHandler(this.MouseLeft_CheckedChanged);
 			// 
-			// libKeyboard
-			// 
-			resources.ApplyResources(this.libKeyboard, "libKeyboard");
-			this.libKeyboard.Name = "libKeyboard";
-			// 
-			// pnlAction
-			// 
-			this.pnlAction.Controls.Add(this.selActionKeyboard);
-			this.pnlAction.Controls.Add(this.selActionShutdown);
-			resources.ApplyResources(this.pnlAction, "pnlAction");
-			this.pnlAction.Name = "pnlAction";
-			// 
-			// selActionKeyboard
-			// 
-			resources.ApplyResources(this.selActionKeyboard, "selActionKeyboard");
-			this.selActionKeyboard.Name = "selActionKeyboard";
-			this.selActionKeyboard.TabStop = true;
-			this.selActionKeyboard.UseVisualStyleBackColor = true;
-			this.selActionKeyboard.CheckedChanged += new System.EventHandler(this.ActionKeyboard_CheckedChanged);
-			// 
-			// selActionShutdown
-			// 
-			resources.ApplyResources(this.selActionShutdown, "selActionShutdown");
-			this.selActionShutdown.Name = "selActionShutdown";
-			this.selActionShutdown.TabStop = true;
-			this.selActionShutdown.UseVisualStyleBackColor = true;
-			this.selActionShutdown.CheckedChanged += new System.EventHandler(this.ActionShutdown_CheckedChanged);
-			// 
 			// btnCancel
 			// 
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -165,11 +139,31 @@ namespace MagicRemoteService {
 			// tlpBind
 			// 
 			resources.ApplyResources(this.tlpBind, "tlpBind");
-			this.tlpBind.Controls.Add(this.libKeyboard, 0, 1);
 			this.tlpBind.Controls.Add(this.pnlAction, 0, 2);
 			this.tlpBind.Controls.Add(this.pnlMouse, 0, 0);
 			this.tlpBind.Controls.Add(this.pnlCommand, 0, 3);
+			this.tlpBind.Controls.Add(this.pnlKeyboard, 0, 1);
 			this.tlpBind.Name = "tlpBind";
+			// 
+			// pnlAction
+			// 
+			this.pnlAction.Controls.Add(this.cbbAction);
+			this.pnlAction.Controls.Add(this.labAction);
+			resources.ApplyResources(this.pnlAction, "pnlAction");
+			this.pnlAction.Name = "pnlAction";
+			// 
+			// cbbAction
+			// 
+			this.cbbAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbbAction.FormattingEnabled = true;
+			resources.ApplyResources(this.cbbAction, "cbbAction");
+			this.cbbAction.Name = "cbbAction";
+			this.cbbAction.SelectedIndexChanged += new System.EventHandler(this.Action_SelectedIndexChanged);
+			// 
+			// labAction
+			// 
+			resources.ApplyResources(this.labAction, "labAction");
+			this.labAction.Name = "labAction";
 			// 
 			// pnlCommand
 			// 
@@ -182,6 +176,17 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.tbCommand, "tbCommand");
 			this.tbCommand.Name = "tbCommand";
 			this.tbCommand.TextChanged += new System.EventHandler(this.Command_TextChanged);
+			// 
+			// pnlKeyboard
+			// 
+			this.pnlKeyboard.Controls.Add(this.labKeyboard);
+			resources.ApplyResources(this.pnlKeyboard, "pnlKeyboard");
+			this.pnlKeyboard.Name = "pnlKeyboard";
+			// 
+			// labKeyboard
+			// 
+			resources.ApplyResources(this.labKeyboard, "labKeyboard");
+			this.labKeyboard.Name = "labKeyboard";
 			// 
 			// BindCreator
 			// 
@@ -202,11 +207,11 @@ namespace MagicRemoteService {
 			this.pnlBind.PerformLayout();
 			this.pnlMouse.ResumeLayout(false);
 			this.pnlMouse.PerformLayout();
-			this.pnlAction.ResumeLayout(false);
-			this.pnlAction.PerformLayout();
 			this.tlpBind.ResumeLayout(false);
+			this.pnlAction.ResumeLayout(false);
 			this.pnlCommand.ResumeLayout(false);
 			this.pnlCommand.PerformLayout();
+			this.pnlKeyboard.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -221,15 +226,16 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.RadioButton selMouseRight;
 		private System.Windows.Forms.RadioButton selMouseMiddle;
 		private System.Windows.Forms.RadioButton selMouseLeft;
-		private System.Windows.Forms.Label libKeyboard;
-		private System.Windows.Forms.Panel pnlAction;
-		private System.Windows.Forms.RadioButton selActionKeyboard;
-		private System.Windows.Forms.RadioButton selActionShutdown;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnConfirm;
 		private System.Windows.Forms.TableLayoutPanel tlpBind;
 		private System.Windows.Forms.Panel pnlCommand;
 		private System.Windows.Forms.RadioButton selBindCommand;
 		private System.Windows.Forms.TextBox tbCommand;
+		private System.Windows.Forms.Panel pnlAction;
+		private System.Windows.Forms.ComboBox cbbAction;
+		private System.Windows.Forms.Label labAction;
+		private System.Windows.Forms.Panel pnlKeyboard;
+		private System.Windows.Forms.Label labKeyboard;
 	}
 }

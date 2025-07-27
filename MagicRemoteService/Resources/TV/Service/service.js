@@ -1,4 +1,10 @@
 
+try {
+
+Date.prototype.toISOSecondString = function() {
+	return ("00" + this.getUTCFullYear().toString()).slice(-4) + "-" + ("00" + (this.getUTCMonth() + 1).toString()).slice(-2) + "-" + ("00" + this.getUTCDate().toString()).slice(-2) + " " + ("00" + this.getUTCHours().toString()).slice(-2) + ":" + ("00" + this.getUTCMinutes().toString()).slice(-2) + ":" + ("00" + this.getUTCSeconds().toString()).slice(-2) + "Z"
+}
+
 var Service = require("webos-service");
 var Dgram = require("dgram");
 
@@ -89,7 +95,7 @@ function Log() {
 	arrLog.push({
 		bConsole: false,
 		iType: 0,
-		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
 			if (typeof o !== "object" || o === null) {
 				return x;
 			} else {
@@ -112,7 +118,7 @@ function Warn() {
 	arrLog.push({
 		bConsole: false,
 		iType: 1,
-		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
 			if (typeof o !== "object" || o === null) {
 				return x;
 			} else {
@@ -128,7 +134,7 @@ function Error() {
 	arrLog.push({
 		bConsole: false,
 		iType: 2,
-		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
 			if (typeof o !== "object" || o === null) {
 				return x;
 			} else {
@@ -144,7 +150,7 @@ function ConsoleLog() {
 	arrLog.push({
 		bConsole: true,
 		iType: 0,
-		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
 			if (typeof o !== "object" || o === null) {
 				return x;
 			} else {
@@ -160,7 +166,7 @@ function ConsoleWarn() {
 	arrLog.push({
 		bConsole: true,
 		iType: 1,
-		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
 			if (typeof o !== "object" || o === null) {
 				return x;
 			} else {
@@ -176,7 +182,7 @@ function ConsoleError() {
 	arrLog.push({
 		bConsole: true,
 		iType: 2,
-		strMessage: Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
 			if (typeof o !== "object" || o === null) {
 				return x;
 			} else {
@@ -217,7 +223,7 @@ metWol.on("request", function(mMessage) {
 
 if(bOverlay){
 	var strInputAppId = "com.webos.app.hdmi";
-	
+
 	serService.activityManager.create("MagicRemoteServiceKeepAlive");
 
 	var dClose = {};
@@ -231,7 +237,7 @@ if(bOverlay){
 					returnValue: true
 				});
 			} else {
-				LogIfDebug("Auto launch callback");
+				LogIfDebug("Close subscription");
 				mMessage.respond({
 					returnValue: true
 				});
@@ -243,69 +249,128 @@ if(bOverlay){
 				returnValue: false
 			});
 		}
-	}); 
+	});
 	metClose.on("cancel", function(mMessage) { 
 		delete dClose[mMessage.uniqueToken]; 
 	});
 
-	var subAutoLaunch = serService.subscribe("luna://com.palm.activitymanager/create", {
-		activity: {
-			name: "MagicRemoteServiceAutoLaunch",
-			description: "MagicRemoteService auto launch",
-			type: {
-				foreground: true,
-				persist: true,
-				explicit: true
-			}, schedule: {
-				precise: true,
-				interval: "00d00h00m05s"
-			}, callback: {
-				method: "luna://" + strAppId + ".service/close",
-				params: {}
-			}
-		},
-		subscribe: true,
-		detailedEvents: true, //WebOS 3
-		start: true,
-		replace: true
-	});
-	subAutoLaunch.on("response", function(mMessage) {
+	var metLaunch = serService.register("launch");
+	metLaunch.on("request", function(mMessage) {
 		try {
-			if(mMessage.payload.returnValue) {
-				switch(mMessage.payload.event) {
-					case undefined:
-						LogIfDebug("Subscribe auto launch");
-						break;
-					case "start":
-						LogIfDebug("Subscribe auto launch start");
-						serService.call("luna://com.palm.activitymanager/complete", {
-							activityId: mMessage.payload.activityId,
-							restart: true
-						});
-						break;
-					default:
-						LogIfDebug("Subscribe auto launch ", mMessage.payload.event);
-						break;
-				}
-			} else {
-				Error("Subscribe auto launch response error [", mMessage.payload.errorText, "]");
+			LogIfDebug("Auto launch callback");
+			switch(mMessage.activity.completed) {
+				case true:
+					ConsoleLog("Auto launch create callback");
+					CreateAutoLaunch();
+					break;
+				default:
+					ConsoleLog("Auto launch adopt callback");
+					break;
 			}
+			mMessage.respond({
+				returnValue: true
+			});
 		} catch(eError) {
-			Error("Subscribe auto launch response error [", eError, "]");
+			mMessage.respond({
+				errorCode: "1",
+				errorText: eError.message,
+				returnValue: false
+			});
 		}
 	});
 
+	function CreateAutoLaunch() {
+		serService.call("luna://com.palm.activitymanager/create", {
+			activity: {
+				name: "MagicRemoteServiceAutoLaunch",
+				description: "MagicRemoteService auto launch",
+				type: {
+					foreground: true,
+					persist: true,
+					explicit: true
+				}, schedule: {
+					precise: true,
+					interval: "00d00h00m05s"
+				}, callback: {
+					method: "luna://" + strAppId + ".service/launch"
+				}
+			},
+			start: true,
+			replace : true
+		}, function(mMessage) {
+			try {
+				if(mMessage.payload.returnValue) {
+					ConsoleLog("Create auto launch");
+					AdoptAutoLaunch();
+				} else {
+					Error("Create auto launch response error [", mMessage.payload.errorText, "]");
+				}
+			} catch(eError) {
+				Error("Create auto launch response error [", eError, "]");
+			}
+		});
+	}
+	var subAutoLaunch = null;
+	function AdoptAutoLaunch(){
+		subAutoLaunch = serService.subscribe("luna://com.palm.activitymanager/adopt", {
+			activityName: "MagicRemoteServiceAutoLaunch",
+			wait: true,
+			subscribe: true,
+			detailedEvents: true //WebOS 3
+		});
+		subAutoLaunch.on("response", function(mMessage) {
+			try {
+				if(mMessage.payload.returnValue) {
+					switch(mMessage.payload.event) {
+						case undefined:
+							ConsoleLog("Subscribe auto launch");
+							break;
+						case "start":
+							ConsoleLog("Subscribe auto launch start");
+							serService.call("luna://com.palm.activitymanager/complete", {
+								activityId: mMessage.payload.activityId
+							});
+							break;
+						case "complete":
+							ConsoleLog("Subscribe auto launch complete");
+							CreateAutoLaunch();
+							break;
+						default:
+							ConsoleLog("Subscribe auto launch ", mMessage.payload.event);
+							break;
+					}
+				} else {
+					switch(mMessage.payload.errorCode) {
+						case 2:
+							CreateAutoLaunch();
+							break;
+						default:
+							Error("Subscribe auto launch response error [", mMessage.payload.errorText, "]");
+							break;
+					}
+				}
+			} catch(eError) {
+				Error("Subscribe auto launch response error [", eError, "]");
+			}
+		});
+	}
+	if (subAutoLaunch === null) {
+		AdoptAutoLaunch();
+	}
+	
 	var Http = require("http");
 	var Crypto = require("crypto");
 	var Fs = require("fs");
 
 	var bApp = false;
-	var strSsapClientKey;
+	var strSsapClientKey = null;
+	var uiSsapId = 1;
 	Fs.readFile("./SsapClientKey", { encoding: "utf8" }, function(eError, strData){
 		if(eError) {
 			ConsoleError("readFile error [", eError, "]");
+		} else {
+			strSsapClientKey = strData;
 		}
-		strSsapClientKey = strData;
 		SsapLaunch();
 	});
 
@@ -354,47 +419,61 @@ if(bOverlay){
 										}
 										var mMessage = JSON.parse(bufData.toString("utf8"));
 										LogIfDebug("Ssap data text", mMessage);
-										switch(mMessage.id) {
-											case "0":
-												switch(mMessage.type) {
-													case "registered":
-														strSsapClientKey = mMessage.payload["client-key"];
-														Fs.writeFile("./SsapClientKey", strSsapClientKey, { encoding: "utf8" }, function(eError) {
-															if(eError) {
-																ConsoleError("writeFile error [", eError, "]");
-															}
-														});
-														socSsap.write(FrameData(JSON.stringify({
-															type: "subscribe",
-															uri: "ssap://com.webos.applicationManager/getForegroundAppInfo",
-															id: "1",
-															payload: {}
-														}), true, false, false, false, 0x1, 0), "binary");
-														break;
-												}
+										switch(mMessage.type) {
+											case "hello":
+												socSsap.write(FrameData(JSON.stringify({
+													type: "register",
+													id: uiSsapId++,
+													payload: strSsapClientKey === null ? {
+														pairingType: "PROMPT",
+														manifest: {
+															permissions: [
+																"READ_RUNNING_APPS"
+															]
+														}
+													} : {
+														pairingType: "PROMPT",
+														manifest: {
+															permissions: [
+																"READ_RUNNING_APPS"
+															]
+														},
+														"client-key": strSsapClientKey
+													}
+												}), true, false, false, false, 0x1, 0), "binary");
 												break;
-											case "1":
-												switch(mMessage.type) {
-													case "response":
-														switch(mMessage.payload.appId) {
-															case strInputAppId:
-																LogIfDebug("Get foreground app info launch");
-																bApp = true;
-																serService.call("luna://com.webos.applicationManager/launch", {
-																	id: strAppId
+											case "registered":
+												strSsapClientKey = mMessage.payload["client-key"];
+												Fs.writeFile("./SsapClientKey", strSsapClientKey, { encoding: "utf8" }, function(eError) {
+													if(eError) {
+														ConsoleError("writeFile error [", eError, "]");
+													}
+												});
+												socSsap.write(FrameData(JSON.stringify({
+													type: "subscribe",
+													uri: "ssap://com.webos.applicationManager/getForegroundAppInfo",
+													id: uiSsapId++,
+													payload: {}
+												}), true, false, false, false, 0x1, 0), "binary");
+												break;
+											case "response":
+												switch(mMessage.payload.appId) {
+													case strInputAppId:
+														LogIfDebug("Get foreground app info launch");
+														bApp = true;
+														serService.call("luna://com.webos.applicationManager/launch", {
+															id: strAppId
+														});
+														break;
+													default:
+														if(bApp) {
+															LogIfDebug("Get foreground app info close");
+															bApp = false;
+															for(var uniqueToken in dClose) {
+																dClose[uniqueToken].respond({
+																	returnValue: true
 																});
-																break;
-															default:
-																if(bApp) {
-																	LogIfDebug("Get foreground app info close");
-																	bApp = false;
-																	for(var uniqueToken in dClose) {
-																		dClose[uniqueToken].respond({
-																			returnValue: true
-																		});
-																	} 
-																}
-																break;
+															} 
 														}
 														break;
 												}
@@ -426,25 +505,21 @@ if(bOverlay){
 						Error("data error [", eError, "]");
 					}
 				});
-				LogIfDebug("Ssap open");
 				try{
 					socSsap.write(FrameData(JSON.stringify({
-						type: "register",
-						id: "0",
+						type: "hello",
+						id: uiSsapId++,
 						payload: {
-							forcePairing: false,
-							pairingType: "PROMPT",
-							manifest: {
-								permissions: [
-									"READ_RUNNING_APPS"
-								]
-							},
-							"client-key": strSsapClientKey
+							deviceType: "tv",
+							deviceOS: "webOS",
+							appId: strAppId,
+							appName: "MagicRemoteService"
 						}
 					}), true, false, false, false, 0x1, 0), "binary");
 				} catch(eError) {
 					Error("Ssap open error [", eError, "]");
 				}
+				LogIfDebug("Ssap open");
 			}
 		});
 	}
@@ -542,29 +617,28 @@ if(bOverlay){
 }
 
 if(bExtend){
-	var dExtend = {};
 	var metExtend = serService.register("extend");
 	metExtend.on("request", function(mMessage) {
 		try {
-			if (mMessage.isSubscription) {
-				dExtend[mMessage.uniqueToken] = mMessage;
-				mMessage.respond({
-					subscribed: true,
-					returnValue: true
-				});
-			} else {
-				LogIfDebug("Auto extend callback");
-				serService.call("luna://com.webos.applicationManager/launch", {
-					id: "com.palmdts.devmode",
-					params: {
-						extend: true
-					}
-				});
-				CreateAutoExtend();
-				mMessage.respond({
-					returnValue: true
-				});
+			LogIfDebug("Auto extend callback");
+			switch(mMessage.activity.completed) {
+				case true:
+					ConsoleLog("Auto extend create callback");
+					serService.call("luna://com.webos.applicationManager/launch", {
+						id: "com.palmdts.devmode",
+						params: {
+							extend: true
+						}
+					});
+					CreateAutoExtend();
+					break;
+				default:
+					ConsoleLog("Auto extend adopt callback");
+					break;
 			}
+			mMessage.respond({
+				returnValue: true
+			});
 		} catch(eError) {
 			mMessage.respond({
 				errorCode: "1",
@@ -573,9 +647,7 @@ if(bExtend){
 			});
 		}
 	}); 
-	metExtend.on("cancel", function(mMessage) { 
-		delete dExtend[mMessage.uniqueToken]; 
-	});
+	
 	function CreateAutoExtend() {
 		serService.call("luna://com.palm.activitymanager/create", {
 			activity: {
@@ -588,8 +660,7 @@ if(bExtend){
 				}, schedule: {
 					interval: "28d00h00m00s"
 				}, callback: {
-					method: "luna://" + strAppId + ".service/extend",
-					params: {}
+					method: "luna://" + strAppId + ".service/extend"
 				}
 			},
 			start: true,
@@ -597,7 +668,7 @@ if(bExtend){
 		}, function(mMessage) {
 			try {
 				if(mMessage.payload.returnValue) {
-					LogIfDebug("Create auto extend");
+					ConsoleLog("Create auto extend");
 					AdoptAutoExtend();
 				} else {
 					Error("Create auto extend response error [", mMessage.payload.errorText, "]");
@@ -607,8 +678,9 @@ if(bExtend){
 			}
 		});
 	}
+	var subAutoExtend = null;
 	function AdoptAutoExtend(){
-		var subAutoExtend = serService.subscribe("luna://com.palm.activitymanager/adopt", {
+		subAutoExtend = serService.subscribe("luna://com.palm.activitymanager/adopt", {
 			activityName: "MagicRemoteServiceAutoExtend",
 			wait: true,
 			subscribe: true,
@@ -619,10 +691,10 @@ if(bExtend){
 				if(mMessage.payload.returnValue) {
 					switch(mMessage.payload.event) {
 						case undefined:
-							LogIfDebug("Subscribe auto extend");
+							ConsoleLog("Subscribe auto extend");
 							break;
 						case "start":
-							LogIfDebug("Subscribe auto extend start");
+							ConsoleLog("Subscribe auto extend start");
 							serService.call("luna://com.webos.applicationManager/launch", {
 								id: "com.palmdts.devmode",
 								params: {
@@ -630,12 +702,15 @@ if(bExtend){
 								}
 							});
 							serService.call("luna://com.palm.activitymanager/complete", {
-								activityId: mMessage.payload.activityId,
-								restart: true
+								activityId: mMessage.payload.activityId
 							});
 							break;
+						case "complete":
+							ConsoleLog("Subscribe auto extend complete");
+							CreateAutoExtend();
+							break;
 						default:
-							LogIfDebug("Subscribe auto extend ", mMessage.payload.event);
+							ConsoleLog("Subscribe auto extend ", mMessage.payload.event);
 							break;
 					}
 				} else {
@@ -647,15 +722,22 @@ if(bExtend){
 							Error("Subscribe auto extend response error [", mMessage.payload.errorText, "]");
 							break;
 					}
+
 				}
 			} catch(eError) {
 				Error("Subscribe auto extend response error [", eError, "]");
 			}
 		});
 	}
-	AdoptAutoExtend();
+	if (subAutoExtend === null) {
+		AdoptAutoExtend();
+	}
+
 } else {
 	serService.call("luna://com.palm.activitymanager/cancel", {
 		activityName: "MagicRemoteServiceAutoExtend"
 	});
+}
+} catch(eError) {
+	Error("General error [", eError, "]");
 }

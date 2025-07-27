@@ -230,10 +230,10 @@
     <value>The TV has not been selected</value>
   </data>
   <data name="webOSTV" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\TV\MagicRemoteService\webOSTVjs-1.2.12\webOSTV.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="webOSTV_dev" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TV\MagicRemoteService\webOSTVjs-1.2.10\webOSTV-dev.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\Resources\TV\MagicRemoteService\webOSTVjs-1.2.12\webOSTV-dev.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="MuseoSans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\MuseoSans-Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -300,5 +300,14 @@
   </data>
   <data name="SettingTVInspectErrorTittle" xml:space="preserve">
     <value>Error while inspecting running application on TV</value>
+  </data>
+  <data name="BindActionValueDisplayDefault" xml:space="preserve">
+    <value>Default display</value>
+  </data>
+  <data name="BindActionValueDisplayNext" xml:space="preserve">
+    <value>Next display</value>
+  </data>
+  <data name="BindActionValueDisplayPrevious" xml:space="preserve">
+    <value>Previous display</value>
   </data>
 </root>

@@ -68,7 +68,10 @@ const MessageType = {
 	Visible: 0x02,
 	Key: 0x03,
 	Unicode: 0x04,
-	Shutdown: 0x05
+	Shutdown: 0x05,
+	DisplayDefault: 0x06,
+	DisplayNext: 0x07,
+	DisplayPrevious: 0x08
 }
 
 const bInputDirect = true;
@@ -839,6 +842,15 @@ function SocketOpen() {
 						deKeyboard.focus();
 					}
 					break;
+				case 0x03:
+					SendDisplayDefault();
+					break;
+				case 0x04:
+					SendDisplayNext();
+					break;
+				case 0x05:
+					SendDisplayPrevious();
+					break;
 				default:
 					Error(oString.strActionUnprocessed);
 			}
@@ -993,6 +1005,48 @@ function SendShutdown() {
 			LogIfDebug(oString.strSendShutdownSuccess + " [0x" + bufShutdown.toString(16) + "]@" + strIP + ":" + uiPort);
 		} catch(eError) {
 			Error(oString.strSendShutdownFailure + " [", eError, "]@" + strIP + ":" + uiPort);
+		}
+	}
+}
+
+var bufDisplayDefault = new ArrayBuffer(1);
+var dwDisplayDefault = new DataView(bufDisplayDefault);
+dwDisplayDefault.setUint8(0, MessageType.DisplayDefault);
+function SendDisplayDefault() {
+	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
+		try {
+			socClient.send(bufDisplayDefault);
+			LogIfDebug(oString.strSendDisplayDefaultSuccess + " [0x" + bufDisplayDefault.toString(16) + "]@" + strIP + ":" + uiPort);
+		} catch(eError) {
+			Error(oString.strSendDisplayDefaultFailure + " [", eError, "]@" + strIP + ":" + uiPort);
+		}
+	}
+}
+
+var bufDisplayNext = new ArrayBuffer(1);
+var dwDisplayNext = new DataView(bufDisplayNext);
+dwDisplayNext.setUint8(0, MessageType.DisplayNext);
+function SendDisplayNext() {
+	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
+		try {
+			socClient.send(bufDisplayNext);
+			LogIfDebug(oString.strSendDisplayNextSuccess + " [0x" + bufDisplayNext.toString(16) + "]@" + strIP + ":" + uiPort);
+		} catch(eError) {
+			Error(oString.strSendDisplayNextFailure + " [", eError, "]@" + strIP + ":" + uiPort);
+		}
+	}
+}
+
+var bufDisplayPrevious = new ArrayBuffer(1);
+var dwDisplayPrevious = new DataView(bufDisplayPrevious);
+dwDisplayPrevious.setUint8(0, MessageType.DisplayPrevious);
+function SendDisplayPrevious() {
+	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
+		try {
+			socClient.send(bufDisplayPrevious);
+			LogIfDebug(oString.strSendDisplayPreviousSuccess + " [0x" + bufDisplayPrevious.toString(16) + "]@" + strIP + ":" + uiPort);
+		} catch(eError) {
+			Error(oString.strSendDisplayPreviousFailure + " [", eError, "]@" + strIP + ":" + uiPort);
 		}
 	}
 }
