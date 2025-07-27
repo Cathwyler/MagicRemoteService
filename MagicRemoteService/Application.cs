@@ -11,7 +11,7 @@ namespace MagicRemoteService {
 		}
 	}
 	public class PowerSettingNotification : System.Windows.Forms.Control {
-		private System.IntPtr hNotification;
+		private readonly System.IntPtr hNotification;
 		public event NotificationArrivedEventHandler NotificationArrived;
 
 		public delegate void NotificationArrivedEventHandler(WinApi.PowerBroadcastSetting pbs);
@@ -44,8 +44,8 @@ namespace MagicRemoteService {
 		private static readonly MagicRemoteService.PowerSettingNotification psnPowerSettingNotification = new MagicRemoteService.PowerSettingNotification();
 		public static event MagicRemoteService.PowerSettingNotification.NotificationArrivedEventHandler PowerSettingNotificationArrived;
 		
-		private MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
-		private System.Windows.Forms.NotifyIcon niIcon;
+		private readonly MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
+		private readonly System.Windows.Forms.NotifyIcon niIcon;
 		private MagicRemoteService.Setting sSetting;
 		static Application() {
 			MagicRemoteService.Application.psnPowerSettingNotification.NotificationArrived += MagicRemoteService.Application.OnPowerSettingNotification;

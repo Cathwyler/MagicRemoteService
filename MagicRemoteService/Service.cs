@@ -30,7 +30,7 @@ namespace MagicRemoteService {
 		private volatile int iTimeoutInactivity;
 		private volatile bool bVideoInput;
 		private volatile int iTimeoutVideoInput;
-		private volatile System.Collections.Generic.Dictionary<ushort, Bind[]> dBind = new System.Collections.Generic.Dictionary<ushort, Bind[]>() {
+		private readonly System.Collections.Generic.Dictionary<ushort, Bind[]> dBind = new System.Collections.Generic.Dictionary<ushort, Bind[]>() {
 			{ 0x0001, null },
 			{ 0x0002, null },
 			{ 0x0008, null },
@@ -63,14 +63,13 @@ namespace MagicRemoteService {
 			{ 0x019D, null }
 		};
 
-		private static System.Diagnostics.EventLog elEventLog = new System.Diagnostics.EventLog("Application", ".", "MagicRemoteService");
+		private static readonly System.Diagnostics.EventLog elEventLog = new System.Diagnostics.EventLog("Application", ".", "MagicRemoteService");
 
 		private System.Threading.Thread thrServer;
-		private WinApi.ServiceCurrentState scsState;
 		private ServiceType stType;
 
-		private static System.Threading.ManualResetEvent mreStop = new System.Threading.ManualResetEvent(true);
-		private static System.Threading.AutoResetEvent areSessionChanged = new System.Threading.AutoResetEvent(false);
+		private static readonly System.Threading.ManualResetEvent mreStop = new System.Threading.ManualResetEvent(true);
+		private static readonly System.Threading.AutoResetEvent areSessionChanged = new System.Threading.AutoResetEvent(false);
 		private static System.Threading.EventWaitHandle ewhServerStarted;
 		private static System.Threading.EventWaitHandle ewhClientStarted;
 		private static System.Threading.EventWaitHandle ewhSessionChanged;
@@ -78,16 +77,6 @@ namespace MagicRemoteService {
 		private static System.Threading.EventWaitHandle ewhServerMessage;
 		private static System.Threading.EventWaitHandle ewhServerDisconnecting;
 
-		public WinApi.ServiceCurrentState State {
-			get {
-				return this.scsState;
-			}
-		}
-		public ServiceType Type {
-			get {
-				return this.stType;
-			}
-		}
 		private static readonly byte[] tabClose = { (0b1000 << 4) | (0x8 << 0), 0x00 };
 		private static readonly byte[] tabPing = { (0b1000 << 4) | (0x9 << 0), 0x00 };
 		private static readonly byte[] tabPingUserInput = { (0b1000 << 4) | (0x9 << 0), 0x01, 0x01 };
@@ -127,7 +116,6 @@ namespace MagicRemoteService {
 					Service.Log("Service client start");
 					break;
 			}
-			this.scsState = WinApi.ServiceCurrentState.SERVICE_START_PENDING;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_START_PENDING;
@@ -139,74 +127,91 @@ namespace MagicRemoteService {
 					break;
 			}
 			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService");
-			if(rkMagicRemoteService == null) {
-				this.iPort = 41230;
-				this.bInactivity = true;
-				this.iTimeoutInactivity = 7200000;
-				this.bVideoInput = true;
-				this.iTimeoutVideoInput = 900000;
-			} else {
-				this.iPort = (int)rkMagicRemoteService.GetValue("Port", 41230);
-				this.bInactivity = (int)rkMagicRemoteService.GetValue("Inactivity", 1) != 0;
-				this.iTimeoutInactivity = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
-				this.bVideoInput = (int)rkMagicRemoteService.GetValue("VideoInput", 1) != 0;
-				this.iTimeoutVideoInput = (int)rkMagicRemoteService.GetValue("TimeoutVideoInput", 900000);
+			switch(this.stType) {
+				case ServiceType.Server:
+				case ServiceType.Both:
+					if(rkMagicRemoteService == null) {
+						this.iPort = 41230;
+					} else {
+						this.iPort = (int)rkMagicRemoteService.GetValue("Port", 41230);
+					}
+					break;
+				case ServiceType.Client:
+					break;
 			}
-			Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Remote\Bind");
-			if(rkMagicRemoteServiceRemoteBind == null) {
-				this.dBind[0x0001] = new Bind[] { new BindMouse(BindMouseValue.Left) };
-				this.dBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };
-				this.dBind[0x0008] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
-				this.dBind[0x000D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
-				this.dBind[0x0021] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.C, 0x2E, false) };
-				this.dBind[0x0022] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.V, 0x2F, false) };
-				this.dBind[0x0025] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
-				this.dBind[0x0026] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
-				this.dBind[0x0027] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
-				this.dBind[0x0028] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };
-				this.dBind[0x0030] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad0, 0x52, false) };
-				this.dBind[0x0031] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad1, 0x4F, false) };
-				this.dBind[0x0032] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad2, 0x50, false) };
-				this.dBind[0x0033] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad3, 0x51, false) };
-				this.dBind[0x0034] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad4, 0x4B, false) };
-				this.dBind[0x0035] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad5, 0x4C, false) };
-				this.dBind[0x0036] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad6, 0x4D, false) };
-				this.dBind[0x0037] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad7, 0x47, false) };
-				this.dBind[0x0038] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad8, 0x48, false) };
-				this.dBind[0x0039] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad9, 0x49, false) };
-				this.dBind[0x0193] = new Bind[] { new BindAction(BindActionValue.Shutdown) };
-				this.dBind[0x0194] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };
-				this.dBind[0x0195] = new Bind[] { new BindMouse(BindMouseValue.Right) };
-				this.dBind[0x0196] = new Bind[] { new BindAction(BindActionValue.Keyboard) };
-				this.dBind[0x01CD] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };
-				this.dBind[0x019F] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };
-				this.dBind[0x0013] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };
-				this.dBind[0x01A1] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };
-				this.dBind[0x019C] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };
-				this.dBind[0x019D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };
-			} else {
-				foreach(string sKey in rkMagicRemoteServiceRemoteBind.GetSubKeyNames()) {
-					System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBindKey = rkMagicRemoteServiceRemoteBind.OpenSubKey(sKey);
-					foreach(string sBind in rkMagicRemoteServiceRemoteBindKey.GetSubKeyNames()) {
-						Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBindBind = rkMagicRemoteServiceRemoteBindKey.OpenSubKey(sBind);
-						switch((int)rkMagicRemoteServiceRemoteBindBind.GetValue("Kind")) {
-							case 0x00:
-								liBind.Add(new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("Value", 0x0000)));
-								break;
-							case 0x01:
-								liBind.Add(new BindKeyboard((byte)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("VirtualKey", 0x00), (byte)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("ScanCode", 0x00), (int)rkMagicRemoteServiceRemoteBindBind.GetValue("Extended", 0x00) == 0x01));
-								break;
-							case 0x02:
-								liBind.Add(new BindAction((BindActionValue)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("Value", 0x00)));
-								break;
-							case 0x03:
-								liBind.Add(new BindCommand((string)rkMagicRemoteServiceRemoteBindBind.GetValue("Command")));
-								break;
+			switch(this.stType) {
+				case ServiceType.Server:
+					break;
+				case ServiceType.Both:
+				case ServiceType.Client:
+					if(rkMagicRemoteService == null) {
+						this.bInactivity = true;
+						this.iTimeoutInactivity = 7200000;
+						this.bVideoInput = true;
+						this.iTimeoutVideoInput = 900000;
+					} else {
+						this.bInactivity = (int)rkMagicRemoteService.GetValue("Inactivity", 1) != 0;
+						this.iTimeoutInactivity = (int)rkMagicRemoteService.GetValue("TimeoutInactivity", 7200000);
+						this.bVideoInput = (int)rkMagicRemoteService.GetValue("VideoInput", 1) != 0;
+						this.iTimeoutVideoInput = (int)rkMagicRemoteService.GetValue("TimeoutVideoInput", 900000);
+					}
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBind = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Remote\Bind");
+					if(rkMagicRemoteServiceRemoteBind == null) {
+						this.dBind[0x0001] = new Bind[] { new BindMouse(BindMouseValue.Left) };
+						this.dBind[0x0002] = new Bind[] { new BindMouse(BindMouseValue.Right) };
+						this.dBind[0x0008] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Back, 0x0E, false) };
+						this.dBind[0x000D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Enter, 0x1C, false) };
+						this.dBind[0x0021] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.C, 0x2E, false) };
+						this.dBind[0x0022] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.ControlKey, 0x1D, false), new BindKeyboard((byte)System.Windows.Forms.Keys.V, 0x2F, false) };
+						this.dBind[0x0025] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Left, 0x4B, true) };
+						this.dBind[0x0026] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Up, 0x48, true) };
+						this.dBind[0x0027] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Right, 0x4D, true) };
+						this.dBind[0x0028] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Down, 0x50, true) };
+						this.dBind[0x0030] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad0, 0x52, false) };
+						this.dBind[0x0031] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad1, 0x4F, false) };
+						this.dBind[0x0032] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad2, 0x50, false) };
+						this.dBind[0x0033] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad3, 0x51, false) };
+						this.dBind[0x0034] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad4, 0x4B, false) };
+						this.dBind[0x0035] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad5, 0x4C, false) };
+						this.dBind[0x0036] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad6, 0x4D, false) };
+						this.dBind[0x0037] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad7, 0x47, false) };
+						this.dBind[0x0038] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad8, 0x48, false) };
+						this.dBind[0x0039] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.NumPad9, 0x49, false) };
+						this.dBind[0x0193] = new Bind[] { new BindAction(BindActionValue.Shutdown) };
+						this.dBind[0x0194] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.LWin, 0x5B, true) };
+						this.dBind[0x0195] = new Bind[] { new BindMouse(BindMouseValue.Right) };
+						this.dBind[0x0196] = new Bind[] { new BindAction(BindActionValue.Keyboard) };
+						this.dBind[0x01CD] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Escape, 0x01, false) };
+						this.dBind[0x019F] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Play, 0x00, false) };
+						this.dBind[0x0013] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.Pause, 0x00, false) };
+						this.dBind[0x01A1] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaNextTrack, 0x00, false) };
+						this.dBind[0x019C] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaPreviousTrack, 0x00, false) };
+						this.dBind[0x019D] = new Bind[] { new BindKeyboard((byte)System.Windows.Forms.Keys.MediaStop, 0x00, false) };
+					} else {
+						foreach(string sKey in rkMagicRemoteServiceRemoteBind.GetSubKeyNames()) {
+							System.Collections.Generic.List<Bind> liBind = new System.Collections.Generic.List<Bind>();
+							Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBindKey = rkMagicRemoteServiceRemoteBind.OpenSubKey(sKey);
+							foreach(string sBind in rkMagicRemoteServiceRemoteBindKey.GetSubKeyNames()) {
+								Microsoft.Win32.RegistryKey rkMagicRemoteServiceRemoteBindBind = rkMagicRemoteServiceRemoteBindKey.OpenSubKey(sBind);
+								switch((int)rkMagicRemoteServiceRemoteBindBind.GetValue("Kind")) {
+									case 0x00:
+										liBind.Add(new BindMouse((BindMouseValue)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("Value", 0x0000)));
+										break;
+									case 0x01:
+										liBind.Add(new BindKeyboard((byte)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("VirtualKey", 0x00), (byte)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("ScanCode", 0x00), (int)rkMagicRemoteServiceRemoteBindBind.GetValue("Extended", 0x00) == 0x01));
+										break;
+									case 0x02:
+										liBind.Add(new BindAction((BindActionValue)(int)rkMagicRemoteServiceRemoteBindBind.GetValue("Value", 0x00)));
+										break;
+									case 0x03:
+										liBind.Add(new BindCommand((string)rkMagicRemoteServiceRemoteBindBind.GetValue("Command")));
+										break;
+								}
+							}
+							this.dBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = liBind.ToArray();
 						}
 					}
-					this.dBind[ushort.Parse(sKey.Substring(2), System.Globalization.NumberStyles.HexNumber)] = liBind.ToArray();
-				}
+					break;
 			}
 			switch(this.stType) {
 				case ServiceType.Server:
@@ -234,7 +239,6 @@ namespace MagicRemoteService {
 					Service.Log("Service client started");
 					break;
 			}
-			this.scsState = WinApi.ServiceCurrentState.SERVICE_RUNNING;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_RUNNING;
@@ -259,7 +263,6 @@ namespace MagicRemoteService {
 					Service.Log("Service client stop");
 					break;
 			}
-			this.scsState = WinApi.ServiceCurrentState.SERVICE_STOP_PENDING;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_STOP_PENDING;
@@ -294,7 +297,6 @@ namespace MagicRemoteService {
 					Service.Log("Service client stoped");
 					break;
 			}
-			this.scsState = WinApi.ServiceCurrentState.SERVICE_STOPPED;
 			switch(this.stType) {
 				case ServiceType.Server:
 					ssServiceStatus.dwCurrentState = WinApi.ServiceCurrentState.SERVICE_STOPPED;
@@ -311,6 +313,7 @@ namespace MagicRemoteService {
 				case ServiceType.Client:
 					break;
 			}
+
 			Service.ewhServerStarted.Close();
 			Service.ewhServerStarted.Dispose();
 			Service.ewhClientStarted.Close();
@@ -434,7 +437,7 @@ namespace MagicRemoteService {
 		}
 		private void ThreadServer() {
 			System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
+				
 			try {
 				switch(this.stType) {
 					case ServiceType.Server:
@@ -587,6 +590,7 @@ namespace MagicRemoteService {
 								case 0:
 									break;
 								case 1:
+									Service.mreStop.Set();
 									System.Threading.Tasks.Task.Run(delegate () {
 										this.ServiceStop();
 										this.ServiceStart();
@@ -642,12 +646,14 @@ namespace MagicRemoteService {
 								case 0:
 									break;
 								case 1:
+									Service.mreStop.Set();
 									System.Threading.Tasks.Task.Run(delegate () {
 										this.ServiceStop();
 										System.Windows.Forms.Application.Exit();
 									});
 									break;
 								case 2:
+									Service.mreStop.Set();
 									if(!(System.Array.IndexOf<string>(System.Environment.GetCommandLineArgs(), "-c") < 0) && System.Windows.Forms.Application.OpenForms.Count == 0) {
 										System.Threading.Tasks.Task.Run(delegate () {
 											this.ServiceStop();
@@ -1042,10 +1048,11 @@ namespace MagicRemoteService {
 					default:
 						throw new System.Exception("Unmanaged handle error");
 				}
-				while(!Service.mreStop.WaitOne(System.TimeSpan.Zero) && !mreClientStop.WaitOne(System.TimeSpan.Zero)) {
+				while(!mreClientStop.WaitOne(System.TimeSpan.Zero)) {
 					switch(System.Threading.WaitHandle.WaitAny(tabEvent, -1, true)) {
 						case 0:
 							socClient.Send(Service.tabClose);
+							mreClientStop.Set();
 							break;
 						case 1:
 							break;

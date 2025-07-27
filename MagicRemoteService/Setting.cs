@@ -19,9 +19,9 @@ namespace MagicRemoteService {
 			MagicRemoteService.Setting.paMacDefaut = new MagicRemoteService.PhysicalAddress(niDefaut.GetPhysicalAddress());
 		}
 
-		private MagicRemoteService.Service mrsService;
+		private readonly MagicRemoteService.Service mrsService;
 
-		private System.Collections.Generic.Dictionary<ushort, BindControl> dBindControl;
+		private readonly System.Collections.Generic.Dictionary<ushort, BindControl> dBindControl;
 
 		private decimal dListenPort;
 		private bool bInactivity;
@@ -41,7 +41,7 @@ namespace MagicRemoteService {
 		private bool bOverlay;
 		private bool bExtend;
 
-		private System.Collections.Generic.Dictionary<ushort, Bind[]> dBind = new System.Collections.Generic.Dictionary<ushort, Bind[]>() {
+		private readonly System.Collections.Generic.Dictionary<ushort, Bind[]> dBind = new System.Collections.Generic.Dictionary<ushort, Bind[]>() {
 			{ 0x0001, null },
 			{ 0x0002, null },
 			{ 0x0008, null },
@@ -209,6 +209,7 @@ namespace MagicRemoteService {
 				});
 				if(scService != null) {
 					scService.Start();
+					scService.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
 				}
 			} else {
 				TaskScheduler.ITaskService ts = (TaskScheduler.ITaskService)System.Activator.CreateInstance(System.Type.GetTypeFromProgID("Schedule.Service"));
@@ -531,13 +532,9 @@ namespace MagicRemoteService {
 			string strErrorInfo = null;
 			if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 				try {
-					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
-						this.mrsService.ServiceStop();
-					}
+					this.mrsService.ServiceStop();
 					this.PCDataSave();
-					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
-						this.mrsService.ServiceStart();
-					}
+					this.mrsService.ServiceStart();
 					return true;
 				} catch(System.Exception ex) {
 					strError = MagicRemoteService.Properties.Resources.SettingPCSaveErrorTittle;
@@ -778,13 +775,9 @@ namespace MagicRemoteService {
 			string strErrorInfo = null;
 			if(!await System.Threading.Tasks.Task.Run<bool>(delegate () {
 				try {
-					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
-						this.mrsService.ServiceStop();
-					}
+					this.mrsService.ServiceStop();
 					this.RemoteDataSave();
-					if(this.mrsService.Type == MagicRemoteService.ServiceType.Both) {
-						this.mrsService.ServiceStart();
-					}
+					this.mrsService.ServiceStart();
 					return true;
 				} catch(System.Exception ex) {
 					strError = MagicRemoteService.Properties.Resources.SettingRemoteSaveErrorTittle;
