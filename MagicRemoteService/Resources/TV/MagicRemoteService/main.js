@@ -28,13 +28,13 @@ Object.prototype.spread = function(o) {
 Object.prototype.toString = function() {
 	const arrAncestor = [];
 	return JSON.stringify(this, function(k, o) {
-		if (typeof o !== "object" || o === null) {
+		if(typeof o !== "object" || o === null) {
 			return o;
 		} else {
-			while (arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
+			while(arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
 				arrAncestor.pop();
 			}
-			if (arrAncestor.indexOf(o) !== -1 ) {
+			if(arrAncestor.indexOf(o) !== -1 ) {
 				return "[Circular]";
 			}
 			arrAncestor.push(o);
@@ -65,13 +65,9 @@ const bDebug = false;
 const MessageType = {
 	Position: 0x00,
 	Wheel: 0x01,
-	Visible: 0x02,
-	Key: 0x03,
-	Unicode: 0x04,
-	Shutdown: 0x05,
-	DisplayDefault: 0x06,
-	DisplayNext: 0x07,
-	DisplayPrevious: 0x08
+	Key: 0x02,
+	Unicode: 0x03,
+	Shutdown: 0x04
 }
 
 const bInputDirect = true;
@@ -91,6 +87,10 @@ const strBroadcast = strIP.split(".").map(function(x, i) {
 const arrMac = strMac.split(":").map(function(x) {
 	return parseInt(x, 16);
 });
+const aSensor = {
+	dMax: 50,
+	dFactor: 3,
+}
 const strAppId = "com.cathwyler.magicremoteservice";
 
 const strPath = webOS.fetchAppRootPath();
@@ -101,6 +101,7 @@ var deKeyboard = document.getElementById("keyboard");
 var deVideo = document.getElementById("video");
 
 function Toast(strTitle, strMessage) {
+	CursorShowCountIf0();
 	var deScreenToast = document.createElement("div");
 	deScreenToast.className = "screen flex justify-center align-flex-end";
 	var deToast = document.createElement("div");
@@ -126,6 +127,7 @@ function Toast(strTitle, strMessage) {
 }
 
 function Dialog(strTitle, strMessage, arrButton) {
+	CursorShowCountIf0();
 	var deScreenDialog = document.createElement("div");
 	deScreenDialog.className = "screen flex justify-center align-center";
 	var deDialog = document.createElement("div");
@@ -147,7 +149,7 @@ function Dialog(strTitle, strMessage, arrButton) {
 		dePopupButton.className = "button flex justify-flex-end align-center";
 		arrButton.forEach(function(bButton) {
 			var deButton = document.createElement("button");
-			deButton.innerText = bButton.sName;
+			deButton.innerText = bButton.strName;
 			deButton.addEventListener("click", function() {
 				ScreenCancel(deScreenDialog);
 			});
@@ -167,6 +169,7 @@ function ScreenExist(deScreen) {
 
 function ScreenCancel(deScreen) {
 	document.body.removeChild(deScreen);
+	CursorHideCountIf0();
 }
 
 var deScreenToast = null;
@@ -176,7 +179,7 @@ function Log() {
 		ScreenCancel(deScreenToast);
 	}
 	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
+		if(typeof o !== "object" || o === null) {
 			return x;
 		} else {
 			return x.toString();
@@ -197,7 +200,7 @@ function Warn() {
 		ScreenCancel(deScreenToast);
 	}
 	deScreenToast = Toast(oString.strWarnTitle, Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
+		if(typeof o !== "object" || o === null) {
 			return x;
 		} else {
 			return x.toString();
@@ -211,7 +214,7 @@ function Error() {
 		ScreenCancel(deScreenToast);
 	}
 	deScreenToast = Toast(oString.strErrorTitle, Array.prototype.slice.call(arguments).map(function(x) {
-		if (typeof o !== "object" || o === null) {
+		if(typeof o !== "object" || o === null) {
 			return x;
 		} else {
 			return x.toString();
@@ -225,9 +228,21 @@ function AppFocus() {
 	return document.hasFocus() === true;
 };
 
-function CursorVisible() {};
-
-function KeyboardVisible() {};
+function CursorHide() {};
+function CursorShow() {};
+var iCursor = 1;
+function CursorHideCountIf0() {
+	iCursor--;
+	if (iCursor == 0) {
+		CursorHide();
+	}
+};
+function CursorShowCountIf0() {
+	if (iCursor == 0) {
+		CursorShow();
+	}
+	iCursor++;
+};
 
 var deScreenInput = null;
 var iIntervalWakeOnLan = 0;
@@ -263,7 +278,7 @@ if(bInputDirect){
 	InputDisconnected = function() {
 		deScreenInput = Dialog(oString.strAppTittle, oString.strInputDirectDisconnect, [
 			{
-				sName: oString.strInputDirectDisconnectStart,
+				strName: oString.strInputDirectDisconnectStart,
 				fAction: function() {
 					iIntervalWakeOnLan = startInterval(function() {
 						SendWol({
@@ -338,7 +353,7 @@ function SubscriptionScreenSaverRequest() {
 		onSuccess: function(inResponse) {
 			switch(inResponse.subscribed) {
 				case undefined:
-					if((AppVisible() && AppFocus())) {
+					if(AppVisible() && AppFocus() && iCursor == 0) {
 						webOS.service.request("luna://com.webos.service.tvpower", { 
 							method: "power/responseScreenSaverRequest", 
 							parameters: {
@@ -385,12 +400,16 @@ function SubscriptionScreenSaverRequest() {
 }
 
 var pCurrent = {
-	usX: 0,
-	usY: 0
+	dX: 960,
+	dY: 540,
+	sRoundX: 960,
+	sRoundY: 540,
+	sLastRoundX: 960,
+	sLastRoundY: 540,
 };
 var pDown = {
-	usX: 0,
-	usY: 0
+	dX: 0,
+	dY: 0,
 };
 var bPositionDownSent = false;
 var iTimeoutLongClick = 0;
@@ -409,8 +428,48 @@ function SubscriptionGetSensorData() {
 		onSuccess: function(inResponse) {
 			switch(inResponse.subscribed) {
 				case undefined:
-					if((AppVisible() && AppFocus())) {
-						if(iTimeoutLongClick && ((pDown.usX - inResponse.coordinate.x) > 3 || (pDown.usX - inResponse.coordinate.x) < -3 || (pDown.usY - inResponse.coordinate.y) > 3 || (pDown.usY - inResponse.coordinate.y) < -3)) {
+					if(AppVisible() && AppFocus() && iCursor == 0) {
+						var qSensor = {
+							w: inResponse.quaternion.q3,//Math.sqrt(1 - Math.pow(inResponse.quaternion.q1, 2)),
+							//x: inResponse.quaternion.q0,
+							y: inResponse.quaternion.q1//,
+							//z: inResponse.quaternion.q2
+						}
+						var rSensor = {
+							x: inResponse.gyroscope.x,
+							//y: inResponse.gyroscope.y,
+							z: inResponse.gyroscope.z
+						}
+						var mRotation = {
+							//r1c1: qSensor.w * qSensor.x,
+							r1c2: qSensor.w * qSensor.y,
+							//r1c3: qSensor.w * qSensor.z,
+							//r2c1: -qSensor.x * qSensor.x,
+							//r2c2: qSensor.x * qSensor.y,
+							//r2c3: qSensor.x * qSensor.z,
+							r3c1: -qSensor.y * qSensor.y//,
+							//r3c2: qSensor.y * qSensor.z,
+							//r3c3: -qSensor.z * qSensor.z
+						};
+						var rSensorRotation = {
+							x: (2 * (((mRotation.r3c1/* + mRotation.r3c3*/) * rSensor.x) + /*((mRotation.r2c2 - mRotation.r1c3) * rSensor.y) +*/ ((mRotation.r1c2/* + mRotation.r2c3*/) * rSensor.z))) + rSensor.x,
+							//y: (2 * (((mRotation.r1c3 + mRotation.r2c2) * rSensor.x) + ((mRotation.r2c1 + mRotation.r3c3) * rSensor.y) + ((mRotation.r3c2 - mRotation.r1c1) * rSensor.z))) + rSensor.y,
+							z: (2 * (((/*mRotation.r2c3*/ - mRotation.r1c2) * rSensor.x) + /*((mRotation.r1c1 + mRotation.r3c2) * rSensor.y) +*/ ((/*mRotation.r2c1 + */mRotation.r3c1) * rSensor.z))) + rSensor.z
+						}
+						
+						if(rSensorRotation.z > 0) {
+							pCurrent.dX += (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.z) / Math.tanh(rSensorRotation.z * aSensor.dFactor));
+						} else if(rSensorRotation.z < 0) {
+							pCurrent.dX -= (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.z) / Math.tanh(rSensorRotation.z * aSensor.dFactor));
+						}
+						
+						if(rSensorRotation.x > 0) {
+							pCurrent.dY += (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.x) / Math.tanh(rSensorRotation.x * aSensor.dFactor));
+						} else if(rSensorRotation.x < 0) {
+							pCurrent.dY -= (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.x) / Math.tanh(rSensorRotation.x * aSensor.dFactor));
+						}
+
+						if(iTimeoutLongClick && ((pDown.dX - pCurrent.dX) > 3 || (pDown.dX - pCurrent.dX) < -3 || (pDown.dY - pCurrent.dY) > 3 || (pDown.dY - pCurrent.dY) < -3)) {
 							clearTimeout(iTimeoutLongClick);
 							iTimeoutLongClick = 0;
 							SendKey({
@@ -419,22 +478,21 @@ function SubscriptionGetSensorData() {
 							});
 							bPositionDownSent = true;
 						}
-						pCurrent.usX = inResponse.coordinate.x;
-						pCurrent.usY = inResponse.coordinate.y;
-						SendPosition({
-							usX: inResponse.coordinate.x,
-							usY: inResponse.coordinate.y
-						});
+
+						pCurrent.sRoundX = Math.round(pCurrent.dX);
+						pCurrent.sRoundY = Math.round(pCurrent.dY);
+						if(pCurrent.sLastRoundX != pCurrent.sRoundX || pCurrent.sLastRoundY != pCurrent.sRoundY) {
+							SendPosition({
+								sX: pCurrent.sRoundX - pCurrent.sLastRoundX,
+								sY: pCurrent.sRoundY - pCurrent.sLastRoundY
+							});
+							pCurrent.sLastRoundX = pCurrent.sRoundX;
+							pCurrent.sLastRoundY = pCurrent.sRoundY;
+						}
 					}
 					break;
 				case true:
 					LogIfDebug(oString.strGetSensorDataSubscribe);
-					if(arrVersion[0] > 2) {
-					} else {
-						CursorVisible = function() {
-							return true;
-						};
-					}
 					break;
 				default:
 					Error(oString.strGetSensorDataFailure);
@@ -446,14 +504,8 @@ function SubscriptionGetSensorData() {
 				case "1301":
 					LogIfDebug(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
 					if(arrVersion[0] > 2) {
-					} else {
-						CursorVisible = function() {
-							return false;
-						};
-					}
-					if(arrVersion[0] > 2) {
 						document.oneEventListener("cursorStateChange", function(inEvent) {
-							if(CursorVisible()) {
+							if(inEvent.detail.visibility) {
 								SubscriptionGetSensorData();
 								return true;
 							} else {
@@ -486,10 +538,10 @@ function LaunchInput() {
 		parameters: {
 			id: strInputAppId
 		},
-		onSuccess: function (inResponse) {
+		onSuccess: function(inResponse) {
 			LogIfDebug(oString.strLaunchSuccess);
 		},
-		onFailure: function (inError) {
+		onFailure: function(inError) {
 			Error(oString.strLaunchFailure + " [", inError.errorText, "]");
 		},
 	});
@@ -501,7 +553,7 @@ function SubscriptionClose() {
 		parameters: {
 			subscribe: true
 		},
-		onSuccess: function (inResponse) {
+		onSuccess: function(inResponse) {
 			switch(inResponse.subscribed) {
 				case undefined:
 					window.close();
@@ -514,7 +566,7 @@ function SubscriptionClose() {
 					break;
 			}
 		},
-		onFailure: function (inError) {
+		onFailure: function(inError) {
 			Error(oString.strCloseFailure + " [", inError.errorText, "]");
 		},
 	});
@@ -526,7 +578,7 @@ function SubscriptionLog() {
 		parameters: {
 			subscribe: true
 		},
-		onSuccess: function (inResponse) {
+		onSuccess: function(inResponse) {
 			switch(inResponse.subscribed) {
 				case undefined:
 					switch(inResponse.log.iType){
@@ -561,7 +613,7 @@ function SubscriptionLog() {
 					break;
 			}
 		},
-		onFailure: function (inError) {
+		onFailure: function(inError) {
 			Error(oString.strLogFailure + " [", inError.errorText, "]");
 		},
 	});
@@ -582,8 +634,8 @@ function SubscriptionDomEvent() {
 					bS: false
 				});
 			}, uiLongClick);
-			pDown.usX = pCurrent.usX
-			pDown.usY = pCurrent.usY
+			pDown.dX = pCurrent.dX
+			pDown.dY = pCurrent.dY
 		}
 	});
 
@@ -643,86 +695,22 @@ function SubscriptionDomEvent() {
 		deKeyboard.value = "";
 	});
 
-	if(arrVersion[0] > 2) {
-		document.addEventListener("visibilitychange", function(inEvent) {
-			if(InputStatus()) {
-				if(AppVisible()) {
-					Open();
-				} else {
-					Close();
-				}
+	document.addEventListener(arrVersion[0] > 2 ? "visibilitychange" : "webkitvisibilitychange", function(inEvent) {
+		if(InputStatus()) {
+			if(AppVisible()) {
+				Open();
+			} else {
+				Close();
 			}
-		});
-	} else {
-		document.addEventListener("webkitvisibilitychange", function(inEvent) {
-			if(InputStatus()) {
-				if(AppVisible()) {
-					Open();
-				} else {
-					Close();
-				}
-			}
-		});
-	}
-
-	window.addEventListener("focus", function(inEvent) {
-		if(CursorVisible()) {
-			SendVisible({
-				bV: true
-			});
 		}
 	});
 
-	window.addEventListener("blur", function(inEvent) {
-		if(CursorVisible()) {
-			SendVisible({
-				bV: false
-			});
-		}
+	deKeyboard.addEventListener("focus", function(inEvent) {
+		CursorShowCountIf0();
 	});
-
-	if(arrVersion[0] > 2) {
-		document.addEventListener("cursorStateChange", function(inEvent) {
-			SendVisible({
-				bV: CursorVisible()
-			});
-		});
-	} else {
-		document.addEventListener("keydown", function(inEvent) {
-			switch(inEvent.keyCode) {
-				case 0x600:
-					CursorVisible = function() {
-						return true;
-					};
-					SendVisible({
-						bV: CursorVisible()
-					});
-					break;
-				case 0x601:
-					CursorVisible = function() {
-						return false;
-					};
-					SendVisible({
-						bV: CursorVisible()
-					});
-					break;
-			}
-		});
-	}
-
-	if(arrVersion[0] > 2) {
-	} else {
-		deKeyboard.addEventListener("focus", function(inEvent) {
-			KeyboardVisible = function() {
-				return true;
-			};
-		});
-		deKeyboard.addEventListener("blur", function(inEvent) {
-			KeyboardVisible = function() {
-				return false;
-			};
-		});
-	}
+	deKeyboard.addEventListener("blur", function(inEvent) {
+		CursorHideCountIf0();
+	});
 }
 
 var deScreenOpen = null;
@@ -768,7 +756,7 @@ if(bInputDirect){
 	SocketClosed = function() {
 		deScreenOpen = Dialog(oString.strAppTittle, oString.strSocketOpen, [
 			{
-				sName: oString.strSocketOpenStart,
+				strName: oString.strSocketOpenStart,
 				fAction: function() {
 					iIntervalWakeOnLan = startInterval(function() {
 						SendWol({
@@ -795,14 +783,11 @@ function SocketOpen() {
 		if(ScreenExist(deScreenOpen)) {
 			ScreenCancel(deScreenOpen);
 		}
-		if(CursorVisible() && AppVisible() && AppFocus()) {
-			SendVisible({
-				bV: true
-			});
-		}
+		CursorHideCountIf0();
 	};
 	socClient.onclose = function(e) {
 		LogIfDebug(oString.strSocketClosed);
+		CursorShowCountIf0();
 		if(socClient !== null && !iIntervalRetryOpen) {
 			SocketClosed();
 			iIntervalRetryOpen = setInterval(function() {
@@ -824,32 +809,23 @@ function SocketOpen() {
 					} else {
 						deScreenShutdown = Dialog(oString.strAppTittle, oString.strShutdownMessage, [
 							{
-								sName: oString.strShutdownShutdown,
+								strName: oString.strShutdownShutdown,
 								fAction: function() {
 									SendShutdown();
 								}
 							}, {
-								sName: oString.strShutdownAbort,
+								strName: oString.strShutdownAbort,
 								fAction: null
 							}
 						]);
 					}
 					break;
 				case 0x02:
-					if(KeyboardVisible()) {
+					if(document.activeElement === deKeyboard) {
 						deKeyboard.blur();
 					} else {
 						deKeyboard.focus();
 					}
-					break;
-				case 0x03:
-					SendDisplayDefault();
-					break;
-				case 0x04:
-					SendDisplayNext();
-					break;
-				case 0x05:
-					SendDisplayPrevious();
 					break;
 				default:
 					Error(oString.strActionUnprocessed);
@@ -887,15 +863,10 @@ function Close() {
 			clearInterval(iIntervalRetryOpen);
 			iIntervalRetryOpen = 0;
 		}
-		if(CursorVisible() && AppVisible() && AppFocus()) {
-			SendVisible({
-				bV: false
-			});
-		}
 		if(ScreenExist(deScreenShutdown)) {
 			ScreenCancel(deScreenShutdown);
 		}
-		if(KeyboardVisible()) {
+		if(document.activeElement === deKeyboard) {
 			deKeyboard.blur();
 		}
 		SocketClose();
@@ -924,8 +895,8 @@ dwPosition.setUint8(0, MessageType.Position);
 function SendPosition(pPosition) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
-			dwPosition.setUint16(1, pPosition.usX, true);
-			dwPosition.setUint16(3, pPosition.usY, true);
+			dwPosition.setInt16(1, pPosition.sX, true);
+			dwPosition.setInt16(3, pPosition.sY, true);
 			socClient.send(bufPosition);
 			LogIfDebug(oString.strSendPositionSuccess + " [0x" + bufPosition.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPosition);
 		} catch(eError) {
@@ -945,21 +916,6 @@ function SendWheel(wWheel) {
 			LogIfDebug(oString.strSendWheelSuccess + " [0x" + bufWheel.toString(16) + "]@" + strIP + ":" + uiPort + " ", wWheel);
 		} catch(eError) {
 			Error(oString.strSendWheelFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", wWheel);
-		}
-	}
-}
-
-var bufVisible = new ArrayBuffer(2);
-var dwVisible = new DataView(bufVisible);
-dwVisible.setUint8(0, MessageType.Visible);
-function SendVisible(vVisible) {
-	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
-		try {
-			dwVisible.setUint8(1, vVisible.bV);
-			socClient.send(bufVisible);
-			LogIfDebug(oString.strSendVisibleSuccess + " [0x" + bufVisible.toString(16) + "]@" + strIP + ":" + uiPort + " ", vVisible);
-		} catch(eError) {
-			Error(oString.strSendVisibleFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", vVisible);
 		}
 	}
 }
@@ -1005,48 +961,6 @@ function SendShutdown() {
 			LogIfDebug(oString.strSendShutdownSuccess + " [0x" + bufShutdown.toString(16) + "]@" + strIP + ":" + uiPort);
 		} catch(eError) {
 			Error(oString.strSendShutdownFailure + " [", eError, "]@" + strIP + ":" + uiPort);
-		}
-	}
-}
-
-var bufDisplayDefault = new ArrayBuffer(1);
-var dwDisplayDefault = new DataView(bufDisplayDefault);
-dwDisplayDefault.setUint8(0, MessageType.DisplayDefault);
-function SendDisplayDefault() {
-	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
-		try {
-			socClient.send(bufDisplayDefault);
-			LogIfDebug(oString.strSendDisplayDefaultSuccess + " [0x" + bufDisplayDefault.toString(16) + "]@" + strIP + ":" + uiPort);
-		} catch(eError) {
-			Error(oString.strSendDisplayDefaultFailure + " [", eError, "]@" + strIP + ":" + uiPort);
-		}
-	}
-}
-
-var bufDisplayNext = new ArrayBuffer(1);
-var dwDisplayNext = new DataView(bufDisplayNext);
-dwDisplayNext.setUint8(0, MessageType.DisplayNext);
-function SendDisplayNext() {
-	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
-		try {
-			socClient.send(bufDisplayNext);
-			LogIfDebug(oString.strSendDisplayNextSuccess + " [0x" + bufDisplayNext.toString(16) + "]@" + strIP + ":" + uiPort);
-		} catch(eError) {
-			Error(oString.strSendDisplayNextFailure + " [", eError, "]@" + strIP + ":" + uiPort);
-		}
-	}
-}
-
-var bufDisplayPrevious = new ArrayBuffer(1);
-var dwDisplayPrevious = new DataView(bufDisplayPrevious);
-dwDisplayPrevious.setUint8(0, MessageType.DisplayPrevious);
-function SendDisplayPrevious() {
-	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
-		try {
-			socClient.send(bufDisplayPrevious);
-			LogIfDebug(oString.strSendDisplayPreviousSuccess + " [0x" + bufDisplayPrevious.toString(16) + "]@" + strIP + ":" + uiPort);
-		} catch(eError) {
-			Error(oString.strSendDisplayPreviousFailure + " [", eError, "]@" + strIP + ":" + uiPort);
 		}
 	}
 }
@@ -1110,30 +1024,22 @@ function Load() {
 			};
 		}
 		if(arrVersion[0] > 4) {
-			CursorVisible = function() {
-				return webOSSystem.cursor.visibility === true;
+			CursorHide = function() {
+				webOSSystem.setCursor(strPath + "/cursor.png", 0, 0);
 			};
+			CursorShow = function() {
+				webOSSystem.setCursor("default");
+			};	
 		} else if(arrVersion[0] > 2) {
-			CursorVisible = function() {
-				return PalmSystem.cursor.visibility === true;
+			CursorHide = function() {
+				PalmSystem.setCursor(strPath + "/cursor.png", 0, 0);
 			};
+			CursorShow = function() {
+				PalmSystem.setCursor("default");
+			};	
 		} else {
-			CursorVisible = function() {
-				return false;
-			};
-		}
-		if(arrVersion[0] > 4) {
-			KeyboardVisible = function() {
-				return webOSSystem.isKeyboardVisible === true;
-			};
-		} else if(arrVersion[0] > 2) {
-			KeyboardVisible = function() {
-				return PalmSystem.isKeyboardVisible === true;
-			};
-		} else {
-			KeyboardVisible = function() {
-				return false;
-			};
+			//CursorHide = function() {};
+			//CursorShow = function() {};	
 		}
 
 		SubscriptionLog();

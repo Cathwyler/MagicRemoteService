@@ -130,7 +130,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.es.resx</DependentUpon>
     </Compile>
-    <Compile Include="Screen.cs" />
     <Compile Include="TVAdder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,7 +154,6 @@
     <Compile Include="Setting.Designer.cs">
       <DependentUpon>Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemCursor.cs" />
     <Compile Include="Service.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -202,6 +200,7 @@
   <ItemGroup>
     <EmbeddedResource Include="BindControl.resx">
       <DependentUpon>BindControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BindCreator.es.resx">
       <DependentUpon>BindCreator.cs</DependentUpon>

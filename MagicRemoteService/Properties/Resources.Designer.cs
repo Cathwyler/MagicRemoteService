@@ -19,7 +19,7 @@ namespace MagicRemoteService.Properties {
     // à l'aide d'un outil, tel que ResGen ou Visual Studio.
     // Pour ajouter ou supprimer un membre, modifiez votre fichier .ResX, puis réexécutez ResGen
     // avec l'option /str ou régénérez votre projet VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -127,33 +127,6 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Default display.
-        /// </summary>
-        internal static string BindActionValueDisplayDefault {
-            get {
-                return ResourceManager.GetString("BindActionValueDisplayDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Next display.
-        /// </summary>
-        internal static string BindActionValueDisplayNext {
-            get {
-                return ResourceManager.GetString("BindActionValueDisplayNext", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Previous display.
-        /// </summary>
-        internal static string BindActionValueDisplayPrevious {
-            get {
-                return ResourceManager.GetString("BindActionValueDisplayPrevious", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Keyboard.
         /// </summary>
         internal static string BindActionValueKeyboard {
@@ -204,6 +177,16 @@ namespace MagicRemoteService.Properties {
         internal static string BindMouseValueRight {
             get {
                 return ResourceManager.GetString("BindMouseValueRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] cursor {
+            get {
+                object obj = ResourceManager.GetObject("cursor", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -470,24 +453,6 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Screen.
-        /// </summary>
-        internal static string Screen {
-            get {
-                return ResourceManager.GetString("Screen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Default primary screen.
-        /// </summary>
-        internal static string ScreenPrimaryDefaultUserFriendlyName {
-            get {
-                return ResourceManager.GetString("ScreenPrimaryDefaultUserFriendlyName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à 
         ///try {
         ///
@@ -519,24 +484,6 @@ namespace MagicRemoteService.Properties {
         internal static string services {
             get {
                 return ResourceManager.GetString("services", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please select a display..
-        /// </summary>
-        internal static string SettingDisplaySelectErrorMessage {
-            get {
-                return ResourceManager.GetString("SettingDisplaySelectErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à The display has not been selected.
-        /// </summary>
-        internal static string SettingDisplaySelectErrorTitle {
-            get {
-                return ResourceManager.GetString("SettingDisplaySelectErrorTitle", resourceCulture);
             }
         }
         

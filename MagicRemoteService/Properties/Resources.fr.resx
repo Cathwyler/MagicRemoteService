@@ -123,33 +123,6 @@
   <data name="ApplicationSetting" xml:space="preserve">
     <value>Paramètres</value>
   </data>
-  <data name="BindActionValueDisplayDefault" xml:space="preserve">
-    <value>Écran par défaut</value>
-  </data>
-  <data name="BindActionValueDisplayNext" xml:space="preserve">
-    <value>Écran suivant</value>
-  </data>
-  <data name="BindActionValueDisplayPrevious" xml:space="preserve">
-    <value>Écran précédant</value>
-  </data>
-  <data name="BindActionValueKeyboard" xml:space="preserve">
-    <value>Clavier</value>
-  </data>
-  <data name="BindActionValueShutdown" xml:space="preserve">
-    <value>Éteindre</value>
-  </data>
-  <data name="BindKeyboardErreur" xml:space="preserve">
-    <value>Erreur</value>
-  </data>
-  <data name="BindMouseValueLeft" xml:space="preserve">
-    <value>Bouton gauche</value>
-  </data>
-  <data name="BindMouseValueMiddle" xml:space="preserve">
-    <value>Bouton du milieu</value>
-  </data>
-  <data name="BindMouseValueRight" xml:space="preserve">
-    <value>Bouton droit</value>
-  </data>
   <data name="IPAddressBoxErrorByteEntryMessage" xml:space="preserve">
     <value>{0} n'est pas une entrée valide. Veuillez spécifier une valeur comprise entre 1 et 255.</value>
   </data>
@@ -174,18 +147,6 @@
   <data name="PhysicalAddressBoxErrorPasteTitle" xml:space="preserve">
     <value>Adresse physique mal formatée</value>
   </data>
-  <data name="Screen" xml:space="preserve">
-    <value>Écran</value>
-  </data>
-  <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
-    <value>Écran principal par défaut</value>
-  </data>
-  <data name="SettingDisplaySelectErrorMessage" xml:space="preserve">
-    <value>Veuillez sélectionner un écran.</value>
-  </data>
-  <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
-    <value>L'écran n'a pas été sélectionné</value>
-  </data>
   <data name="SettingInputRefreshlErrorTitle" xml:space="preserve">
     <value>Erreur lors du rafraichissement des entrées de la TV</value>
   </data>
@@ -201,17 +162,8 @@
   <data name="SettingPCMacErrorTitle" xml:space="preserve">
     <value>Adresse physique invalide</value>
   </data>
-  <data name="SettingPCSaveErrorTittle" xml:space="preserve">
-    <value>Erreur lors de l'enregistrement de la configuration du PC</value>
-  </data>
   <data name="SettingPCSaveMessage" xml:space="preserve">
     <value>Voulez-vous enregistrer les modifications apportées au service du PC ?</value>
-  </data>
-  <data name="SettingRemoteSaveErrorTittle" xml:space="preserve">
-    <value>Erreur lors de l'enregistrement de la configuration de la télécommande</value>
-  </data>
-  <data name="SettingRemoteSaveMessage" xml:space="preserve">
-    <value>Voulez-vous enregistrer les modifications apportées aux raccourcis de la télécommande ?</value>
   </data>
   <data name="SettingSendIPErrorMessage" xml:space="preserve">
     <value>{0} n'est pas une adresse IP valide. Veuillez spécifier une adresse IP valide.</value>
@@ -225,34 +177,61 @@
   <data name="SettingSubnetMaskErrorTitle" xml:space="preserve">
     <value>Masque de sous-réseau invalide</value>
   </data>
-  <data name="SettingTVAddErrorTitle" xml:space="preserve">
-    <value>Erreur lors de l'ajout de la TV</value>
-  </data>
-  <data name="SettingTVInspectErrorTittle" xml:space="preserve">
-    <value>Erreur lors de l'inspection de l'application sur la TV</value>
-  </data>
   <data name="SettingTVInstallErrorTitle" xml:space="preserve">
     <value>Erreur lors de l'installation de l'application sur la TV</value>
-  </data>
-  <data name="SettingTVModifyErrorTitle" xml:space="preserve">
-    <value>Erreur lors de la modification de la TV</value>
   </data>
   <data name="SettingTVRefreshlErrorTitle" xml:space="preserve">
     <value>Erreur lors du rafraichissement des TVs</value>
   </data>
+  <data name="SettingTVSaveMessage" xml:space="preserve">
+    <value>Voulez-vous installer les modifications apportées à l'application de la TV ?</value>
+  </data>
+  <data name="SettingPCSaveErrorTittle" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement de la configuration du PC</value>
+  </data>
+  <data name="SettingRemoteSaveErrorTittle" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement de la configuration de la télécommande</value>
+  </data>
+  <data name="BindActionValueKeyboard" xml:space="preserve">
+    <value>Clavier</value>
+  </data>
+  <data name="BindActionValueShutdown" xml:space="preserve">
+    <value>Éteindre</value>
+  </data>
+  <data name="BindKeyboardErreur" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="BindMouseValueLeft" xml:space="preserve">
+    <value>Bouton gauche</value>
+  </data>
+  <data name="BindMouseValueMiddle" xml:space="preserve">
+    <value>Bouton du milieu</value>
+  </data>
+  <data name="BindMouseValueRight" xml:space="preserve">
+    <value>Bouton droit</value>
+  </data>
+  <data name="SettingRemoteSaveMessage" xml:space="preserve">
+    <value>Voulez-vous enregistrer les modifications apportées aux raccourcis de la télécommande ?</value>
+  </data>
+  <data name="SettingTVAddErrorTitle" xml:space="preserve">
+    <value>Erreur lors de l'ajout de la TV</value>
+  </data>
+  <data name="SettingTVModifyErrorTitle" xml:space="preserve">
+    <value>Erreur lors de la modification de la TV</value>
+  </data>
   <data name="SettingTVRemoveErrorTitle" xml:space="preserve">
     <value>Erreur lors de la suppression de la TV</value>
   </data>
-  <data name="SettingTVSaveMessage" xml:space="preserve">
-    <value>Voulez-vous installer les modifications apportées à l'application de la TV ?</value>
+  <data name="SettingTVVersionErrorTitle" xml:space="preserve">
+    <value>Erreur lors de la récupération de la version de la TV</value>
+  </data>
+  <data name="SettingTVInspectErrorTittle" xml:space="preserve">
+    <value>Erreur lors de l'inspection de l'application sur la TV</value>
   </data>
   <data name="SettingTVSelectErrorMessage" xml:space="preserve">
     <value>Veuillez sélectionner une TV.</value>
   </data>
   <data name="SettingTVSelectErrorTitle" xml:space="preserve">
     <value>La TV n'a pas été sélectionné</value>
-  </data>
-  <data name="SettingTVVersionErrorTitle" xml:space="preserve">
-    <value>Erreur lors de la récupération de la version de la TV</value>
   </data>
 </root>

@@ -34,8 +34,6 @@ namespace MagicRemoteService {
 			this.cbOverlay = new System.Windows.Forms.CheckBox();
 			this.cbInputDirect = new System.Windows.Forms.CheckBox();
 			this.btnTVInspect = new System.Windows.Forms.Button();
-			this.labDisplay = new System.Windows.Forms.Label();
-			this.cbbDisplay = new System.Windows.Forms.ComboBox();
 			this.btnTVRemove = new System.Windows.Forms.Button();
 			this.btnTVModify = new System.Windows.Forms.Button();
 			this.btnTVAdd = new System.Windows.Forms.Button();
@@ -172,8 +170,6 @@ namespace MagicRemoteService {
 			this.tabTV.Controls.Add(this.cbOverlay);
 			this.tabTV.Controls.Add(this.cbInputDirect);
 			this.tabTV.Controls.Add(this.btnTVInspect);
-			this.tabTV.Controls.Add(this.labDisplay);
-			this.tabTV.Controls.Add(this.cbbDisplay);
 			this.tabTV.Controls.Add(this.btnTVRemove);
 			this.tabTV.Controls.Add(this.btnTVModify);
 			this.tabTV.Controls.Add(this.btnTVAdd);
@@ -224,20 +220,6 @@ namespace MagicRemoteService {
 			this.btnTVInspect.Name = "btnTVInspect";
 			this.btnTVInspect.UseVisualStyleBackColor = true;
 			this.btnTVInspect.Click += new System.EventHandler(this.Inspect_Click);
-			// 
-			// labDisplay
-			// 
-			resources.ApplyResources(this.labDisplay, "labDisplay");
-			this.labDisplay.Name = "labDisplay";
-			// 
-			// cbbDisplay
-			// 
-			this.cbbDisplay.DisplayMember = "NumberUserFriendlyName";
-			this.cbbDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbbDisplay.FormattingEnabled = true;
-			resources.ApplyResources(this.cbbDisplay, "cbbDisplay");
-			this.cbbDisplay.Name = "cbbDisplay";
-			this.cbbDisplay.ValueMember = "Id";
 			// 
 			// btnTVRemove
 			// 
@@ -1075,8 +1057,6 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Button btnTVAdd;
 		private System.Windows.Forms.Button btnTVRemove;
 		private System.Windows.Forms.Button btnTVModify;
-		private System.Windows.Forms.Label labDisplay;
-		private System.Windows.Forms.ComboBox cbbDisplay;
 		private System.Windows.Forms.Button btnTVInspect;
 		private System.Windows.Forms.CheckBox cbInputDirect;
 		private BindControl bcRemote9;

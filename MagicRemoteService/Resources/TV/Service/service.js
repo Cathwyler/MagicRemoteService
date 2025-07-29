@@ -20,18 +20,18 @@ var dLog = {};
 var metLog = serService.register("log");
 metLog.on("request", function(mMessage) {
 	try {
-		if (mMessage.isSubscription) {
+		if(mMessage.isSubscription) {
 			dLog[mMessage.uniqueToken] = mMessage;
 			mMessage.respond({
 				subscribed: true,
 				returnValue: true
 			});
-		} else if (!(arrLog.length > 0)) {
+		} else if(!(arrLog.length > 0)) {
 			mMessage.respond({
 				returnValue: true
 			});
 		}
-		while (arrLog.length > 0) {
+		while(arrLog.length > 0) {
 			mMessage.respond({
 				log: arrLog.shift(),
 				returnValue: true
@@ -52,13 +52,13 @@ metLog.on("cancel", function(mMessage) {
 Object.prototype.toString = function() {
 	var arrAncestor = [];
 	return JSON.stringify(this, function(k, o) {
-		if (typeof o !== "object" || o === null) {
+		if(typeof o !== "object" || o === null) {
 			return o;
 		} else {
-			while (arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
+			while(arrAncestor.length > 0 && arrAncestor[arrAncestor.length - 1] !== this) {
 				arrAncestor.pop();
 			}
-			if (arrAncestor.indexOf(o) !== -1 ) {
+			if(arrAncestor.indexOf(o) !== -1 ) {
 				return "[Circular]";
 			}
 			arrAncestor.push(o);
@@ -69,7 +69,7 @@ Object.prototype.toString = function() {
 function SendLog() {
 	try {
 		if(Object.keys(dLog).length > 0){
-			while (arrLog.length > 0) {
+			while(arrLog.length > 0) {
 				var oLog = arrLog.shift();
 				for(var uniqueToken in dLog) {
 					dLog[uniqueToken].respond({
@@ -96,7 +96,7 @@ function Log() {
 		bConsole: false,
 		iType: 0,
 		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
-			if (typeof o !== "object" || o === null) {
+			if(typeof o !== "object" || o === null) {
 				return x;
 			} else {
 				return x.toString();
@@ -119,7 +119,7 @@ function Warn() {
 		bConsole: false,
 		iType: 1,
 		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
-			if (typeof o !== "object" || o === null) {
+			if(typeof o !== "object" || o === null) {
 				return x;
 			} else {
 				return x.toString();
@@ -135,7 +135,7 @@ function Error() {
 		bConsole: false,
 		iType: 2,
 		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
-			if (typeof o !== "object" || o === null) {
+			if(typeof o !== "object" || o === null) {
 				return x;
 			} else {
 				return x.toString();
@@ -151,7 +151,7 @@ function ConsoleLog() {
 		bConsole: true,
 		iType: 0,
 		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
-			if (typeof o !== "object" || o === null) {
+			if(typeof o !== "object" || o === null) {
 				return x;
 			} else {
 				return x.toString();
@@ -167,7 +167,7 @@ function ConsoleWarn() {
 		bConsole: true,
 		iType: 1,
 		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
-			if (typeof o !== "object" || o === null) {
+			if(typeof o !== "object" || o === null) {
 				return x;
 			} else {
 				return x.toString();
@@ -183,7 +183,7 @@ function ConsoleError() {
 		bConsole: true,
 		iType: 2,
 		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
-			if (typeof o !== "object" || o === null) {
+			if(typeof o !== "object" || o === null) {
 				return x;
 			} else {
 				return x.toString();
@@ -194,7 +194,7 @@ function ConsoleError() {
 }
 
 var socClient = Dgram.createSocket("udp4");
-socClient.on("listening", function () {
+socClient.on("listening", function() {
 	socClient.setBroadcast(true);
 });
 
@@ -203,7 +203,7 @@ bufWol.fill(0xFF, 0, 6);
 var metWol = serService.register("wol");
 metWol.on("request", function(mMessage) {
 	try {
-		for (var iWol = 6, iMac = 0; iWol < bufWol.length; iWol++, iMac++) {
+		for(var iWol = 6, iMac = 0; iWol < bufWol.length; iWol++, iMac++) {
 			bufWol[iWol] = mMessage.payload.mMac.arrMac[iMac % mMessage.payload.mMac.arrMac.length];
 		}
 		socClient.send(bufWol, 0, bufWol.length, 9, mMessage.payload.strBroadcast);
@@ -230,7 +230,7 @@ if(bOverlay){
 	var metClose = serService.register("close");
 	metClose.on("request", function(mMessage) {
 		try {
-			if (mMessage.isSubscription) {
+			if(mMessage.isSubscription) {
 				dClose[mMessage.uniqueToken] = mMessage;
 				mMessage.respond({
 					subscribed: true,
@@ -354,7 +354,7 @@ if(bOverlay){
 			}
 		});
 	}
-	if (subAutoLaunch === null) {
+	if(subAutoLaunch === null) {
 		AdoptAutoLaunch();
 	}
 	
@@ -391,7 +391,7 @@ if(bOverlay){
 		});
 		hrSsap.end();
 		hrSsap.on("upgrade", function(hsrSsap, socSsap, hSsap) {
-			if (hsrSsap.headers["sec-websocket-accept"] !== haSsapWebSocketShaSum.digest("base64")) {
+			if(hsrSsap.headers["sec-websocket-accept"] !== haSsapWebSocketShaSum.digest("base64")) {
 				Error("Ssap invalid server key");
 				socSsap.end();
 			} else {
@@ -505,7 +505,7 @@ if(bOverlay){
 						Error("data error [", eError, "]");
 					}
 				});
-				try{
+				try {
 					socSsap.write(FrameData(JSON.stringify({
 						type: "hello",
 						id: uiSsapId++,
@@ -729,7 +729,7 @@ if(bExtend){
 			}
 		});
 	}
-	if (subAutoExtend === null) {
+	if(subAutoExtend === null) {
 		AdoptAutoExtend();
 	}
 

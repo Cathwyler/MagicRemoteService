@@ -12,7 +12,7 @@ namespace MagicRemoteService {
 	}
 	public class IPAddressJsonConverter : System.Text.Json.Serialization.JsonConverter<System.Net.IPAddress> {
 		public override bool CanConvert(System.Type objectType) {
-			return (objectType == typeof(System.Net.IPAddress));
+			return objectType == typeof(System.Net.IPAddress);
 		}
 		public override System.Net.IPAddress Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options) {
 			return System.Net.IPAddress.Parse(reader.GetString());
@@ -23,7 +23,7 @@ namespace MagicRemoteService {
 	}
 	public class UShortJsonConverter : System.Text.Json.Serialization.JsonConverter<ushort> {
 		public override bool CanConvert(System.Type objectType) {
-			return (objectType == typeof(ushort));
+			return objectType == typeof(ushort);
 		}
 		public override ushort Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options) {
 			return ushort.Parse(reader.GetString());

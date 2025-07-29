@@ -129,9 +129,6 @@
   <data name="btnTVInspect.Text" xml:space="preserve">
     <value>Inspeccionar</value>
   </data>
-  <data name="labDisplay.Text" xml:space="preserve">
-    <value>Pantalla TV</value>
-  </data>
   <data name="btnTVRemove.Text" xml:space="preserve">
     <value>Eliminar TV</value>
   </data>
@@ -171,6 +168,9 @@
   <data name="labLongClick.Text" xml:space="preserve">
     <value>Tiempo espera clic largo</value>
   </data>
+  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
+    <value>Se agotó el tiempo de espera</value>
+  </data>
   <data name="cbStartup.Text" xml:space="preserve">
     <value>Lanzar automáticamente al iniciar</value>
   </data>
@@ -188,6 +188,12 @@
   </data>
   <data name="tabRemote.Text" xml:space="preserve">
     <value>Remoto</value>
+  </data>
+  <data name="labRemoteChannelDown.Text" xml:space="preserve">
+    <value>Canal -</value>
+  </data>
+  <data name="labRemoteChannelUp.Text" xml:space="preserve">
+    <value>Canal +</value>
   </data>
   <data name="labRemoteBackspace.Text" xml:space="preserve">
     <value>Retroceso</value>
@@ -245,14 +251,5 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Ajustes</value>
-  </data>
-  <data name="labRemoteChannelDown.Text" xml:space="preserve">
-    <value>Canal -</value>
-  </data>
-  <data name="labRemoteChannelUp.Text" xml:space="preserve">
-    <value>Canal +</value>
-  </data>
-  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
-    <value>Se agotó el tiempo de espera</value>
   </data>
 </root>

@@ -1,5 +1,4 @@
 ﻿
-#pragma warning disable IDE1006
 namespace MagicRemoteService.WinApi {
 	internal static class Kernel32 {
 		[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
@@ -12,4 +11,3 @@ namespace MagicRemoteService.WinApi {
 		public static extern bool GetNamedPipeClientProcessId(System.IntPtr Pipe, out uint ClientProcessId);
 	}
 }
-#pragma warning restore IDE1006

@@ -43,7 +43,7 @@ namespace MagicRemoteService {
 		private static readonly MagicRemoteService.Watcher wExplorer = new MagicRemoteService.Watcher("SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = \"explorer.exe\"");
 		private static readonly MagicRemoteService.PowerSettingNotification psnPowerSettingNotification = new MagicRemoteService.PowerSettingNotification();
 		public static event MagicRemoteService.PowerSettingNotification.NotificationArrivedEventHandler PowerSettingNotificationArrived;
-		
+
 		private readonly MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
 		private readonly System.Windows.Forms.NotifyIcon niIcon;
 		private MagicRemoteService.Setting sSetting;
@@ -74,8 +74,8 @@ namespace MagicRemoteService {
 		private void VersionScript() {
 			System.Version vCurrent = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 			Microsoft.Win32.RegistryKey rkMagicRemoteService = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).CreateSubKey(@"Software\MagicRemoteService");
-			System.Version vRegistry = new System.Version((string)rkMagicRemoteService.GetValue("Version", "0.0.0.0"));
-			if(vRegistry != vCurrent) {
+			System.Version vRegistry = new System.Version((string)rkMagicRemoteService.GetValue("Version"));
+			if(vRegistry != null && vRegistry != vCurrent) {
 				if(vRegistry < new System.Version("1.2.3.0")) {
 					rkMagicRemoteService.DeleteSubKey("KeyBindMouse", false);
 					rkMagicRemoteService.DeleteSubKey("KeyBindKeyboard", false);
@@ -103,6 +103,14 @@ namespace MagicRemoteService {
 								rkMagicRemoteServiceDevice.DeleteValue("TimeoutRightClick");
 								rkMagicRemoteServiceDevice.DeleteValue("TimeoutScreensaver", false);
 							}
+						}
+					}
+				}
+				if(vRegistry < new System.Version("1.2.5.0")) {
+					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDeviceList = rkMagicRemoteService.OpenSubKey("Device", true);
+					if(rkMagicRemoteServiceDeviceList != null) {
+						foreach(string sDevice in rkMagicRemoteServiceDeviceList.GetSubKeyNames()) {
+							rkMagicRemoteServiceDeviceList.OpenSubKey(sDevice, true)?.DeleteValue("Display", false);
 						}
 					}
 				}

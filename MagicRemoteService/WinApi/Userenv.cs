@@ -1,5 +1,4 @@
 ﻿
-#pragma warning disable IDE1006
 namespace MagicRemoteService.WinApi {
 	internal static class Userenv {
 		[System.Runtime.InteropServices.DllImport("userenv.dll", SetLastError = true)]
@@ -8,4 +7,3 @@ namespace MagicRemoteService.WinApi {
 		public static extern bool DestroyEnvironmentBlock(System.IntPtr lpEnvironment);
 	}
 }
-#pragma warning restore IDE1006

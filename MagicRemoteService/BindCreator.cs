@@ -2,7 +2,7 @@
 namespace MagicRemoteService {
 
 	public partial class BindCreator : System.Windows.Forms.Form {
-		private System.Collections.Generic.List<MagicRemoteService.Bind> liBind = new System.Collections.Generic.List<MagicRemoteService.Bind>();
+		private readonly System.Collections.Generic.List<MagicRemoteService.Bind> liBind = new System.Collections.Generic.List<MagicRemoteService.Bind>();
 		private MagicRemoteService.Bind[] arrBind;
 		public MagicRemoteService.Bind[] Bind {
 			get {
@@ -15,10 +15,7 @@ namespace MagicRemoteService {
 			this.InitializeComponent();
 			this.cbbAction.DataSource = new BindActionValue[] {
 				BindActionValue.Shutdown,
-				BindActionValue.Keyboard,
-				BindActionValue.DisplayDefault,
-				BindActionValue.DisplayNext,
-				BindActionValue.DisplayPrevious
+				BindActionValue.Keyboard
 			};
 			this.arrBind = arrBind;
 			switch(arrBind?[0]) {

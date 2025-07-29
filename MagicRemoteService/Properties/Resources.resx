@@ -139,6 +139,9 @@
   <data name="miniIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\miniIcon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TV\MagicRemoteService\cursor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="index" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\index.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -223,12 +226,6 @@
   <data name="SettingTVSaveMessage" xml:space="preserve">
     <value>Do you want to install the changes made to the TV app ?</value>
   </data>
-  <data name="SettingTVSelectErrorMessage" xml:space="preserve">
-    <value>Please select a TV</value>
-  </data>
-  <data name="SettingTVSelectErrorTitle" xml:space="preserve">
-    <value>The TV has not been selected</value>
-  </data>
   <data name="webOSTV" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\webOSTVjs-1.2.12\webOSTV.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -274,12 +271,6 @@
   <data name="SettingTVRemoveErrorTitle" xml:space="preserve">
     <value>Error while removing TV</value>
   </data>
-  <data name="Screen" xml:space="preserve">
-    <value>Screen</value>
-  </data>
-  <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
-    <value>Default primary screen</value>
-  </data>
   <data name="appstring" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\appstring.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -289,25 +280,16 @@
   <data name="esappstring" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\resources\es\appstring.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SettingDisplaySelectErrorMessage" xml:space="preserve">
-    <value>Please select a display.</value>
-  </data>
-  <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
-    <value>The display has not been selected</value>
-  </data>
   <data name="SettingTVVersionErrorTitle" xml:space="preserve">
     <value>Error while retrieving TV version</value>
   </data>
   <data name="SettingTVInspectErrorTittle" xml:space="preserve">
     <value>Error while inspecting running application on TV</value>
   </data>
-  <data name="BindActionValueDisplayDefault" xml:space="preserve">
-    <value>Default display</value>
+  <data name="SettingTVSelectErrorMessage" xml:space="preserve">
+    <value>Please select a TV</value>
   </data>
-  <data name="BindActionValueDisplayNext" xml:space="preserve">
-    <value>Next display</value>
-  </data>
-  <data name="BindActionValueDisplayPrevious" xml:space="preserve">
-    <value>Previous display</value>
+  <data name="SettingTVSelectErrorTitle" xml:space="preserve">
+    <value>The TV has not been selected</value>
   </data>
 </root>

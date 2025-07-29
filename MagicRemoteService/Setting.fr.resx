@@ -129,9 +129,6 @@
   <data name="btnTVInspect.Text" xml:space="preserve">
     <value>Inspecter</value>
   </data>
-  <data name="labDisplay.Text" xml:space="preserve">
-    <value>Ecran TV</value>
-  </data>
   <data name="btnTVRemove.Text" xml:space="preserve">
     <value>Supprimer la TV</value>
   </data>
@@ -173,6 +170,9 @@
   </data>
   <data name="cbVideoInput.Text" xml:space="preserve">
     <value>Éteindre automatiquement l’ordinateur lorsque le téléviseur est allumé et qu'il n'y a pas de signal video.</value>
+  </data>
+  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
+    <value>Délai</value>
   </data>
   <data name="cbStartup.Text" xml:space="preserve">
     <value>Lancer automatiquement au démarrage</value>
@@ -245,8 +245,5 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Paramètres</value>
-  </data>
-  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
-    <value>Délai</value>
   </data>
 </root>
