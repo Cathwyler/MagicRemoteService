@@ -28,7 +28,6 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 - Others
   - (Optionnal) Setup Wake-on-LAN on your motherboard's PC.
   - (Optionnal) Setup Windows auto logon. Please refer to [Turn on automatic logon in Windows](https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon).
-  - (Optionnal) Setup a scheduled task to keep developer mode activated with ares command on your personal server. Please refer to [ares-extend-dev](https://webostv.developer.lge.com/develop/tools/cli-dev-guide#ares-extend-dev).
 
 ## Using MagicRemoteService
 MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in installation step.
@@ -43,6 +42,9 @@ Default Magic remote inputs :
 - A short middle click sends a left click to the PC.
 - A long middle click sends a right click to the PC.
 - A wheel scroll is sent to the PC.
+- Numeric keys are sent to the PC.
+- Volume+ sends Ctrl+C to the PC.
+- Volume- sends Ctrl+V to the PC.
 
 If you are stuck at startup because Wake-on-LAN didn't work, you can do a long press on the return button to relaunch the app or starts up PC manually.
 
