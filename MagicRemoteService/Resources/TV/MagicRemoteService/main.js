@@ -787,8 +787,8 @@ function SocketOpen() {
 	};
 	socClient.onclose = function(e) {
 		LogIfDebug(oString.strSocketClosed);
-		CursorShowCountIf0();
 		if(socClient !== null && !iIntervalRetryOpen) {
+			CursorShowCountIf0();
 			SocketClosed();
 			iIntervalRetryOpen = setInterval(function() {
 				if(socClient.readyState === WebSocket.CONNECTING) {
