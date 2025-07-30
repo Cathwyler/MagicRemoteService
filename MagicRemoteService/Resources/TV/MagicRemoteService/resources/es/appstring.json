@@ -21,8 +21,10 @@
 	
 	"strSendWolSuccess": "Envío de WoL correcto",
 	"strSendWolFailure": "Fallo al enviar WoL",
-	"strSendPositionSuccess": "Envío posición correcto",
-	"strSendPositionFailure": "Fallo al enviar posición",
+	"strSendPositionRelativeSuccess": "Envío posición relativa correcto",
+	"strSendPositionRelativeFailure": "Fallo al enviar posición relativa",
+	"strSendPositionAbsoluteSuccess": "Envío posición absoluta correcto",
+	"strSendPositionAbsoluteFailure": "Fallo al enviar posición absoluta",
 	"strSendWheelSuccess": "Envío de rueda correcto",
 	"strSendWheelFailure": "Fallo al enviar rueda",
 	"strSendVisibleSuccess": "Envío de visible correcto",

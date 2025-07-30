@@ -28,8 +28,10 @@
 
 	"strSendWolSuccess": "Success to send WoL",
 	"strSendWolFailure": "Failed to send WoL",
-	"strSendPositionSuccess": "Success to send position",
-	"strSendPositionFailure": "Failed to send position",
+	"strSendPositionRelativeSuccess": "Success to send relative position",
+	"strSendPositionRelativeFailure": "Failed to send relative position",
+	"strSendPositionAbsoluteSuccess": "Success to send absolute position",
+	"strSendPositionAbsoluteFailure": "Failed to send absolute position",
 	"strSendWheelSuccess": "Success to send wheel",
 	"strSendWheelFailure": "Failed to send wheel",
 	"strSendVisibleSuccess": "Success to send visible",

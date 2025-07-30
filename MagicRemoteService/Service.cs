@@ -14,11 +14,12 @@ namespace MagicRemoteService {
 		Pong = 0xA
 	}
 	public enum MessageType : byte {
-		Position = 0x00,
-		Wheel = 0x01,
-		Key = 0x02,
-		Unicode = 0x03,
-		Shutdown = 0x04
+		PositionRelative = 0x00,
+		PositionAbsolute = 0x01,
+		Wheel = 0x02,
+		Key = 0x03,
+		Unicode = 0x04,
+		Shutdown = 0x05
 	}
 	public partial class Service : System.ServiceProcess.ServiceBase {
 		private volatile int iPort;
@@ -433,7 +434,7 @@ namespace MagicRemoteService {
 		}
 		private void ThreadServer() {
 			System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-				
+
 			try {
 				switch(this.stType) {
 					case ServiceType.Server:
@@ -797,7 +798,7 @@ namespace MagicRemoteService {
 						}
 					}
 				};
-				MagicRemoteService.Application.PowerSettingNotificationArrived += PowerSettingNotificationArrived;
+				MagicRemoteService.Application.naehPowerSettingNotificationArrived += PowerSettingNotificationArrived;
 
 				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dBindDown = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
 				System.Collections.Generic.Dictionary<ushort, WinApi.Input[]> dBindUp = new System.Collections.Generic.Dictionary<ushort, WinApi.Input[]>();
@@ -942,7 +943,7 @@ namespace MagicRemoteService {
 						type = WinApi.InputType.INPUT_MOUSE,
 						u = new WinApi.InputDummyUnionName {
 							mi = new WinApi.MouseInput {
-								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_ABSOLUTE | WinApi.MouseInputFlags.MOUSEEVENTF_MOVE,
+								dwFlags = WinApi.MouseInputFlags.MOUSEEVENTF_ABSOLUTE | WinApi.MouseInputFlags.MOUSEEVENTF_VIRTUALDESK | WinApi.MouseInputFlags.MOUSEEVENTF_MOVE,
 								dwExtraInfo = System.IntPtr.Zero
 							}
 						}
@@ -979,9 +980,7 @@ namespace MagicRemoteService {
 					}
 				};
 
-				WinApi.Input[] arrInput;
-				byte[][] arr2Byte;
-				string[] arrString;
+				System.Drawing.Rectangle recBounds = System.Windows.Forms.Screen.GetBounds(System.Windows.Forms.Control.MousePosition);
 
 				System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] {
 					Service.mreStop,
@@ -1082,10 +1081,16 @@ namespace MagicRemoteService {
 											}
 											if(ulLenData != 0) {
 												switch(tabData[ulOffsetData + 0]) {
-													case (byte)MagicRemoteService.MessageType.Position:
+													case (byte)MagicRemoteService.MessageType.PositionRelative:
 														piPositionRelative[0].u.mi.dx = System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1);
 														piPositionRelative[0].u.mi.dy = System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 3);
 														Service.SendInputAdmin(piPositionRelative);
+														System.Console.WriteLine(System.Windows.Forms.Control.MousePosition.ToString());
+														break;
+													case (byte)MagicRemoteService.MessageType.PositionAbsolute:
+														piPositionAbsolute[0].u.mi.dx = ((recBounds.X + ((recBounds.Width * System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1)) / 1920)) * 65535) / ScreenExtension.DesktopBounds.Width;
+														piPositionAbsolute[0].u.mi.dy = ((recBounds.Y + ((recBounds.Height * System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3)) / 1080)) * 65535) / ScreenExtension.DesktopBounds.Height;
+														Service.SendInputAdmin(piPositionAbsolute);
 														break;
 													case (byte)MagicRemoteService.MessageType.Wheel:
 														piWheel[0].u.mi.mouseData = (uint)(-System.BitConverter.ToInt16(tabData, (int)ulOffsetData + 1) * 3);
@@ -1095,15 +1100,16 @@ namespace MagicRemoteService {
 													case (byte)MagicRemoteService.MessageType.Key:
 														ushort usCode = System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1);
 														if((tabData[ulOffsetData + 3] & 0x01) == 0x01) {
-															if(dBindDown.TryGetValue(usCode, out arrInput)) {
+															if(dBindDown.TryGetValue(usCode, out WinApi.Input[] arrInput)) {
 																Service.SendInputAdmin(arrInput);
 																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-															} else if(dBindActionDown.TryGetValue(usCode, out arr2Byte)) {
+															} else if(dBindActionDown.TryGetValue(usCode, out byte[][] arr2Byte)) {
+																recBounds = System.Windows.Forms.Screen.GetBounds(System.Windows.Forms.Control.MousePosition);
 																foreach(byte[] arrByte in arr2Byte) {
 																	socClient.Send(arrByte);
 																}
 																Service.LogIfDebug("Processed binary message send/key action [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
-															} else if(dBindCommandDown.TryGetValue(usCode, out arrString)) {
+															} else if(dBindCommandDown.TryGetValue(usCode, out string[] arrString)) {
 																foreach(string strCommand in arrString) {
 																	System.Diagnostics.Process pCommand = new System.Diagnostics.Process();
 																	pCommand.StartInfo.FileName = "cmd";
@@ -1116,7 +1122,7 @@ namespace MagicRemoteService {
 																Service.LogIfDebug("Unprocessed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															}
 														} else {
-															if(dBindUp.TryGetValue(usCode, out arrInput)) {
+															if(dBindUp.TryGetValue(usCode, out WinApi.Input[] arrInput)) {
 																Service.SendInputAdmin(arrInput);
 																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else {
@@ -1232,6 +1238,26 @@ namespace MagicRemoteService {
 		public static System.Diagnostics.Process GetClientProcess(this System.IO.Pipes.NamedPipeServerStream psServer) {
 			WinApi.Kernel32.GetNamedPipeClientProcessId(psServer.SafePipeHandle.DangerousGetHandle(), out uint uiProcessId);
 			return System.Diagnostics.Process.GetProcessById((int)uiProcessId);
+		}
+	}
+	public static class ScreenExtension {
+		private static System.Drawing.Rectangle recDesktopBounds;
+		public static System.Drawing.Rectangle DesktopBounds {
+			get {
+				return ScreenExtension.recDesktopBounds;
+			}
+		}
+		static ScreenExtension() {
+			Microsoft.Win32.SystemEvents.DisplaySettingsChanged += ScreenExtension.DisplaySettingsChangedEvent;
+			ScreenExtension.UpdateDesktopBounds();
+		}
+		private static void DisplaySettingsChangedEvent(object sender, System.EventArgs e) {
+			ScreenExtension.UpdateDesktopBounds();
+		}
+		private static void UpdateDesktopBounds() {
+			foreach(System.Windows.Forms.Screen scr in System.Windows.Forms.Screen.AllScreens) {
+				ScreenExtension.recDesktopBounds = System.Drawing.Rectangle.Union(ScreenExtension.recDesktopBounds, scr.Bounds);
+			}
 		}
 	}
 }

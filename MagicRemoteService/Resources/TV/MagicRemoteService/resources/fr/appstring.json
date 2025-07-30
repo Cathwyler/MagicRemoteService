@@ -27,8 +27,10 @@
 	
 	"strSendWolSuccess": "Succès de l'envoi du WoL",
 	"strSendWolFailure": "Echec de l'envoi du WoL",
-	"strSendPositionSuccess": "Success de l'envoi de la position",
-	"strSendPositionFailure": "Echec de l'envoi de la position",
+	"strSendPositionRelativeSuccess": "Succès de l'envoi de la position relative",
+	"strSendPositionRelativeFailure": "Echec de l'envoi de la position relative",
+	"strSendPositionAbsoluteSuccess": "Succès de l'envoi de la position absolue",
+	"strSendPositionAbsoluteFailure": "Echec de l'envoi de la position absolute",
 	"strSendWheelSuccess": "Succès de l'envoi de la roulette",
 	"strSendWheelFailure": "Echec de l'envoi de la roulette",
 	"strSendVisibleSuccess": "Succès de l'envoi de la visibilité",

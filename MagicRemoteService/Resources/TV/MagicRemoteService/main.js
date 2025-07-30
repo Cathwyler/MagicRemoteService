@@ -63,11 +63,12 @@ function readJson(fCallback, strPath) {
 const bDebug = false;
 
 const MessageType = {
-	Position: 0x00,
-	Wheel: 0x01,
-	Key: 0x02,
-	Unicode: 0x03,
-	Shutdown: 0x04
+	PositionRelative: 0x00,
+	PositionAbsolute: 0x01,
+	Wheel: 0x02,
+	Key: 0x03,
+	Unicode: 0x04,
+	Shutdown: 0x05
 }
 
 const bInputDirect = true;
@@ -100,14 +101,17 @@ var oString = null;
 var deKeyboard = document.getElementById("keyboard");
 var deVideo = document.getElementById("video");
 
+var deScreenToast = null;
 function Toast(strTitle, strMessage) {
-	CursorShowCountIf0();
-	var deScreenToast = document.createElement("div");
+	if(ScreenExist(deScreenToast)) {
+		ScreenCancel(deScreenToast, false);
+	}
+	deScreenToast = document.createElement("div");
 	deScreenToast.className = "screen flex justify-center align-flex-end";
 	var deToast = document.createElement("div");
 	deToast.className = "window toast";
 	deToast.addEventListener("click", function() {
-		ScreenCancel(deScreenToast);
+		ScreenCancel(deScreenToast, false);
 	});
 	if(strTitle.length) {
 		var dePopupTitle = document.createElement("div");
@@ -123,7 +127,6 @@ function Toast(strTitle, strMessage) {
 	}
 	deScreenToast.appendChild(deToast);
 	document.body.appendChild(deScreenToast);
-	return deScreenToast;
 }
 
 function Dialog(strTitle, strMessage, arrButton) {
@@ -167,18 +170,16 @@ function ScreenExist(deScreen) {
 	return deScreen !== null && deScreen.parentNode !== null;
 }
 
-function ScreenCancel(deScreen) {
+function ScreenCancel(deScreen, bCursor) {
 	document.body.removeChild(deScreen);
-	CursorHideCountIf0();
+	if(bCursor === undefined || bCursor === true) {
+		CursorHideCountIf0();
+	}
 }
 
-var deScreenToast = null;
 function Log() {
 	console.log.apply(console, arguments);
-	if(ScreenExist(deScreenToast)) {
-		ScreenCancel(deScreenToast);
-	}
-	deScreenToast = Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
 		if(typeof o !== "object" || o === null) {
 			return x;
 		} else {
@@ -196,10 +197,7 @@ if(bDebug) {
 
 function Warn() {
 	console.warn.apply(console, arguments);
-	if(ScreenExist(deScreenToast)) {
-		ScreenCancel(deScreenToast);
-	}
-	deScreenToast = Toast(oString.strWarnTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	Toast(oString.strWarnTitle, Array.prototype.slice.call(arguments).map(function(x) {
 		if(typeof o !== "object" || o === null) {
 			return x;
 		} else {
@@ -210,10 +208,7 @@ function Warn() {
 
 function Error() {
 	console.error.apply(console, arguments);
-	if(ScreenExist(deScreenToast)) {
-		ScreenCancel(deScreenToast);
-	}
-	deScreenToast = Toast(oString.strErrorTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	Toast(oString.strErrorTitle, Array.prototype.slice.call(arguments).map(function(x) {
 		if(typeof o !== "object" || o === null) {
 			return x;
 		} else {
@@ -428,66 +423,82 @@ function SubscriptionGetSensorData() {
 		onSuccess: function(inResponse) {
 			switch(inResponse.subscribed) {
 				case undefined:
-					if(AppVisible() && AppFocus() && iCursor == 0) {
-						var qSensor = {
-							w: inResponse.quaternion.q3,//Math.sqrt(1 - Math.pow(inResponse.quaternion.q1, 2)),
-							//x: inResponse.quaternion.q0,
-							y: inResponse.quaternion.q1//,
-							//z: inResponse.quaternion.q2
-						}
-						var rSensor = {
-							x: inResponse.gyroscope.x,
-							//y: inResponse.gyroscope.y,
-							z: inResponse.gyroscope.z
-						}
-						var mRotation = {
-							//r1c1: qSensor.w * qSensor.x,
-							r1c2: qSensor.w * qSensor.y,
-							//r1c3: qSensor.w * qSensor.z,
-							//r2c1: -qSensor.x * qSensor.x,
-							//r2c2: qSensor.x * qSensor.y,
-							//r2c3: qSensor.x * qSensor.z,
-							r3c1: -qSensor.y * qSensor.y//,
-							//r3c2: qSensor.y * qSensor.z,
-							//r3c3: -qSensor.z * qSensor.z
-						};
-						var rSensorRotation = {
-							x: (2 * (((mRotation.r3c1/* + mRotation.r3c3*/) * rSensor.x) + /*((mRotation.r2c2 - mRotation.r1c3) * rSensor.y) +*/ ((mRotation.r1c2/* + mRotation.r2c3*/) * rSensor.z))) + rSensor.x,
-							//y: (2 * (((mRotation.r1c3 + mRotation.r2c2) * rSensor.x) + ((mRotation.r2c1 + mRotation.r3c3) * rSensor.y) + ((mRotation.r3c2 - mRotation.r1c1) * rSensor.z))) + rSensor.y,
-							z: (2 * (((/*mRotation.r2c3*/ - mRotation.r1c2) * rSensor.x) + /*((mRotation.r1c1 + mRotation.r3c2) * rSensor.y) +*/ ((/*mRotation.r2c1 + */mRotation.r3c1) * rSensor.z))) + rSensor.z
-						}
-						
-						if(rSensorRotation.z > 0) {
-							pCurrent.dX += (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.z) / Math.tanh(rSensorRotation.z * aSensor.dFactor));
-						} else if(rSensorRotation.z < 0) {
-							pCurrent.dX -= (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.z) / Math.tanh(rSensorRotation.z * aSensor.dFactor));
-						}
-						
-						if(rSensorRotation.x > 0) {
-							pCurrent.dY += (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.x) / Math.tanh(rSensorRotation.x * aSensor.dFactor));
-						} else if(rSensorRotation.x < 0) {
-							pCurrent.dY -= (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * rSensorRotation.x) / Math.tanh(rSensorRotation.x * aSensor.dFactor));
-						}
-
-						if(iTimeoutLongClick && ((pDown.dX - pCurrent.dX) > 3 || (pDown.dX - pCurrent.dX) < -3 || (pDown.dY - pCurrent.dY) > 3 || (pDown.dY - pCurrent.dY) < -3)) {
-							clearTimeout(iTimeoutLongClick);
-							iTimeoutLongClick = 0;
-							SendKey({
-								usC: 0x01,
-								bS: true
-							});
-							bPositionDownSent = true;
-						}
-
-						pCurrent.sRoundX = Math.round(pCurrent.dX);
-						pCurrent.sRoundY = Math.round(pCurrent.dY);
-						if(pCurrent.sLastRoundX != pCurrent.sRoundX || pCurrent.sLastRoundY != pCurrent.sRoundY) {
-							SendPosition({
-								sX: pCurrent.sRoundX - pCurrent.sLastRoundX,
-								sY: pCurrent.sRoundY - pCurrent.sLastRoundY
-							});
-							pCurrent.sLastRoundX = pCurrent.sRoundX;
-							pCurrent.sLastRoundY = pCurrent.sRoundY;
+					if(AppVisible() && AppFocus()) {
+						if(iCursor == 0) {
+							var qSensor = {
+								dW: inResponse.quaternion.q3,//Math.sqrt(1 - Math.pow(inResponse.quaternion.q1, 2)),
+								//dX: inResponse.quaternion.q0,
+								dY: inResponse.quaternion.q1//,
+								//dZ: inResponse.quaternion.q2
+							}
+							var rSensor = {
+								dX: inResponse.gyroscope.x,
+								//dY: inResponse.gyroscope.y,
+								dZ: inResponse.gyroscope.z
+							}
+							var mRotation = {
+								//r1c1: qSensor.dW * qSensor.dX,
+								r1c2: qSensor.dW * qSensor.dY,
+								//r1c3: qSensor.dW * qSensor.dZ,
+								//r2c1: -qSensor.dX * qSensor.dX,
+								//r2c2: qSensor.dX * qSensor.dY,
+								//r2c3: qSensor.dX * qSensor.dZ,
+								r3c1: -qSensor.dY * qSensor.dY//,
+								//r3c2: qSensor.dY * qSensor.dZ,
+								//r3c3: -qSensor.dZ * qSensor.dZ
+							};
+							var rSensorRotation = {
+								dX: (2 * (((mRotation.r3c1/* + mRotation.r3c3*/) * rSensor.dX) + /*((mRotation.r2c2 - mRotation.r1c3) * rSensor.dY) +*/ ((mRotation.r1c2/* + mRotation.r2c3*/) * rSensor.dZ))) + rSensor.dX,
+								//dY: (2 * (((mRotation.r1c3 + mRotation.r2c2) * rSensor.dX) + ((mRotation.r2c1 + mRotation.r3c3) * rSensor.dY) + ((mRotation.r3c2 - mRotation.r1c1) * rSensor.dZ))) + rSensor.dY,
+								dZ: (2 * (((/*mRotation.r2c3*/ - mRotation.r1c2) * rSensor.dX) + /*((mRotation.r1c1 + mRotation.r3c2) * rSensor.dY) +*/ ((/*mRotation.r2c1 + */mRotation.r3c1) * rSensor.dZ))) + rSensor.dZ
+							}
+							
+							var dRho = Math.sqrt(Math.pow(rSensorRotation.dZ, 2) + Math.pow(rSensorRotation.dX, 2))
+							
+							if(dRho > 0) {
+								var dRhoAcceleration = (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * dRho) / Math.tanh(dRho * aSensor.dFactor));
+								pCurrent.dX += (rSensorRotation.dZ * dRhoAcceleration) / dRho;
+								pCurrent.dY += (rSensorRotation.dX * dRhoAcceleration) / dRho;
+								pCurrent.sRoundX = Math.round(pCurrent.dX);
+								pCurrent.sRoundY = Math.round(pCurrent.dY);
+								if(iTimeoutLongClick && ((pDown.dX - pCurrent.dX) > 3 || (pDown.dX - pCurrent.dX) < -3 || (pDown.dY - pCurrent.dY) > 3 || (pDown.dY - pCurrent.dY) < -3)) {
+									clearTimeout(iTimeoutLongClick);
+									iTimeoutLongClick = 0;
+									SendKey({
+										usC: 0x01,
+										bS: true
+									});
+									bPositionDownSent = true;
+								}
+								SendPositionRelative({
+									sX: pCurrent.sRoundX - pCurrent.sLastRoundX,
+									sY: pCurrent.sRoundY - pCurrent.sLastRoundY
+								});
+								pCurrent.sLastRoundX = pCurrent.sRoundX;
+								pCurrent.sLastRoundY = pCurrent.sRoundY;
+							}
+						} else {
+							pCurrent.dX = inResponse.coordinate.x;
+							pCurrent.dY = inResponse.coordinate.y;
+							pCurrent.sRoundX = pCurrent.dX;
+							pCurrent.sRoundY = pCurrent.dY;
+							if(pCurrent.sLastRoundX != pCurrent.sRoundX || pCurrent.sLastRoundY != pCurrent.sRoundY) {
+								if(iTimeoutLongClick && ((pDown.dX - pCurrent.dX) > 3 || (pDown.dX - pCurrent.dX) < -3 || (pDown.dY - pCurrent.dY) > 3 || (pDown.dY - pCurrent.dY) < -3)) {
+									clearTimeout(iTimeoutLongClick);
+									iTimeoutLongClick = 0;
+									SendKey({
+										usC: 0x01,
+										bS: true
+									});
+									bPositionDownSent = true;
+								}
+								SendPositionAbsolute({
+									usX: pCurrent.sRoundX,
+									usY: pCurrent.sRoundY
+								});
+								pCurrent.sLastRoundX = pCurrent.sRoundX;
+								pCurrent.sLastRoundY = pCurrent.sRoundY;
+							}
 						}
 					}
 					break;
@@ -889,18 +900,34 @@ function SendWol(mMac, strBroadcast) {
 	});
 }
 
-var bufPosition = new ArrayBuffer(5);
-var dwPosition = new DataView(bufPosition);
-dwPosition.setUint8(0, MessageType.Position);
-function SendPosition(pPosition) {
+var bufPositionRelative = new ArrayBuffer(5);
+var dwPositionRelative = new DataView(bufPositionRelative);
+dwPositionRelative.setUint8(0, MessageType.PositionRelative);
+function SendPositionRelative(pPositionRelative) {
 	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
 		try {
-			dwPosition.setInt16(1, pPosition.sX, true);
-			dwPosition.setInt16(3, pPosition.sY, true);
-			socClient.send(bufPosition);
-			LogIfDebug(oString.strSendPositionSuccess + " [0x" + bufPosition.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPosition);
+			dwPositionRelative.setInt16(1, pPositionRelative.sX, true);
+			dwPositionRelative.setInt16(3, pPositionRelative.sY, true);
+			socClient.send(bufPositionRelative);
+			LogIfDebug(oString.strSendPositionRelativeSuccess + " [0x" + bufPositionRelative.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPositionRelative);
 		} catch(eError) {
-			Error(oString.strSendPositionFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", pPosition);
+			Error(oString.strSendPositionRelativeFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", pPositionRelative);
+		}
+	}
+}
+
+var bufPositionAbsolute = new ArrayBuffer(5);
+var dwPositionAbsolute = new DataView(bufPositionAbsolute);
+dwPositionAbsolute.setUint8(0, MessageType.PositionAbsolute);
+function SendPositionAbsolute(pPositionAbsolute) {
+	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
+		try {
+			dwPositionAbsolute.setUint16(1, pPositionAbsolute.usX, true);
+			dwPositionAbsolute.setUint16(3, pPositionAbsolute.usY, true);
+			socClient.send(bufPositionAbsolute);
+			LogIfDebug(oString.strSendPositionAbsoluteSuccess + " [0x" + bufPositionAbsolute.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPositionAbsolute);
+		} catch(eError) {
+			Error(oString.strSendPositionAbsoluteFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", pPositionAbsolute);
 		}
 	}
 }

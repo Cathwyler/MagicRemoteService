@@ -12,7 +12,7 @@ namespace MagicRemoteService {
 	}
 	public class PowerSettingNotification : System.Windows.Forms.Control {
 		private readonly System.IntPtr hNotification;
-		public event NotificationArrivedEventHandler NotificationArrived;
+		public event NotificationArrivedEventHandler naehNotificationArrived;
 
 		public delegate void NotificationArrivedEventHandler(WinApi.PowerBroadcastSetting pbs);
 		public PowerSettingNotification() : base() {
@@ -30,7 +30,7 @@ namespace MagicRemoteService {
 				case 0x218:
 					switch(m.WParam.ToInt32()) {
 						case 0x8013:
-							this.NotificationArrived?.Invoke(System.Runtime.InteropServices.Marshal.PtrToStructure<WinApi.PowerBroadcastSetting>(m.LParam));
+							this.naehNotificationArrived?.Invoke(System.Runtime.InteropServices.Marshal.PtrToStructure<WinApi.PowerBroadcastSetting>(m.LParam));
 							break;
 					}
 					break;
@@ -42,13 +42,13 @@ namespace MagicRemoteService {
 		private static readonly MagicRemoteService.Invoker iInvoker = new MagicRemoteService.Invoker();
 		private static readonly MagicRemoteService.Watcher wExplorer = new MagicRemoteService.Watcher("SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = \"explorer.exe\"");
 		private static readonly MagicRemoteService.PowerSettingNotification psnPowerSettingNotification = new MagicRemoteService.PowerSettingNotification();
-		public static event MagicRemoteService.PowerSettingNotification.NotificationArrivedEventHandler PowerSettingNotificationArrived;
+		public static event MagicRemoteService.PowerSettingNotification.NotificationArrivedEventHandler naehPowerSettingNotificationArrived;
 
 		private readonly MagicRemoteService.Service mrsService = new MagicRemoteService.Service();
 		private readonly System.Windows.Forms.NotifyIcon niIcon;
 		private MagicRemoteService.Setting sSetting;
 		static Application() {
-			MagicRemoteService.Application.psnPowerSettingNotification.NotificationArrived += MagicRemoteService.Application.OnPowerSettingNotification;
+			MagicRemoteService.Application.psnPowerSettingNotification.naehNotificationArrived += MagicRemoteService.Application.OnPowerSettingNotification;
 		}
 		public Application() {
 			MagicRemoteService.Application.wExplorer.EventArrived += this.OnExplorerStart;
@@ -125,7 +125,7 @@ namespace MagicRemoteService {
 			this.niIcon.Visible = true;
 		}
 		static private void OnPowerSettingNotification(WinApi.PowerBroadcastSetting pbs) {
-			MagicRemoteService.Application.PowerSettingNotificationArrived?.Invoke(pbs);
+			MagicRemoteService.Application.naehPowerSettingNotificationArrived?.Invoke(pbs);
 		}
 		protected override void Dispose(bool disposing) {
 			if(disposing) {
