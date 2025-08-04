@@ -236,12 +236,12 @@ var iCursor = 1;
 function CursorHideCountIf0() {
 	iCursor--;
 	if (iCursor == 0) {
-		//CursorHide();
+		CursorHide();
 	}
 };
 function CursorShowCountIf0() {
 	if (iCursor == 0) {
-		//CursorShow();
+		CursorShow();
 	}
 	iCursor++;
 };
