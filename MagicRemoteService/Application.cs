@@ -57,7 +57,7 @@ namespace MagicRemoteService {
 			this.mrsService.ServiceStart();
 
 			this.niIcon = new System.Windows.Forms.NotifyIcon {
-				Icon = MagicRemoteService.Properties.Resources.MagicRemoteService,
+				Icon = MagicRemoteService.Properties.Resources.MagicRemoteServiceIcon,
 				ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] {
 					new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationSetting, this.Setting),
 					new System.Windows.Forms.MenuItem(MagicRemoteService.Properties.Resources.ApplicationExit, this.Exit)

@@ -66,9 +66,10 @@ const MessageType = {
 	PositionRelative: 0x00,
 	PositionAbsolute: 0x01,
 	Wheel: 0x02,
-	Key: 0x03,
-	Unicode: 0x04,
-	Shutdown: 0x05
+	Visible: 0x03,
+	Key: 0x04,
+	Unicode: 0x05,
+	Shutdown: 0x06
 }
 
 const bInputDirect = true;
@@ -90,7 +91,7 @@ const arrMac = strMac.split(":").map(function(x) {
 });
 const aSensor = {
 	dMax: 50,
-	dFactor: 3,
+	dFactor: 2,
 }
 const strAppId = "com.cathwyler.magicremoteservice";
 
@@ -219,8 +220,14 @@ function Error() {
 
 function AppVisible() {};
 
+function CursorVisible() {};
+
 function AppFocus() {
 	return document.hasFocus() === true;
+};
+
+function KeyboardVisible() {
+	return document.activeElement === deKeyboard;
 };
 
 function CursorHide() {};
@@ -229,12 +236,12 @@ var iCursor = 1;
 function CursorHideCountIf0() {
 	iCursor--;
 	if (iCursor == 0) {
-		CursorHide();
+		//CursorHide();
 	}
 };
 function CursorShowCountIf0() {
 	if (iCursor == 0) {
-		CursorShow();
+		//CursorShow();
 	}
 	iCursor++;
 };
@@ -393,7 +400,6 @@ function SubscriptionScreenSaverRequest() {
 		} 
 	});
 }
-
 var pCurrent = {
 	dX: 960,
 	dY: 540,
@@ -401,11 +407,27 @@ var pCurrent = {
 	sRoundY: 540,
 	sLastRoundX: 960,
 	sLastRoundY: 540,
+	dLastReset: 0
 };
 var pDown = {
 	dX: 0,
 	dY: 0,
 };
+
+function ResetQuaternion() {
+	webOS.service.request("luna://com.webos.service.mrcu", {
+		method: "sensor/resetQuaternion",
+		onSuccess: function (inResponse) {
+			console.error("Succeeded to reset the quaternion sensor");
+			// To-Do something
+		},
+		onFailure: function (inError) {
+			console.error("[" + inError.errorCode + "]: " + inError.errorText);
+			// To-Do something
+		},
+	});
+}
+
 var bPositionDownSent = false;
 var iTimeoutLongClick = 0;
 function SubscriptionGetSensorData() {
@@ -425,40 +447,19 @@ function SubscriptionGetSensorData() {
 				case undefined:
 					if(AppVisible() && AppFocus()) {
 						if(iCursor == 0) {
-							var qSensor = {
-								dW: inResponse.quaternion.q3,//Math.sqrt(1 - Math.pow(inResponse.quaternion.q1, 2)),
-								//dX: inResponse.quaternion.q0,
-								dY: inResponse.quaternion.q1//,
-								//dZ: inResponse.quaternion.q2
-							}
-							var rSensor = {
-								dX: inResponse.gyroscope.x,
-								//dY: inResponse.gyroscope.y,
-								dZ: inResponse.gyroscope.z
-							}
-							var mRotation = {
-								//r1c1: qSensor.dW * qSensor.dX,
-								r1c2: qSensor.dW * qSensor.dY,
-								//r1c3: qSensor.dW * qSensor.dZ,
-								//r2c1: -qSensor.dX * qSensor.dX,
-								//r2c2: qSensor.dX * qSensor.dY,
-								//r2c3: qSensor.dX * qSensor.dZ,
-								r3c1: -qSensor.dY * qSensor.dY//,
-								//r3c2: qSensor.dY * qSensor.dZ,
-								//r3c3: -qSensor.dZ * qSensor.dZ
-							};
-							var rSensorRotation = {
-								dX: (2 * (((mRotation.r3c1/* + mRotation.r3c3*/) * rSensor.dX) + /*((mRotation.r2c2 - mRotation.r1c3) * rSensor.dY) +*/ ((mRotation.r1c2/* + mRotation.r2c3*/) * rSensor.dZ))) + rSensor.dX,
-								//dY: (2 * (((mRotation.r1c3 + mRotation.r2c2) * rSensor.dX) + ((mRotation.r2c1 + mRotation.r3c3) * rSensor.dY) + ((mRotation.r3c2 - mRotation.r1c1) * rSensor.dZ))) + rSensor.dY,
-								dZ: (2 * (((/*mRotation.r2c3*/ - mRotation.r1c2) * rSensor.dX) + /*((mRotation.r1c1 + mRotation.r3c2) * rSensor.dY) +*/ ((/*mRotation.r2c1 + */mRotation.r3c1) * rSensor.dZ))) + rSensor.dZ
-							}
+							// var pitchX = -Math.atan2(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2), 1 - 2 * (qinResponse.quaternion.q1 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q0));
+							// var pitchZ = -Math.atan2(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2), 1 - 2 * (inResponse.quaternion.q1 * inResponse.quaternion.q1 - inResponse.quaternion.q2 * inResponse.quaternion.q2));
+							// var pitchY = -Math.asin(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2));
 							
-							var dRho = Math.sqrt(Math.pow(rSensorRotation.dZ, 2) + Math.pow(rSensorRotation.dX, 2))
+							var dTheta = Math.atan2(inResponse.gyroscope.z, inResponse.gyroscope.x) - Math.atan2(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2), 1 - 2 * (inResponse.quaternion.q1 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q0));
+							var dRho = Math.sqrt(Math.pow(inResponse.gyroscope.z, 2) + Math.pow(inResponse.gyroscope.x, 2));
 							
 							if(dRho > 0) {
-								var dRhoAcceleration = (aSensor.dMax / aSensor.dFactor) - ((aSensor.dMax * dRho) / Math.tanh(dRho * aSensor.dFactor));
-								pCurrent.dX += (rSensorRotation.dZ * dRhoAcceleration) / dRho;
-								pCurrent.dY += (rSensorRotation.dX * dRhoAcceleration) / dRho;
+								var dRhoAcceleration = aSensor.dMax * dRho * Math.tanh(aSensor.dFactor * dRho);
+								pCurrent.dX -= dRhoAcceleration * Math.sin(dTheta);
+								pCurrent.dY -= dRhoAcceleration * Math.cos(dTheta);
+								pCurrent.dLastReset += dRhoAcceleration;
+
 								pCurrent.sRoundX = Math.round(pCurrent.dX);
 								pCurrent.sRoundY = Math.round(pCurrent.dY);
 								if(iTimeoutLongClick && ((pDown.dX - pCurrent.dX) > 3 || (pDown.dX - pCurrent.dX) < -3 || (pDown.dY - pCurrent.dY) > 3 || (pDown.dY - pCurrent.dY) < -3)) {
@@ -476,6 +477,10 @@ function SubscriptionGetSensorData() {
 								});
 								pCurrent.sLastRoundX = pCurrent.sRoundX;
 								pCurrent.sLastRoundY = pCurrent.sRoundY;
+								if(pCurrent.dLastReset > 1000) {
+									ResetQuaternion();
+									pCurrent.dLastReset = 0;
+								}
 							}
 						} else {
 							pCurrent.dX = inResponse.coordinate.x;
@@ -716,6 +721,51 @@ function SubscriptionDomEvent() {
 		}
 	});
 
+	window.addEventListener("focus", function(inEvent) {
+		if(CursorVisible()) {
+			SendVisible({
+				bV: true
+			});
+		}
+	});
+
+	window.addEventListener("blur", function(inEvent) {
+		if(CursorVisible()) {
+			SendVisible({
+				bV: false
+			});
+		}
+	});
+
+	if(arrVersion[0] > 2) {
+		document.addEventListener("cursorStateChange", function(inEvent) {
+			SendVisible({
+				bV: CursorVisible()
+			});
+		});
+	} else {
+		document.addEventListener("keydown", function(inEvent) {
+			switch(inEvent.keyCode) {
+				case 0x600:
+					CursorVisible = function() {
+						return true;
+					};
+					SendVisible({
+						bV: CursorVisible()
+					});
+					break;
+				case 0x601:
+					CursorVisible = function() {
+						return false;
+					};
+					SendVisible({
+						bV: CursorVisible()
+					});
+					break;
+			}
+		});
+	}
+
 	deKeyboard.addEventListener("focus", function(inEvent) {
 		CursorShowCountIf0();
 	});
@@ -795,6 +845,11 @@ function SocketOpen() {
 			ScreenCancel(deScreenOpen);
 		}
 		CursorHideCountIf0();
+		if(CursorVisible() && AppVisible() && AppFocus()) {
+			SendVisible({
+				bV: true
+			});
+		}
 	};
 	socClient.onclose = function(e) {
 		LogIfDebug(oString.strSocketClosed);
@@ -832,7 +887,7 @@ function SocketOpen() {
 					}
 					break;
 				case 0x02:
-					if(document.activeElement === deKeyboard) {
+					if(KeyboardVisible()) {
 						deKeyboard.blur();
 					} else {
 						deKeyboard.focus();
@@ -874,10 +929,15 @@ function Close() {
 			clearInterval(iIntervalRetryOpen);
 			iIntervalRetryOpen = 0;
 		}
+		if(AppVisible() && AppFocus() && CursorVisible()) {
+			SendVisible({
+				bV: false
+			});
+		}
 		if(ScreenExist(deScreenShutdown)) {
 			ScreenCancel(deScreenShutdown);
 		}
-		if(document.activeElement === deKeyboard) {
+		if(KeyboardVisible()) {
 			deKeyboard.blur();
 		}
 		SocketClose();
@@ -909,7 +969,7 @@ function SendPositionRelative(pPositionRelative) {
 			dwPositionRelative.setInt16(1, pPositionRelative.sX, true);
 			dwPositionRelative.setInt16(3, pPositionRelative.sY, true);
 			socClient.send(bufPositionRelative);
-			LogIfDebug(oString.strSendPositionRelativeSuccess + " [0x" + bufPositionRelative.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPositionRelative);
+			//LogIfDebug(oString.strSendPositionRelativeSuccess + " [0x" + bufPositionRelative.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPositionRelative);
 		} catch(eError) {
 			Error(oString.strSendPositionRelativeFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", pPositionRelative);
 		}
@@ -925,7 +985,7 @@ function SendPositionAbsolute(pPositionAbsolute) {
 			dwPositionAbsolute.setUint16(1, pPositionAbsolute.usX, true);
 			dwPositionAbsolute.setUint16(3, pPositionAbsolute.usY, true);
 			socClient.send(bufPositionAbsolute);
-			LogIfDebug(oString.strSendPositionAbsoluteSuccess + " [0x" + bufPositionAbsolute.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPositionAbsolute);
+			//LogIfDebug(oString.strSendPositionAbsoluteSuccess + " [0x" + bufPositionAbsolute.toString(16) + "]@" + strIP + ":" + uiPort + " ", pPositionAbsolute);
 		} catch(eError) {
 			Error(oString.strSendPositionAbsoluteFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", pPositionAbsolute);
 		}
@@ -943,6 +1003,21 @@ function SendWheel(wWheel) {
 			LogIfDebug(oString.strSendWheelSuccess + " [0x" + bufWheel.toString(16) + "]@" + strIP + ":" + uiPort + " ", wWheel);
 		} catch(eError) {
 			Error(oString.strSendWheelFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", wWheel);
+		}
+	}
+}
+
+var bufVisible = new ArrayBuffer(2);
+var dwVisible = new DataView(bufVisible);
+dwVisible.setUint8(0, MessageType.Visible);
+function SendVisible(vVisible) {
+	if(socClient !== null && socClient.readyState === WebSocket.OPEN) {
+		try {
+			dwVisible.setUint8(1, vVisible.bV);
+			socClient.send(bufVisible);
+			LogIfDebug(oString.strSendVisibleSuccess + " [0x" + bufVisible.toString(16) + "]@" + strIP + ":" + uiPort + " ", vVisible);
+		} catch(eError) {
+			Error(oString.strSendVisibleFailure + " [", eError, "]@" + strIP + ":" + uiPort + " ", vVisible);
 		}
 	}
 }
@@ -1067,6 +1142,19 @@ function Load() {
 		} else {
 			//CursorHide = function() {};
 			//CursorShow = function() {};	
+		}
+		if(arrVersion[0] > 4) {
+			CursorVisible = function() {
+				return webOSSystem.cursor.visibility === true;
+			};
+		} else if(arrVersion[0] > 2) {
+			CursorVisible = function() {
+				return PalmSystem.cursor.visibility === true;
+			};
+		} else {
+			CursorVisible = function() {
+				return false;
+			};
 		}
 
 		SubscriptionLog();

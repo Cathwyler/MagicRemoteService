@@ -160,7 +160,7 @@
   <data name="largeIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TV\MagicRemoteService\largeIcon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MagicRemoteService" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="MagicRemoteServiceIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MagicRemoteService.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="main" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -291,5 +291,8 @@
   </data>
   <data name="SettingTVSelectErrorTitle" xml:space="preserve">
     <value>The TV has not been selected</value>
+  </data>
+  <data name="MagicRemoteServiceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MagicRemoteService.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

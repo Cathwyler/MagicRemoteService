@@ -22,7 +22,7 @@ namespace MagicRemoteService.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MagicRemoteService.Properties {
         ///   Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MagicRemoteService.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace MagicRemoteService.Properties {
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -80,7 +80,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;defaultWindowType&quot;: &quot;floating&quot;,
         ///	&quot; [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string appinfo {
+        public static string appinfo {
             get {
                 return ResourceManager.GetString("appinfo", resourceCulture);
             }
@@ -89,7 +89,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Exit.
         /// </summary>
-        internal static string ApplicationExit {
+        public static string ApplicationExit {
             get {
                 return ResourceManager.GetString("ApplicationExit", resourceCulture);
             }
@@ -98,7 +98,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Settings.
         /// </summary>
-        internal static string ApplicationSetting {
+        public static string ApplicationSetting {
             get {
                 return ResourceManager.GetString("ApplicationSetting", resourceCulture);
             }
@@ -120,7 +120,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strAddDeviceFailure&quot;: &quot;Failed to add device&quot;,
         ///	&quot;strRegisterScreenSaverReques [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string appstring {
+        public static string appstring {
             get {
                 return ResourceManager.GetString("appstring", resourceCulture);
             }
@@ -129,7 +129,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Keyboard.
         /// </summary>
-        internal static string BindActionValueKeyboard {
+        public static string BindActionValueKeyboard {
             get {
                 return ResourceManager.GetString("BindActionValueKeyboard", resourceCulture);
             }
@@ -138,7 +138,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Shutdown.
         /// </summary>
-        internal static string BindActionValueShutdown {
+        public static string BindActionValueShutdown {
             get {
                 return ResourceManager.GetString("BindActionValueShutdown", resourceCulture);
             }
@@ -147,7 +147,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error.
         /// </summary>
-        internal static string BindKeyboardErreur {
+        public static string BindKeyboardErreur {
             get {
                 return ResourceManager.GetString("BindKeyboardErreur", resourceCulture);
             }
@@ -156,7 +156,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Left button.
         /// </summary>
-        internal static string BindMouseValueLeft {
+        public static string BindMouseValueLeft {
             get {
                 return ResourceManager.GetString("BindMouseValueLeft", resourceCulture);
             }
@@ -165,7 +165,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Middle button.
         /// </summary>
-        internal static string BindMouseValueMiddle {
+        public static string BindMouseValueMiddle {
             get {
                 return ResourceManager.GetString("BindMouseValueMiddle", resourceCulture);
             }
@@ -174,7 +174,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Right button.
         /// </summary>
-        internal static string BindMouseValueRight {
+        public static string BindMouseValueRight {
             get {
                 return ResourceManager.GetString("BindMouseValueRight", resourceCulture);
             }
@@ -183,7 +183,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
-        internal static byte[] cursor {
+        public static byte[] cursor {
             get {
                 object obj = ResourceManager.GetObject("cursor", resourceCulture);
                 return ((byte[])(obj));
@@ -195,7 +195,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;appDescriptionLong&quot;: &quot;Servicio que proporciona control remoto de computadora usando un televisor LG WebOS&quot;
         ///}.
         /// </summary>
-        internal static string esappinfo {
+        public static string esappinfo {
             get {
                 return ResourceManager.GetString("esappinfo", resourceCulture);
             }
@@ -215,7 +215,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strAddDeviceSuccess&quot;: &quot;Se ha añadido el dispositivo correctamente&quot;,
         ///	&quot;strAddDeviceFailure&quot;: &quot; [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string esappstring {
+        public static string esappstring {
             get {
                 return ResourceManager.GetString("esappstring", resourceCulture);
             }
@@ -226,7 +226,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;appDescriptionLong&quot;: &quot;Service permettant de contrôler un ordinateur à l&apos;aide d&apos;une TV WebOS LG&quot;
         ///}.
         /// </summary>
-        internal static string frappinfo {
+        public static string frappinfo {
             get {
                 return ResourceManager.GetString("frappinfo", resourceCulture);
             }
@@ -246,7 +246,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;strAddDeviceSuccess&quot;: &quot;Succès de l&apos;ajout de l&apos;appareil&quot;,
         ///	&quot;strAddDeviceFailure&quot;: &quot;Echec de l&apos;ajout de l&apos;appa [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string frappstring {
+        public static string frappstring {
             get {
                 return ResourceManager.GetString("frappstring", resourceCulture);
             }
@@ -255,7 +255,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
-        internal static byte[] icon {
+        public static byte[] icon {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
                 return ((byte[])(obj));
@@ -297,7 +297,7 @@ namespace MagicRemoteService.Properties {
         ///			-webkit-flex-flow: row wrap;
         ///			flex-fl [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string index {
+        public static string index {
             get {
                 return ResourceManager.GetString("index", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {0} is not a valid entry. Please specify a value between 1 and 255..
         /// </summary>
-        internal static string IPAddressBoxErrorByteEntryMessage {
+        public static string IPAddressBoxErrorByteEntryMessage {
             get {
                 return ResourceManager.GetString("IPAddressBoxErrorByteEntryMessage", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Invalid entry.
         /// </summary>
-        internal static string IPAddressBoxErrorByteEntryTitle {
+        public static string IPAddressBoxErrorByteEntryTitle {
             get {
                 return ResourceManager.GetString("IPAddressBoxErrorByteEntryTitle", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à You are trying to copy an incorrectly formatted IP address into this field..
         /// </summary>
-        internal static string IPAddressBoxErrorPasteMessage {
+        public static string IPAddressBoxErrorPasteMessage {
             get {
                 return ResourceManager.GetString("IPAddressBoxErrorPasteMessage", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Badly formatted IP address.
         /// </summary>
-        internal static string IPAddressBoxErrorPasteTitle {
+        public static string IPAddressBoxErrorPasteTitle {
             get {
                 return ResourceManager.GetString("IPAddressBoxErrorPasteTitle", resourceCulture);
             }
@@ -342,9 +342,20 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
-        internal static byte[] largeIcon {
+        public static byte[] largeIcon {
             get {
                 object obj = ResourceManager.GetObject("largeIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+		/// <summary>
+		///   Recherche une ressource localisée de type System.Byte[].
+		///   
+		/// </summary>
+		public static byte[] MagicRemoteServiceCursor {
+            get {
+                object obj = ResourceManager.GetObject("MagicRemoteServiceCursor", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -352,9 +363,9 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
-        internal static System.Drawing.Icon MagicRemoteService {
+        public static System.Drawing.Icon MagicRemoteServiceIcon {
             get {
-                object obj = ResourceManager.GetObject("MagicRemoteService", resourceCulture);
+                object obj = ResourceManager.GetObject("MagicRemoteServiceIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -378,7 +389,7 @@ namespace MagicRemoteService.Properties {
         ///};
         ///Element.prototype.oneEventList [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string main {
+        public static string main {
             get {
                 return ResourceManager.GetString("main", resourceCulture);
             }
@@ -387,7 +398,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
-        internal static byte[] miniIcon {
+        public static byte[] miniIcon {
             get {
                 object obj = ResourceManager.GetObject("miniIcon", resourceCulture);
                 return ((byte[])(obj));
@@ -397,7 +408,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
-        internal static byte[] MuseoSans_Medium {
+        public static byte[] MuseoSans_Medium {
             get {
                 object obj = ResourceManager.GetObject("MuseoSans_Medium", resourceCulture);
                 return ((byte[])(obj));
@@ -410,7 +421,7 @@ namespace MagicRemoteService.Properties {
         ///	&quot;main&quot;: &quot;service.js&quot;
         ///}.
         /// </summary>
-        internal static string package {
+        public static string package {
             get {
                 return ResourceManager.GetString("package", resourceCulture);
             }
@@ -419,7 +430,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {0} is not a valid entry. Please specify a value between 0x00 and 0xFF..
         /// </summary>
-        internal static string PhysicalAddressBoxErrorByteEntryMessage {
+        public static string PhysicalAddressBoxErrorByteEntryMessage {
             get {
                 return ResourceManager.GetString("PhysicalAddressBoxErrorByteEntryMessage", resourceCulture);
             }
@@ -428,7 +439,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Invalid entry.
         /// </summary>
-        internal static string PhysicalAddressBoxErrorByteEntryTitle {
+        public static string PhysicalAddressBoxErrorByteEntryTitle {
             get {
                 return ResourceManager.GetString("PhysicalAddressBoxErrorByteEntryTitle", resourceCulture);
             }
@@ -437,7 +448,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à You are trying to copy an incorrectly formatted physical address into this field..
         /// </summary>
-        internal static string PhysicalAddressBoxErrorPasteMessage {
+        public static string PhysicalAddressBoxErrorPasteMessage {
             get {
                 return ResourceManager.GetString("PhysicalAddressBoxErrorPasteMessage", resourceCulture);
             }
@@ -446,7 +457,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Badly formatted physical address.
         /// </summary>
-        internal static string PhysicalAddressBoxErrorPasteTitle {
+        public static string PhysicalAddressBoxErrorPasteTitle {
             get {
                 return ResourceManager.GetString("PhysicalAddressBoxErrorPasteTitle", resourceCulture);
             }
@@ -465,7 +476,7 @@ namespace MagicRemoteService.Properties {
         ///
         ///var bDebug = [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string service {
+        public static string service {
             get {
                 return ResourceManager.GetString("service", resourceCulture);
             }
@@ -481,7 +492,7 @@ namespace MagicRemoteService.Properties {
         ///	]
         ///}.
         /// </summary>
-        internal static string services {
+        public static string services {
             get {
                 return ResourceManager.GetString("services", resourceCulture);
             }
@@ -490,7 +501,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error refreshing TV inputs.
         /// </summary>
-        internal static string SettingInputRefreshlErrorTitle {
+        public static string SettingInputRefreshlErrorTitle {
             get {
                 return ResourceManager.GetString("SettingInputRefreshlErrorTitle", resourceCulture);
             }
@@ -499,7 +510,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Please select a TV input..
         /// </summary>
-        internal static string SettingInputSelectErrorMessage {
+        public static string SettingInputSelectErrorMessage {
             get {
                 return ResourceManager.GetString("SettingInputSelectErrorMessage", resourceCulture);
             }
@@ -508,7 +519,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à The TV input has not been selected.
         /// </summary>
-        internal static string SettingInputSelectErrorTitle {
+        public static string SettingInputSelectErrorTitle {
             get {
                 return ResourceManager.GetString("SettingInputSelectErrorTitle", resourceCulture);
             }
@@ -517,7 +528,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {0} is not a valid physical address. Please specify a valid physical address..
         /// </summary>
-        internal static string SettingPCMacErrorMessage {
+        public static string SettingPCMacErrorMessage {
             get {
                 return ResourceManager.GetString("SettingPCMacErrorMessage", resourceCulture);
             }
@@ -526,7 +537,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Invalid physical address.
         /// </summary>
-        internal static string SettingPCMacErrorTitle {
+        public static string SettingPCMacErrorTitle {
             get {
                 return ResourceManager.GetString("SettingPCMacErrorTitle", resourceCulture);
             }
@@ -535,7 +546,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while saving PC configuration.
         /// </summary>
-        internal static string SettingPCSaveErrorTittle {
+        public static string SettingPCSaveErrorTittle {
             get {
                 return ResourceManager.GetString("SettingPCSaveErrorTittle", resourceCulture);
             }
@@ -544,7 +555,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Do you want to save the changes made to the PC service ?.
         /// </summary>
-        internal static string SettingPCSaveMessage {
+        public static string SettingPCSaveMessage {
             get {
                 return ResourceManager.GetString("SettingPCSaveMessage", resourceCulture);
             }
@@ -553,7 +564,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while saving remote configuration.
         /// </summary>
-        internal static string SettingRemoteSaveErrorTittle {
+        public static string SettingRemoteSaveErrorTittle {
             get {
                 return ResourceManager.GetString("SettingRemoteSaveErrorTittle", resourceCulture);
             }
@@ -562,7 +573,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Do you want to save the changes made to the remote keybind ?.
         /// </summary>
-        internal static string SettingRemoteSaveMessage {
+        public static string SettingRemoteSaveMessage {
             get {
                 return ResourceManager.GetString("SettingRemoteSaveMessage", resourceCulture);
             }
@@ -571,7 +582,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {0} is not a valid IP address. Please specify a valid IP address..
         /// </summary>
-        internal static string SettingSendIPErrorMessage {
+        public static string SettingSendIPErrorMessage {
             get {
                 return ResourceManager.GetString("SettingSendIPErrorMessage", resourceCulture);
             }
@@ -580,7 +591,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Invalid IP address.
         /// </summary>
-        internal static string SettingSendIPErrorTitle {
+        public static string SettingSendIPErrorTitle {
             get {
                 return ResourceManager.GetString("SettingSendIPErrorTitle", resourceCulture);
             }
@@ -589,7 +600,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à {0} is not a valid subnet mask. Please specify a valid subnet mask..
         /// </summary>
-        internal static string SettingSubnetMaskErrorMessage {
+        public static string SettingSubnetMaskErrorMessage {
             get {
                 return ResourceManager.GetString("SettingSubnetMaskErrorMessage", resourceCulture);
             }
@@ -598,7 +609,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Invalid subnet mask.
         /// </summary>
-        internal static string SettingSubnetMaskErrorTitle {
+        public static string SettingSubnetMaskErrorTitle {
             get {
                 return ResourceManager.GetString("SettingSubnetMaskErrorTitle", resourceCulture);
             }
@@ -607,7 +618,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while adding TV.
         /// </summary>
-        internal static string SettingTVAddErrorTitle {
+        public static string SettingTVAddErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVAddErrorTitle", resourceCulture);
             }
@@ -616,7 +627,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while inspecting running application on TV.
         /// </summary>
-        internal static string SettingTVInspectErrorTittle {
+        public static string SettingTVInspectErrorTittle {
             get {
                 return ResourceManager.GetString("SettingTVInspectErrorTittle", resourceCulture);
             }
@@ -625,7 +636,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while installing application on TV.
         /// </summary>
-        internal static string SettingTVInstallErrorTitle {
+        public static string SettingTVInstallErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVInstallErrorTitle", resourceCulture);
             }
@@ -634,7 +645,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while modifying TV.
         /// </summary>
-        internal static string SettingTVModifyErrorTitle {
+        public static string SettingTVModifyErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVModifyErrorTitle", resourceCulture);
             }
@@ -643,7 +654,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while refreshing TVs.
         /// </summary>
-        internal static string SettingTVRefreshlErrorTitle {
+        public static string SettingTVRefreshlErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVRefreshlErrorTitle", resourceCulture);
             }
@@ -652,7 +663,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while removing TV.
         /// </summary>
-        internal static string SettingTVRemoveErrorTitle {
+        public static string SettingTVRemoveErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVRemoveErrorTitle", resourceCulture);
             }
@@ -661,7 +672,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Do you want to install the changes made to the TV app ?.
         /// </summary>
-        internal static string SettingTVSaveMessage {
+        public static string SettingTVSaveMessage {
             get {
                 return ResourceManager.GetString("SettingTVSaveMessage", resourceCulture);
             }
@@ -670,7 +681,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Please select a TV.
         /// </summary>
-        internal static string SettingTVSelectErrorMessage {
+        public static string SettingTVSelectErrorMessage {
             get {
                 return ResourceManager.GetString("SettingTVSelectErrorMessage", resourceCulture);
             }
@@ -679,7 +690,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à The TV has not been selected.
         /// </summary>
-        internal static string SettingTVSelectErrorTitle {
+        public static string SettingTVSelectErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVSelectErrorTitle", resourceCulture);
             }
@@ -688,7 +699,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Error while retrieving TV version.
         /// </summary>
-        internal static string SettingTVVersionErrorTitle {
+        public static string SettingTVVersionErrorTitle {
             get {
                 return ResourceManager.GetString("SettingTVVersionErrorTitle", resourceCulture);
             }
@@ -697,7 +708,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à !function(){&quot;use strict&quot;;var e={d:function(n,t){for(var o in t)e.o(t,o)&amp;&amp;!e.o(n,o)&amp;&amp;Object.defineProperty(n,o,{enumerable:!0,get:t[o]})},o:function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},r:function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})}},n={};e.r(n),e.d(n,{deviceInfo:function(){return z},fetchAppId:function(){return t},fetchAppInfo:function(){return r},fetchAppRootPath:f [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string webOSTV {
+        public static string webOSTV {
             get {
                 return ResourceManager.GetString("webOSTV", resourceCulture);
             }
@@ -706,7 +717,7 @@ namespace MagicRemoteService.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à !function(){&quot;use strict&quot;;var e={d:function(r,t){for(var n in t)e.o(t,n)&amp;&amp;!e.o(r,n)&amp;&amp;Object.defineProperty(r,n,{enumerable:!0,get:t[n]})},o:function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},r:function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})}},r={};function t(e){return t=&quot;function&quot;==typeof Symbol&amp;&amp;&quot;symbol&quot;==typeof Symbol.iterator?function(e){return typeof e}:function(e){return [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
-        internal static string webOSTV_dev {
+        public static string webOSTV_dev {
             get {
                 return ResourceManager.GetString("webOSTV_dev", resourceCulture);
             }
