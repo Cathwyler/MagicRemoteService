@@ -17,6 +17,8 @@
 	"strResponseScreenSaverRequestFailure": "Failed to response screensaver request",
 	"strGetSensorDataSubscribe": "Start to get sensor data",
 	"strGetSensorDataFailure": "Failed to get sensor data",
+	"strResetQuaternionSuccess": "Success to reset quaternion",
+	"strResetQuaternionFailure": "Failed to reset quaternion",
 	"strGetSystemSettingsSuccess": "Success to get system settings",
 	"strGetSystemSettingsFailure": "Failed to get system settings",
 	"strLaunchSuccess": "Success to launch",

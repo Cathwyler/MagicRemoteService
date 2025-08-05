@@ -339,7 +339,7 @@ function SubscriptionInputStatus() {
 				}
 		},
 		onFailure: function(inError) {
-			Error(oString.strGetAllInputStatusFailure + " [", inError.errorText, "]");
+			Error(oString.strGetAllInputStatusFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 			Open();
 		}
 	});
@@ -369,10 +369,10 @@ function SubscriptionScreenSaverRequest() {
 							onFailure: function(inError) {
 								switch(inError.errorCode) {
 									case "-13":
-										console.error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]");
+										console.error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 										break;
 									default:
-										Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorText, "]");
+										Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 										break;
 								}
 							} 
@@ -391,10 +391,10 @@ function SubscriptionScreenSaverRequest() {
 			switch(inError.errorCode) {
 				case "-1":
 				case "-3":
-					console.error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]");
+					console.error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 					break;
 				default:
-					Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorText, "]");
+					Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 					break;
 			}
 		} 
@@ -417,13 +417,11 @@ var pDown = {
 function ResetQuaternion() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
 		method: "sensor/resetQuaternion",
-		onSuccess: function (inResponse) {
-			console.error("Succeeded to reset the quaternion sensor");
-			// To-Do something
+		onSuccess: function(inResponse) {
+			LogIfDebug(oString.strResetQuaternionSuccess);
 		},
 		onFailure: function (inError) {
-			console.error("[" + inError.errorCode + "]: " + inError.errorText);
-			// To-Do something
+			Error(oString.strResetQuaternionFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -518,7 +516,7 @@ function SubscriptionGetSensorData() {
 		onFailure: function(inError) {
 			switch(inError.errorCode) {
 				case "1301":
-					LogIfDebug(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
+					LogIfDebug(oString.strGetSensorDataFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 					if(arrVersion[0] > 2) {
 						document.oneEventListener("cursorStateChange", function(inEvent) {
 							if(inEvent.detail.visibility) {
@@ -541,7 +539,7 @@ function SubscriptionGetSensorData() {
 					}
 					break;
 				default:
-					Error(oString.strGetSensorDataFailure + " [", inError.errorText, "]");
+					Error(oString.strGetSensorDataFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 					break;
 			}
 		}
@@ -558,7 +556,7 @@ function LaunchInput() {
 			LogIfDebug(oString.strLaunchSuccess);
 		},
 		onFailure: function(inError) {
-			Error(oString.strLaunchFailure + " [", inError.errorText, "]");
+			Error(oString.strLaunchFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -583,7 +581,7 @@ function SubscriptionClose() {
 			}
 		},
 		onFailure: function(inError) {
-			Error(oString.strCloseFailure + " [", inError.errorText, "]");
+			Error(oString.strCloseFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -630,7 +628,7 @@ function SubscriptionLog() {
 			}
 		},
 		onFailure: function(inError) {
-			Error(oString.strLogFailure + " [", inError.errorText, "]");
+			Error(oString.strLogFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -955,7 +953,7 @@ function SendWol(mMac, strBroadcast) {
 			LogIfDebug(oString.strSendWolSuccess + " [0x" + inResponse.strBuffer + "]@" + strBroadcast + ":9 ", mMac);
 		},
 		onFailure: function(inError) {
-			Error(oString.strSendWolFailure + " [", inError.errorText, "]@" + strBroadcast + ":9 ", mMac);
+			Error(oString.strSendWolFailure + " [", inError.errorCode, ", ", inError.errorText, "]@" + strBroadcast + ":9 ", mMac);
 		}
 	});
 }

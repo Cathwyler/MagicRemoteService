@@ -16,6 +16,8 @@
 	"strResponseScreenSaverRequestFailure": "Echec de la réponse à la demande d'écran de veille",
 	"strGetSensorDataSubscribe": "Début de la récupération des donnéees du capteur",
 	"strGetSensorDataFailure": "Echec de la récupération des donnéees du capteur",
+	"strResetQuaternionSuccess": "Succès de la réinitialisation du quaternion",
+	"strResetQuaternionFailure": "Echec de la réinitialisation du quaternion",
 	"strGetSystemSettingsSuccess": "Succès de la récupération des paramètres du système",
 	"strGetSystemSettingsFailure": "Echec de la récupération des paramètres du système",
 	"strLaunchSuccess": "Succès du lancement",
