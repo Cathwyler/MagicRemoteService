@@ -981,7 +981,19 @@ namespace MagicRemoteService {
 					}
 				};
 
-				System.Drawing.Rectangle recBounds = System.Windows.Forms.Screen.GetBounds(System.Windows.Forms.Control.MousePosition);
+				MagicRemoteService.Screen scrDisplay = MagicRemoteService.Screen.PrimaryScreen;
+				System.Threading.Tasks.Task.Run(delegate () {
+					System.Net.IPAddress iaClient = ((System.Net.IPEndPoint)socClient.RemoteEndPoint).Address;
+					MagicRemoteService.WebOSCLIDevice wocdClient = System.Array.Find<MagicRemoteService.WebOSCLIDevice>(MagicRemoteService.WebOSCLI.SetupDeviceList(), delegate (MagicRemoteService.WebOSCLIDevice wocd) {
+						return wocd.DeviceInfo.IP.Equals(iaClient);
+					});
+					if(wocdClient != null) {
+						Microsoft.Win32.RegistryKey rkMagicRemoteServiceDevice = (MagicRemoteService.Program.bElevated ? Microsoft.Win32.Registry.LocalMachine : Microsoft.Win32.Registry.CurrentUser).OpenSubKey(@"Software\MagicRemoteService\Device\" + wocdClient.Name);
+						if(rkMagicRemoteServiceDevice != null && MagicRemoteService.Screen.AllScreen.TryGetValue((uint)(int)rkMagicRemoteServiceDevice.GetValue("Display", 0), out MagicRemoteService.Screen scr) && scr.Active) {
+							scrDisplay = scr;
+						}
+					}
+				});
 
 				System.Threading.WaitHandle[] tabEvent = new System.Threading.WaitHandle[] {
 					Service.mreStop,
@@ -1088,8 +1100,8 @@ namespace MagicRemoteService {
 														Service.SendInputAdmin(piPositionRelative);
 														break;
 													case (byte)MagicRemoteService.MessageType.PositionAbsolute:
-														piPositionAbsolute[0].u.mi.dx = ((recBounds.X + ((recBounds.Width * System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1)) / 1920)) * 65535) / ScreenExtension.DesktopBounds.Width;
-														piPositionAbsolute[0].u.mi.dy = ((recBounds.Y + ((recBounds.Height * System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3)) / 1080)) * 65535) / ScreenExtension.DesktopBounds.Height;
+														piPositionAbsolute[0].u.mi.dx = ((scrDisplay.Bounds.X + ((scrDisplay.Bounds.Width * System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1)) / 1920)) * 65535) / MagicRemoteService.Screen.DesktopBounds.Width;
+														piPositionAbsolute[0].u.mi.dy = ((scrDisplay.Bounds.Y + ((scrDisplay.Bounds.Height * System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 3)) / 1080)) * 65535) / MagicRemoteService.Screen.DesktopBounds.Height;
 														Service.SendInputAdmin(piPositionAbsolute);
 														break;
 													case (byte)MagicRemoteService.MessageType.Wheel:
@@ -1102,9 +1114,6 @@ namespace MagicRemoteService {
 														if(System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 1)) {
 															MagicRemoteService.SystemCursor.SetMagicRemoteServiceSystemCursor();
 															MagicRemoteService.SystemCursor.SetMagicRemoteServiceMouseSpeedAccel();
-															//piPositionAbsolute[0].u.mi.dx = ((recBounds.X + (recBounds.Width / 2)) * 65535) / ScreenExtension.DesktopBounds.Width;
-															//piPositionAbsolute[0].u.mi.dy = ((recBounds.Y + (recBounds.Height / 2)) * 65535) / ScreenExtension.DesktopBounds.Height;
-															//Service.SendInputAdmin(piPositionAbsolute);
 														} else {
 															MagicRemoteService.SystemCursor.SetDefaultSystemCursor();
 															MagicRemoteService.SystemCursor.SetDefaultMouseSpeedAccel();
@@ -1118,7 +1127,6 @@ namespace MagicRemoteService {
 																Service.SendInputAdmin(arrInput);
 																Service.LogIfDebug("Processed binary message send/key [0x" + System.BitConverter.ToString(tabData, (int)ulOffsetData, (int)ulLenData).Replace("-", string.Empty) + "], usC: " + System.BitConverter.ToUInt16(tabData, (int)ulOffsetData + 1).ToString() + ", bS: " + System.BitConverter.ToBoolean(tabData, (int)ulOffsetData + 3).ToString());
 															} else if(dBindActionDown.TryGetValue(usCode, out byte[][] arr2Byte)) {
-																recBounds = System.Windows.Forms.Screen.GetBounds(System.Windows.Forms.Control.MousePosition);
 																foreach(byte[] arrByte in arr2Byte) {
 																	socClient.Send(arrByte);
 																}
@@ -1256,26 +1264,6 @@ namespace MagicRemoteService {
 		public static System.Diagnostics.Process GetClientProcess(this System.IO.Pipes.NamedPipeServerStream psServer) {
 			WinApi.Kernel32.GetNamedPipeClientProcessId(psServer.SafePipeHandle.DangerousGetHandle(), out uint uiProcessId);
 			return System.Diagnostics.Process.GetProcessById((int)uiProcessId);
-		}
-	}
-	public static class ScreenExtension {
-		private static System.Drawing.Rectangle recDesktopBounds;
-		public static System.Drawing.Rectangle DesktopBounds {
-			get {
-				return ScreenExtension.recDesktopBounds;
-			}
-		}
-		static ScreenExtension() {
-			Microsoft.Win32.SystemEvents.DisplaySettingsChanged += ScreenExtension.DisplaySettingsChangedEvent;
-			ScreenExtension.UpdateDesktopBounds();
-		}
-		private static void DisplaySettingsChangedEvent(object sender, System.EventArgs e) {
-			ScreenExtension.UpdateDesktopBounds();
-		}
-		private static void UpdateDesktopBounds() {
-			foreach(System.Windows.Forms.Screen scr in System.Windows.Forms.Screen.AllScreens) {
-				ScreenExtension.recDesktopBounds = System.Drawing.Rectangle.Union(ScreenExtension.recDesktopBounds, scr.Bounds);
-			}
 		}
 	}
 }

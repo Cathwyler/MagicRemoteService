@@ -295,4 +295,16 @@
   <data name="MagicRemoteServiceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MagicRemoteService.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Screen" xml:space="preserve">
+    <value>Screen</value>
+  </data>
+  <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
+    <value>Default primary screen</value>
+  </data>
+  <data name="SettingDisplaySelectErrorMessage" xml:space="preserve">
+    <value>Please select a display.</value>
+  </data>
+  <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
+    <value>The display has not been selected</value>
+  </data>
 </root>

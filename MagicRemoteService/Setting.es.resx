@@ -129,6 +129,9 @@
   <data name="btnTVInspect.Text" xml:space="preserve">
     <value>Inspeccionar</value>
   </data>
+  <data name="labDisplay.Text" xml:space="preserve">
+    <value>Pantalla TV</value>
+  </data>
   <data name="btnTVRemove.Text" xml:space="preserve">
     <value>Eliminar TV</value>
   </data>

@@ -348,12 +348,11 @@ namespace MagicRemoteService.Properties {
                 return ((byte[])(obj));
             }
         }
-
-		/// <summary>
-		///   Recherche une ressource localisée de type System.Byte[].
-		///   
-		/// </summary>
-		public static byte[] MagicRemoteServiceCursor {
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        public static byte[] MagicRemoteServiceCursor {
             get {
                 object obj = ResourceManager.GetObject("MagicRemoteServiceCursor", resourceCulture);
                 return ((byte[])(obj));
@@ -464,6 +463,24 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Screen.
+        /// </summary>
+        public static string Screen {
+            get {
+                return ResourceManager.GetString("Screen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Default primary screen.
+        /// </summary>
+        public static string ScreenPrimaryDefaultUserFriendlyName {
+            get {
+                return ResourceManager.GetString("ScreenPrimaryDefaultUserFriendlyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à 
         ///try {
         ///
@@ -495,6 +512,24 @@ namespace MagicRemoteService.Properties {
         public static string services {
             get {
                 return ResourceManager.GetString("services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please select a display..
+        /// </summary>
+        public static string SettingDisplaySelectErrorMessage {
+            get {
+                return ResourceManager.GetString("SettingDisplaySelectErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The display has not been selected.
+        /// </summary>
+        public static string SettingDisplaySelectErrorTitle {
+            get {
+                return ResourceManager.GetString("SettingDisplaySelectErrorTitle", resourceCulture);
             }
         }
         

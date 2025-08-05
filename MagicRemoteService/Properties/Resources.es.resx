@@ -231,8 +231,16 @@
   <data name="SettingTVSelectErrorTitle" xml:space="preserve">
     <value>La TV no ha sido seleccionada</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MagicRemoteServiceCursor" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Screen" xml:space="preserve">
+    <value>Pantalla</value>
+  </data>
+  <data name="ScreenPrimaryDefaultUserFriendlyName" xml:space="preserve">
+    <value>Pantalla primaria por defecto</value>
+  </data>
+  <data name="SettingDisplaySelectErrorMessage" xml:space="preserve">
+    <value>Seleccione una pantalla.</value>
+  </data>
+  <data name="SettingDisplaySelectErrorTitle" xml:space="preserve">
+    <value>La pantalla no ha sido seleccionada</value>
   </data>
 </root>

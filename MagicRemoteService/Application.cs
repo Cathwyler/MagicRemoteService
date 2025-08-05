@@ -106,14 +106,6 @@ namespace MagicRemoteService {
 						}
 					}
 				}
-				if(vRegistry < new System.Version("1.2.5.0")) {
-					Microsoft.Win32.RegistryKey rkMagicRemoteServiceDeviceList = rkMagicRemoteService.OpenSubKey("Device", true);
-					if(rkMagicRemoteServiceDeviceList != null) {
-						foreach(string sDevice in rkMagicRemoteServiceDeviceList.GetSubKeyNames()) {
-							rkMagicRemoteServiceDeviceList.OpenSubKey(sDevice, true)?.DeleteValue("Display", false);
-						}
-					}
-				}
 				rkMagicRemoteService.SetValue("Version", vCurrent.ToString(), Microsoft.Win32.RegistryValueKind.String);
 			}
 		}
