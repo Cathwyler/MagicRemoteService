@@ -74,6 +74,7 @@ const MessageType = {
 
 const bInputDirect = true;
 const bOverlay = true;
+const uiRemoteEvent = 200;
 const uiLongClick = 1500;
 const strInputId = "HDMI";
 const strInputAppId = "com.webos.app.hdmi";
@@ -90,8 +91,8 @@ const arrMac = strMac.split(":").map(function(x) {
 	return parseInt(x, 16);
 });
 const aSensor = {
-	dMax: 50,
-	dFactor: 2,
+	dFactor: 50,
+	dSpeed: 9,
 }
 const strAppId = "com.cathwyler.magicremoteservice";
 
@@ -401,17 +402,16 @@ function SubscriptionScreenSaverRequest() {
 	});
 }
 var pCurrent = {
+	dRhoAccelerationTotal: 0,
+	dRhoAccelerationNextReset: 0,
+	dRawX: 960,
+	dRawY: 540,
 	dX: 960,
 	dY: 540,
 	sRoundX: 960,
 	sRoundY: 540,
 	sLastRoundX: 960,
-	sLastRoundY: 540,
-	dLastReset: 0
-};
-var pDown = {
-	dX: 0,
-	dY: 0,
+	sLastRoundY: 540
 };
 
 function ResetQuaternion() {
@@ -426,8 +426,55 @@ function ResetQuaternion() {
 	});
 }
 
-var bPositionDownSent = false;
-var iTimeoutLongClick = 0;
+// function IIR2Initialize(dFrequencyCut, dFrequencySample) {
+// 	var dW = Math.tan((Math.PI * dFrequencyCut) / dFrequencySample);
+// 	var dW2 = Math.pow(dW, 2);
+// 	var d1 = 1 + (Math.SQRT2 * dW) + dW2;
+// 	var d2 = 1 - (Math.SQRT2 * dW) + dW2;
+// 	return {
+// 		dIn0: 0,
+// 		dIn1: 0,
+// 		dIn2: 0,
+// 		dOut0: 0,
+// 		dOut1: 0,
+// 		dOut2: 0,
+// 		dCoefIn0: dW2 / d1,
+// 		dCoefIn1: (2 * dW2) / d1,
+// 		dCoefIn2: dW2 / d1,
+// 		dCoefOut1: (-2 + (2 * dW2)) / d1,
+// 		dCoefOut2: d2 / d1
+// 	}
+// }
+
+// function IIR2Reset(dIn, iir2) {
+// 	iir2.dIn0 = dIn;
+// 	iir2.dIn1 = dIn;
+// 	iir2.dIn2 = dIn;
+// 	iir2.dOut0 = dIn;
+// 	iir2.dOut1 = dIn;
+// 	iir2.dOut2 = dIn;
+// }
+
+// function IIR2Calculate(dIn, iir2) {
+// 	iir2.dIn2 = iir2.dIn1;
+// 	iir2.dIn1 = iir2.dIn0;
+// 	iir2.dIn0 = dIn;
+// 	iir2.dOut2 = iir2.dOut1;
+// 	iir2.dOut1 = iir2.dOut0;
+// 	iir2.dOut0 = iir2.dCoefIn0 * iir2.dIn0 + iir2.dCoefIn1 * iir2.dIn1 + iir2.dCoefIn2 * iir2.dIn2 - iir2.dCoefOut1 * iir2.dOut1 - iir2.dCoefOut2 * iir2.dOut2;
+// 	return iir2.dOut0;
+// }
+
+// function Smooth(dX, dFactor, dSpeed) {
+// 	var dExp = Math.exp(dSpeed * dX);
+// 	return dFactor * (((dX * (dExp + 1)) / (dExp - 1)) - (2 / dSpeed));
+// }
+
+function Smooth2(dX, dFactor, dSpeed, dSize) {
+	var dDegree = Math.pow(dX, dSpeed);
+	return  (dFactor * dX * dDegree) / (dDegree + dSize);
+}
+
 function SubscriptionGetSensorData() {
 	webOS.service.request("luna://com.webos.service.mrcu", {
 		method: "sensor/getSensorData",
@@ -449,52 +496,39 @@ function SubscriptionGetSensorData() {
 							// var pitchZ = -Math.atan2(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2), 1 - 2 * (inResponse.quaternion.q1 * inResponse.quaternion.q1 - inResponse.quaternion.q2 * inResponse.quaternion.q2));
 							// var pitchY = -Math.asin(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2));
 							
-							var dTheta = Math.atan2(inResponse.gyroscope.z, inResponse.gyroscope.x) - Math.atan2(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2), 1 - 2 * (inResponse.quaternion.q1 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q0));
 							var dRho = Math.sqrt(Math.pow(inResponse.gyroscope.z, 2) + Math.pow(inResponse.gyroscope.x, 2));
-							
-							if(dRho > 0) {
-								var dRhoAcceleration = aSensor.dMax * dRho * Math.tanh(aSensor.dFactor * dRho);
-								pCurrent.dX -= dRhoAcceleration * Math.sin(dTheta);
-								pCurrent.dY -= dRhoAcceleration * Math.cos(dTheta);
-								pCurrent.dLastReset += dRhoAcceleration;
-
-								pCurrent.sRoundX = Math.round(pCurrent.dX);
-								pCurrent.sRoundY = Math.round(pCurrent.dY);
-								if(iTimeoutLongClick && ((pDown.dX - pCurrent.dX) > 3 || (pDown.dX - pCurrent.dX) < -3 || (pDown.dY - pCurrent.dY) > 3 || (pDown.dY - pCurrent.dY) < -3)) {
-									clearTimeout(iTimeoutLongClick);
-									iTimeoutLongClick = 0;
-									SendKey({
-										usC: 0x01,
-										bS: true
-									});
-									bPositionDownSent = true;
+							if(dRho > 0.04) {
+								var dTheta = Math.atan2(inResponse.gyroscope.z, inResponse.gyroscope.x) - Math.atan2(2 * (inResponse.quaternion.q3 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q2), 1 - 2 * (inResponse.quaternion.q1 * inResponse.quaternion.q1 - inResponse.quaternion.q0 * inResponse.quaternion.q0));
+								var dRhoAcceleration = Smooth2(dRho, 75, 1, 0.5);
+								pCurrent.dRhoAccelerationTotal += dRhoAcceleration;
+								if(!TestRemoteEvent()) {
+									pCurrent.dX += dRhoAcceleration * -Math.sin(dTheta);
+									pCurrent.dY += dRhoAcceleration * -Math.cos(dTheta);
+									TestLongClick();
+									pCurrent.sRoundX = Math.round(pCurrent.dX);
+									pCurrent.sRoundY = Math.round(pCurrent.dY);
+									if(pCurrent.sLastRoundX != pCurrent.sRoundX || pCurrent.sLastRoundY != pCurrent.sRoundY) {
+										SendPositionRelative({
+											sX: pCurrent.sRoundX - pCurrent.sLastRoundX,
+											sY: pCurrent.sRoundY - pCurrent.sLastRoundY
+										});
+										pCurrent.sLastRoundX = pCurrent.sRoundX;
+										pCurrent.sLastRoundY = pCurrent.sRoundY;
+									}
 								}
-								SendPositionRelative({
-									sX: pCurrent.sRoundX - pCurrent.sLastRoundX,
-									sY: pCurrent.sRoundY - pCurrent.sLastRoundY
-								});
-								pCurrent.sLastRoundX = pCurrent.sRoundX;
-								pCurrent.sLastRoundY = pCurrent.sRoundY;
-								if(pCurrent.dLastReset > 1000) {
+							} else {
+								if(pCurrent.dRhoAccelerationTotal > pCurrent.dRhoAccelerationNextReset) {
 									ResetQuaternion();
-									pCurrent.dLastReset = 0;
+									pCurrent.dRhoAccelerationNextReset += 1000;
 								}
 							}
 						} else {
 							pCurrent.dX = inResponse.coordinate.x;
 							pCurrent.dY = inResponse.coordinate.y;
+							TestLongClick();
 							pCurrent.sRoundX = pCurrent.dX;
 							pCurrent.sRoundY = pCurrent.dY;
 							if(pCurrent.sLastRoundX != pCurrent.sRoundX || pCurrent.sLastRoundY != pCurrent.sRoundY) {
-								if(iTimeoutLongClick && ((pDown.dX - pCurrent.dX) > 3 || (pDown.dX - pCurrent.dX) < -3 || (pDown.dY - pCurrent.dY) > 3 || (pDown.dY - pCurrent.dY) < -3)) {
-									clearTimeout(iTimeoutLongClick);
-									iTimeoutLongClick = 0;
-									SendKey({
-										usC: 0x01,
-										bS: true
-									});
-									bPositionDownSent = true;
-								}
 								SendPositionAbsolute({
 									usX: pCurrent.sRoundX,
 									usY: pCurrent.sRoundY
@@ -633,35 +667,91 @@ function SubscriptionLog() {
 	});
 }
 
+var iTimeoutLongClick = 0;
+var pLongClick = {
+	dX: 0,
+	dY: 0
+};
+var bPositionDownSent = false;
+function SetLongClick() {
+	if(iTimeoutLongClick) {
+		clearTimeout(iTimeoutLongClick);
+	}
+	iTimeoutLongClick = setTimeout(function() {
+		iTimeoutLongClick = 0;
+		SendKey({
+			usC: 0x02,
+			bS: true
+		});
+		SendKey({
+			usC: 0x02,
+			bS: false
+		});
+	}, uiLongClick);
+	pLongClick.dX = pCurrent.dX;
+	pLongClick.dY = pCurrent.dY;
+}
+
+function TestLongClick() {
+	if(!iTimeoutLongClick) {
+		return false;
+	} else if (Math.sqrt(Math.pow(pCurrent.dX - pLongClick.dX, 2) + Math.pow(pCurrent.dY - pLongClick.dY, 2)) > 3) {
+		ResetLongClick();
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function ResetLongClick() {
+	clearTimeout(iTimeoutLongClick);
+	iTimeoutLongClick = 0;
+	SendKey({
+		usC: 0x01,
+		bS: true
+	});
+	bPositionDownSent = true;
+}
+
+var iTimeoutRemoteEvent = 0;
+var dRhoAccelerationRemoteEvent = 0;
+function SetRemoteEvent() {
+	if(iTimeoutRemoteEvent) {
+		clearTimeout(iTimeoutRemoteEvent);
+	}
+	iTimeoutRemoteEvent = setTimeout(function() {
+		iTimeoutRemoteEvent = 0;
+		dRhoAccelerationRemoteEvent = 0;
+	}, uiRemoteEvent);
+	dRhoAccelerationRemoteEvent = pCurrent.dRhoAccelerationTotal + 50;
+}
+
+function TestRemoteEvent() {
+	if(!iTimeoutRemoteEvent) {
+		return false;
+	} else if(pCurrent.dRhoAccelerationTotal > dRhoAccelerationRemoteEvent) {
+		ResetRemoteEvent();
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function ResetRemoteEvent() {
+	clearTimeout(iTimeoutRemoteEvent);
+	iTimeoutRemoteEvent = 0;
+	dRhoAccelerationRemoteEvent = 0;
+}
+
 function SubscriptionDomEvent() {
 	deVideo.addEventListener("mousedown", function(inEvent) {
-		if(iTimeoutLongClick) {
-		} else {
-			iTimeoutLongClick = setTimeout(function() {
-				iTimeoutLongClick = 0;
-				SendKey({
-					usC: 0x02,
-					bS: true
-				});
-				SendKey({
-					usC: 0x02,
-					bS: false
-				});
-			}, uiLongClick);
-			pDown.dX = pCurrent.dX
-			pDown.dY = pCurrent.dY
-		}
+		SetLongClick();
+		SetRemoteEvent();
 	});
 
 	deVideo.addEventListener("mouseup", function(inEvent) {
 		if(iTimeoutLongClick) {
-			clearTimeout(iTimeoutLongClick);
-			iTimeoutLongClick = 0;
-			SendKey({
-				usC: 0x01,
-				bS: true
-			});
-			bPositionDownSent = true;
+			ResetLongClick();
 		}
 		if(bPositionDownSent) {
 			SendKey({
@@ -670,6 +760,7 @@ function SubscriptionDomEvent() {
 			});
 			bPositionDownSent = false;
 		}
+		SetRemoteEvent();
 	});
 
 	if(arrVersion[0] > 1) {
@@ -677,12 +768,14 @@ function SubscriptionDomEvent() {
 			SendWheel({
 				sY: inEvent.deltaY
 			});
+			SetRemoteEvent();
 		});
 	} else {
 		deVideo.addEventListener("mousewheel", function(inEvent) {
 			SendWheel({
 				sY: inEvent.wheelDeltaY
 			});
+			SetRemoteEvent();
 		});
 	}
 
@@ -691,6 +784,7 @@ function SubscriptionDomEvent() {
 			usC: inEvent.keyCode,
 			bS: true
 		});
+		SetRemoteEvent();
 	});
 
 	document.addEventListener("keyup", function(inEvent) {
@@ -698,6 +792,7 @@ function SubscriptionDomEvent() {
 			usC: inEvent.keyCode,
 			bS: false
 		});
+		SetRemoteEvent();
 	});
 
 	deKeyboard.addEventListener("input", function(inEvent) {
