@@ -209,6 +209,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BindCreator.es.resx">
       <DependentUpon>BindCreator.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="BindCreator.fr.resx">
       <DependentUpon>BindCreator.cs</DependentUpon>
@@ -259,12 +260,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TVAdder.es.resx">
       <DependentUpon>TVAdder.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TVAdder.fr.resx">
       <DependentUpon>TVAdder.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TVAdder.resx">
       <DependentUpon>TVAdder.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -117,81 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnClose.Text" xml:space="preserve">
-    <value>Cerrar</value>
-  </data>
-  <data name="btnTVVersion.Text" xml:space="preserve">
-    <value>Versión de TV</value>
-  </data>
-  <data name="cbInputDirect.Text" xml:space="preserve">
-    <value>Cableado HDMI directo</value>
-  </data>
-  <data name="btnTVInspect.Text" xml:space="preserve">
-    <value>Inspeccionar</value>
-  </data>
-  <data name="labDisplay.Text" xml:space="preserve">
-    <value>Pantalla TV</value>
-  </data>
-  <data name="btnTVRemove.Text" xml:space="preserve">
-    <value>Eliminar TV</value>
-  </data>
-  <data name="btnTVModify.Text" xml:space="preserve">
-    <value>Modificar TV</value>
-  </data>
-  <data name="btnTVAdd.Text" xml:space="preserve">
-    <value>Añadir TV</value>
-  </data>
-  <data name="cbExtend.Text" xml:space="preserve">
-    <value>Extender el modo desarrollador automáticamente cada 4 semanas</value>
-  </data>
-  <data name="labTV.Text" xml:space="preserve">
-    <value>Nombre TV</value>
-  </data>
-  <data name="labTVPort.Text" xml:space="preserve">
-    <value>Puerto de envío</value>
-  </data>
-  <data name="btnTVInstall.Text" xml:space="preserve">
-    <value>Instalar en TV</value>
-  </data>
-  <data name="labSendIP.Text" xml:space="preserve">
-    <value>Dirección IP del ordenador</value>
-  </data>
-  <data name="btnTVRefresh.Text" xml:space="preserve">
-    <value>Refrescar TVs</value>
-  </data>
-  <data name="labSubnetMask.Text" xml:space="preserve">
-    <value>Mascara de subred</value>
-  </data>
-  <data name="labPCMac.Text" xml:space="preserve">
-    <value>Dirección MAC del ordenador</value>
-  </data>
-  <data name="labInput.Text" xml:space="preserve">
-    <value>Entrada de TV</value>
-  </data>
-  <data name="labLongClick.Text" xml:space="preserve">
-    <value>Tiempo espera clic largo</value>
-  </data>
-  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
-    <value>Se agotó el tiempo de espera</value>
-  </data>
-  <data name="cbStartup.Text" xml:space="preserve">
-    <value>Lanzar automáticamente al iniciar</value>
-  </data>
-  <data name="labPCPort.Text" xml:space="preserve">
-    <value>Puerto de escucha</value>
-  </data>
-  <data name="btnPCSave.Text" xml:space="preserve">
-    <value>Guardar</value>
-  </data>
-  <data name="cbInactivity.Text" xml:space="preserve">
-    <value>Apagar el ordenador automáticamente cuando se enciende la TV</value>
-  </data>
-  <data name="labTimeoutIncativity.Text" xml:space="preserve">
-    <value>Se agotó el tiempo de espera</value>
-  </data>
-  <data name="tabRemote.Text" xml:space="preserve">
-    <value>Remoto</value>
-  </data>
   <data name="labRemoteChannelDown.Text" xml:space="preserve">
     <value>Canal -</value>
   </data>
@@ -251,6 +176,81 @@
   </data>
   <data name="btnRemoteSave.Text" xml:space="preserve">
     <value>Guardar</value>
+  </data>
+  <data name="tabRemote.Text" xml:space="preserve">
+    <value>Remoto</value>
+  </data>
+  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
+    <value>Se agotó el tiempo de espera</value>
+  </data>
+  <data name="cbStartup.Text" xml:space="preserve">
+    <value>Lanzar automáticamente al iniciar</value>
+  </data>
+  <data name="labPCPort.Text" xml:space="preserve">
+    <value>Puerto de escucha</value>
+  </data>
+  <data name="btnPCSave.Text" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="cbInactivity.Text" xml:space="preserve">
+    <value>Apagar el ordenador automáticamente cuando se enciende la TV</value>
+  </data>
+  <data name="labTimeoutIncativity.Text" xml:space="preserve">
+    <value>Se agotó el tiempo de espera</value>
+  </data>
+  <data name="btnTVVersion.Text" xml:space="preserve">
+    <value>Versión de TV</value>
+  </data>
+  <data name="cbInputDirect.Text" xml:space="preserve">
+    <value>Cableado HDMI directo</value>
+  </data>
+  <data name="btnTVInspect.Text" xml:space="preserve">
+    <value>Inspeccionar</value>
+  </data>
+  <data name="labDisplay.Text" xml:space="preserve">
+    <value>Pantalla TV</value>
+  </data>
+  <data name="btnTVRemove.Text" xml:space="preserve">
+    <value>Eliminar TV</value>
+  </data>
+  <data name="btnTVModify.Text" xml:space="preserve">
+    <value>Modificar TV</value>
+  </data>
+  <data name="btnTVAdd.Text" xml:space="preserve">
+    <value>Añadir TV</value>
+  </data>
+  <data name="cbExtend.Text" xml:space="preserve">
+    <value>Extender el modo desarrollador automáticamente cada 4 semanas</value>
+  </data>
+  <data name="labTV.Text" xml:space="preserve">
+    <value>Nombre TV</value>
+  </data>
+  <data name="labTVPort.Text" xml:space="preserve">
+    <value>Puerto de envío</value>
+  </data>
+  <data name="btnTVInstall.Text" xml:space="preserve">
+    <value>Instalar en TV</value>
+  </data>
+  <data name="labSendIP.Text" xml:space="preserve">
+    <value>Dirección IP del ordenador</value>
+  </data>
+  <data name="btnTVRefresh.Text" xml:space="preserve">
+    <value>Refrescar TVs</value>
+  </data>
+  <data name="labSubnetMask.Text" xml:space="preserve">
+    <value>Mascara de subred</value>
+  </data>
+  <data name="labPCMac.Text" xml:space="preserve">
+    <value>Dirección MAC del ordenador</value>
+  </data>
+  <data name="labInput.Text" xml:space="preserve">
+    <value>Entrada de TV</value>
+  </data>
+  <data name="labLongClick.Text" xml:space="preserve">
+    <value>Tiempo espera clic largo</value>
+  </data>
+  <data name="btnClose.Text" xml:space="preserve">
+    <value>Cerrar</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Ajustes</value>

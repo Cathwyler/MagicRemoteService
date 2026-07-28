@@ -25,32 +25,41 @@ namespace MagicRemoteService {
 		/// </summary>
 		private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BindCreator));
+			this.pnlBind = new System.Windows.Forms.Panel();
 			this.selBindMouse = new System.Windows.Forms.RadioButton();
 			this.selBindKeyboard = new System.Windows.Forms.RadioButton();
 			this.selBindAction = new System.Windows.Forms.RadioButton();
-			this.pnlBind = new System.Windows.Forms.Panel();
 			this.selBindCommand = new System.Windows.Forms.RadioButton();
-			this.pnlMouse = new System.Windows.Forms.Panel();
-			this.selMouseRight = new System.Windows.Forms.RadioButton();
-			this.selMouseMiddle = new System.Windows.Forms.RadioButton();
-			this.selMouseLeft = new System.Windows.Forms.RadioButton();
-			this.btnCancel = new System.Windows.Forms.Button();
-			this.btnConfirm = new System.Windows.Forms.Button();
 			this.tlpBind = new System.Windows.Forms.TableLayoutPanel();
-			this.pnlAction = new System.Windows.Forms.Panel();
-			this.cbbAction = new System.Windows.Forms.ComboBox();
-			this.labAction = new System.Windows.Forms.Label();
-			this.pnlCommand = new System.Windows.Forms.Panel();
-			this.tbCommand = new System.Windows.Forms.TextBox();
-			this.pnlKeyboard = new System.Windows.Forms.Panel();
+			this.pnlMouse = new System.Windows.Forms.Panel();
+			this.selMouseLeft = new System.Windows.Forms.RadioButton();
+			this.selMouseMiddle = new System.Windows.Forms.RadioButton();
+			this.selMouseRight = new System.Windows.Forms.RadioButton();
 			this.labKeyboard = new System.Windows.Forms.Label();
+			this.pnlKeyboard = new System.Windows.Forms.Panel();
+			this.pnlAction = new System.Windows.Forms.Panel();
+			this.labAction = new System.Windows.Forms.Label();
+			this.cbbAction = new System.Windows.Forms.ComboBox();
+			this.tbCommand = new System.Windows.Forms.TextBox();
+			this.pnlCommand = new System.Windows.Forms.Panel();
+			this.btnConfirm = new System.Windows.Forms.Button();
+			this.btnCancel = new System.Windows.Forms.Button();
 			this.pnlBind.SuspendLayout();
-			this.pnlMouse.SuspendLayout();
 			this.tlpBind.SuspendLayout();
+			this.pnlMouse.SuspendLayout();
+			this.pnlKeyboard.SuspendLayout();
 			this.pnlAction.SuspendLayout();
 			this.pnlCommand.SuspendLayout();
-			this.pnlKeyboard.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// pnlBind
+			// 
+			this.pnlBind.Controls.Add(this.selBindCommand);
+			this.pnlBind.Controls.Add(this.selBindMouse);
+			this.pnlBind.Controls.Add(this.selBindAction);
+			this.pnlBind.Controls.Add(this.selBindKeyboard);
+			resources.ApplyResources(this.pnlBind, "pnlBind");
+			this.pnlBind.Name = "pnlBind";
 			// 
 			// selBindMouse
 			// 
@@ -73,68 +82,12 @@ namespace MagicRemoteService {
 			this.selBindAction.UseVisualStyleBackColor = true;
 			this.selBindAction.CheckedChanged += new System.EventHandler(this.BindAction_CheckedChanged);
 			// 
-			// pnlBind
-			// 
-			this.pnlBind.Controls.Add(this.selBindCommand);
-			this.pnlBind.Controls.Add(this.selBindMouse);
-			this.pnlBind.Controls.Add(this.selBindAction);
-			this.pnlBind.Controls.Add(this.selBindKeyboard);
-			resources.ApplyResources(this.pnlBind, "pnlBind");
-			this.pnlBind.Name = "pnlBind";
-			// 
 			// selBindCommand
 			// 
 			resources.ApplyResources(this.selBindCommand, "selBindCommand");
 			this.selBindCommand.Name = "selBindCommand";
 			this.selBindCommand.UseVisualStyleBackColor = true;
 			this.selBindCommand.CheckedChanged += new System.EventHandler(this.BindCommand_CheckedChanged);
-			// 
-			// pnlMouse
-			// 
-			this.pnlMouse.Controls.Add(this.selMouseRight);
-			this.pnlMouse.Controls.Add(this.selMouseMiddle);
-			this.pnlMouse.Controls.Add(this.selMouseLeft);
-			resources.ApplyResources(this.pnlMouse, "pnlMouse");
-			this.pnlMouse.Name = "pnlMouse";
-			// 
-			// selMouseRight
-			// 
-			resources.ApplyResources(this.selMouseRight, "selMouseRight");
-			this.selMouseRight.Name = "selMouseRight";
-			this.selMouseRight.TabStop = true;
-			this.selMouseRight.UseVisualStyleBackColor = true;
-			this.selMouseRight.CheckedChanged += new System.EventHandler(this.MouseRight_CheckedChanged);
-			// 
-			// selMouseMiddle
-			// 
-			resources.ApplyResources(this.selMouseMiddle, "selMouseMiddle");
-			this.selMouseMiddle.Name = "selMouseMiddle";
-			this.selMouseMiddle.TabStop = true;
-			this.selMouseMiddle.UseVisualStyleBackColor = true;
-			this.selMouseMiddle.CheckedChanged += new System.EventHandler(this.MouseMiddle_CheckedChanged);
-			// 
-			// selMouseLeft
-			// 
-			resources.ApplyResources(this.selMouseLeft, "selMouseLeft");
-			this.selMouseLeft.Name = "selMouseLeft";
-			this.selMouseLeft.TabStop = true;
-			this.selMouseLeft.UseVisualStyleBackColor = true;
-			this.selMouseLeft.CheckedChanged += new System.EventHandler(this.MouseLeft_CheckedChanged);
-			// 
-			// btnCancel
-			// 
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			resources.ApplyResources(this.btnCancel, "btnCancel");
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
-			// 
-			// btnConfirm
-			// 
-			resources.ApplyResources(this.btnConfirm, "btnConfirm");
-			this.btnConfirm.Name = "btnConfirm";
-			this.btnConfirm.UseVisualStyleBackColor = true;
-			this.btnConfirm.Click += new System.EventHandler(this.Confirm_Click);
 			// 
 			// tlpBind
 			// 
@@ -145,12 +98,60 @@ namespace MagicRemoteService {
 			this.tlpBind.Controls.Add(this.pnlKeyboard, 0, 1);
 			this.tlpBind.Name = "tlpBind";
 			// 
+			// pnlMouse
+			// 
+			this.pnlMouse.Controls.Add(this.selMouseRight);
+			this.pnlMouse.Controls.Add(this.selMouseMiddle);
+			this.pnlMouse.Controls.Add(this.selMouseLeft);
+			resources.ApplyResources(this.pnlMouse, "pnlMouse");
+			this.pnlMouse.Name = "pnlMouse";
+			// 
+			// selMouseLeft
+			// 
+			resources.ApplyResources(this.selMouseLeft, "selMouseLeft");
+			this.selMouseLeft.Name = "selMouseLeft";
+			this.selMouseLeft.TabStop = true;
+			this.selMouseLeft.UseVisualStyleBackColor = true;
+			this.selMouseLeft.CheckedChanged += new System.EventHandler(this.MouseLeft_CheckedChanged);
+			// 
+			// selMouseMiddle
+			// 
+			resources.ApplyResources(this.selMouseMiddle, "selMouseMiddle");
+			this.selMouseMiddle.Name = "selMouseMiddle";
+			this.selMouseMiddle.TabStop = true;
+			this.selMouseMiddle.UseVisualStyleBackColor = true;
+			this.selMouseMiddle.CheckedChanged += new System.EventHandler(this.MouseMiddle_CheckedChanged);
+			// 
+			// selMouseRight
+			// 
+			resources.ApplyResources(this.selMouseRight, "selMouseRight");
+			this.selMouseRight.Name = "selMouseRight";
+			this.selMouseRight.TabStop = true;
+			this.selMouseRight.UseVisualStyleBackColor = true;
+			this.selMouseRight.CheckedChanged += new System.EventHandler(this.MouseRight_CheckedChanged);
+			// 
+			// labKeyboard
+			// 
+			resources.ApplyResources(this.labKeyboard, "labKeyboard");
+			this.labKeyboard.Name = "labKeyboard";
+			// 
+			// pnlKeyboard
+			// 
+			this.pnlKeyboard.Controls.Add(this.labKeyboard);
+			resources.ApplyResources(this.pnlKeyboard, "pnlKeyboard");
+			this.pnlKeyboard.Name = "pnlKeyboard";
+			// 
 			// pnlAction
 			// 
 			this.pnlAction.Controls.Add(this.cbbAction);
 			this.pnlAction.Controls.Add(this.labAction);
 			resources.ApplyResources(this.pnlAction, "pnlAction");
 			this.pnlAction.Name = "pnlAction";
+			// 
+			// labAction
+			// 
+			resources.ApplyResources(this.labAction, "labAction");
+			this.labAction.Name = "labAction";
 			// 
 			// cbbAction
 			// 
@@ -160,10 +161,11 @@ namespace MagicRemoteService {
 			this.cbbAction.Name = "cbbAction";
 			this.cbbAction.SelectedIndexChanged += new System.EventHandler(this.Action_SelectedIndexChanged);
 			// 
-			// labAction
+			// tbCommand
 			// 
-			resources.ApplyResources(this.labAction, "labAction");
-			this.labAction.Name = "labAction";
+			resources.ApplyResources(this.tbCommand, "tbCommand");
+			this.tbCommand.Name = "tbCommand";
+			this.tbCommand.TextChanged += new System.EventHandler(this.Command_TextChanged);
 			// 
 			// pnlCommand
 			// 
@@ -171,22 +173,20 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.pnlCommand, "pnlCommand");
 			this.pnlCommand.Name = "pnlCommand";
 			// 
-			// tbCommand
+			// btnConfirm
 			// 
-			resources.ApplyResources(this.tbCommand, "tbCommand");
-			this.tbCommand.Name = "tbCommand";
-			this.tbCommand.TextChanged += new System.EventHandler(this.Command_TextChanged);
+			resources.ApplyResources(this.btnConfirm, "btnConfirm");
+			this.btnConfirm.Name = "btnConfirm";
+			this.btnConfirm.UseVisualStyleBackColor = true;
+			this.btnConfirm.Click += new System.EventHandler(this.Confirm_Click);
 			// 
-			// pnlKeyboard
+			// btnCancel
 			// 
-			this.pnlKeyboard.Controls.Add(this.labKeyboard);
-			resources.ApplyResources(this.pnlKeyboard, "pnlKeyboard");
-			this.pnlKeyboard.Name = "pnlKeyboard";
-			// 
-			// labKeyboard
-			// 
-			resources.ApplyResources(this.labKeyboard, "labKeyboard");
-			this.labKeyboard.Name = "labKeyboard";
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			resources.ApplyResources(this.btnCancel, "btnCancel");
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
 			// 
 			// BindCreator
 			// 
@@ -199,43 +199,43 @@ namespace MagicRemoteService {
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pnlBind);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = global::MagicRemoteService.Properties.Resources.MagicRemoteServiceIcon;
 			this.KeyPreview = true;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "BindCreator";
 			this.pnlBind.ResumeLayout(false);
 			this.pnlBind.PerformLayout();
+			this.tlpBind.ResumeLayout(false);
 			this.pnlMouse.ResumeLayout(false);
 			this.pnlMouse.PerformLayout();
-			this.tlpBind.ResumeLayout(false);
+			this.pnlKeyboard.ResumeLayout(false);
 			this.pnlAction.ResumeLayout(false);
 			this.pnlCommand.ResumeLayout(false);
 			this.pnlCommand.PerformLayout();
-			this.pnlKeyboard.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.RadioButton selBindMouse;
-		private System.Windows.Forms.RadioButton selBindAction;
-		private System.Windows.Forms.RadioButton selBindKeyboard;
 		private System.Windows.Forms.Panel pnlBind;
-		private System.Windows.Forms.Panel pnlMouse;
-		private System.Windows.Forms.RadioButton selMouseRight;
-		private System.Windows.Forms.RadioButton selMouseMiddle;
-		private System.Windows.Forms.RadioButton selMouseLeft;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.Button btnConfirm;
-		private System.Windows.Forms.TableLayoutPanel tlpBind;
-		private System.Windows.Forms.Panel pnlCommand;
+		private System.Windows.Forms.RadioButton selBindMouse;
+		private System.Windows.Forms.RadioButton selBindKeyboard;
+		private System.Windows.Forms.RadioButton selBindAction;
 		private System.Windows.Forms.RadioButton selBindCommand;
-		private System.Windows.Forms.TextBox tbCommand;
-		private System.Windows.Forms.Panel pnlAction;
-		private System.Windows.Forms.ComboBox cbbAction;
-		private System.Windows.Forms.Label labAction;
+		private System.Windows.Forms.TableLayoutPanel tlpBind;
+		private System.Windows.Forms.Panel pnlMouse;
+		private System.Windows.Forms.RadioButton selMouseLeft;
+		private System.Windows.Forms.RadioButton selMouseMiddle;
+		private System.Windows.Forms.RadioButton selMouseRight;
 		private System.Windows.Forms.Panel pnlKeyboard;
 		private System.Windows.Forms.Label labKeyboard;
+		private System.Windows.Forms.Panel pnlAction;
+		private System.Windows.Forms.Label labAction;
+		private System.Windows.Forms.ComboBox cbbAction;
+		private System.Windows.Forms.Panel pnlCommand;
+		private System.Windows.Forms.TextBox tbCommand;
+		private System.Windows.Forms.Button btnConfirm;
+		private System.Windows.Forms.Button btnCancel;
 	}
 }

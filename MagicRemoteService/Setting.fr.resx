@@ -117,8 +117,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnClose.Text" xml:space="preserve">
-    <value>Fermer</value>
+  <data name="labRemoteChannelDown.Text" xml:space="preserve">
+    <value>Chaîne -</value>
+  </data>
+  <data name="labRemoteChannelUp.Text" xml:space="preserve">
+    <value>Chaîne +</value>
+  </data>
+  <data name="labRemoteBackspace.Text" xml:space="preserve">
+    <value>Retour arrière</value>
+  </data>
+  <data name="labRemoteRewind.Text" xml:space="preserve">
+    <value>Rembobiner</value>
+  </data>
+  <data name="labRemoteFastForward.Text" xml:space="preserve">
+    <value>Avance rapide</value>
+  </data>
+  <data name="labRemotePlay.Text" xml:space="preserve">
+    <value>Jouer</value>
+  </data>
+  <data name="labRemoteBlue.Text" xml:space="preserve">
+    <value>Bleu</value>
+  </data>
+  <data name="labRemoteYellow.Text" xml:space="preserve">
+    <value>Jaune</value>
+  </data>
+  <data name="labRemoteGreen.Text" xml:space="preserve">
+    <value>Vert</value>
+  </data>
+  <data name="labRemoteRed.Text" xml:space="preserve">
+    <value>Rouge</value>
+  </data>
+  <data name="labRemoteBack.Text" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="labRemoteDown.Text" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="labRemoteRight.Text" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="labRemoteUp.Text" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="labRemoteLeft.Text" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="labRemoteLongClick.Text" xml:space="preserve">
+    <value>Click long</value>
+  </data>
+  <data name="btnRemoteSave.Text" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="tabRemote.Text" xml:space="preserve">
+    <value>Télécommande</value>
+  </data>
+  <data name="cbVideoInput.Text" xml:space="preserve">
+    <value>Éteindre automatiquement l’ordinateur lorsque le téléviseur est allumé et qu'il n'y a pas de signal video.</value>
+  </data>
+  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
+    <value>Délai</value>
+  </data>
+  <data name="cbStartup.Text" xml:space="preserve">
+    <value>Lancer automatiquement au démarrage</value>
+  </data>
+  <data name="labPCPort.Text" xml:space="preserve">
+    <value>Port d'écoute</value>
+  </data>
+  <data name="btnPCSave.Text" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="cbInactivity.Text" xml:space="preserve">
+    <value>Éteindre automatiquement l’ordinateur lorsque le téléviseur est allumé et qu'il n'y a pas d'activité.</value>
+  </data>
+  <data name="labTimeoutIncativity.Text" xml:space="preserve">
+    <value>Délai</value>
   </data>
   <data name="btnTVVersion.Text" xml:space="preserve">
     <value>Version de la TV</value>
@@ -171,80 +243,8 @@
   <data name="labLongClick.Text" xml:space="preserve">
     <value>Délai du clique long</value>
   </data>
-  <data name="cbVideoInput.Text" xml:space="preserve">
-    <value>Éteindre automatiquement l’ordinateur lorsque le téléviseur est allumé et qu'il n'y a pas de signal video.</value>
-  </data>
-  <data name="labTimeoutVideoInput.Text" xml:space="preserve">
-    <value>Délai</value>
-  </data>
-  <data name="cbStartup.Text" xml:space="preserve">
-    <value>Lancer automatiquement au démarrage</value>
-  </data>
-  <data name="labPCPort.Text" xml:space="preserve">
-    <value>Port d'écoute</value>
-  </data>
-  <data name="btnPCSave.Text" xml:space="preserve">
-    <value>Enregistrer</value>
-  </data>
-  <data name="cbInactivity.Text" xml:space="preserve">
-    <value>Éteindre automatiquement l’ordinateur lorsque le téléviseur est allumé et qu'il n'y a pas d'activité.</value>
-  </data>
-  <data name="labTimeoutIncativity.Text" xml:space="preserve">
-    <value>Délai</value>
-  </data>
-  <data name="tabRemote.Text" xml:space="preserve">
-    <value>Télécommande</value>
-  </data>
-  <data name="labRemoteChannelDown.Text" xml:space="preserve">
-    <value>Chaîne -</value>
-  </data>
-  <data name="labRemoteChannelUp.Text" xml:space="preserve">
-    <value>Chaîne +</value>
-  </data>
-  <data name="labRemoteBackspace.Text" xml:space="preserve">
-    <value>Retour arrière</value>
-  </data>
-  <data name="labRemoteRewind.Text" xml:space="preserve">
-    <value>Rembobiner</value>
-  </data>
-  <data name="labRemoteFastForward.Text" xml:space="preserve">
-    <value>Avance rapide</value>
-  </data>
-  <data name="labRemotePlay.Text" xml:space="preserve">
-    <value>Jouer</value>
-  </data>
-  <data name="labRemoteBlue.Text" xml:space="preserve">
-    <value>Bleu</value>
-  </data>
-  <data name="labRemoteYellow.Text" xml:space="preserve">
-    <value>Jaune</value>
-  </data>
-  <data name="labRemoteGreen.Text" xml:space="preserve">
-    <value>Vert</value>
-  </data>
-  <data name="labRemoteRed.Text" xml:space="preserve">
-    <value>Rouge</value>
-  </data>
-  <data name="labRemoteBack.Text" xml:space="preserve">
-    <value>Retour</value>
-  </data>
-  <data name="labRemoteDown.Text" xml:space="preserve">
-    <value>Bas</value>
-  </data>
-  <data name="labRemoteRight.Text" xml:space="preserve">
-    <value>Droite</value>
-  </data>
-  <data name="labRemoteUp.Text" xml:space="preserve">
-    <value>Haut</value>
-  </data>
-  <data name="labRemoteLeft.Text" xml:space="preserve">
-    <value>Gauche</value>
-  </data>
-  <data name="labRemoteLongClick.Text" xml:space="preserve">
-    <value>Click long</value>
-  </data>
-  <data name="btnRemoteSave.Text" xml:space="preserve">
-    <value>Enregistrer</value>
+  <data name="btnClose.Text" xml:space="preserve">
+    <value>Fermer</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Paramètres</value>

@@ -25,36 +25,35 @@ namespace MagicRemoteService {
 		/// </summary>
 		private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TVAdder));
-			this.btnConfirm = new System.Windows.Forms.Button();
-			this.btnCancel = new System.Windows.Forms.Button();
-			this.labIP = new System.Windows.Forms.Label();
-			this.labTVPort = new System.Windows.Forms.Label();
-			this.nbSendPort = new System.Windows.Forms.NumericUpDown();
-			this.labDescription = new System.Windows.Forms.Label();
-			this.tbDescription = new System.Windows.Forms.TextBox();
-			this.labUser = new System.Windows.Forms.Label();
-			this.tbUser = new System.Windows.Forms.TextBox();
-			this.labPassword = new System.Windows.Forms.Label();
-			this.tbPassword = new System.Windows.Forms.TextBox();
-			this.labPassphrase = new System.Windows.Forms.Label();
-			this.tbPassphrase = new System.Windows.Forms.TextBox();
-			this.labPrivateKey = new System.Windows.Forms.Label();
-			this.tbPrivateKey = new System.Windows.Forms.TextBox();
 			this.tlpTV = new System.Windows.Forms.TableLayoutPanel();
 			this.labKeyServer = new System.Windows.Forms.Label();
 			this.pnlPrivateKey = new System.Windows.Forms.Panel();
+			this.tbPrivateKey = new System.Windows.Forms.TextBox();
+			this.labPrivateKey = new System.Windows.Forms.Label();
 			this.pnlPassphrase = new System.Windows.Forms.Panel();
+			this.labPassphrase = new System.Windows.Forms.Label();
+			this.tbPassphrase = new System.Windows.Forms.TextBox();
 			this.pnlName = new System.Windows.Forms.Panel();
 			this.labName = new System.Windows.Forms.Label();
 			this.tbName = new System.Windows.Forms.TextBox();
 			this.pnlDescription = new System.Windows.Forms.Panel();
+			this.labDescription = new System.Windows.Forms.Label();
+			this.tbDescription = new System.Windows.Forms.TextBox();
 			this.pnlIP = new System.Windows.Forms.Panel();
-			this.pnlPort = new System.Windows.Forms.Panel();
-			this.pnlUser = new System.Windows.Forms.Panel();
-			this.pnlPassword = new System.Windows.Forms.Panel();
-			this.cbAdvanced = new System.Windows.Forms.CheckBox();
 			this.iabIP = new MagicRemoteService.IPAddressBox();
-			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
+			this.labIP = new System.Windows.Forms.Label();
+			this.pnlPort = new System.Windows.Forms.Panel();
+			this.labTVPort = new System.Windows.Forms.Label();
+			this.nbSendPort = new System.Windows.Forms.NumericUpDown();
+			this.pnlUser = new System.Windows.Forms.Panel();
+			this.labUser = new System.Windows.Forms.Label();
+			this.tbUser = new System.Windows.Forms.TextBox();
+			this.pnlPassword = new System.Windows.Forms.Panel();
+			this.labPassword = new System.Windows.Forms.Label();
+			this.tbPassword = new System.Windows.Forms.TextBox();
+			this.cbAdvanced = new System.Windows.Forms.CheckBox();
+			this.btnConfirm = new System.Windows.Forms.Button();
+			this.btnCancel = new System.Windows.Forms.Button();
 			this.tlpTV.SuspendLayout();
 			this.pnlPrivateKey.SuspendLayout();
 			this.pnlPassphrase.SuspendLayout();
@@ -62,100 +61,10 @@ namespace MagicRemoteService {
 			this.pnlDescription.SuspendLayout();
 			this.pnlIP.SuspendLayout();
 			this.pnlPort.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
 			this.pnlUser.SuspendLayout();
 			this.pnlPassword.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// btnConfirm
-			// 
-			resources.ApplyResources(this.btnConfirm, "btnConfirm");
-			this.btnConfirm.Name = "btnConfirm";
-			this.btnConfirm.UseVisualStyleBackColor = true;
-			this.btnConfirm.Click += new System.EventHandler(this.Confirm_Click);
-			// 
-			// btnCancel
-			// 
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			resources.ApplyResources(this.btnCancel, "btnCancel");
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
-			// 
-			// labIP
-			// 
-			resources.ApplyResources(this.labIP, "labIP");
-			this.labIP.Name = "labIP";
-			// 
-			// labTVPort
-			// 
-			resources.ApplyResources(this.labTVPort, "labTVPort");
-			this.labTVPort.Name = "labTVPort";
-			// 
-			// nbSendPort
-			// 
-			resources.ApplyResources(this.nbSendPort, "nbSendPort");
-			this.nbSendPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-			this.nbSendPort.Name = "nbSendPort";
-			this.nbSendPort.ValueChanged += new System.EventHandler(this.SendPort_ValueChanged);
-			// 
-			// labDescription
-			// 
-			resources.ApplyResources(this.labDescription, "labDescription");
-			this.labDescription.Name = "labDescription";
-			// 
-			// tbDescription
-			// 
-			resources.ApplyResources(this.tbDescription, "tbDescription");
-			this.tbDescription.Name = "tbDescription";
-			this.tbDescription.TextChanged += new System.EventHandler(this.Description_TextChanged);
-			// 
-			// labUser
-			// 
-			resources.ApplyResources(this.labUser, "labUser");
-			this.labUser.Name = "labUser";
-			// 
-			// tbUser
-			// 
-			resources.ApplyResources(this.tbUser, "tbUser");
-			this.tbUser.Name = "tbUser";
-			this.tbUser.TextChanged += new System.EventHandler(this.User_TextChanged);
-			// 
-			// labPassword
-			// 
-			resources.ApplyResources(this.labPassword, "labPassword");
-			this.labPassword.Name = "labPassword";
-			// 
-			// tbPassword
-			// 
-			resources.ApplyResources(this.tbPassword, "tbPassword");
-			this.tbPassword.Name = "tbPassword";
-			this.tbPassword.TextChanged += new System.EventHandler(this.Password_TextChanged);
-			// 
-			// labPassphrase
-			// 
-			resources.ApplyResources(this.labPassphrase, "labPassphrase");
-			this.labPassphrase.Name = "labPassphrase";
-			// 
-			// tbPassphrase
-			// 
-			resources.ApplyResources(this.tbPassphrase, "tbPassphrase");
-			this.tbPassphrase.Name = "tbPassphrase";
-			this.tbPassphrase.TextChanged += new System.EventHandler(this.Passphrase_TextChanged);
-			// 
-			// labPrivateKey
-			// 
-			resources.ApplyResources(this.labPrivateKey, "labPrivateKey");
-			this.labPrivateKey.Name = "labPrivateKey";
-			// 
-			// tbPrivateKey
-			// 
-			resources.ApplyResources(this.tbPrivateKey, "tbPrivateKey");
-			this.tbPrivateKey.Name = "tbPrivateKey";
-			this.tbPrivateKey.TextChanged += new System.EventHandler(this.PrivateKey_TextChanged);
 			// 
 			// tlpTV
 			// 
@@ -184,12 +93,34 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.pnlPrivateKey, "pnlPrivateKey");
 			this.pnlPrivateKey.Name = "pnlPrivateKey";
 			// 
+			// tbPrivateKey
+			// 
+			resources.ApplyResources(this.tbPrivateKey, "tbPrivateKey");
+			this.tbPrivateKey.Name = "tbPrivateKey";
+			this.tbPrivateKey.TextChanged += new System.EventHandler(this.PrivateKey_TextChanged);
+			// 
+			// labPrivateKey
+			// 
+			resources.ApplyResources(this.labPrivateKey, "labPrivateKey");
+			this.labPrivateKey.Name = "labPrivateKey";
+			// 
 			// pnlPassphrase
 			// 
 			this.pnlPassphrase.Controls.Add(this.labPassphrase);
 			this.pnlPassphrase.Controls.Add(this.tbPassphrase);
 			resources.ApplyResources(this.pnlPassphrase, "pnlPassphrase");
 			this.pnlPassphrase.Name = "pnlPassphrase";
+			// 
+			// labPassphrase
+			// 
+			resources.ApplyResources(this.labPassphrase, "labPassphrase");
+			this.labPassphrase.Name = "labPassphrase";
+			// 
+			// tbPassphrase
+			// 
+			resources.ApplyResources(this.tbPassphrase, "tbPassphrase");
+			this.tbPassphrase.Name = "tbPassphrase";
+			this.tbPassphrase.TextChanged += new System.EventHandler(this.Passphrase_TextChanged);
 			// 
 			// pnlName
 			// 
@@ -216,40 +147,23 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.pnlDescription, "pnlDescription");
 			this.pnlDescription.Name = "pnlDescription";
 			// 
+			// labDescription
+			// 
+			resources.ApplyResources(this.labDescription, "labDescription");
+			this.labDescription.Name = "labDescription";
+			// 
+			// tbDescription
+			// 
+			resources.ApplyResources(this.tbDescription, "tbDescription");
+			this.tbDescription.Name = "tbDescription";
+			this.tbDescription.TextChanged += new System.EventHandler(this.Description_TextChanged);
+			// 
 			// pnlIP
 			// 
-			this.pnlIP.Controls.Add(this.labIP);
 			this.pnlIP.Controls.Add(this.iabIP);
+			this.pnlIP.Controls.Add(this.labIP);
 			resources.ApplyResources(this.pnlIP, "pnlIP");
 			this.pnlIP.Name = "pnlIP";
-			// 
-			// pnlPort
-			// 
-			this.pnlPort.Controls.Add(this.labTVPort);
-			this.pnlPort.Controls.Add(this.nbSendPort);
-			resources.ApplyResources(this.pnlPort, "pnlPort");
-			this.pnlPort.Name = "pnlPort";
-			// 
-			// pnlUser
-			// 
-			this.pnlUser.Controls.Add(this.labUser);
-			this.pnlUser.Controls.Add(this.tbUser);
-			resources.ApplyResources(this.pnlUser, "pnlUser");
-			this.pnlUser.Name = "pnlUser";
-			// 
-			// pnlPassword
-			// 
-			this.pnlPassword.Controls.Add(this.labPassword);
-			this.pnlPassword.Controls.Add(this.tbPassword);
-			resources.ApplyResources(this.pnlPassword, "pnlPassword");
-			this.pnlPassword.Name = "pnlPassword";
-			// 
-			// cbAdvanced
-			// 
-			resources.ApplyResources(this.cbAdvanced, "cbAdvanced");
-			this.cbAdvanced.Name = "cbAdvanced";
-			this.cbAdvanced.UseVisualStyleBackColor = true;
-			this.cbAdvanced.CheckedChanged += new System.EventHandler(this.Advanced_CheckedChanged);
 			// 
 			// iabIP
 			// 
@@ -259,7 +173,92 @@ namespace MagicRemoteService {
 			resources.ApplyResources(this.iabIP, "iabIP");
 			this.iabIP.Name = "iabIP";
 			this.iabIP.Value = null;
-			this.iabIP.ehValueChanged += new System.EventHandler(this.IP_ValueChanged);
+			// 
+			// labIP
+			// 
+			resources.ApplyResources(this.labIP, "labIP");
+			this.labIP.Name = "labIP";
+			// 
+			// pnlPort
+			// 
+			this.pnlPort.Controls.Add(this.labTVPort);
+			this.pnlPort.Controls.Add(this.nbSendPort);
+			resources.ApplyResources(this.pnlPort, "pnlPort");
+			this.pnlPort.Name = "pnlPort";
+			// 
+			// labTVPort
+			// 
+			resources.ApplyResources(this.labTVPort, "labTVPort");
+			this.labTVPort.Name = "labTVPort";
+			// 
+			// nbSendPort
+			// 
+			resources.ApplyResources(this.nbSendPort, "nbSendPort");
+			this.nbSendPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+			this.nbSendPort.Name = "nbSendPort";
+			this.nbSendPort.ValueChanged += new System.EventHandler(this.SendPort_ValueChanged);
+			// 
+			// pnlUser
+			// 
+			this.pnlUser.Controls.Add(this.labUser);
+			this.pnlUser.Controls.Add(this.tbUser);
+			resources.ApplyResources(this.pnlUser, "pnlUser");
+			this.pnlUser.Name = "pnlUser";
+			// 
+			// labUser
+			// 
+			resources.ApplyResources(this.labUser, "labUser");
+			this.labUser.Name = "labUser";
+			// 
+			// tbUser
+			// 
+			resources.ApplyResources(this.tbUser, "tbUser");
+			this.tbUser.Name = "tbUser";
+			this.tbUser.TextChanged += new System.EventHandler(this.User_TextChanged);
+			// 
+			// pnlPassword
+			// 
+			this.pnlPassword.Controls.Add(this.labPassword);
+			this.pnlPassword.Controls.Add(this.tbPassword);
+			resources.ApplyResources(this.pnlPassword, "pnlPassword");
+			this.pnlPassword.Name = "pnlPassword";
+			// 
+			// labPassword
+			// 
+			resources.ApplyResources(this.labPassword, "labPassword");
+			this.labPassword.Name = "labPassword";
+			// 
+			// tbPassword
+			// 
+			resources.ApplyResources(this.tbPassword, "tbPassword");
+			this.tbPassword.Name = "tbPassword";
+			this.tbPassword.TextChanged += new System.EventHandler(this.Password_TextChanged);
+			// 
+			// cbAdvanced
+			// 
+			resources.ApplyResources(this.cbAdvanced, "cbAdvanced");
+			this.cbAdvanced.Name = "cbAdvanced";
+			this.cbAdvanced.UseVisualStyleBackColor = true;
+			this.cbAdvanced.CheckedChanged += new System.EventHandler(this.Advanced_CheckedChanged);
+			// 
+			// btnConfirm
+			// 
+			resources.ApplyResources(this.btnConfirm, "btnConfirm");
+			this.btnConfirm.Name = "btnConfirm";
+			this.btnConfirm.UseVisualStyleBackColor = true;
+			this.btnConfirm.Click += new System.EventHandler(this.Confirm_Click);
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			resources.ApplyResources(this.btnCancel, "btnCancel");
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
 			// 
 			// TVAdder
 			// 
@@ -272,10 +271,10 @@ namespace MagicRemoteService {
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.tlpTV);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = global::MagicRemoteService.Properties.Resources.MagicRemoteServiceIcon;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "TVAdder";
-			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).EndInit();
 			this.tlpTV.ResumeLayout(false);
 			this.tlpTV.PerformLayout();
 			this.pnlPrivateKey.ResumeLayout(false);
@@ -290,6 +289,7 @@ namespace MagicRemoteService {
 			this.pnlIP.PerformLayout();
 			this.pnlPort.ResumeLayout(false);
 			this.pnlPort.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).EndInit();
 			this.pnlUser.ResumeLayout(false);
 			this.pnlUser.PerformLayout();
 			this.pnlPassword.ResumeLayout(false);
@@ -300,34 +300,34 @@ namespace MagicRemoteService {
 		}
 
 		#endregion
-		private System.Windows.Forms.Button btnConfirm;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.Label labIP;
-		private System.Windows.Forms.Label labTVPort;
-		private System.Windows.Forms.NumericUpDown nbSendPort;
-		private IPAddressBox iabIP;
+		private System.Windows.Forms.TableLayoutPanel tlpTV;
+		private System.Windows.Forms.Panel pnlName;
+		private System.Windows.Forms.Label labName;
+		private System.Windows.Forms.TextBox tbName;
+		private System.Windows.Forms.Panel pnlDescription;
 		private System.Windows.Forms.Label labDescription;
 		private System.Windows.Forms.TextBox tbDescription;
+		private System.Windows.Forms.Panel pnlIP;
+		private IPAddressBox iabIP;
+		private System.Windows.Forms.Label labIP;
+		private System.Windows.Forms.Panel pnlPort;
+		private System.Windows.Forms.Label labTVPort;
+		private System.Windows.Forms.NumericUpDown nbSendPort;
+		private System.Windows.Forms.Panel pnlUser;
 		private System.Windows.Forms.Label labUser;
 		private System.Windows.Forms.TextBox tbUser;
+		private System.Windows.Forms.Panel pnlPassword;
 		private System.Windows.Forms.Label labPassword;
 		private System.Windows.Forms.TextBox tbPassword;
+		private System.Windows.Forms.Panel pnlPassphrase;
 		private System.Windows.Forms.Label labPassphrase;
 		private System.Windows.Forms.TextBox tbPassphrase;
-		private System.Windows.Forms.Label labPrivateKey;
-		private System.Windows.Forms.TextBox tbPrivateKey;
-		private System.Windows.Forms.TableLayoutPanel tlpTV;
-		private System.Windows.Forms.Panel pnlDescription;
-		private System.Windows.Forms.TextBox tbName;
-		private System.Windows.Forms.Label labName;
-		private System.Windows.Forms.Panel pnlName;
-		private System.Windows.Forms.Panel pnlPassphrase;
-		private System.Windows.Forms.Panel pnlIP;
-		private System.Windows.Forms.Panel pnlPort;
-		private System.Windows.Forms.Panel pnlUser;
-		private System.Windows.Forms.Panel pnlPassword;
 		private System.Windows.Forms.Panel pnlPrivateKey;
-		private System.Windows.Forms.CheckBox cbAdvanced;
+		private System.Windows.Forms.TextBox tbPrivateKey;
+		private System.Windows.Forms.Label labPrivateKey;
 		private System.Windows.Forms.Label labKeyServer;
+		private System.Windows.Forms.CheckBox cbAdvanced;
+		private System.Windows.Forms.Button btnConfirm;
+		private System.Windows.Forms.Button btnCancel;
 	}
 }

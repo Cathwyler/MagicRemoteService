@@ -117,17 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="selBindCommand.Text" xml:space="preserve">
+    <value>Commande</value>
+  </data>
   <data name="selBindMouse.Text" xml:space="preserve">
     <value>Souris</value>
   </data>
   <data name="selBindKeyboard.Text" xml:space="preserve">
     <value>Clavier</value>
-  </data>
-  <data name="selBindCommand.Text" xml:space="preserve">
-    <value>Commande</value>
-  </data>
-  <data name="libKeyboard.Text" xml:space="preserve">
-    <value>Appuyez sur une touche</value>
   </data>
   <data name="selMouseRight.Text" xml:space="preserve">
     <value>Droit</value>
@@ -138,19 +135,22 @@
   <data name="selMouseLeft.Text" xml:space="preserve">
     <value>Gauche</value>
   </data>
+  <data name="btnConfirm.Text" xml:space="preserve">
+    <value>Valider</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Raccourci</value>
+  </data>
+  <data name="libKeyboard.Text" xml:space="preserve">
+    <value>Appuyez sur une touche</value>
+  </data>
   <data name="selActionKeyboard.Text" xml:space="preserve">
     <value>Clavier</value>
   </data>
   <data name="selActionShutdown.Text" xml:space="preserve">
     <value>Éteindre</value>
-  </data>
-  <data name="btnCancel.Text" xml:space="preserve">
-    <value>Annuler</value>
-  </data>
-  <data name="btnConfirm.Text" xml:space="preserve">
-    <value>Valider</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Raccourci</value>
   </data>
 </root>

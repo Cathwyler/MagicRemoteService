@@ -117,14 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="selBindCommand.Text" xml:space="preserve">
+    <value>Comando</value>
+  </data>
   <data name="selBindMouse.Text" xml:space="preserve">
     <value>Ratón</value>
   </data>
-  <data name="selBindKeyboard.Text" xml:space="preserve">
-    <value>Teclado</value>
-  </data>
   <data name="selBindAction.Text" xml:space="preserve">
     <value>Acción</value>
+  </data>
+  <data name="selBindKeyboard.Text" xml:space="preserve">
+    <value>Teclado</value>
   </data>
   <data name="selMouseRight.Text" xml:space="preserve">
     <value>Derecho</value>
@@ -135,6 +138,15 @@
   <data name="selMouseLeft.Text" xml:space="preserve">
     <value>Izquierdo</value>
   </data>
+  <data name="btnConfirm.Text" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Asociar</value>
+  </data>
   <data name="libKeyboard.Text" xml:space="preserve">
     <value>Pulse una tecla</value>
   </data>
@@ -143,17 +155,5 @@
   </data>
   <data name="selActionShutdown.Text" xml:space="preserve">
     <value>Apagar</value>
-  </data>
-  <data name="btnCancel.Text" xml:space="preserve">
-    <value>Cancelar</value>
-  </data>
-  <data name="btnConfirm.Text" xml:space="preserve">
-    <value>Confirmar</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Asociar</value>
-  </data>
-  <data name="selBindCommand.Text" xml:space="preserve">
-    <value>Comando</value>
   </data>
 </root>
