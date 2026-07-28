@@ -321,8 +321,8 @@
   <ItemGroup>
     <Content Include="Resources\MagicRemoteService.cur" />
     <Content Include="Resources\TV\MagicRemoteService\miniIcon.png" />
-    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.12\webOSTV-dev.js" />
-    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.12\webOSTV.js" />
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.13\webOSTV-dev.js" />
+    <Content Include="Resources\TV\MagicRemoteService\webOSTVjs-1.2.13\webOSTV.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />

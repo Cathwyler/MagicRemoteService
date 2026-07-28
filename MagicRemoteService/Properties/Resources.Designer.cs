@@ -741,7 +741,7 @@ namespace MagicRemoteService.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à !function(){&quot;use strict&quot;;var e={d:function(n,t){for(var o in t)e.o(t,o)&amp;&amp;!e.o(n,o)&amp;&amp;Object.defineProperty(n,o,{enumerable:!0,get:t[o]})},o:function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},r:function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})}},n={};e.r(n),e.d(n,{deviceInfo:function(){return z},fetchAppId:function(){return t},fetchAppInfo:function(){return r},fetchAppRootPath:f [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à !function(){&quot;use strict&quot;;var e={d:function(n,t){for(var o in t)e.o(t,o)&amp;&amp;!e.o(n,o)&amp;&amp;Object.defineProperty(n,o,{enumerable:!0,get:t[o]})},o:function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},r:function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})}},n={};e.r(n),e.d(n,{deviceInfo:function(){return E},fetchAppId:function(){return t},fetchAppInfo:function(){return r},fetchAppRootPath:f [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         public static string webOSTV {
             get {
