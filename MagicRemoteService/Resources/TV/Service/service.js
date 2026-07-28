@@ -95,11 +95,11 @@ function Log() {
 	arrLog.push({
 		bConsole: false,
 		iType: 0,
-		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(o) {
 			if(typeof o !== "object" || o === null) {
-				return x;
+				return o;
 			} else {
-				return x.toString();
+				return o.toString();
 			}
 		}).join("")
 	});
@@ -118,11 +118,11 @@ function Warn() {
 	arrLog.push({
 		bConsole: false,
 		iType: 1,
-		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(o) {
 			if(typeof o !== "object" || o === null) {
-				return x;
+				return o;
 			} else {
-				return x.toString();
+				return o.toString();
 			}
 		}).join("")
 	});
@@ -134,11 +134,11 @@ function Error() {
 	arrLog.push({
 		bConsole: false,
 		iType: 2,
-		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(o) {
 			if(typeof o !== "object" || o === null) {
-				return x;
+				return o;
 			} else {
-				return x.toString();
+				return o.toString();
 			}
 		}).join("")
 	});
@@ -150,11 +150,11 @@ function ConsoleLog() {
 	arrLog.push({
 		bConsole: true,
 		iType: 0,
-		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(o) {
 			if(typeof o !== "object" || o === null) {
-				return x;
+				return o;
 			} else {
-				return x.toString();
+				return o.toString();
 			}
 		}).join("")
 	});
@@ -166,11 +166,11 @@ function ConsoleWarn() {
 	arrLog.push({
 		bConsole: true,
 		iType: 1,
-		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(o) {
 			if(typeof o !== "object" || o === null) {
-				return x;
+				return o;
 			} else {
-				return x.toString();
+				return o.toString();
 			}
 		}).join("")
 	});
@@ -182,11 +182,11 @@ function ConsoleError() {
 	arrLog.push({
 		bConsole: true,
 		iType: 2,
-		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(x) {
+		strMessage: (new Date()).toString() + " " + Array.prototype.slice.call(arguments).map(function(o) {
 			if(typeof o !== "object" || o === null) {
-				return x;
+				return o;
 			} else {
-				return x.toString();
+				return o.toString();
 			}
 		}).join("")
 	});

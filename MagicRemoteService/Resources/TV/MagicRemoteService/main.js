@@ -181,11 +181,11 @@ function ScreenCancel(deScreen, bCursor) {
 
 function Log() {
 	console.log.apply(console, arguments);
-	Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	Toast(oString.strLogTitle, Array.prototype.slice.call(arguments).map(function(o) {
 		if(typeof o !== "object" || o === null) {
-			return x;
+			return o;
 		} else {
-			return x.toString();
+			return o.toString();
 		}
 	}).join(""));
 }
@@ -199,22 +199,22 @@ if(bDebug) {
 
 function Warn() {
 	console.warn.apply(console, arguments);
-	Toast(oString.strWarnTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	Toast(oString.strWarnTitle, Array.prototype.slice.call(arguments).map(function(o) {
 		if(typeof o !== "object" || o === null) {
-			return x;
+			return o;
 		} else {
-			return x.toString();
+			return o.toString();
 		}
 	}).join(""));
 }
 
 function Error() {
 	console.error.apply(console, arguments);
-	Toast(oString.strErrorTitle, Array.prototype.slice.call(arguments).map(function(x) {
+	Toast(oString.strErrorTitle, Array.prototype.slice.call(arguments).map(function(o) {
 		if(typeof o !== "object" || o === null) {
-			return x;
+			return o;
 		} else {
-			return x.toString();
+			return o.toString();
 		}
 	}).join(""));
 }
@@ -340,7 +340,7 @@ function SubscriptionInputStatus() {
 				}
 		},
 		onFailure: function(inError) {
-			Error(oString.strGetAllInputStatusFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+			Error(oString.strGetAllInputStatusFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 			Open();
 		}
 	});
@@ -370,10 +370,10 @@ function SubscriptionScreenSaverRequest() {
 							onFailure: function(inError) {
 								switch(inError.errorCode) {
 									case "-13":
-										console.error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+										console.error(oString.strResponseScreenSaverRequestFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 										break;
 									default:
-										Error(oString.strResponseScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+										Error(oString.strResponseScreenSaverRequestFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 										break;
 								}
 							} 
@@ -392,10 +392,10 @@ function SubscriptionScreenSaverRequest() {
 			switch(inError.errorCode) {
 				case "-1":
 				case "-3":
-					console.error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+					console.error(oString.strRegisterScreenSaverRequestFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 					break;
 				default:
-					Error(oString.strRegisterScreenSaverRequestFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+					Error(oString.strRegisterScreenSaverRequestFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 					break;
 			}
 		} 
@@ -421,7 +421,7 @@ function ResetQuaternion() {
 			LogIfDebug(oString.strResetQuaternionSuccess);
 		},
 		onFailure: function (inError) {
-			Error(oString.strResetQuaternionFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+			Error(oString.strResetQuaternionFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -550,7 +550,7 @@ function SubscriptionGetSensorData() {
 		onFailure: function(inError) {
 			switch(inError.errorCode) {
 				case "1301":
-					LogIfDebug(oString.strGetSensorDataFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+					LogIfDebug(oString.strGetSensorDataFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 					if(arrVersion[0] > 2) {
 						document.oneEventListener("cursorStateChange", function(inEvent) {
 							if(inEvent.detail.visibility) {
@@ -573,7 +573,7 @@ function SubscriptionGetSensorData() {
 					}
 					break;
 				default:
-					Error(oString.strGetSensorDataFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+					Error(oString.strGetSensorDataFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 					break;
 			}
 		}
@@ -590,7 +590,7 @@ function LaunchInput() {
 			LogIfDebug(oString.strLaunchSuccess);
 		},
 		onFailure: function(inError) {
-			Error(oString.strLaunchFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+			Error(oString.strLaunchFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -615,7 +615,7 @@ function SubscriptionClose() {
 			}
 		},
 		onFailure: function(inError) {
-			Error(oString.strCloseFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+			Error(oString.strCloseFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -662,7 +662,7 @@ function SubscriptionLog() {
 			}
 		},
 		onFailure: function(inError) {
-			Error(oString.strLogFailure + " [", inError.errorCode, ", ", inError.errorText, "]");
+			Error(oString.strLogFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 		},
 	});
 }
@@ -1048,7 +1048,7 @@ function SendWol(mMac, strBroadcast) {
 			LogIfDebug(oString.strSendWolSuccess + " [0x" + inResponse.strBuffer + "]@" + strBroadcast + ":9 ", mMac);
 		},
 		onFailure: function(inError) {
-			Error(oString.strSendWolFailure + " [", inError.errorCode, ", ", inError.errorText, "]@" + strBroadcast + ":9 ", mMac);
+			Error(oString.strSendWolFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]@" + strBroadcast + ":9 ", mMac);
 		}
 	});
 }

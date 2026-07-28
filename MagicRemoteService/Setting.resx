@@ -559,7 +559,7 @@
     <value>95</value>
   </data>
   <data name="cbOverlay.Text" xml:space="preserve">
-    <value>Overlay (experimental)</value>
+    <value>Overlay</value>
   </data>
   <data name="&gt;&gt;btnTVRefresh.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -5110,13 +5110,13 @@
   <data name="&gt;&gt;libVersion.Name" xml:space="preserve">
     <value>libVersion</value>
   </data>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.TrayHeight" type="System.Int32, mscorlib">
     <value>81</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  </data>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <metadata name="ttFormating.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="ttFormating.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>17, 17</value>
-  </metadata>
+  </data>
 </root>
