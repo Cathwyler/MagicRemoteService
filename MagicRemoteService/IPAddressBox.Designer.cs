@@ -89,7 +89,7 @@ namespace MagicRemoteService {
 			this.dbbByte3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte3.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte3.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte3.TextChanged += new System.EventHandler(this.Byte3_TextChanged);
+			this.dbbByte3.TextChanged += new System.EventHandler(this.Byte_TextChanged);
 			this.dbbByte3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte2
@@ -105,7 +105,7 @@ namespace MagicRemoteService {
 			this.dbbByte2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte2.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte2.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte2.TextChanged += new System.EventHandler(this.Byte2_TextChanged);
+			this.dbbByte2.TextChanged += new System.EventHandler(this.Byte_TextChanged);
 			this.dbbByte2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte1
@@ -121,7 +121,7 @@ namespace MagicRemoteService {
 			this.dbbByte1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte1.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte1.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte1.TextChanged += new System.EventHandler(this.Byte1_TextChanged);
+			this.dbbByte1.TextChanged += new System.EventHandler(this.Byte_TextChanged);
 			this.dbbByte1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// dbbByte0
@@ -137,7 +137,7 @@ namespace MagicRemoteService {
 			this.dbbByte0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.dbbByte0.ehEventPaste += new System.EventHandler(this.Byte_EventPaste);
 			this.dbbByte0.Click += new System.EventHandler(this.IPAddressBox_Click);
-			this.dbbByte0.TextChanged += new System.EventHandler(this.Byte0_TextChanged);
+			this.dbbByte0.TextChanged += new System.EventHandler(this.Byte_TextChanged);
 			this.dbbByte0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Byte_KeyPress);
 			// 
 			// IPAddressBox

@@ -40,7 +40,7 @@ namespace MagicRemoteService {
 				this.tbName.Text = this.wocdDevice.Name;
 				this.tbDescription.Text = this.wocdDevice.DeviceDetail.Description;
 				this.iabIP.Value = this.wocdDevice.DeviceInfo.IP;
-				this.nbSendPort.Value = this.wocdDevice.DeviceInfo.Port;
+				this.nbPort.Value = this.wocdDevice.DeviceInfo.Port;
 				this.tbUser.Text = this.wocdDevice.DeviceInfo.User;
 				this.tbPrivateKey.Text = this.wocdDevice.DeviceDetail.PrivateKey;
 				this.tbPassphrase.Text = this.wocdDevice.DeviceDetail.Passphrase;
@@ -49,7 +49,7 @@ namespace MagicRemoteService {
 				this.tbName.Text = wocdDevice.Name;
 				this.tbDescription.Text = wocdDevice.DeviceDetail.Description;
 				this.iabIP.Value = wocdDevice.DeviceInfo.IP;
-				this.nbSendPort.Value = wocdDevice.DeviceInfo.Port;
+				this.nbPort.Value = wocdDevice.DeviceInfo.Port;
 				this.tbUser.Text = wocdDevice.DeviceInfo.User;
 				this.tbPrivateKey.Text = wocdDevice.DeviceDetail.PrivateKey;
 				this.tbPassphrase.Text = wocdDevice.DeviceDetail.Passphrase;
@@ -78,9 +78,9 @@ namespace MagicRemoteService {
 			this.wocdDevice.DeviceInfo.IP = this.iabIP.Value;
 		}
 
-		private void SendPort_ValueChanged(object sender, System.EventArgs e) {
+		private void Port_ValueChanged(object sender, System.EventArgs e) {
 			if(this.cbAdvanced.Checked) {
-				this.wocdDevice.DeviceInfo.Port = (ushort)this.nbSendPort.Value;
+				this.wocdDevice.DeviceInfo.Port = (ushort)this.nbPort.Value;
 			}
 		}
 
@@ -121,7 +121,7 @@ namespace MagicRemoteService {
 				this.wocdDevice.DeviceDetail.PrivateKey = "";
 			} else {
 				this.wocdDevice.DeviceDetail.Description = this.tbDescription.Text;
-				this.wocdDevice.DeviceInfo.Port = (ushort)this.nbSendPort.Value;
+				this.wocdDevice.DeviceInfo.Port = (ushort)this.nbPort.Value;
 				this.wocdDevice.DeviceInfo.User = this.tbUser.Text;
 				this.wocdDevice.DeviceDetail.PrivateKey = this.tbPrivateKey.Text;
 			}

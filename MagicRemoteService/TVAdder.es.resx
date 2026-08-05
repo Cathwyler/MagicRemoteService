@@ -117,12 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labKeyServer.Text" xml:space="preserve">
     <value>Necesita activar la opción "Key Server" en la app developer mode en su TV antes de confirmar.</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="&gt;&gt;labKeyServer.ZOrder" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
   </data>
   <data name="labPrivateKey.Text" xml:space="preserve">
     <value>Archivo de clave privada</value>
@@ -139,7 +136,7 @@
   <data name="labIP.Text" xml:space="preserve">
     <value>Dirección IP</value>
   </data>
-  <data name="labTVPort.Text" xml:space="preserve">
+  <data name="labPort.Text" xml:space="preserve">
     <value>Puerto</value>
   </data>
   <data name="labUser.Text" xml:space="preserve">
@@ -150,9 +147,6 @@
   </data>
   <data name="cbAdvanced.Text" xml:space="preserve">
     <value>Avanzado</value>
-  </data>
-  <data name="&gt;&gt;cbAdvanced.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
   </data>
   <data name="btnConfirm.Text" xml:space="preserve">
     <value>Confirmar</value>

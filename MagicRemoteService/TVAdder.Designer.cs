@@ -43,8 +43,8 @@ namespace MagicRemoteService {
 			this.iabIP = new MagicRemoteService.IPAddressBox();
 			this.labIP = new System.Windows.Forms.Label();
 			this.pnlPort = new System.Windows.Forms.Panel();
-			this.labTVPort = new System.Windows.Forms.Label();
-			this.nbSendPort = new System.Windows.Forms.NumericUpDown();
+			this.labPort = new System.Windows.Forms.Label();
+			this.nbPort = new System.Windows.Forms.NumericUpDown();
 			this.pnlUser = new System.Windows.Forms.Panel();
 			this.labUser = new System.Windows.Forms.Label();
 			this.tbUser = new System.Windows.Forms.TextBox();
@@ -61,7 +61,7 @@ namespace MagicRemoteService {
 			this.pnlDescription.SuspendLayout();
 			this.pnlIP.SuspendLayout();
 			this.pnlPort.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbPort)).BeginInit();
 			this.pnlUser.SuspendLayout();
 			this.pnlPassword.SuspendLayout();
 			this.SuspendLayout();
@@ -88,9 +88,9 @@ namespace MagicRemoteService {
 			// 
 			// pnlPrivateKey
 			// 
+			resources.ApplyResources(this.pnlPrivateKey, "pnlPrivateKey");
 			this.pnlPrivateKey.Controls.Add(this.tbPrivateKey);
 			this.pnlPrivateKey.Controls.Add(this.labPrivateKey);
-			resources.ApplyResources(this.pnlPrivateKey, "pnlPrivateKey");
 			this.pnlPrivateKey.Name = "pnlPrivateKey";
 			// 
 			// tbPrivateKey
@@ -106,9 +106,9 @@ namespace MagicRemoteService {
 			// 
 			// pnlPassphrase
 			// 
+			resources.ApplyResources(this.pnlPassphrase, "pnlPassphrase");
 			this.pnlPassphrase.Controls.Add(this.labPassphrase);
 			this.pnlPassphrase.Controls.Add(this.tbPassphrase);
-			resources.ApplyResources(this.pnlPassphrase, "pnlPassphrase");
 			this.pnlPassphrase.Name = "pnlPassphrase";
 			// 
 			// labPassphrase
@@ -124,9 +124,9 @@ namespace MagicRemoteService {
 			// 
 			// pnlName
 			// 
+			resources.ApplyResources(this.pnlName, "pnlName");
 			this.pnlName.Controls.Add(this.labName);
 			this.pnlName.Controls.Add(this.tbName);
-			resources.ApplyResources(this.pnlName, "pnlName");
 			this.pnlName.Name = "pnlName";
 			// 
 			// labName
@@ -142,9 +142,9 @@ namespace MagicRemoteService {
 			// 
 			// pnlDescription
 			// 
+			resources.ApplyResources(this.pnlDescription, "pnlDescription");
 			this.pnlDescription.Controls.Add(this.labDescription);
 			this.pnlDescription.Controls.Add(this.tbDescription);
-			resources.ApplyResources(this.pnlDescription, "pnlDescription");
 			this.pnlDescription.Name = "pnlDescription";
 			// 
 			// labDescription
@@ -160,19 +160,20 @@ namespace MagicRemoteService {
 			// 
 			// pnlIP
 			// 
+			resources.ApplyResources(this.pnlIP, "pnlIP");
 			this.pnlIP.Controls.Add(this.iabIP);
 			this.pnlIP.Controls.Add(this.labIP);
-			resources.ApplyResources(this.pnlIP, "pnlIP");
 			this.pnlIP.Name = "pnlIP";
 			// 
 			// iabIP
 			// 
+			resources.ApplyResources(this.iabIP, "iabIP");
 			this.iabIP.BackColor = System.Drawing.SystemColors.Window;
 			this.iabIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.iabIP.ForeColor = System.Drawing.SystemColors.WindowText;
-			resources.ApplyResources(this.iabIP, "iabIP");
 			this.iabIP.Name = "iabIP";
 			this.iabIP.Value = null;
+			this.iabIP.ehValueChanged += new System.EventHandler(this.IP_ValueChanged);
 			// 
 			// labIP
 			// 
@@ -181,32 +182,32 @@ namespace MagicRemoteService {
 			// 
 			// pnlPort
 			// 
-			this.pnlPort.Controls.Add(this.labTVPort);
-			this.pnlPort.Controls.Add(this.nbSendPort);
 			resources.ApplyResources(this.pnlPort, "pnlPort");
+			this.pnlPort.Controls.Add(this.labPort);
+			this.pnlPort.Controls.Add(this.nbPort);
 			this.pnlPort.Name = "pnlPort";
 			// 
-			// labTVPort
+			// labPort
 			// 
-			resources.ApplyResources(this.labTVPort, "labTVPort");
-			this.labTVPort.Name = "labTVPort";
+			resources.ApplyResources(this.labPort, "labPort");
+			this.labPort.Name = "labPort";
 			// 
-			// nbSendPort
+			// nbPort
 			// 
-			resources.ApplyResources(this.nbSendPort, "nbSendPort");
-			this.nbSendPort.Maximum = new decimal(new int[] {
+			resources.ApplyResources(this.nbPort, "nbPort");
+			this.nbPort.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
-			this.nbSendPort.Name = "nbSendPort";
-			this.nbSendPort.ValueChanged += new System.EventHandler(this.SendPort_ValueChanged);
+			this.nbPort.Name = "nbPort";
+			this.nbPort.ValueChanged += new System.EventHandler(this.Port_ValueChanged);
 			// 
 			// pnlUser
 			// 
+			resources.ApplyResources(this.pnlUser, "pnlUser");
 			this.pnlUser.Controls.Add(this.labUser);
 			this.pnlUser.Controls.Add(this.tbUser);
-			resources.ApplyResources(this.pnlUser, "pnlUser");
 			this.pnlUser.Name = "pnlUser";
 			// 
 			// labUser
@@ -222,9 +223,9 @@ namespace MagicRemoteService {
 			// 
 			// pnlPassword
 			// 
+			resources.ApplyResources(this.pnlPassword, "pnlPassword");
 			this.pnlPassword.Controls.Add(this.labPassword);
 			this.pnlPassword.Controls.Add(this.tbPassword);
-			resources.ApplyResources(this.pnlPassword, "pnlPassword");
 			this.pnlPassword.Name = "pnlPassword";
 			// 
 			// labPassword
@@ -254,8 +255,8 @@ namespace MagicRemoteService {
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			resources.ApplyResources(this.btnCancel, "btnCancel");
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.Cancel_Click);
@@ -265,10 +266,9 @@ namespace MagicRemoteService {
 			this.AcceptButton = this.btnConfirm;
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.btnCancel;
 			this.Controls.Add(this.cbAdvanced);
-			this.Controls.Add(this.btnConfirm);
 			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnConfirm);
 			this.Controls.Add(this.tlpTV);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = global::MagicRemoteService.Properties.Resources.MagicRemoteServiceIcon;
@@ -289,7 +289,7 @@ namespace MagicRemoteService {
 			this.pnlIP.PerformLayout();
 			this.pnlPort.ResumeLayout(false);
 			this.pnlPort.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.nbSendPort)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nbPort)).EndInit();
 			this.pnlUser.ResumeLayout(false);
 			this.pnlUser.PerformLayout();
 			this.pnlPassword.ResumeLayout(false);
@@ -308,11 +308,11 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label labDescription;
 		private System.Windows.Forms.TextBox tbDescription;
 		private System.Windows.Forms.Panel pnlIP;
-		private IPAddressBox iabIP;
 		private System.Windows.Forms.Label labIP;
+		private IPAddressBox iabIP;
 		private System.Windows.Forms.Panel pnlPort;
-		private System.Windows.Forms.Label labTVPort;
-		private System.Windows.Forms.NumericUpDown nbSendPort;
+		private System.Windows.Forms.Label labPort;
+		private System.Windows.Forms.NumericUpDown nbPort;
 		private System.Windows.Forms.Panel pnlUser;
 		private System.Windows.Forms.Label labUser;
 		private System.Windows.Forms.TextBox tbUser;
@@ -323,8 +323,8 @@ namespace MagicRemoteService {
 		private System.Windows.Forms.Label labPassphrase;
 		private System.Windows.Forms.TextBox tbPassphrase;
 		private System.Windows.Forms.Panel pnlPrivateKey;
-		private System.Windows.Forms.TextBox tbPrivateKey;
 		private System.Windows.Forms.Label labPrivateKey;
+		private System.Windows.Forms.TextBox tbPrivateKey;
 		private System.Windows.Forms.Label labKeyServer;
 		private System.Windows.Forms.CheckBox cbAdvanced;
 		private System.Windows.Forms.Button btnConfirm;

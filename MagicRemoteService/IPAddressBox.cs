@@ -1,6 +1,8 @@
 ﻿
 namespace MagicRemoteService {
 	public partial class IPAddressBox : System.Windows.Forms.UserControl {
+		[System.ComponentModel.Category("Action")]
+		[System.ComponentModel.Description("Se produit quand la valeur du contrôle IPAdresseBox change")]
 		public event System.EventHandler ehValueChanged;
 		public System.Net.IPAddress Value {
 			get {
@@ -128,25 +130,7 @@ namespace MagicRemoteService {
 			this.ttFormating.Hide(this);
 		}
 
-		private void Byte0_TextChanged(object sender, System.EventArgs e) {
-			if(this.ehValueChanged != null) {
-				this.ehValueChanged(this, e);
-			}
-		}
-
-		private void Byte1_TextChanged(object sender, System.EventArgs e) {
-			if(this.ehValueChanged != null) {
-				this.ehValueChanged(this, e);
-			}
-		}
-
-		private void Byte2_TextChanged(object sender, System.EventArgs e) {
-			if(this.ehValueChanged != null) {
-				this.ehValueChanged(this, e);
-			}
-		}
-
-		private void Byte3_TextChanged(object sender, System.EventArgs e) {
+		private void Byte_TextChanged(object sender, System.EventArgs e) {
 			if(this.ehValueChanged != null) {
 				this.ehValueChanged(this, e);
 			}

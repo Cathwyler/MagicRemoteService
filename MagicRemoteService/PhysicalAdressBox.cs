@@ -1,6 +1,9 @@
 ﻿
 namespace MagicRemoteService {
 	public partial class PhysicalAddressBox : System.Windows.Forms.UserControl {
+		[System.ComponentModel.Category("Action")]
+		[System.ComponentModel.Description("Se produit quand la valeur du contrôle PhysicalAddressBox change")]
+		public event System.EventHandler ehValueChanged;
 		public MagicRemoteService.PhysicalAddress Value {
 			get {
 				byte[] tabByte = new byte[6];
@@ -140,6 +143,11 @@ namespace MagicRemoteService {
 		}
 		private void PhysicalAddressBox_Click(object sender, System.EventArgs e) {
 			this.ttFormating.Hide(this);
+		}
+		private void Byte_TextChanged(object sender, System.EventArgs e) {
+			if(this.ehValueChanged != null) {
+				this.ehValueChanged(this, e);
+			}
 		}
 	}
 }
