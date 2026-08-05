@@ -27,7 +27,7 @@ There is no encryption data between the TV and the PC. Don't use it if you are u
 - (Optionnal) Configure Remote and save.
 - Others
   - (Optionnal) Setup Wake-on-LAN on your motherboard's PC.
-  - (Optionnal) Setup Windows auto logon. Please refer to [Turn on automatic logon in Windows](https://docs.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon).
+  - (Optionnal) Setup Windows auto logon. Please refer to [Turn on automatic logon in Windows](https://learn.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon).
 
 ## Using MagicRemoteService
 MagicRemoteService need to run PC and TV app. TV and PC need properly network and video input wired as you configured in installation step.
