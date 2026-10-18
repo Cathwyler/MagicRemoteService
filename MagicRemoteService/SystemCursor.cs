@@ -1,4 +1,4 @@
-﻿namespace MagicRemoteService {
+namespace MagicRemoteService {
 	static class SystemCursor {
 		private static readonly System.IntPtr hMagicRemoteServiceCursor = SystemCursor.GetCursor(MagicRemoteService.Properties.Resources.MagicRemoteServiceCursor);
 		private static readonly WinApi.OemCursorRessourceId[] arrCursor = new WinApi.OemCursorRessourceId[] {
@@ -14,8 +14,7 @@
 		private static readonly System.Collections.Generic.IDictionary<WinApi.OemCursorRessourceId, System.IntPtr> dSystemCursor = new System.Collections.Generic.Dictionary<WinApi.OemCursorRessourceId, System.IntPtr>();
 		private static readonly int iMagicRemoteServiceMouseSpeed = 10;
 		private static readonly System.IntPtr hMagicRemoteServiceMouseAccel = System.Runtime.InteropServices.GCHandle.Alloc(new int[3] { 0, 0, 0 }, System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
-		private static readonly int iDefaultMouseSpeed = 0;
-		private static readonly System.IntPtr hDefaultMouseSpeed = System.Runtime.InteropServices.GCHandle.Alloc(MagicRemoteService.SystemCursor.iDefaultMouseSpeed, System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
+		private static int iDefaultMouseSpeed = 0;
 		private static readonly int[] arrDefaultMouseAccel = new int[3] { 0, 0, -1 };
 		private static readonly System.IntPtr hDefaultMouseAccel = System.Runtime.InteropServices.GCHandle.Alloc(arrDefaultMouseAccel, System.Runtime.InteropServices.GCHandleType.Pinned).AddrOfPinnedObject();
 		private static System.IntPtr GetCursor(byte[] arrCursor) {
@@ -34,26 +33,35 @@
 			}
 		}
 		public static void SetDefaultSystemCursor() {
+			if(MagicRemoteService.SystemCursor.dSystemCursor.Count == 0) {
+				return;
+			}
 			foreach(WinApi.OemCursorRessourceId ocri in MagicRemoteService.SystemCursor.arrCursor) {
 				if(MagicRemoteService.SystemCursor.dSystemCursor.TryGetValue(ocri, out System.IntPtr hSystemCursor)) {
 					WinApi.User32.SetSystemCursor(hSystemCursor, ocri);
 					MagicRemoteService.SystemCursor.dSystemCursor.Remove(ocri);
 				}
 			}
+			// Reload the user's cursor theme so Windows restores its configured size
+			// and DPI variants, rather than keeping only the copied cursor images.
+			// The copies above remain a fallback if reloading the theme fails.
+			WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETCURSORS, 0, System.IntPtr.Zero, 0);
 		}
 		public static void SetMagicRemoteServiceMouseSpeedAccel() {
-			WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_GETMOUSESPEED, 0, MagicRemoteService.SystemCursor.hDefaultMouseSpeed, 0);
-			WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSESPEED, 0, MagicRemoteService.SystemCursor.iMagicRemoteServiceMouseSpeed, 0);
+			if(iDefaultMouseSpeed == 0 && WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_GETMOUSESPEED, 0, ref iDefaultMouseSpeed, 0)) {
+				WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSESPEED, 0, MagicRemoteService.SystemCursor.iMagicRemoteServiceMouseSpeed, 0);
+			}
 
-			WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_GETMOUSE, 0, MagicRemoteService.SystemCursor.hDefaultMouseAccel, 0);
-			WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hMagicRemoteServiceMouseAccel, 0);
+			if(arrDefaultMouseAccel[2] == -1 && WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_GETMOUSE, 0, MagicRemoteService.SystemCursor.hDefaultMouseAccel, 0)) {
+				WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hMagicRemoteServiceMouseAccel, 0);
+			}
 		}
 		public static void SetDefaultMouseSpeedAccel() {
-			if(iDefaultMouseSpeed != 0) {
-				WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSESPEED, 0, (int)MagicRemoteService.SystemCursor.iDefaultMouseSpeed, 0);
+			if(iDefaultMouseSpeed != 0 && WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSESPEED, 0, iDefaultMouseSpeed, 0)) {
+				iDefaultMouseSpeed = 0;
 			}
-			if(arrDefaultMouseAccel[2] != -1) {
-				WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hDefaultMouseAccel, 0);
+			if(arrDefaultMouseAccel[2] != -1 && WinApi.User32.SystemParametersInfo(WinApi.SystemParametersInfoAction.SPI_SETMOUSE, 0, MagicRemoteService.SystemCursor.hDefaultMouseAccel, 0)) {
+				arrDefaultMouseAccel[2] = -1;
 			}
 		}
 	}

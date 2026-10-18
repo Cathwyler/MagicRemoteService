@@ -665,6 +665,8 @@ namespace MagicRemoteService.WinApi {
 		public static extern bool SystemParametersInfo(SystemParametersInfoAction uiAction, uint uiParam, System.IntPtr pvParam, uint fWinIni);
 		[System.Runtime.InteropServices.DllImport("user32.dll")]
 		public static extern bool SystemParametersInfo(SystemParametersInfoAction uiAction, uint uiParam, int pvParam, uint fWinIni);
+		[System.Runtime.InteropServices.DllImport("user32.dll")]
+		public static extern bool SystemParametersInfo(SystemParametersInfoAction uiAction, uint uiParam, ref int pvParam, uint fWinIni);
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
 		public static extern bool SetSystemCursor(System.IntPtr hcur, OemCursorRessourceId id);
 		[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]

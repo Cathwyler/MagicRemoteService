@@ -548,8 +548,13 @@ function SubscriptionGetSensorData() {
 				}
 		},
 		onFailure: function(inError) {
-			switch(inError.errorCode) {
-				case "1301":
+			// Some TVs report the sleeping remote with a different error code.
+			// Check the message too: 1003 can also mean a subscription failure.
+			var bRemoteNotReady = String(inError.errorCode) === "1301" ||
+				(String(inError.errorCode) === "1003" &&
+				 /^magic remote is not ready[.!]?$/i.test(String(inError.errorText).trim()));
+			switch(bRemoteNotReady) {
+				case true:
 					LogIfDebug(oString.strGetSensorDataFailure + " [", "(" + typeof inError.errorCode + ")", inError.errorCode, ", ", inError.errorText, "]");
 					if(arrVersion[0] > 2) {
 						document.oneEventListener("cursorStateChange", function(inEvent) {
